@@ -1,0 +1,11 @@
+<html>
+    <head>
+        <title>@yield('title')</title>
+    </head>
+    <body>
+        @include('includes.topbar')
+        <div>
+            @yield('content')
+        </div>
+    </body>
+</html>
