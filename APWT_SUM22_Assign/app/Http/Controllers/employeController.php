@@ -17,7 +17,7 @@ class employeController extends Controller
             []
         );
         $emp=employe::where('email','=',$vali->email)->first();
-        if($emp==null){return "Inpute an email which is already been registered";}
+        if($emp==null){return "Input an email which is already been registered";}
         elseif($emp->type!=$vali->user_type){return "User type invalid";}
         elseif($emp->password!=$vali->password){return "Wrong Password";}
         else{
@@ -37,7 +37,7 @@ class employeController extends Controller
                 "name"=>"required|regex:/^[A-Z a-z,.-]+$/i",
                 "email"=>"required|email",
                 "password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%]).*$/",
-                "conf_password"=>"required|min:8|same:password"
+                "conf_password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%]).*$/|same:password"
             ],
             []
         );
