@@ -18,7 +18,7 @@ class CreateDeliverymansTable extends Migration
             $table->string('d_username', 100)->unique();
             $table->string('d_name', 100);
             $table->string('d_email', 100)->unique();
-            $table->integer('d_phoneNumber')->unique();
+            $table->integer('d_phone')->unique();
             $table->string('d_password', 100);
             $table->string('d_gender');
             $table->string('d_dob');

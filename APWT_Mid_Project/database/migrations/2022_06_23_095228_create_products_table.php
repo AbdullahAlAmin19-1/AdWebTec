@@ -25,10 +25,10 @@ class CreateProductsTable extends Migration
             $table->integer('p_size');
             $table->integer('v_id')->unsigned();
             $table->foreign('v_id')->references('v_id')->on('vendors');
-            // $table->integer('cp_id')->unsigned();
-            // $table->foreign('cp_id')->references('cp_id')->on('customer_products');
-            // $table->integer('cartp_id')->unsigned();
-            // $table->foreign('cartp_id')->references('cartp_id')->on('cart_products');
+            $table->integer('cp_id')->unsigned();
+            //$table->foreign('cp_id')->references('cp_id')->on('customer_products');
+            $table->integer('cartp_id')->unsigned();
+            //$table->foreign('cartp_id')->references('cartp_id')->on('cart_products');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

@@ -18,12 +18,12 @@ class CreateVendorsTable extends Migration
             $table->string('v_username', 100)->unique();
             $table->string('v_name', 100);
             $table->string('v_email', 100)->unique();
-            $table->integer('v_phoneNumber')->unique();
+            $table->integer('v_phone')->unique();
             $table->string('v_password', 100);
             $table->string('v_gender');
             $table->string('v_dob');
             $table->string('v_address', 300);
-            $table->string('V_propic');
+            $table->string('v_propic');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
