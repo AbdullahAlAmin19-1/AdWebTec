@@ -24,9 +24,12 @@ class CreateCustomersTable extends Migration
             $table->string('c_dob');
             $table->string('c_address', 300);
             $table->string('c_propic');
-            $table->foreign('cc_id')->references('cc_id')->on('customer_coupons');
-            $table->foreign('cp_id')->references('cp_id')->on('customer_products');
-            $table->foreign('cd_id')->references('cd_id')->on('customer_deliverymans');
+            // $table->integer('cc_id')->unsigned();
+            // $table->foreign('cc_id')->references('cc_id')->on('customer_coupons');
+            // $table->integer('cp_id')->unsigned();
+            // $table->foreign('cp_id')->references('cp_id')->on('customer_products');
+            // $table->integer('cd_id')->unsigned();
+            // $table->foreign('cd_id')->references('cd_id')->on('customer_deliverymans');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

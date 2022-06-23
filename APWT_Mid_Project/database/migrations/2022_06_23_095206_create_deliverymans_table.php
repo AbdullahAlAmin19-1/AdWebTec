@@ -26,7 +26,8 @@ class CreateDeliverymansTable extends Migration
             $table->string('d_valid');
             $table->integer('d_nid')->unique();            
             $table->string('d_propic');
-            $table->foreign('cd_id')->references('cd_id')->on('customer_deliverymans');
+            // $table->integer('cd_id')->unsigned();
+            // $table->foreign('cd_id')->references('cd_id')->on('customer_deliverymans');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

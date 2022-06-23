@@ -16,7 +16,8 @@ class CreateCartsTable extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->increments('cart_id');    
             $table->integer('P_quantity');
-            $table->foreign('cartp_id')->references('cartp_id')->on('cart_products');
+            // $table->integer('cartp_id')->unsigned();
+            // $table->foreign('cartp_id')->references('cartp_id')->on('cart_products');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

@@ -15,9 +15,13 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('o_id');
-            $table->foreign('co_id')->references('co_id')->on('coupons');
+            // $table->integer('co_id')->unsigned();
+            // $table->foreign('co_id')->references('co_id')->on('coupons');
+            $table->integer('c_id')->unsigned();
             $table->foreign('c_id')->references('c_id')->on('customers');
+            $table->integer('v_id')->unsigned();
             $table->foreign('v_id')->references('v_id')->on('vendors');
+            $table->integer('d_id')->unsigned();
             $table->foreign('d_id')->references('d_id')->on('deliverymans');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
