@@ -18,7 +18,7 @@ class CreateTables extends Migration
             $table->string('a_username', 100)->unique();
             $table->string('a_name', 100);
             $table->string('a_email', 100)->unique();
-            $table->integer('a_phone')->unique();
+            $table->integer('a_phone');
             $table->string('a_password', 100);
             $table->string('a_gender');
             $table->string('a_dob');
