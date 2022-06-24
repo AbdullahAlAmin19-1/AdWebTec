@@ -17,8 +17,8 @@ class CreateCouponsTable extends Migration
             $table->increments('co_id');
             $table->string('co_code')->unique(); //integer to string -MR
             $table->integer('co_amount');
-            $table->integer('c_id')->unsigned()->nullable(); //For Nullable Value -MR
-            $table->foreign('c_id')->references('v_id')->on('vendors');
+            $table->integer('v_id')->unsigned();//->nullable(); //For Nullable Value -MR
+            $table->foreign('v_id')->references('v_id')->on('vendors');
             $table->integer('cco_id')->unsigned()->nullable(); //For Nullable Value -MR
             // $table->foreign('cco_id')->references('cco_id')->on('customer_coupons');
             $table->timestamp('created_at')->nullable();
