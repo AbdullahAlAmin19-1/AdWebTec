@@ -15,9 +15,9 @@ class CreateCartProductsTable extends Migration
     {
         Schema::create('cart_products', function (Blueprint $table) {
             $table->increments('cartp_id');
-            $table->integer('cart_id')->unsigned();
+            $table->integer('cart_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('cart_id')->references('cart_id')->on('carts');
-            $table->integer('p_id')->unsigned();
+            $table->integer('p_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('p_id')->references('p_id')->on('products');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

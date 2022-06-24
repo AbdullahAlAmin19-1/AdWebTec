@@ -23,12 +23,12 @@ class CreateCustomersTable extends Migration
             $table->string('c_gender');
             $table->string('c_dob');
             $table->string('c_address', 300);
-            $table->string('c_propic');
-            $table->integer('cco_id')->unsigned();
+            $table->string('c_propic')->nullable(); //For Nullable Value -MR
+            $table->integer('cco_id')->unsigned()->nullable(); //For Nullable Value -MR
             //$table->foreign('cco_id')->references('cco_id')->on('customer_coupons');
-            $table->integer('cp_id')->unsigned();
+            $table->integer('cp_id')->unsigned()->nullable();; //For Nullable Value -MR
             // $table->foreign('cp_id')->references('cp_id')->on('customer_products');
-            $table->integer('cd_id')->unsigned();
+            $table->integer('cd_id')->unsigned()->nullable();; //For Nullable Value -MR
             // $table->foreign('cd_id')->references('cd_id')->on('customer_deliverymans');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

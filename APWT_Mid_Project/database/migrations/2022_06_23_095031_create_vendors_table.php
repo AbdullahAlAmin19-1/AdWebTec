@@ -23,7 +23,7 @@ class CreateVendorsTable extends Migration
             $table->string('v_gender');
             $table->string('v_dob');
             $table->string('v_address', 300);
-            $table->string('v_propic');
+            $table->string('v_propic')->nullable(); //For Nullable Value -MR
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

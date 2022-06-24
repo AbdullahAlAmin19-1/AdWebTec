@@ -24,9 +24,9 @@ class CreateDeliverymansTable extends Migration
             $table->string('d_dob');
             $table->string('d_address', 300);
             $table->string('d_valid');
-            $table->integer('d_nid')->unique();            
-            $table->string('d_propic');
-            $table->integer('cd_id')->unsigned();
+            $table->integer('d_nid')->unique()->nullable(); //For Nullable Value -MR            
+            $table->string('d_propic')->nullable(); //For Nullable Value -MR
+            $table->integer('cd_id')->unsigned()->nullable(); //For Nullable Value -MR
             //$table->foreign('cd_id')->references('cd_id')->on('customer_deliverymans');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

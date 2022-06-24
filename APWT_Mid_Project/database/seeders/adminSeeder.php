@@ -16,7 +16,7 @@ class adminSeeder extends Seeder
      */
     public function run()
     {
-        for($i=0;$i<5;$i++){
+        for($i=0;$i<10;$i++){
             DB::table('admins')->insert([
                 'a_username' => Str::random(10),
                 'a_name' => Str::random(10),

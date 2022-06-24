@@ -15,9 +15,9 @@ class CreateCustomerProductsTable extends Migration
     {
         Schema::create('customer_products', function (Blueprint $table) {
             $table->increments('cp_id');    
-            $table->integer('c_id')->unsigned();
+            $table->integer('c_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('c_id')->references('c_id')->on('customers');
-            $table->integer('p_id')->unsigned();
+            $table->integer('p_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('p_id')->references('p_id')->on('products');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

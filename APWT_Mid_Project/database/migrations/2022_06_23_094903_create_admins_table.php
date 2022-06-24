@@ -23,7 +23,7 @@ class CreateAdminsTable extends Migration
             $table->string('a_gender');
             $table->string('a_dob');
             $table->string('a_address', 300);
-            $table->string('a_propic');
+            $table->string('a_propic')->nullable(); //For Nullable Value -MR
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
