@@ -14,16 +14,16 @@ class CreateCustomersTable extends Migration
     public function up()
     {
         Schema::create('customers', function (Blueprint $table) {
-            $table->increments('c_id');            
-            $table->string('c_username', 100)->unique();
-            $table->string('c_name', 100);
-            $table->string('c_email', 100)->unique();
-            $table->integer('c_phone');
-            $table->string('c_password', 100);
-            $table->string('c_gender');
-            $table->string('c_dob');
-            $table->string('c_address', 300);
-            $table->string('c_propic')->nullable(); //For Nullable Value -MR
+            $table->increments('id');            
+            $table->string('username', 100)->unique();
+            $table->string('name', 100);
+            $table->string('email', 100)->unique();
+            $table->integer('phone');
+            $table->string('password', 100);
+            $table->string('gender');
+            $table->string('dob');
+            $table->string('address', 300);
+            $table->string('propic')->nullable(); //For Nullable Value -MR
             $table->integer('cco_id')->unsigned()->nullable(); //For Nullable Value -MR
             //$table->foreign('cco_id')->references('cco_id')->on('customer_coupons');
             $table->integer('cp_id')->unsigned()->nullable();; //For Nullable Value -MR
