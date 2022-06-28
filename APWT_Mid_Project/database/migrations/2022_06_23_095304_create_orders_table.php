@@ -17,9 +17,9 @@ class CreateOrdersTable extends Migration
             $table->increments('o_id');
             $table->integer('co_id')->unsigned()->nullable(); //For Nullable Value -MR
             //$table->foreign('co_id')->references('co_id')->on('coupons');
-            $table->integer('c_id')->unsigned()->nullable(); //For Nullable Value -MR
+            $table->integer('c_id')->unsigned(); //For Nullable Value -MR
             $table->foreign('c_id')->references('c_id')->on('customers');
-            $table->integer('v_id')->unsigned()->nullable(); //For Nullable Value -MR
+            $table->integer('v_id')->unsigned(); //For Nullable Value -MR
             $table->foreign('v_id')->references('v_id')->on('vendors');
             $table->integer('d_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('d_id')->references('d_id')->on('deliverymans');
