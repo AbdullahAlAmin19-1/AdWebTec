@@ -14,10 +14,10 @@ class CreateDeliverymansTable extends Migration
     public function up()
     {
         Schema::create('deliverymans', function (Blueprint $table) {
-            $table->increments('d_id');            
-            $table->string('d_username', 100)->unique();
-            $table->string('d_name', 100);
-            $table->string('d_email', 100)->unique();
+            $table->increments('id');            
+            $table->string('username', 100)->unique();
+            $table->string('name', 100);
+            $table->string('email', 100)->unique();
             $table->integer('d_phone');
             $table->string('d_password', 100);
             $table->string('d_gender');
