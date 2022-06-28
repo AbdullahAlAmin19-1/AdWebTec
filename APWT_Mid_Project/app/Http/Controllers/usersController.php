@@ -15,7 +15,7 @@ class usersController extends Controller
                 "uname"=>"required",
                 "email"=>"required|email",
                 "phone"=>"required|min:11",
-                "password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%]).*$/",
+                "password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
                 "conf_password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%]).*$/|same:password",
                 "gender"=>"required",
                 "dob"=>"required",
