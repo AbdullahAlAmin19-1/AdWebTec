@@ -15,7 +15,9 @@ class customersController extends Controller
         return view("customer.cprofile");
     }
     function clogout(){
-        //Use session to clear all
+        //Session to clear all
+        session()->forget(['id', 'user-type', 'user_name']);
+
         session()->flash('clogoutMsg','You have been sucessfully logged out!');
         return redirect()->route('public.home');
     }

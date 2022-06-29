@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->integer('v_id')->unsigned();//->nullable(); //For Nullable Value -MR
             $table->foreign('v_id')->references('id')->on('vendors');
             $table->integer('d_id')->unsigned()->nullable(); //For Nullable Value -MR
-            $table->foreign('d_id')->references('id')->on('deliverymans');
+            $table->foreign('d_id')->references('id')->on('deliverymen');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
