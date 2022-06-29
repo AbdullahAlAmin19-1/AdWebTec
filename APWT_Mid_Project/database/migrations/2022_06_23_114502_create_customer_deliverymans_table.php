@@ -16,9 +16,9 @@ class CreateCustomerDeliverymansTable extends Migration
         Schema::create('customer_deliverymans', function (Blueprint $table) {
             $table->increments('cd_id');
             $table->integer('c_id')->unsigned();//->nullable(); //For Nullable Value -MR
-            $table->foreign('c_id')->references('c_id')->on('customers');
+            $table->foreign('c_id')->references('id')->on('customers');
             $table->integer('d_id')->unsigned();//->nullable(); //For Nullable Value -MR
-            $table->foreign('d_id')->references('d_id')->on('deliverymans');
+            $table->foreign('d_id')->references('id')->on('deliverymans');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

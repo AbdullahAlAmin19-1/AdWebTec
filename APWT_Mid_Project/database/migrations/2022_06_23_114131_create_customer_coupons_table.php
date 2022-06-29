@@ -16,7 +16,7 @@ class CreateCustomerCouponsTable extends Migration
         Schema::create('customer_coupons', function (Blueprint $table) {
             $table->increments('cco_id');            
             $table->integer('c_id')->unsigned();//->nullable(); //For Nullable Value -MR
-            $table->foreign('c_id')->references('c_id')->on('customers');
+            $table->foreign('c_id')->references('id')->on('customers');
             $table->integer('co_id')->unsigned();//->nullable(); //For Nullable Value -MR
             $table->foreign('co_id')->references('co_id')->on('coupons');
             $table->timestamp('created_at')->nullable();

@@ -13,7 +13,7 @@ class CreateDeliverymansTable extends Migration
      */
     public function up()
     {
-        Schema::create('deliverymans', function (Blueprint $table) {
+        Schema::create('deliverymen', function (Blueprint $table) {
             $table->increments('id');            
             $table->string('username', 100)->unique();
             $table->string('name', 100);
@@ -23,7 +23,7 @@ class CreateDeliverymansTable extends Migration
             $table->string('gender');
             $table->string('dob');
             $table->string('address', 300);
-            $table->string('valid');
+            $table->string('valid')->nullable();
             $table->integer('nid')->unique()->nullable(); //For Nullable Value -MR            
             $table->string('propic')->nullable(); //For Nullable Value -MR
             $table->integer('cd_id')->unsigned()->nullable(); //For Nullable Value -MR
