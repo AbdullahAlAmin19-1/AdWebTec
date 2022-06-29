@@ -19,9 +19,9 @@ class usersController extends Controller
                 "name"=>"required|regex:/^[A-Z a-z,.-]+$/i",
                 "uname"=>"required",
                 "email"=>"required|email",
-                "phone"=>"required|min:11|max:11",
+                "phone"=>"required|min:10|max:10",
                 "password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
-                "conf_password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%]).*$/|same:password",
+                "conf_password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
                 "gender"=>"required",
                 "dob"=>"required",
                 "address"=>"required"
@@ -62,7 +62,16 @@ class usersController extends Controller
         if($user){
             session()->put('id',$user->id);
             session()->put('user_type',$vali->user_type);
-            return redirect()->route("public.welcome");
+
+            session()->put('user_name', $user->name);
+
+            if($vali->user_type == "Customer"){
+                return redirect()->route("customer.cdashboard");
+            }
+
+            elseif($vali->user_type == "Vendor"){
+                return redirect()->route("public.welcome");
+            }
         }
         else {
             session()->flash('msg','User not valid');

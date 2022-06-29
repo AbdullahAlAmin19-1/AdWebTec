@@ -15,7 +15,7 @@
                     <h2><a href="{{route('public.home')}}">Grocery OS</a></h2>
                 </td>
                 <td style="width: 35%;">
-                    <span style="font-size: 18px">Welcome! <span><b><a href="{{route('customer.cprofile');}}" style="font-size: 18px">MdRasen</a></b></span></span>
+                    <span style="font-size: 18px">Welcome! <span><b><a href="{{route('customer.cprofile');}}" style="font-size: 18px">{{Session::get('user_name')}}</a></b></span></span>
                     <span style="padding-left: 35px;">
                         <a href="{{route('customer.cdashboard');}}" style="font-size: 18px">Home</a> |
                         <a href="#" style="font-size: 18px">Track Order</a> |

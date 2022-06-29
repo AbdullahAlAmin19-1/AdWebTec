@@ -6,6 +6,7 @@
     <div class="main-section">
         <center>
             <h1>Customer Dashboard</h1>
+            
             {{-- <table border="2" style="width: 100%;">
                 <tr>
                     <th colspan="3">Recent Orders</th>
