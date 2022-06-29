@@ -1,11 +1,11 @@
 @extends('layouts.main')
 @section('title')
-    Login
+    Forgot Password
 @endsection
 @section('content')
 <form method="post" action="" align="center">
 <fieldset>
-    <legend>Login</legend>
+    <legend>Forgot Password</legend>
     <h1>{{Session::get('msg')}}</h1>
     {{@csrf_field()}}
     User Type:  <input type="radio" id="admin" name="user_type" value="Admin"><label for="admin">Admin</label>
@@ -13,8 +13,7 @@
                  <input type="radio" id="customer" name="user_type" value="Customer"><label for="customer">Customer</label>
                 <input type="radio" id="deliveryman" name="user_type" value="Deliveryman"><label for="deliveryman">Deliveryman</label> @error('user_type'){{$message}}@enderror<br><br>
     Email: <input type="text" name="email" placeholder="Write Your Email" value="{{old('email')}}"> @error('email'){{$message}}@enderror<br><br>
-    Password: <input type="password" name="password"  placeholder="Write Your Password">@error('password'){{$message}}@enderror<br><br>
-    <input type="submit" value="Login"> <a href="{{route('public.forgotpassword')}}">Forgot Password</a>
+    <input type="submit" value="Submit">
 </fieldset>
 </form> 
 @endsection

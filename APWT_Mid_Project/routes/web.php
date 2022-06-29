@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\pagesController;
 use App\Http\Controllers\usersController;
+use App\Http\Controllers\vendorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +16,16 @@ use App\Http\Controllers\usersController;
 |
 */
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/welcome', [vendorController::class,'welcome'])->name('public.welcome');
 
 Route::get('/',[pagesController::class,'home'])->name('public.home');
 Route::get('/login',[pagesController::class,'login'])->name('public.login');
+Route::get('/logout', [pagesController::class,'logout'])->name('public.logout');
 Route::post('/login',[usersController::class,'loginConfirm'])->name('public.login.confirm');
 Route::get('/registration',[pagesController::class,'registration'])->name('public.registration');
 Route::post('/registration',[usersController::class,'registrationConfirm'])->name('public.registration.confirm');
+Route::get('/forgotpassword',[pagesController::class,'forgotpassword'])->name('public.forgotpassword');
+Route::post('/forgotpassword',[usersController::class,'forgotpassword'])->name('public.forgotpassword');
+Route::get('/enterOTP',[pagesController::class,'enterOTP'])->name('public.enterOTP');
+Route::post('/enterOTP',[usersController::class,'enterOTP'])->name('public.enterOTP');
+Route::get('/mail',[usersController::class,'mail'])->name('public.sendOTP');
