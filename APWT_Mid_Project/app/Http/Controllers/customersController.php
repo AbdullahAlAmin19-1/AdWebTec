@@ -75,7 +75,7 @@ class customersController extends Controller
 
         $ppname = $username.time().".".$extension;
 
-        $req->file('myPP')->storeAs('public/cprofile_image', $ppname);
+        $req->file('myPP')->storeAs('public/cprofile_images', $ppname);
 
        
         $customer = customer::find($id);

@@ -14,17 +14,11 @@ Customer Profile
         <table border="2" style="width: 100%;">
             <tr>
 
-                {{-- <?php
-
-            echo $customer->propic;
-
-            ?> --}}
-
                 <td style="width: 30%; padding: 10px; padding-left: 40px;">
 
                     {{-- Problem - Making image location dynamic --}}
 
-                    <img src="{{asset('storage/cprofile_image/MdRasen1656613260.jpg')}}" alt="Customer icon" style="width: 150px;">
+                    <img src="{{asset('storage/cprofile_images')}}/{{$customer->propic}}" alt="Customer icon" style="width: 150px;">
                     <br> <br>
 
                     <form action="{{route('customer.cppupload');}}" method="POST" enctype="multipart/form-data">
