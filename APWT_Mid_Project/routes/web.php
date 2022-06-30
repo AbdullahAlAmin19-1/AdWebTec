@@ -30,6 +30,7 @@ Route::get('/customer/cdashboard',[customersController::class,'cdashboard'])->na
 Route::get('/customer/cprofile',[customersController::class,'cprofile'])->name('customer.cprofile');
 Route::get('/customer/logout', [customersController::class, 'clogout'])-> name('customer.clogout');
 Route::post('/customer/cprofile',[customersController::class,'cprofileupdate'])->name('customer.cprofile');
+Route::post('/customer/cppupload',[customersController::class,'cppupload'])->name('customer.cppupload');
 
 Route::get('/forgotpassword',[pagesController::class,'forgotpassword'])->name('public.forgotpassword');
 Route::post('/forgotpassword',[usersController::class,'forgotpassword'])->name('public.forgotpassword');

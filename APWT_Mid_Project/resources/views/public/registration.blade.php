@@ -28,7 +28,7 @@ Registration
         <input type="radio" id="female" name="gender" value="Female"><label for="female">Female</label>
         <input type="radio" id="others" name="gender" value="Others"><label for="others">Others</label>
         @error('gender'){{$message}}@enderror<br><br>
-        Date of Birth: <input type="date" id="dob" name="dob" value="{{old('email')}}">
+        Date of Birth: <input type="date" id="dob" name="dob" value="{{old('dob')}}">
         @error('dob'){{$message}}@enderror<br><br>
         Address: <input type="text" name="address" placeholder="Write Your Address" value="{{old('address')}}">
         @error('address'){{$message}}@enderror<br><br>
