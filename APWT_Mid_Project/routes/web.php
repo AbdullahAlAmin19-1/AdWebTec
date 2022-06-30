@@ -33,6 +33,9 @@ Route::post('/customer/cprofile',[customersController::class,'cprofileupdate'])-
 
 Route::get('/forgotpassword',[pagesController::class,'forgotpassword'])->name('public.forgotpassword');
 Route::post('/forgotpassword',[usersController::class,'forgotpassword'])->name('public.forgotpassword');
-Route::get('/enterOTP',[pagesController::class,'enterOTP'])->name('public.enterOTP');
-Route::post('/enterOTP',[usersController::class,'enterOTP'])->name('public.enterOTP');
-Route::get('/mail',[usersController::class,'mail'])->name('public.sendOTP');
+Route::get('/mail',[usersController::class,'mail'])->name('public.sendOTP')->middleware('resetpass');
+Route::get('/enterOTP',[pagesController::class,'enterOTP'])->name('public.enterOTP')->middleware('resetpass');
+Route::post('/enterOTP',[usersController::class,'enterOTP'])->name('public.enterOTP')->middleware('resetpass');
+Route::get('/enternewpassword',[pagesController::class,'enternewpassword'])->name('public.enternewpassword')->middleware('resetpass')->middleware('checkotp');
+Route::post('/enternewpassword',[usersController::class,'enternewpassword'])->name('public.enternewpassword')->middleware('resetpass')->middleware('checkotp');
+

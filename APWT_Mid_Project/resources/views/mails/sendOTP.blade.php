@@ -1,2 +1,2 @@
 <div></div>
-{{$u_id}} {{$u_name}}
+{{$user_type}} {{$username}} {{$email}} {{$otp}} 
