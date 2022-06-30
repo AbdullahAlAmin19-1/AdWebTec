@@ -21,7 +21,7 @@ class usersController extends Controller
                 "email"=>"required|email",
                 "phone"=>"required|min:11|max:11",
                 "password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
-                "conf_password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%]).*$/|same:password",
+                "conf_password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
                 "gender"=>"required",
                 "dob"=>"required",
                 "address"=>"required"
@@ -85,19 +85,55 @@ class usersController extends Controller
         if($user){
             session()->put('user_type',$vali->user_type);
             session()->put('email',$user->email);
+            session()->put('username',$user->username);
+            session()->put('resetpass','yes');
             return redirect()->route("public.sendOTP");
-            //return redirect()->route("public.enterOTP");
         }
         else {
             session()->flash('msg','User not valid');
             return back();
         }
     }
-    function enterOTP(Request $vali){
-        return view("public.enterOTP");
-    }
     function mail(){
-        Mail::to(['abdullahalamin1211@gmail.com'])->send(new sendOTP("Demo Mail","1","Tanvir CS AIUB"));
+        $otp = random_int(100000, 999999);
+        session()->put('otp',$otp);
+        Mail::to([Session()->get('email')])->send(new sendOTP("Access OTP",Session()->get('user_type'),Session()->get('username'),Session()->get('email'),Session()->get('otp')));
         return redirect()->route("public.enterOTP");
+    }
+    function enterOTP(Request $vali){
+        if(Session()->get('otp')==$vali->otp){
+            session()->put('checkotp','yes');
+            return redirect()->route("public.enternewpassword");
+        }
+        else {
+            session()->flash('msg','OTP not valid');
+            return back();
+        }
+    }
+    function enternewpassword(Request $vali){
+        $this->validate($vali,
+            [
+                "new_pass"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+                "conf_new_pass"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
+            ],
+            []
+        );
+        if(session()->get('user_type')=="Admin"){$user=admin::where('email','=',session()->get('email'))->first();}
+        elseif(session()->get('user_type')=="Vendor"){$user=vendor::where('email','=',session()->get('email'))->first();}
+        elseif(session()->get('user_type')=="Customer"){$user=customer::where('email','=',session()->get('email'))->first();}
+        elseif(session()->get('user_type')=="Deliveryman"){$user=deliveryman::where('email','=',session()->get('email'))->first();}
+       
+        if($user){
+            $user->password = $vali->new_pass;
+        $user->update();
+        session()->flash('msg','Password Change Completed');
+        session()->flush();
+        return redirect()->route("public.login");
+        }
+        else{
+            session()->flash('msg','Password Change Failed');
+            return back();
+        }
+        
     }
 }

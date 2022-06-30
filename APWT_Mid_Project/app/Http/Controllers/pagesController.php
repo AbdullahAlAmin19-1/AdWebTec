@@ -11,5 +11,6 @@ class pagesController extends Controller
     function registration(){return view("public.registration");}
     function logout(){session()->flush();return redirect()->route("public.login");}    
     function forgotpassword(){return view("public.forgotpassword");} 
-    function enterOTP(Request $vali){return view("public.enterOTP");}
+    function enterOTP(){return view("public.enterOTP");}
+    function enternewpassword(){return view("public.enternewpassword");}
 }
