@@ -1,12 +1,4 @@
-<html>
-
-<head>
-    <title>Customer Page</title>
-</head>
-
-<body>
-
-    <div class="top-section">
+<div class="top-section">
 
         <table style="width: 100%;">
 
@@ -45,9 +37,4 @@
             </table>
         </center>
 
-    </div>
-
-
-</body>
-
-</html>
+</div>

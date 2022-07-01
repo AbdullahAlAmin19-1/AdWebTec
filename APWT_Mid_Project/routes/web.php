@@ -33,6 +33,8 @@ Route::post('/enterOTP',[usersController::class,'enterOTP'])->name('public.enter
 Route::get('/enternewpassword',[pagesController::class,'enternewpassword'])->name('public.enternewpassword')->middleware('resetpass')->middleware('checkotp');
 Route::post('/enternewpassword',[usersController::class,'enternewpassword'])->name('public.enternewpassword')->middleware('resetpass')->middleware('checkotp');
 
+Route::get('/allproducts',[pagesController::class,'allproducts'])->name('public.allproducts');
+
 Route::get('/vendor/dashboard',[vendorController::class,'dashboard'])->name('vendor.dashboard');
 Route::get('/vendor/profile',[vendorController::class,'profile'])->name('vendor.profile');
 Route::get('/vendor/editprofile',[vendorController::class,'editprofile'])->name('vendor.editprofile');
@@ -44,6 +46,8 @@ Route::get('/customer/cprofile',[customersController::class,'cprofile'])->name('
 Route::get('/customer/logout', [customersController::class, 'clogout'])-> name('customer.clogout');
 Route::post('/customer/cprofile',[customersController::class,'cprofileupdate'])->name('customer.cprofile');
 Route::post('/customer/cppupload',[customersController::class,'cppupload'])->name('customer.cppupload');
+
+Route::post('/customer/caddcart',[customersController::class,'caddcart'])->name('customer.caddcart');
 
 
 

@@ -4,12 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\customer;
+use App\Models\product;
 
 class customersController extends Controller
 {
-    function cdashboard(){
-        return view("customer.cdashboard");
+    function __construct(){
+        $this->middleware("logged");
     }
+    
+    function cdashboard(){
+
+        $products5 = [];
+        // $products = product::all();
+        $products5 = product::where('p_id', '<=', 5)->get();
+        $products10 = product::where('p_id', '>', 5)->where('p_id', '<=', 10)->get();
+        return view("customer.cdashboard")->with('products5', $products5)->with('products10', $products10);
+    }
+
     function cprofile(){
         $id = session()->get('id');
         $customer = [];
@@ -17,6 +28,7 @@ class customersController extends Controller
 
         return view("customer.cprofile")->with('customer', $customer);
     }
+
     function clogout(){
         //Session to clear all
         session()->forget(['id', 'user-type', 'user_name']);
@@ -84,5 +96,10 @@ class customersController extends Controller
 
         session()->flash('cppupload','Customer profile picture has been successfully updated!');
         return redirect()->route('customer.cprofile');
+    }
+
+    function caddcart(){
+
+        echo "Ok";
     }
 }
