@@ -69,8 +69,11 @@ class usersController extends Controller
             session()->put('username', $user->username);
             session()->put('propic', $user->propic);
 
+            if($vali->user_type == "Admin"){
+                return redirect()->route("admin.adashboard");
+            }
 
-            if($vali->user_type == "Customer"){
+            elseif($vali->user_type == "Customer"){
                 return redirect()->route("customer.cdashboard");
             }
 
