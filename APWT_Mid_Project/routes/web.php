@@ -36,6 +36,10 @@ Route::post('/enternewpassword',[usersController::class,'enternewpassword'])->na
 
 
 //Vendor
+Route::get('/allproducts',[pagesController::class,'allproducts'])->name('public.allproducts');
+Route::get('/searchcategory/{category}', [pagesController::class, 'searchcategory'])-> name('public.searchcategory');
+// Route::get('/productsbycategory', [pagesController::class, 'productsbycategory'])-> name('public.productsbycategory');
+
 Route::get('/vendor/dashboard',[vendorController::class,'dashboard'])->name('vendor.dashboard');
 Route::get('/vendor/profile',[vendorController::class,'profile'])->name('vendor.profile');
 Route::get('/vendor/editprofile',[vendorController::class,'editprofile'])->name('vendor.editprofile');
@@ -48,6 +52,7 @@ Route::get('/customer/cprofile',[customersController::class,'cprofile'])->name('
 Route::get('/customer/logout', [customersController::class, 'clogout'])-> name('customer.clogout');
 Route::post('/customer/cprofile',[customersController::class,'cprofileupdate'])->name('customer.cprofile');
 Route::post('/customer/cppupload',[customersController::class,'cppupload'])->name('customer.cppupload');
+Route::post('/customer/caddcart',[customersController::class,'caddcart'])->name('customer.caddcart');
 
 //Admin
 Route::get('/admin/adashboard',[adminsController::class,'adashboard'])->name('admin.adashboard');
@@ -55,5 +60,11 @@ Route::get('/admin/profile',[adminsController::class,'aprofile'])->name('admin.a
 Route::get('/admin/editprofile',[adminsController::class,'aeditprofile'])->name('admin.aeditprofile');
 Route::post('/admin/editprofile',[adminsController::class,'aeditprofileupdate'])->name('admin.aeditprofileupdate');
 Route::post('/admin/picupload',[adminsController::class,'apicupload'])->name('admin.apicupload');
+
+
+
+
+
+
 
 
