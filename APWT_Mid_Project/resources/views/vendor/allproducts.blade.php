@@ -1,9 +1,9 @@
 @extends('layouts.main')
 @section('title')
-    dashboard
+    Welcome
 @endsection
 @section('content')
-    <h1 align="center">My Product</h1>
+    <h1 align="center">All Product</h1>
 <div class="container">
     @foreach ($p as $product)
     <table border="2" style="width: 100%;">

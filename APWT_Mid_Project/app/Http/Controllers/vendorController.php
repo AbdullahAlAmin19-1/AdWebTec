@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\vendor;
+use App\Models\product;
 
 class vendorController extends Controller
 {
     function __construct(){
         $this->middleware("logged");
     }
-    
-    function welcome(){return view("public.welcome");}
-
-    function dashboard(){return view("vendor.dashboard");}
-
+    // function welcome(){return view("public.welcome");}
+    public function dashboard()
+    {
+        $p=product::where('v_id','=',session()->get('id'))->paginate(4);
+        return view('vendor.dashboard', compact('p'));
+    }
     function profile(){
         $user=vendor::where('id','=',session()->get('id'))->first();
         if($user){return view("vendor.profile")->with('vendor',$user);}
@@ -37,7 +39,7 @@ class vendorController extends Controller
             "address" => "required"
         ],
         []
-    );
+        );
         $user=vendor::where('id','=',session()->get('id'))->first();
         // if($user){return view("vendor.profile")->with('vendor',$user);}
         // else {return view("vendor.dashboard");}
@@ -80,4 +82,32 @@ class vendorController extends Controller
         session()->flash('msg','profile picture has been successfully updated!');
         return redirect()->route('vendor.editprofile');
     }    
+    function addproduct(){return view("vendor.addproduct");}
+    function addproductConfirm(Request $vali){
+        $this->validate($vali, [
+            "name" => "required",
+            "category" => "required",
+            "thumbnail" => "required",
+            "price" => "required",
+            "stock" => "required",
+        ],
+        []
+        );
+        $p=new product();
+        // if($user){return view("vendor.profile")->with('vendor',$user);}
+        // else {return view("vendor.dashboard");}
+        $p->p_name = $vali->name;
+        $p->p_category = $vali->category;
+        $p->p_thumbnail = $vali->thumbnail;
+        $p->p_gallery = $vali->gallery;
+        $p->p_price = $vali->price;
+        $p->p_stock = $vali->stock;
+        $p->p_color = $vali->color;
+        $p->p_size = $vali->size;
+        $p->p_description = $vali->description;
+        $p->v_id = Session()->get('id');
+        $p->save();
+        session()->flash('msg','Product Added');
+        return back();
+    }
 }

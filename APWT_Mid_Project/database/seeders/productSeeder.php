@@ -26,6 +26,7 @@ class productSeeder extends Seeder
                 'p_stock' => 100,
                 'p_color' => Str::random(5),
                 'p_size' => 10,
+                'p_description' => Str::random(50),
             ]);
         }
     }

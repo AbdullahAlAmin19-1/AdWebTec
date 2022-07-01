@@ -45,6 +45,10 @@ Route::get('/vendor/profile',[vendorController::class,'profile'])->name('vendor.
 Route::get('/vendor/editprofile',[vendorController::class,'editprofile'])->name('vendor.editprofile');
 Route::post('/vendor/editprofile',[vendorController::class,'editprofileupdate'])->name('vendor.editprofileupdate');
 Route::post('/vendor/picupload',[vendorController::class,'picupload'])->name('vendor.picupload');
+Route::get('/vendor/addproduct',[vendorController::class,'addproduct'])->name('vendor.addproduct');
+Route::post('/vendor/addproduct',[vendorController::class,'addproductConfirm'])->name('vendor.addproductConfirm');
+Route::get('/vendor/allproducts',[pagesController::class,'products'])->name('vendor.allproducts');
+
 
 //Customer
 Route::get('/customer/cdashboard',[customersController::class,'cdashboard'])->name('customer.cdashboard');
