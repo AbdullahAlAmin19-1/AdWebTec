@@ -27,4 +27,9 @@ class pagesController extends Controller
         $products = product::all();
         return view("public.allproducts")->with('products', $products);
     }
+    
+    function searchcategory($category){
+        $products = product::where('p_catergory', '=', "$category")->get();
+        return view("public.productsbycategory")->with('products', $products);
+    }
 }

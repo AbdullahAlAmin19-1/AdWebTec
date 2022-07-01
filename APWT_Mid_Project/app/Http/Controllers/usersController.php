@@ -9,6 +9,7 @@ use App\Models\customer;
 use App\Models\deliveryman;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendOTP;
+use App\Models\product;
 
 class usersController extends Controller
 {

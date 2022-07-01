@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\cart;
 use Illuminate\Http\Request;
 use App\Models\customer;
 use App\Models\product;
@@ -98,9 +99,8 @@ class customersController extends Controller
         return redirect()->route('customer.cprofile');
     }
 
-    function caddcart(){
+    function caddcart(Request $req){
 
         echo "Working";
-        echo "Ok";
     }
 }

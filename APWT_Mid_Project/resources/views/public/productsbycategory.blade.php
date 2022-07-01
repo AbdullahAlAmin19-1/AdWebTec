@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    All Products
+    Products By Category
 @endsection
 @section('content')
 
@@ -10,7 +10,7 @@
         <center>
     
             <table style="width: 40%;">
-                <h3>-- All Products --</h3>
+                <h3>-- Products By Category --</h3>
                 
                 @foreach ($products as $item) 
                 <tr> 
