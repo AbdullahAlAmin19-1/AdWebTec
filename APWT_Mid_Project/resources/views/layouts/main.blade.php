@@ -7,5 +7,6 @@
         <div>
             @yield('content')
         </div>
+        {{-- @include('includes.products') --}}
     </body>
 </html>

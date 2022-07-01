@@ -45,7 +45,7 @@ Customer Profile
 
                                 <tr>
                                     <td><label for="id"><b>ID:</b></label></td>
-                                    <td><input type="text" name="id" value="{{$customer->id}}"></td>
+                                    <td><input type="text" name="id" value="{{$customer->id}}" disabled></td>
                                 </tr>
 
                                 <tr>
