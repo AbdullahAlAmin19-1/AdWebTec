@@ -7,21 +7,20 @@ Account
 
 <div class="main-section">
 
-    <h3>{{Session::get('cupdateMsg')}}</h3>
-
     <center>
         <table border="2" style="width: 100%;">
             <tr>
 
-                <td style="width: 30%; padding: 10px; padding-left: 40px;">
+                <td style="width: 30%; padding: 10px;">
                 <center>
-                    <img src="#" alt="Customer icon" style="width: 150px;">
+                    <img src="{{asset('storage/vendor_profile_images')}}/{{$vendor->propic}}" alt="Customer icon" style="width: 200px;">
                     <br> <br>
                 <center>
-                    <form action="#" method="POST" enctype="multipart/form-data">
-                        <label for="myfile"><b>Select image</b></label>
-                        <input type="file" name="myfile"> <br> <br>
-                        <input type="submit" name="submit">
+                    <form action="{{route('vendor.picupload');}}" method="POST" enctype="multipart/form-data">
+                    {{@csrf_field()}}<br>
+                        <label for="pic"><b>Select image</b></label>
+                        <input type="file" name="pic"> <br> @error('pic'){{$message}}@enderror <br>
+                        <input type="submit" name="submit" value="Upload">
                     </form>
                 </td>
                 <td style="width: 70%; padding: 20px;">
