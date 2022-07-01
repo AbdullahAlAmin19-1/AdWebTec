@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\product;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class pagesController extends Controller
 {
@@ -26,5 +28,11 @@ class pagesController extends Controller
         $products = [];
         $products = product::all();
         return view("public.allproducts")->with('products', $products);
+    }
+    public function products()
+    {
+        $p = DB::table('products')->paginate(4);
+ 
+        return view('vendor.allproducts', compact('p'));
     }
 }

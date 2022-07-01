@@ -26,7 +26,7 @@ class CreateProductsTable extends Migration
 
             $table->string('p_description', 300)->nullable();
 
-            $table->integer('v_id')->unsigned();//->nullable(); //For Nullable Value -MR
+            $table->integer('v_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('v_id')->references('id')->on('vendors');
             $table->integer('cp_id')->unsigned()->nullable(); //For Nullable Value -MR
             //$table->foreign('cp_id')->references('cp_id')->on('customer_products');

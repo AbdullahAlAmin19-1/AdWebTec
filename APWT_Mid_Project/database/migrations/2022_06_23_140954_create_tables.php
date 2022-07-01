@@ -89,9 +89,10 @@ class CreateTables extends Migration
             $table->string('p_gallery');
             $table->integer('p_price');            
             $table->integer('p_stock');          
-            $table->string('p_color');          
-            $table->integer('p_size');
-            $table->integer('v_id')->unsigned();//->nullable(); //For Nullable Value -MR
+            $table->string('p_color')->nullable();           
+            $table->integer('p_size')->nullable(); 
+            $table->string('p_description', 300)->nullable();
+            $table->integer('v_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('v_id')->references('id')->on('vendors');
             $table->integer('cp_id')->unsigned()->nullable(); //For Nullable Value -MR
             //$table->foreign('cp_id')->references('cp_id')->on('customer_products');
@@ -160,7 +161,7 @@ class CreateTables extends Migration
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
-        Schema::create('customer_deliverymans', function (Blueprint $table) {
+        Schema::create('customer_deliverymen', function (Blueprint $table) {
             $table->increments('cd_id');
             $table->integer('c_id')->unsigned();//->nullable(); //For Nullable Value -MR
             $table->foreign('c_id')->references('id')->on('customers');
@@ -183,10 +184,10 @@ class CreateTables extends Migration
         Schema::table('customers', function (Blueprint $table) {
             $table->foreign('cco_id')->references('cco_id')->on('customer_coupons');
             $table->foreign('cp_id')->references('cp_id')->on('customer_products');
-            $table->foreign('cd_id')->references('cd_id')->on('customer_deliverymans');
+            $table->foreign('cd_id')->references('cd_id')->on('customer_deliverymen');
         });
-        Schema::table('deliverymans', function (Blueprint $table) {
-            $table->foreign('cd_id')->references('cd_id')->on('customer_deliverymans');
+        Schema::table('deliverymen', function (Blueprint $table) {
+            $table->foreign('cd_id')->references('cd_id')->on('customer_deliverymen');
         });
         Schema::table('products', function (Blueprint $table) {
             $table->foreign('cp_id')->references('cp_id')->on('customer_products');

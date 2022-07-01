@@ -9,7 +9,7 @@
                 <td style="width: 35%;" align="right">
                     <span style="font-size: 18px">Welcome! <span>{{Session::get('user_type')}}, <b><a href="{{route('vendor.profile');}}" style="font-size: 18px">{{Session::get('user_name')}}</a></b></span></span>
                     <span style="padding-left: 25px;">
-                        <a href="{{route('public.welcome');}}" style="font-size: 18px">Home</a> |
+                        <a href="{{route('vendor.dashboard');}}" style="font-size: 18px">Home</a> |
                         <!-- <a href="#" style="font-size: 18px">My Account</a> | -->
                         <a href="{{route('public.logout');}}" style="font-size: 18px">Logout</a>
                     </span>
@@ -23,10 +23,11 @@
                 <table>
                     <tr>
                         <td>
+                            <a href="{{route('vendor.addproduct');}}" style="font-size: 20px;">Add Products</a>  |
                             | <a href="{{route('vendor.profile');}}" style="font-size: 20px;">Manage My Account</a> |
-                            <!-- <a href="#" style="font-size: 20px;">My Orders</a> |
-                            <a href="#" style="font-size: 20px;">My Reviews</a> |
-                            <a href="#" style="font-size: 20px;">Vouchers</a> | -->
+                            <a href="{{route('vendor.dashboard');}}" style="font-size: 20px;">My products</a> |
+                            <a href="{{route('vendor.allproducts');}}" style="font-size: 20px;">All Products</a> |
+                            <!-- <a href="#" style="font-size: 20px;">Vouchers</a> | -->
                         </td>
                     </tr>
                 </table>
