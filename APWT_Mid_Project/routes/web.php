@@ -34,6 +34,8 @@ Route::get('/enternewpassword',[pagesController::class,'enternewpassword'])->nam
 Route::post('/enternewpassword',[usersController::class,'enternewpassword'])->name('public.enternewpassword')->middleware('resetpass')->middleware('checkotp');
 
 Route::get('/allproducts',[pagesController::class,'allproducts'])->name('public.allproducts');
+Route::get('/searchcategory/{category}', [pagesController::class, 'searchcategory'])-> name('public.searchcategory');
+// Route::get('/productsbycategory', [pagesController::class, 'productsbycategory'])-> name('public.productsbycategory');
 
 Route::get('/vendor/dashboard',[vendorController::class,'dashboard'])->name('vendor.dashboard');
 Route::get('/vendor/profile',[vendorController::class,'profile'])->name('vendor.profile');
@@ -48,6 +50,8 @@ Route::post('/customer/cprofile',[customersController::class,'cprofileupdate'])-
 Route::post('/customer/cppupload',[customersController::class,'cppupload'])->name('customer.cppupload');
 
 Route::post('/customer/caddcart',[customersController::class,'caddcart'])->name('customer.caddcart');
+
+
 
 
 
