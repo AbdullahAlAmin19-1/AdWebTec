@@ -100,6 +100,6 @@ class customersController extends Controller
 
     function caddcart(){
 
-        echo "Ok";
+        echo "Working";
     }
 }
