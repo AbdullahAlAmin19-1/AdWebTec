@@ -29,10 +29,14 @@ class pagesController extends Controller
         $products = product::all();
         return view("public.allproducts")->with('products', $products);
     }
-    public function products()
-    {
+    
+    public function products(){
         $p = DB::table('products')->paginate(4);
  
         return view('vendor.allproducts', compact('p'));
+    }
+    function searchcategory($category){
+        $products = product::where('p_catergory', '=', "$category")->get();
+        return view("public.productsbycategory")->with('products', $products);
     }
 }

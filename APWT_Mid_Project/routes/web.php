@@ -5,6 +5,7 @@ use App\Http\Controllers\pagesController;
 use App\Http\Controllers\usersController;
 use App\Http\Controllers\customersController;
 use App\Http\Controllers\vendorController;
+use App\Http\Controllers\adminsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,11 @@ Route::post('/enterOTP',[usersController::class,'enterOTP'])->name('public.enter
 Route::get('/enternewpassword',[pagesController::class,'enternewpassword'])->name('public.enternewpassword')->middleware('resetpass')->middleware('checkotp');
 Route::post('/enternewpassword',[usersController::class,'enternewpassword'])->name('public.enternewpassword')->middleware('resetpass')->middleware('checkotp');
 
+
+//Vendor
 Route::get('/allproducts',[pagesController::class,'allproducts'])->name('public.allproducts');
+Route::get('/searchcategory/{category}', [pagesController::class, 'searchcategory'])-> name('public.searchcategory');
+// Route::get('/productsbycategory', [pagesController::class, 'productsbycategory'])-> name('public.productsbycategory');
 
 Route::get('/vendor/dashboard',[vendorController::class,'dashboard'])->name('vendor.dashboard');
 Route::get('/vendor/profile',[vendorController::class,'profile'])->name('vendor.profile');
@@ -45,13 +50,23 @@ Route::post('/vendor/addproduct',[vendorController::class,'addproductConfirm'])-
 Route::get('/vendor/allproducts',[pagesController::class,'products'])->name('vendor.allproducts');
 
 
+//Customer
 Route::get('/customer/cdashboard',[customersController::class,'cdashboard'])->name('customer.cdashboard');
 Route::get('/customer/cprofile',[customersController::class,'cprofile'])->name('customer.cprofile');
 Route::get('/customer/logout', [customersController::class, 'clogout'])-> name('customer.clogout');
 Route::post('/customer/cprofile',[customersController::class,'cprofileupdate'])->name('customer.cprofile');
 Route::post('/customer/cppupload',[customersController::class,'cppupload'])->name('customer.cppupload');
-
 Route::post('/customer/caddcart',[customersController::class,'caddcart'])->name('customer.caddcart');
+
+//Admin
+Route::get('/admin/adashboard',[adminsController::class,'adashboard'])->name('admin.adashboard');
+Route::get('/admin/profile',[adminsController::class,'aprofile'])->name('admin.aprofile');
+Route::get('/admin/editprofile',[adminsController::class,'aeditprofile'])->name('admin.aeditprofile');
+Route::post('/admin/editprofile',[adminsController::class,'aeditprofileupdate'])->name('admin.aeditprofileupdate');
+Route::post('/admin/picupload',[adminsController::class,'apicupload'])->name('admin.apicupload');
+
+
+
 
 
 
