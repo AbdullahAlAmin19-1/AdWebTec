@@ -140,8 +140,8 @@ class usersController extends Controller
         if($user){
             $user->password = $vali->new_pass;
         $user->update();
-        session()->flash('msg','Password Change Completed');
         session()->flush();
+        // session()->flash('msg','Password Change Completed');
         return redirect()->route("public.login");
         }
         else{

@@ -12,9 +12,9 @@ Account
     <center>
         <table border="2" style="width: 100%;">
             <tr>
-                <td style="width: 30%; padding: 10px; padding-left: 40px;">
+                <td style="width: 30%; padding: 10px;">
                 <center>
-                    <img src="#" alt="Customer icon" style="width: 150px;">
+                    <img src="{{asset('storage/vendor_profile_images')}}/{{$vendor->propic}}" alt="Customer icon" style="width: 300px;">
                     <br> <br>
                 <center>
                 </td>

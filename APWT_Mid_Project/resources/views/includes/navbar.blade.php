@@ -7,7 +7,7 @@
                     <h2><a href="{{route('public.home')}}">Grocery OS</a></h2>
                 </td>
                 <td style="width: 35%;" align="right">
-                    <span style="font-size: 18px">Welcome! <span><b><a href="{{route('vendor.profile');}}" style="font-size: 18px">{{Session::get('user_name')}}</a></b></span></span>
+                    <span style="font-size: 18px">Welcome! <span>{{Session::get('user_type')}}, <b><a href="{{route('vendor.profile');}}" style="font-size: 18px">{{Session::get('user_name')}}</a></b></span></span>
                     <span style="padding-left: 25px;">
                         <a href="{{route('public.welcome');}}" style="font-size: 18px">Home</a> |
                         <!-- <a href="#" style="font-size: 18px">My Account</a> | -->
