@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.basic')
 @section('title')
     Products By Category
 @endsection
@@ -15,19 +15,21 @@
                 @foreach ($products as $item) 
                 <tr> 
                     <th>
-                        <img src="images/{{$item->p_thumbnail}}" alt="Product Image" height="120px" width="120px">
-                        <h3>{{$item->p_name}}</h3>
-                        <p>{{$item->p_description}}</p>
-                        <h4>Price: {{$item->p_price}} Taka.</h4>
-                        <form action="{{route('customer.caddcart');}}" method="POST" enctype="multipart/form-data">
-                            {{@csrf_field()}}
-                            <label for="quantity" style="width: 50%">Quantity</label>
-                            <input type="number" name="quantity" id="Quantity" min="1" value="1" style="width: 50%"> <br>
-                            @error('quantity')
-                                    {{$message}} <br> <br> 
-                                    @enderror
-                            <input type="submit" name="caddcart" value="Add To Cart">
-                        </form>
+                        <center>
+                            <img src="product images/{{$item->p_thumbnail}}" alt="Product Image" height="120px" width="120px">
+                            <h3>{{$item->p_name}}</h3>
+                            <textarea style="width: 75%" disabled>{{$item->p_description}}</textarea>
+                            <h4>Price: {{$item->p_price}} Taka.</h4>
+                            <form action="{{route('customer.caddcart');}}" method="POST">
+                                {{@csrf_field()}}
+                                <label for="quantity" style="width: 50%">Quantity</label>
+                                <input type="number" name="quantity" id="Quantity" min="1" value="1" style="width: 50%"> <br>
+                                @error('quantity')
+                                        {{$message}} <br> <br> 
+                                        @enderror
+                                <input type="submit" name="caddcart" value="Add To Cart">
+                            </form>
+                        </center>
                     </th>
                 </tr>
                 @endforeach
