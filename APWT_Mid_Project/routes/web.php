@@ -34,11 +34,11 @@ Route::post('/enterOTP',[usersController::class,'enterOTP'])->name('public.enter
 Route::get('/enternewpassword',[pagesController::class,'enternewpassword'])->name('public.enternewpassword')->middleware('resetpass')->middleware('checkotp');
 Route::post('/enternewpassword',[usersController::class,'enternewpassword'])->name('public.enternewpassword')->middleware('resetpass')->middleware('checkotp');
 
-
-//Vendor
+//Vublic
 Route::get('/allproducts',[pagesController::class,'allproducts'])->name('public.allproducts');
 Route::get('/searchcategory/{category}', [pagesController::class, 'searchcategory'])-> name('public.searchcategory');
 // Route::get('/productsbycategory', [pagesController::class, 'productsbycategory'])-> name('public.productsbycategory');
+Route::post('/searchproduct',[pagesController::class,'searchproduct'])->name('public.searchproduct');
 
 Route::get('/vendor/dashboard',[vendorController::class,'dashboard'])->name('vendor.dashboard');
 Route::get('/vendor/profile',[vendorController::class,'profile'])->name('vendor.profile');
@@ -57,7 +57,12 @@ Route::get('/customer/cprofile/edit',[customersController::class,'cprofile'])->n
 Route::get('/customer/logout', [customersController::class, 'clogout'])-> name('customer.clogout');
 Route::post('/customer/cprofile/edit',[customersController::class,'cprofileupdate'])->name('customer.cprofile');
 Route::post('/customer/cppupload',[customersController::class,'cppupload'])->name('customer.cppupload');
+Route::get('/customer/ccart',[customersController::class,'ccart'])->name('customer.ccart');
+Route::get('/customer/corder',[customersController::class,'corder'])->name('customer.corder');
+Route::post('/customer/corderForm',[customersController::class,'corderForm'])->name('customer.corderForm');
+
 Route::post('/customer/caddcart',[customersController::class,'caddcart'])->name('customer.caddcart');
+
 
 //Admin
 Route::get('/admin/adashboard',[adminsController::class,'adashboard'])->name('admin.adashboard');

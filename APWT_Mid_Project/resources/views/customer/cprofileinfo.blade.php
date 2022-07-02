@@ -1,6 +1,6 @@
 @extends('layouts.cmain')
 @section('title')
-Customer Profile InFo
+Customer Profile Info
 @endsection
 @section('content')
 <h1 align="center">Customer Profile Info</h1>
