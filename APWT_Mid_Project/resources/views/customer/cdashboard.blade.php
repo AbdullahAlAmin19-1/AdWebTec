@@ -6,6 +6,8 @@
     <div class="main-section">
         <h1 style="text-align: center">Customer Dashboard</h1>
 
+        <h3>{{Session::get('corder')}}</h3>
+
         <div class="product-section">
             <center>
         

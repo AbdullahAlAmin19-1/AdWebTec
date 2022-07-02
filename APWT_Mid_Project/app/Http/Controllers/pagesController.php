@@ -30,7 +30,7 @@ class pagesController extends Controller
         return view("public.allproducts")->with('products', $products);
     }
     
-    public function products(){
+    function products(){
         $p = DB::table('products')->paginate(4);
  
         return view('vendor.allproducts', compact('p'));
@@ -38,5 +38,19 @@ class pagesController extends Controller
     function searchcategory($category){
         $products = product::where('p_category', '=', "$category")->get();
         return view("public.productsbycategory")->with('products', $products);
+    }
+
+    function searchproduct(Request $req){
+
+        $this->validate($req, [
+            "search_name" => "required",
+        ],
+        [
+            'search_name.required' => 'Please enter any value!',
+        ]
+    );
+    $search_name = $req->search_name;
+    $products= product::where('p_name', 'like', '%'.$search_name.'%')->get();
+    return view("public.searchproduct")->with('products', $products);
     }
 }

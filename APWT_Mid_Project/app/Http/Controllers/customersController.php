@@ -107,8 +107,21 @@ class customersController extends Controller
         return redirect()->route('customer.cprofile');
     }
 
-    function caddcart(Request $req){
+    function ccart(){
+        return view("customer.ccart");
+    }
 
+    function corder(){
+        return view("customer.corder");
+    }
+
+    function caddcart(Request $req){
         echo "Working";
+    }
+
+    function corderForm(Request $req){
+
+        session()->flash('corder','Your Order has been successfully placed!');
+        return redirect()->route('customer.cdashboard');
     }
 }
