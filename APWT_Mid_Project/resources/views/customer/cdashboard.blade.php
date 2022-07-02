@@ -5,7 +5,7 @@
 @section('content')
     <div class="main-section">
         <h1 style="text-align: center">Customer Dashboard</h1>
-        
+
         <div class="product-section">
             <center>
         
@@ -38,9 +38,10 @@
                     <tr>
                         @foreach ($products5 as $item) 
                         <th>
-                            <img src="product images/{{$item->p_thumbnail}}" alt="Product Image" height="120px" width="120px">
+                            <center>
+                                <img src="product images/{{$item->p_thumbnail}}" alt="Product Image" height="120px" width="120px">
                             <h3>{{$item->p_name}}</h3>
-                            <p>{{$item->p_description}}</p>
+                            <textarea style="width: 75%" disabled>{{$item->p_description}}</textarea>
                             <h4>Price: {{$item->p_price}} Taka.</h4>
                             <form action="{{route('customer.caddcart')}}" method="POST">
                                 {{@csrf_field()}}
@@ -51,6 +52,7 @@
                                         @enderror
                                 <input type="submit" name="caddcart" value="Add To Cart">
                             </form>
+                        </center>
                         </th>
                         @endforeach
                     </tr>
@@ -58,9 +60,10 @@
                     <tr>
                         @foreach ($products10 as $item) 
                         <th>
+                        <center>
                             <img src="product images/{{$item->p_thumbnail}}" alt="Product Image" height="120px" width="120px">
                             <h3>{{$item->p_name}}</h3>
-                            <p>{{$item->p_description}}</p>
+                            <textarea style="width: 75%" disabled>{{$item->p_description}}</textarea>
                             <h4>Price: {{$item->p_price}} Taka.</h4>
                             <form action="{{route('customer.caddcart');}}" method="POST">
                                 {{@csrf_field()}}
@@ -71,6 +74,7 @@
                                         @enderror
                                 <input type="submit" name="caddcart" value="Add To Cart">
                             </form>
+                        </center>
                         </th>
                         @endforeach
                     </tr>
@@ -83,4 +87,6 @@
         
             </center>
         </div>
+        
+    </div>    
 @endsection

@@ -22,6 +22,14 @@ class customersController extends Controller
         return view("customer.cdashboard")->with('products5', $products5)->with('products10', $products10);
     }
 
+    function cprofileinfo(){
+        $id = session()->get('id');
+        $customer = [];
+        $customer = customer::where('id', '=', $id)->first();
+
+        return view("customer.cprofileinfo")->with('customer', $customer);
+    }
+
     function cprofile(){
         $id = session()->get('id');
         $customer = [];
@@ -41,7 +49,7 @@ class customersController extends Controller
     function cprofileupdate(Request $req){
 
         $this->validate($req, [
-            "username" => "required",
+            // "username" => "required",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
             "email" => "required|email",
             "phone" => "required|max:10|min:10",
@@ -56,7 +64,7 @@ class customersController extends Controller
 
         $customer = customer::find($id);
 
-        $customer->username = $req->username;
+        // $customer->username = $req->username;
         $customer->name = $req->name;
         $customer->email = $req->email;
         $customer->phone = $req->phone;
@@ -67,7 +75,7 @@ class customersController extends Controller
 
         $customer->update();
 
-        session()->flash('cupdateMsg','Customer details has been successfully updated');
+        session()->flash('cupdateMsg','Customer details has been successfully updated!');
         return redirect()->route('customer.cprofile');
     }
 

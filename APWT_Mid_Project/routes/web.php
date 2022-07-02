@@ -52,9 +52,10 @@ Route::get('/vendor/allproducts',[pagesController::class,'products'])->name('ven
 
 //Customer
 Route::get('/customer/cdashboard',[customersController::class,'cdashboard'])->name('customer.cdashboard');
-Route::get('/customer/cprofile',[customersController::class,'cprofile'])->name('customer.cprofile');
+Route::get('/customer/cprofileinfo',[customersController::class,'cprofileinfo'])->name('customer.cprofileinfo');
+Route::get('/customer/cprofile/edit',[customersController::class,'cprofile'])->name('customer.cprofile');
 Route::get('/customer/logout', [customersController::class, 'clogout'])-> name('customer.clogout');
-Route::post('/customer/cprofile',[customersController::class,'cprofileupdate'])->name('customer.cprofile');
+Route::post('/customer/cprofile/edit',[customersController::class,'cprofileupdate'])->name('customer.cprofile');
 Route::post('/customer/cppupload',[customersController::class,'cppupload'])->name('customer.cppupload');
 Route::post('/customer/caddcart',[customersController::class,'caddcart'])->name('customer.caddcart');
 

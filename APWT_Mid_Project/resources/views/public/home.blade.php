@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.basic')
 @section('title')
     Home
 @endsection

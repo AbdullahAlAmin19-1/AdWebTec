@@ -79,7 +79,7 @@ class usersController extends Controller
             }
 
             elseif($vali->user_type == "Vendor"){
-                return redirect()->route("public.home");
+                return redirect()->route("vendor.dashboard");
             }
         }
         else {

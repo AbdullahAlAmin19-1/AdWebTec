@@ -36,7 +36,7 @@ class pagesController extends Controller
         return view('vendor.allproducts', compact('p'));
     }
     function searchcategory($category){
-        $products = product::where('p_catergory', '=', "$category")->get();
+        $products = product::where('p_category', '=', "$category")->get();
         return view("public.productsbycategory")->with('products', $products);
     }
 }
