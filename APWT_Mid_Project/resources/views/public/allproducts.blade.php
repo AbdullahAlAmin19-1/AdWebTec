@@ -1,4 +1,4 @@
-@extends('layouts.basic')
+@extends('layouts.main')
 @section('title')
     All Products
 @endsection
