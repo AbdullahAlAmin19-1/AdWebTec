@@ -63,10 +63,9 @@ Route::get('/customer/logout', [customersController::class, 'clogout'])-> name('
 Route::post('/customer/cprofile/edit',[customersController::class,'cprofileupdate'])->name('customer.cprofile');
 Route::post('/customer/cppupload',[customersController::class,'cppupload'])->name('customer.cppupload');
 Route::get('/customer/ccart',[customersController::class,'ccart'])->name('customer.ccart');
+Route::post('/customer/caddcart',[customersController::class,'caddcart'])->name('customer.caddcart');
 Route::get('/customer/corder',[customersController::class,'corder'])->name('customer.corder');
 Route::post('/customer/corderForm',[customersController::class,'corderForm'])->name('customer.corderForm');
-Route::post('/customer/caddcart',[customersController::class,'caddcart'])->name('customer.caddcart');
-
 Route::get('/customer/remove-product/{p_id}',[customersController::class,'cartproductremove'])->name('customer.cartproductremove');
 
 

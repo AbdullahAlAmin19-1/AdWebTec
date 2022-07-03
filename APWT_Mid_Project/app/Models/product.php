@@ -8,5 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class product extends Model
 {
     use HasFactory;
-    protected $primarykey = "p_id ";
+    
+    protected $primarykey = "p_id";
+
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
+    }
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class);
+    }
+
+    public function customers()
+    {
+        return $this->belongsToMany(Customer::class,'customer_products','c_id','p_id');
+    }
 }

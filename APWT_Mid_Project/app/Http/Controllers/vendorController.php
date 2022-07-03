@@ -127,7 +127,9 @@ class vendorController extends Controller
         ],
         []
         );
-        $p = product::where('p_id','=',$vali->id)->first();
+        //$p = product::where('p_id','=',$vali->id)->first();
+
+        $p = product::find($vali->id);
         $p->p_id = $vali->id;
         $p->p_name = $vali->name;
         $p->p_category = $vali->category;
@@ -139,7 +141,7 @@ class vendorController extends Controller
         $p->p_size = $vali->size;
         $p->p_description = $vali->description;
         $p->v_id = $vali->v_id;
-        $p->update();
+        $p->save();
         session()->flash('msg','Product Updated');
         return back();
     }
