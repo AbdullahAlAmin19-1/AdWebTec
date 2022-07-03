@@ -1,11 +1,10 @@
 @extends('layouts.main')
 @section('title')
-    Welcome
+    Delete Product
 @endsection
 @section('content')
-    <h1 align="center">All Product</h1>
+    <h1 align="center">Delete Product</h1>
 <div class="container">
-    @foreach ($p as $product)
     <table border="2" style="width: 100%;">
     <tr>
         <td>
@@ -56,13 +55,12 @@
             <th>Product Description</th>
             <td>{{$product->p_description}}</td>
         </tr>
+        <tr>
+            <th colspan="2"><a href="{{route('vendor.deleteproductConfirm',['p_id'=>$product->p_id])}}"><input type="button" value="Delete"></a></tH>
+        </tr>
     </table>
 </td>
 </tr>
 </table>
-    @endforeach
-</div>
-<div class="d-flex justify-content-center">
-    {!! $p->links() !!}
 </div>
 @endsection

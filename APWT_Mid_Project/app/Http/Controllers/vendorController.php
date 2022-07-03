@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\vendor;
 use App\Models\product;
+use Illuminate\Support\Facades\DB;
 
 class vendorController extends Controller
 {
@@ -109,5 +110,31 @@ class vendorController extends Controller
         $p->save();
         session()->flash('msg','Product Added');
         return back();
+    }
+    function editproduct($p_id){
+        // $p = product::find($p_id);
+        $p = product::where('p_id','=',$p_id)->first();
+        if($p){return view("vendor.editProduct")->with('p',$p);}
+        else {return view("vendor.dashboard");}
+    }
+    function editproductConfirm(){
+    }
+    function deleteproduct($p_id){
+        // $p = product::find($p_id);
+        $p = product::where('p_id','=',$p_id)->first();
+        if($p){return view("vendor.deleteproduct")->with('product',$p);}
+        else {return view("vendor.dashboard");}
+    }
+    function deleteproductConfirm($p_id){
+        DB::delete('delete from products where p_id = ?',[$p_id]);
+        $p = product::where('p_id','=',$p_id)->first();
+        if($p){
+            session()->flash('msg','Product Id '.$p_id.' Deletion Failed');
+            return redirect()->route("vendor.dashboard");
+        }
+        else {
+            session()->flash('msg','Product Id '.$p_id.' Deletion Successful');
+            return redirect()->route("vendor.dashboard");
+        }
     }
 }
