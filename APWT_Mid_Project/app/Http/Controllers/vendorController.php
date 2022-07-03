@@ -117,7 +117,33 @@ class vendorController extends Controller
         if($p){return view("vendor.editProduct")->with('p',$p);}
         else {return view("vendor.dashboard");}
     }
-    function editproductConfirm(){
+    function editproductConfirm(Request $vali){
+        $this->validate($vali, [
+            "name" => "required",
+            "category" => "required",
+            "thumbnail" => "required",
+            "price" => "required",
+            "stock" => "required",
+        ],
+        []
+        );
+        $p = product::where('p_id','=',$vali->id)->first();
+        // if($user){return view("vendor.profile")->with('vendor',$user);}
+        // else {return view("vendor.dashboard");}
+        $p->p_id = $vali->id;
+        $p->p_name = $vali->name;
+        $p->p_category = $vali->category;
+        $p->p_thumbnail = $vali->thumbnail;
+        $p->p_gallery = $vali->gallery;
+        $p->p_price = $vali->price;
+        $p->p_stock = $vali->stock;
+        $p->p_color = $vali->color;
+        $p->p_size = $vali->size;
+        $p->p_description = $vali->description;
+        $p->v_id = $vali->v_id;
+        $p->update();
+        session()->flash('msg','Product Updated');
+        return back();
     }
     function deleteproduct($p_id){
         // $p = product::find($p_id);
