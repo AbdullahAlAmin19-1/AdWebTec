@@ -20,7 +20,7 @@ use App\Http\Controllers\adminsController;
 
 Route::get('/welcome', [vendorController::class,'welcome'])->name('public.welcome');
 
-Route::get('/',[pagesController::class,'home'])->name('public.home');
+Route::get('/public/products',[pagesController::class,'home'])->name('public.home');
 Route::get('/login',[pagesController::class,'login'])->name('public.login');
 Route::get('/logout', [pagesController::class,'logout'])->name('public.logout');
 Route::post('/login',[usersController::class,'loginConfirm'])->name('public.login.confirm');
@@ -39,6 +39,7 @@ Route::get('/allproducts',[pagesController::class,'allproducts'])->name('public.
 Route::get('/searchcategory/{category}', [pagesController::class, 'searchcategory'])-> name('public.searchcategory');
 // Route::get('/productsbycategory', [pagesController::class, 'productsbycategory'])-> name('public.productsbycategory');
 Route::post('/searchproduct',[pagesController::class,'searchproduct'])->name('public.searchproduct');
+Route::get('/',[pagesController::class,'products'])->name('public.products');
 
 Route::get('/vendor/dashboard',[vendorController::class,'dashboard'])->name('vendor.dashboard');
 Route::get('/vendor/profile',[vendorController::class,'profile'])->name('vendor.profile');
@@ -51,7 +52,7 @@ Route::get('/vendor/allproducts',[pagesController::class,'products'])->name('ven
 Route::get('/vendor/editproduct/{p_id}',[vendorController::class,'editproduct'])->name('vendor.editproduct');
 Route::post('/vendor/editproduct/{p_id}',[vendorController::class,'editproductConfirm'])->name('vendor.editproductConfirm');
 Route::get('/vendor/deleteproduct/{p_id}',[vendorController::class,'deleteproduct'])->name('vendor.deleteproduct');
-Route::post('/vendor/deleteproductConfirm/{p_id}',[vendorController::class,'deleteproductConfirm'])->name('vendor.deleteproductConfirm');
+Route::get('/vendor/deleteproductConfirm/{p_id}',[vendorController::class,'deleteproductConfirm'])->name('vendor.deleteproductConfirm');
 
 
 //Customer

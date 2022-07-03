@@ -67,7 +67,7 @@
 </table>
     @endforeach
 </div>
-<div class="d-flex justify-content-center">
-    {!! $p->links() !!}
+<div align="center">
+{{$p->links()}}
 </div>
 @endsection
