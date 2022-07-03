@@ -132,7 +132,6 @@ class customersController extends Controller
         $products = DB::table('carts')
             ->join('products', 'carts.p_id', '=', 'products.p_id')
             ->where('carts.id', $id)
-            ->select('products.*')
             ->get();
 
         return view("customer.ccart")->with('products', $products);
@@ -163,8 +162,7 @@ class customersController extends Controller
 
     function corderForm(Request $req){
 
-        echo $req->p_id;
-        // session()->flash('corder','Your Order has been successfully placed!');
-        // return redirect()->route('customer.cdashboard');
+        session()->flash('corder','Your Order has been successfully placed!');
+        return redirect()->route('customer.cdashboard');
     }
 }
