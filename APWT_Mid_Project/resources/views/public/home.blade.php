@@ -48,8 +48,9 @@
                         <h4>Price: {{$item->p_price}} Taka.</h4>
                         <form action="{{route('customer.caddcart')}}" method="POST">
                             {{@csrf_field()}}
+                            <input type="hidden" name="p_id" id="p_id" value="{{$item->p_id}}"> <br>
                             <label for="quantity" style="width: 50%">Quantity</label>
-                            <input type="number" name="quantity" id="Quantity" min="1" value="1" style="width: 50%"> <br>
+                            <input type="number" name="quantity" id="quantity" min="1" value="1" style="width: 50%"> <br>
                             @error('quantity')
                                     {{$message}} <br> <br> 
                                     @enderror
@@ -70,8 +71,9 @@
                         <h4>Price: {{$item->p_price}} Taka.</h4>
                         <form action="{{route('customer.caddcart');}}" method="POST">
                             {{@csrf_field()}}
+                            <input type="hidden" name="p_id" id="p_id" value="{{$item->p_id}}"> <br>
                             <label for="quantity" style="width: 50%">Quantity</label>
-                            <input type="number" name="quantity" id="Quantity" min="1" value="1" style="width: 50%"> <br>
+                            <input type="number" name="quantity" id="quantity" min="1" value="1" style="width: 50%"> <br>
                             @error('quantity')
                                     {{$message}} <br> <br> 
                                     @enderror

@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->increments('p_id');
             $table->string('p_name', 100);
             $table->string('p_category');
-            $table->string('p_thumbnail');
+            $table->string('p_thumbnail')->nullable();
             $table->string('p_gallery')->nullable();
             $table->integer('p_price');            
             $table->integer('p_stock');          
@@ -30,7 +30,7 @@ class CreateProductsTable extends Migration
             $table->foreign('v_id')->references('id')->on('vendors');
             $table->integer('cp_id')->unsigned()->nullable(); //For Nullable Value -MR
             //$table->foreign('cp_id')->references('cp_id')->on('customer_products');
-            $table->integer('cartp_id')->unsigned()->nullable(); //For Nullable Value -MR
+            // $table->integer('cartp_id')->unsigned()->nullable(); //For Nullable Value -MR
             //$table->foreign('cartp_id')->references('cartp_id')->on('cart_products');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

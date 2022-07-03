@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class cart extends Model
 {
     use HasFactory;
+    protected $primarykey = "cart_id";
 }

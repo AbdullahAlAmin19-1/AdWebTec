@@ -85,8 +85,8 @@ class CreateTables extends Migration
             $table->increments('p_id');
             $table->string('p_name', 100);
             $table->string('p_catergory');
-            $table->string('p_thumbnail');
-            $table->string('p_gallery');
+            $table->string('p_thumbnail')->nullable(); 
+            $table->string('p_gallery')->nullable();
             $table->integer('p_price');            
             $table->integer('p_stock');          
             $table->string('p_color')->nullable();           
@@ -96,16 +96,18 @@ class CreateTables extends Migration
             $table->foreign('v_id')->references('id')->on('vendors');
             $table->integer('cp_id')->unsigned()->nullable(); //For Nullable Value -MR
             //$table->foreign('cp_id')->references('cp_id')->on('customer_products');
-            $table->integer('cartp_id')->unsigned()->nullable(); //For Nullable Value -MR
+            // $table->integer('cartp_id')->unsigned()->nullable(); //For Nullable Value -MR
             //$table->foreign('cartp_id')->references('cartp_id')->on('cart_products');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
         Schema::create('carts', function (Blueprint $table) {
             $table->increments('cart_id');    
-            $table->integer('P_quantity');
-            $table->integer('cartp_id')->unsigned();//->nullable(); //For Nullable Value -MR
-            //$table->foreign('cartp_id')->references('cartp_id')->on('cart_products');
+            $table->integer('p_quantity');
+            $table->integer('id')->unsigned();//->nullable(); //For Nullable Value -MR
+            $table->foreign('id')->references('id')->on('customers');
+            $table->integer('p_id')->unsigned();//->nullable(); //For Nullable Value -MR
+            $table->foreign('p_id')->references('p_id')->on('products');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
@@ -180,7 +182,6 @@ class CreateTables extends Migration
             $table->timestamp('updated_at')->nullable();
         });
 
-
         Schema::table('customers', function (Blueprint $table) {
             $table->foreign('cco_id')->references('cco_id')->on('customer_coupons');
             $table->foreign('cp_id')->references('cp_id')->on('customer_products');
@@ -191,11 +192,11 @@ class CreateTables extends Migration
         });
         Schema::table('products', function (Blueprint $table) {
             $table->foreign('cp_id')->references('cp_id')->on('customer_products');
-            $table->foreign('cartp_id')->references('cartp_id')->on('cart_products');
+            // $table->foreign('cartp_id')->references('cartp_id')->on('cart_products');
         });
-        Schema::table('carts', function (Blueprint $table) {
-            $table->foreign('cartp_id')->references('cartp_id')->on('cart_products');
-        });
+        // Schema::table('carts', function (Blueprint $table) {
+        //     $table->foreign('cartp_id')->references('cartp_id')->on('cart_products');
+        // });
         Schema::table('orders', function (Blueprint $table) {
             $table->foreign('co_id')->references('co_id')->on('coupons');
         });

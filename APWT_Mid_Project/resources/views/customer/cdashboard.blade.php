@@ -7,6 +7,7 @@
         <h1 style="text-align: center">Customer Dashboard</h1>
 
         <h3>{{Session::get('corder')}}</h3>
+        <h3>{{Session::get('addcart')}}</h3>
 
         <div class="product-section">
             <center>
@@ -47,12 +48,13 @@
                             <h4>Price: {{$item->p_price}} Taka.</h4>
                             <form action="{{route('customer.caddcart')}}" method="POST">
                                 {{@csrf_field()}}
-                                <label for="quantity" style="width: 50%">Quantity</label>
-                                <input type="number" name="quantity" id="Quantity" min="1" value="1" style="width: 50%"> <br>
-                                @error('quantity')
-                                        {{$message}} <br> <br> 
-                                        @enderror
-                                <input type="submit" name="caddcart" value="Add To Cart">
+                            <input type="hidden" name="p_id" id="p_id" value="{{$item->p_id}}"> <br>
+                            <label for="quantity" style="width: 50%">Quantity</label>
+                            <input type="number" name="quantity" id="quantity" min="1" value="1" style="width: 50%"> <br>
+                            @error('quantity')
+                                    {{$message}} <br> <br> 
+                                    @enderror
+                            <input type="submit" name="caddcart" value="Add To Cart">
                             </form>
                         </center>
                         </th>
@@ -69,12 +71,13 @@
                             <h4>Price: {{$item->p_price}} Taka.</h4>
                             <form action="{{route('customer.caddcart');}}" method="POST">
                                 {{@csrf_field()}}
-                                <label for="quantity" style="width: 50%">Quantity</label>
-                                <input type="number" name="quantity" id="Quantity" min="1" value="1" style="width: 50%"> <br>
-                                @error('quantity')
-                                        {{$message}} <br> <br> 
-                                        @enderror
-                                <input type="submit" name="caddcart" value="Add To Cart">
+                            <input type="hidden" name="p_id" id="p_id" value="{{$item->p_id}}"> <br>
+                            <label for="quantity" style="width: 50%">Quantity</label>
+                            <input type="number" name="quantity" id="quantity" min="1" value="1" style="width: 50%"> <br>
+                            @error('quantity')
+                                    {{$message}} <br> <br> 
+                                    @enderror
+                            <input type="submit" name="caddcart" value="Add To Cart">
                             </form>
                         </center>
                         </th>

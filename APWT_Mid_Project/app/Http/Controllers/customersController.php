@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\customer;
 use App\Models\product;
 
+use Illuminate\Support\Facades\DB;
+
 class customersController extends Controller
 {
     function __construct(){
@@ -107,21 +109,62 @@ class customersController extends Controller
         return redirect()->route('customer.cprofile');
     }
 
+    function caddcart(Request $req){
+        $id = session()->get('id');
+        echo $req->quantity;
+
+        $cart = new cart();
+        $cart->p_quantity = $req->quantity;
+        $cart->id = $id;
+        $cart->p_id = $req->p_id;
+
+        $cart->save();
+
+        session()->flash('addcart','Product has been added in the card!');
+        return redirect()->route('customer.cdashboard');
+    }
+
     function ccart(){
-        return view("customer.ccart");
+
+        $id = session()->get('id');
+
+        //Using Join
+        $products = DB::table('carts')
+            ->join('products', 'carts.p_id', '=', 'products.p_id')
+            ->where('carts.id', $id)
+            ->select('products.*')
+            ->get();
+
+        return view("customer.ccart")->with('products', $products);
+    }
+
+    function cartproductremove($p_id){
+
+        $carts = cart::where('p_id', $p_id)->delete();
+        session()->flash('cartRemove', "Product has been removed from the cart!");
+
+        return redirect()->route('customer.ccart');
+
     }
 
     function corder(){
-        return view("customer.corder");
-    }
 
-    function caddcart(Request $req){
-        echo "Working";
+        $id = session()->get('id');
+
+        //Using Join
+        $products = DB::table('carts')
+            ->join('products', 'carts.p_id', '=', 'products.p_id')
+            ->where('carts.id', $id)
+            ->select('products.*')
+            ->get();
+
+        return view("customer.corder")->with('products', $products);
     }
 
     function corderForm(Request $req){
 
-        session()->flash('corder','Your Order has been successfully placed!');
-        return redirect()->route('customer.cdashboard');
+        echo $req->p_id;
+        // session()->flash('corder','Your Order has been successfully placed!');
+        // return redirect()->route('customer.cdashboard');
     }
 }
