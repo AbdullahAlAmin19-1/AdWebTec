@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Customer;
+use App\Models\Vendor;
+use App\Models\Order;
+
 class coupon extends Model
 {
     use HasFactory;
@@ -12,7 +16,7 @@ class coupon extends Model
 
     public function customers()
     {
-        return $this->belongsToMany(Customer::class,'customer_coupon','c_id','co_id');
+        return $this->belongsToMany(Customer::class);
     }
 
     public function orders()
