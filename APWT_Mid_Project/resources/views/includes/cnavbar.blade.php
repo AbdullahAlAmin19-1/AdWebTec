@@ -37,7 +37,7 @@
                     <td>
                         <a href="{{route('customer.cprofile');}}" style="font-size: 20px;">Manage Account</a> |
                         <a href="{{route('customer.ccart')}}" style="font-size: 20px;">Cart</a> |
-                        <a href="{{route('customer.corder')}}" style="font-size: 20px;">Orders</a> |
+                        <a href="#" style="font-size: 20px;">Orders</a> |
                         <a href="#" style="font-size: 20px;">Reviews</a> |
                         <a href="#" style="font-size: 20px;">Coupons</a>
                     </td>

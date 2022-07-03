@@ -18,15 +18,15 @@ class productSeeder extends Seeder
     {
         for($i=0;$i<10;$i++){
             DB::table('products')->insert([
-                'p_name' => Str::random(10),
-                'p_catergory' => Str::random(5),
-                'p_thumbnail' => Str::random(5),
-                'p_gallery' => Str::random(5),
+                'p_name' => "ACI Pure Salt",
+                'p_category' => "Cooking",
+                'p_thumbnail' => "null",
+                'p_gallery' => "null",
                 'p_price' => 420,
                 'p_stock' => 100,
-                'p_color' => Str::random(5),
+                'p_color' => 'null',
                 'p_size' => 10,
-                'p_description' => Str::random(50),
+                'p_description' => "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.",
             ]);
         }
     }

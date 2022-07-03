@@ -34,7 +34,7 @@ Route::post('/enterOTP',[usersController::class,'enterOTP'])->name('public.enter
 Route::get('/enternewpassword',[pagesController::class,'enternewpassword'])->name('public.enternewpassword')->middleware('resetpass')->middleware('checkotp');
 Route::post('/enternewpassword',[usersController::class,'enternewpassword'])->name('public.enternewpassword')->middleware('resetpass')->middleware('checkotp');
 
-//Vublic
+//Public
 Route::get('/allproducts',[pagesController::class,'allproducts'])->name('public.allproducts');
 Route::get('/searchcategory/{category}', [pagesController::class, 'searchcategory'])-> name('public.searchcategory');
 // Route::get('/productsbycategory', [pagesController::class, 'productsbycategory'])-> name('public.productsbycategory');
@@ -64,8 +64,9 @@ Route::post('/customer/cppupload',[customersController::class,'cppupload'])->nam
 Route::get('/customer/ccart',[customersController::class,'ccart'])->name('customer.ccart');
 Route::get('/customer/corder',[customersController::class,'corder'])->name('customer.corder');
 Route::post('/customer/corderForm',[customersController::class,'corderForm'])->name('customer.corderForm');
-
 Route::post('/customer/caddcart',[customersController::class,'caddcart'])->name('customer.caddcart');
+
+Route::get('/customer/remove-product/{p_id}',[customersController::class,'cartproductremove'])->name('customer.cartproductremove');
 
 
 //Admin

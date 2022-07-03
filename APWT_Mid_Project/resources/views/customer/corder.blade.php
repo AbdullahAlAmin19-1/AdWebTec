@@ -12,25 +12,27 @@ Customer Order
 
             <table style="width: 80%; border: 1px solid black;
             border-collapse: collapse;">
+                @foreach ($products as $item) 
                 <tr>
                     <th>Product ID:</th>
-                    <th><input type="number" name="p_id" id="p_id" value="1" style="width: 30px;" disabled></th>
+                    <th><input type="number" name="p_id" id="p_id" value="{{$item->p_id}}" style="width: 30px;" disabled></th>
                     <th>Product Name:</th>
-                    <th><input type="text" name="p_name" value="ACI Pure Salt" disabled></th>
-                    <th>Quantity:</th>
-                    <th><input type="number" name="p_qunatity" value="2" style="width: 30px;"  disabled></th>
+                    <th><input type="text" name="p_name" value="{{$item->p_name}}" disabled></th>
+                    {{-- <th>Quantity:</th>
+                    <th><input type="number" name="p_qunatity" value="2" style="width: 30px;"  disabled></th> --}}
                     <th>Price:</th>
-                    <th><input type="number" name="p_price" value="64" style="width: 50px;"  disabled></th>
+                    <th><input type="number" name="p_price" value="{{$item->p_price}}" style="width: 50px;"  disabled></th>
                 </tr>
+                @endforeach
 
                 <tr>
-                    <th colspan="5"></th>
+                    <th colspan="4"></th>
                     <th style="padding-top: 5px;">Coupon:</th>
                     <th colspan="2" style="padding-top: 5px;"><input type="text" placeholder="Enter coupon code"></th>
                 </tr>
 
                 <tr>
-                    <th colspan="8" style="text-align: end; padding: 8px;"><input type="submit" value="Place Order"></th>
+                    <th colspan="7" style="text-align: end; padding: 8px;"><input type="submit" value="Place Order"></th>
                 </tr>
             
             </table>
