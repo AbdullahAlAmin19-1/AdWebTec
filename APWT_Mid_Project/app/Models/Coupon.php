@@ -17,7 +17,7 @@ class coupon extends Model
 
     public function orders()
     {
-        return $this->hasMany(Order::class, 'co_id');
+        return $this->hasMany(Order::class);
     }
 
     public function vendor()

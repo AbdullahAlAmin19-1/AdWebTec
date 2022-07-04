@@ -16,17 +16,17 @@ class vendor extends Model
 
     public function orders()
     {
-        return $this->hasMany(Order::class, v_id);
+        return $this->hasMany(Order::class);
     }
 
     public function coupons()
     {
-        return $this->hasMany(Coupon::class, v_id);
+        return $this->hasMany(Coupon::class);
     }
 
     public function products()
     {
-        return $this->hasMany(Product::class, v_id);
+        return $this->hasMany(Product::class);
     }
 
 }
