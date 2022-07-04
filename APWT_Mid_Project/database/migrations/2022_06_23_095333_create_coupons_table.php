@@ -14,13 +14,13 @@ class CreateCouponsTable extends Migration
     public function up()
     {
         Schema::create('coupons', function (Blueprint $table) {
-            $table->increments('co_id');
-            $table->string('co_code')->unique(); //integer to string -MR
-            $table->integer('co_amount');
-            $table->integer('v_id')->unsigned();//->nullable(); //For Nullable Value -MR
+            $table->increments('id');
+            $table->string('code')->unique(); //integer to string -MR
+            $table->integer('amount');
+            $table->integer('v_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('v_id')->references('id')->on('vendors');
             $table->integer('cco_id')->unsigned()->nullable(); //For Nullable Value -MR
-            // $table->foreign('cco_id')->references('cco_id')->on('customer_coupons');
+            // $table->foreign('cco_id')->references('id')->on('customer_coupons');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

@@ -14,12 +14,12 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->increments('o_id');
+            $table->increments('id');
             $table->integer('co_id')->unsigned()->nullable(); //For Nullable Value -MR
-            //$table->foreign('co_id')->references('co_id')->on('coupons');
-            $table->integer('c_id')->unsigned();//->nullable(); //For Nullable Value -MR
+            //$table->foreign('co_id')->references('id')->on('coupons');
+            $table->integer('c_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('c_id')->references('id')->on('customers');
-            $table->integer('v_id')->unsigned();//->nullable(); //For Nullable Value -MR
+            $table->integer('v_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('v_id')->references('id')->on('vendors');
             $table->integer('d_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('d_id')->references('id')->on('deliverymen');

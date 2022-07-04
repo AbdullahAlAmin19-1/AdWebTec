@@ -19,8 +19,8 @@ class customersController extends Controller
 
         $products5 = [];
         // $products = product::all();
-        $products5 = product::where('p_id', '<=', 5)->get();
-        $products10 = product::where('p_id', '>', 5)->where('p_id', '<=', 10)->get();
+        $products5 = product::where('p_id', '<=', 15)->get();
+        $products10 = product::where('p_id', '>', 15)->where('p_id', '<=', 10)->get();
         return view("customer.cdashboard")->with('products5', $products5)->with('products10', $products10);
     }
 
