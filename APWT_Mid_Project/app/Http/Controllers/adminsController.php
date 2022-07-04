@@ -19,7 +19,24 @@ class adminsController extends Controller
     function adashboard(){
         return view("admin.adashboard");
     }
-    
+
+    function aviewcustomer(){
+        return view("admin.aviewcustomer");
+    }
+    function searchcustomer(Request $req){
+
+        $this->validate($req, [
+            "search_name" => "required",
+        ],
+        [
+            'search_name.required' => 'Please enter any value!',
+        ]
+    );
+    $search_name = $req->search_name;
+    $customers= customer::where('p_name', 'like', '%'.$search_name.'%')->get();
+    return view("admin.asearchcustomer")->with('customers', $customers);
+    }
+
     function aprofile(){
         $user=admin::where('id','=',session()->get('id'))->first();
         if($user){return view("admin.aprofile")->with('admin',$user);}
