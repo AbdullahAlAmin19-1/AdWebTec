@@ -22,11 +22,11 @@
                     <span style="font-size: 18px">Welcome! <span>{{Session::get('user_type')}}, <b>
                         
                     @if(session()->get('user_type')=='Vendor')
-                        <a href="{{route('vendor.profile');}}" style="font-size: 18px">{{Session::get('user_name')}} </a></b></span></span>
+                        <a href="{{route('vendor.profile');}}" style="font-size: 18px">{{Session::get('username')}} </a></b></span></span>
                     <span style="padding-left: 25px;">
                         <a href="{{route('vendor.dashboard');}}" style="font-size: 18px">Home</a> |
                     @elseif(session()->get('user_type')=='Customer')
-                        <a href="{{route('customer.cprofile');}}" style="font-size: 18px">{{Session::get('user_name')}} </a></b></span></span>
+                        <a href="{{route('customer.cprofile');}}" style="font-size: 18px">{{Session::get('username')}} </a></b></span></span>
                     <span style="padding-left: 25px;">
                         <a href="{{route('customer.cdashboard');}}" style="font-size: 18px">Home</a> |
                     @elseif(session()->get('user_type')=='Admin')
