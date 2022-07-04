@@ -64,9 +64,8 @@ class usersController extends Controller
             session()->put('id',$user->id);
             session()->put('user_type',$vali->user_type);
 
-            session()->put('user_name', $user->username);
-
-
+            // session()->put('user_name', $user->username);
+            
             session()->put('username', $user->username);
             session()->put('propic', $user->propic);
 
