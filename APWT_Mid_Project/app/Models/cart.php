@@ -18,7 +18,7 @@ class cart extends Model
 
     public function product()
     {
-        return $this->hasMany(product::class, 'p_id');
+        return $this->belongsTo(product::class);
     }
 
     public function order()
