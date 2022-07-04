@@ -4,7 +4,7 @@
         <table style="width: 100%;">
             <tr>
                 <td style="width: 25%; padding: 10px;">
-                    <h2><a href="{{route('public.home')}}">Grocery OS</a></h2>
+                    <h2><a href="{{route('public.products');}}">Grocery OS</a></h2>
                 </td>
                 <td style="width: 25%; padding-top:18px;">
                     <form action="{{route('public.searchproduct')}}" method="POST">
@@ -17,13 +17,23 @@
                     </form>
                 </td>
                 <td style="width: 50%;" align="right">
-                    <span style="font-size: 18px">Welcome! <span>{{Session::get('user_type')}}, <b><a
-                                    href="{{route('customer.cprofileinfo');}}"
-                                    style="font-size: 18px">{{Session::get('user_name')}}</a></b></span></span>
+                    <span style="font-size: 18px">Welcome! <span>{{Session::get('user_type')}}, <b>
+                        
+                    @if(session()->get('user_type')=='Vendor')
+                        <a href="{{route('vendor.profile');}}" style="font-size: 18px">{{Session::get('user_name')}} </a></b></span></span>
+                    <span style="padding-left: 25px;">
+                        <a href="{{route('vendor.dashboard');}}" style="font-size: 18px">Home</a> |
+                    @elseif(session()->get('user_type')=='Customer')
+                        <a href="{{route('customer.cprofileinfo');}}" style="font-size: 18px">{{Session::get('user_name')}} </a></b></span></span>
                     <span style="padding-left: 25px;">
                         <a href="{{route('customer.cdashboard');}}" style="font-size: 18px">Home</a> |
-                        <a href="#" style="font-size: 18px">Track Order</a> |
-                        <a href="{{route('customer.clogout');}}" style="font-size: 18px">Logout</a>
+                    @elseif(session()->get('user_type')=='Admin')
+                        <a href="{{route('admin.aeditprofile');}}" style="font-size: 18px">{{Session::get('username')}} </a></b></span></span>
+                    <span style="padding-left: 25px;">
+                        <a href="{{route('admin.dashboard');}}" style="font-size: 18px">Home</a> |
+                    @endif
+                        <!-- <a href="#" style="font-size: 18px">My Account</a> | -->
+                        <a href="{{route('public.logout');}}" style="font-size: 18px">Logout</a>
                     </span>
                 </td>
             </tr>

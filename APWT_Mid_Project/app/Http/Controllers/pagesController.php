@@ -31,9 +31,10 @@ class pagesController extends Controller
     }
     
     function products(){
-        $p = DB::table('products')->paginate(4);
+        $p = DB::table('products')->simplePaginate(4);
  
-        return view('vendor.allproducts', compact('p'));
+        // return view('vendor.allproducts', compact('p'));
+        return view('public.products', compact('p'));
     }
     function searchcategory($category){
         $products = product::where('p_category', '=', "$category")->get();

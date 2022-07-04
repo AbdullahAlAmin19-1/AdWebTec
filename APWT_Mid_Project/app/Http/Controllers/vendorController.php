@@ -15,7 +15,7 @@ class vendorController extends Controller
     // function welcome(){return view("public.welcome");}
     public function dashboard()
     {
-        $p=product::where('v_id','=',session()->get('id'))->paginate(4);
+        $p=product::where('v_id','=',session()->get('id'))->simplePaginate(4);
         return view('vendor.dashboard', compact('p'));
     }
     function profile(){
@@ -127,10 +127,9 @@ class vendorController extends Controller
         ],
         []
         );
-        
+        //$p = product::where('p_id','=',$vali->id)->first();
+
         $p = product::find($vali->id);
-        // if($user){return view("vendor.profile")->with('vendor',$user);}
-        // else {return view("vendor.dashboard");}
         $p->p_id = $vali->id;
         $p->p_name = $vali->name;
         $p->p_category = $vali->category;

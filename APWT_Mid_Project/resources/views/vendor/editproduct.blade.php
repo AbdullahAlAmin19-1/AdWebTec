@@ -9,7 +9,7 @@
     <h1>{{Session::get('msg')}}</h1>
         <fieldset>
             <form action="" method="POST">
-                <table border="2" style="width: 100%;">
+                <table border="1" style="width: 100%;">
                 {{@csrf_field()}}
                     <tr>
                         <th><label for="v_id">Vendor Id:</label></th>
