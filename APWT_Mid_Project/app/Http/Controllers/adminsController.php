@@ -71,7 +71,7 @@ class adminsController extends Controller
         $user->dob = $vali->dob;
         $user->address = $vali->address;
         $user->update();
-        session()->put('user_name', $user->username);
+        session()->put('username', $user->username);
         session()->flash('msg','Update Completed');
         return redirect()->route('admin.aprofile');
     }

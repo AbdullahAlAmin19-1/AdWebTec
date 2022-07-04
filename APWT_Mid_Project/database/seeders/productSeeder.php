@@ -20,7 +20,7 @@ class productSeeder extends Seeder
             DB::table('products')->insert([
                 'p_name' => "ACI Pure Salt",
                 'p_category' => "Cooking",
-                'p_thumbnail' => "null",
+                'p_thumbnail' => "ACI Pure Salt.jpg",
                 'p_gallery' => "null",
                 'p_price' => 420,
                 'p_stock' => 100,

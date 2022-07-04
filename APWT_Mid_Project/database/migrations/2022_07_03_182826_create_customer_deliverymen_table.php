@@ -14,10 +14,10 @@ class CreateCustomerDeliverymenTable extends Migration
     public function up()
     {
         Schema::create('customer_deliverymen', function (Blueprint $table) {
-            $table->increments('cd_id');
-            $table->integer('c_id')->unsigned();//->nullable(); //For Nullable Value -MR
+            $table->increments('id');
+            $table->integer('c_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('c_id')->references('id')->on('customers');
-            $table->integer('d_id')->unsigned();//->nullable(); //For Nullable Value -MR
+            $table->integer('d_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('d_id')->references('id')->on('deliverymen');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

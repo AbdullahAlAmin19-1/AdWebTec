@@ -11,7 +11,7 @@
         <td>
         <table border="2" style="width: 100%;">
         <tr><th>Product Picture</th></tr>
-        <tr><td> {{$product->p_gallery}}</td></tr>
+        <tr><td>product images/{{$item->p_thumbnail}}</td></tr>
         </table>
         </td>
         <td>
