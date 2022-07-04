@@ -15,7 +15,7 @@ class vendorController extends Controller
     // function welcome(){return view("public.welcome");}
     public function dashboard()
     {
-        $p=product::where('v_id','=',session()->get('id'))->simplePaginate(4);
+        $p=product::where('id','=',session()->get('id'))->simplePaginate(4);
         return view('vendor.dashboard', compact('p'));
     }
     function profile(){
@@ -97,23 +97,23 @@ class vendorController extends Controller
         $p=new product();
         // if($user){return view("vendor.profile")->with('vendor',$user);}
         // else {return view("vendor.dashboard");}
-        $p->p_name = $vali->name;
-        $p->p_category = $vali->category;
-        $p->p_thumbnail = $vali->thumbnail;
-        $p->p_gallery = $vali->gallery;
-        $p->p_price = $vali->price;
-        $p->p_stock = $vali->stock;
-        $p->p_color = $vali->color;
-        $p->p_size = $vali->size;
-        $p->p_description = $vali->description;
+        $p->name = $vali->name;
+        $p->category = $vali->category;
+        $p->thumbnail = $vali->thumbnail;
+        $p->gallery = $vali->gallery;
+        $p->price = $vali->price;
+        $p->stock = $vali->stock;
+        $p->color = $vali->color;
+        $p->size = $vali->size;
+        $p->description = $vali->description;
         $p->v_id = Session()->get('id');
         $p->save();
         session()->flash('msg','Product Added');
         return back();
     }
-    function editproduct($p_id){
-        // $p = product::find($p_id);
-        $p = product::where('p_id','=',$p_id)->first();
+    function editproduct($id){
+        // $p = product::find($id);
+        $p = product::where('id','=',$id)->first();
         if($p){return view("vendor.editProduct")->with('p',$p);}
         else {return view("vendor.dashboard");}
     }
@@ -130,36 +130,35 @@ class vendorController extends Controller
         //$p = product::where('p_id','=',$vali->id)->first();
 
         $p = product::find($vali->id);
-        $p->p_id = $vali->id;
-        $p->p_name = $vali->name;
-        $p->p_category = $vali->category;
-        $p->p_thumbnail = $vali->thumbnail;
-        $p->p_gallery = $vali->gallery;
-        $p->p_price = $vali->price;
-        $p->p_stock = $vali->stock;
-        $p->p_color = $vali->color;
-        $p->p_size = $vali->size;
-        $p->p_description = $vali->description;
+        $p->id = $vali->id;
+        $p->name = $vali->name;
+        $p->category = $vali->category;
+        $p->thumbnail = $vali->thumbnail;
+        // $p->gallery = $vali->gallery;
+        $p->price = $vali->price;
+        $p->stock = $vali->stock;
+        $p->size = $vali->size;
+        $p->description = $vali->description;
         $p->v_id = $vali->v_id;
-        $p->save();
+        $p->update();
         session()->flash('msg','Product Updated');
         return back();
     }
-    function deleteproduct($p_id){
+    function deleteproduct($id){
         // $p = product::find($p_id);
-        $p = product::where('p_id','=',$p_id)->first();
+        $p = product::where('id','=',$id)->first();
         if($p){return view("vendor.deleteproduct")->with('product',$p);}
         else {return view("vendor.dashboard");}
     }
-    function deleteproductConfirm($p_id){
-        DB::delete('delete from products where p_id = ?',[$p_id]);
-        $p = product::where('p_id','=',$p_id)->first();
+    function deleteproductConfirm($id){
+        DB::delete('delete from products where p_id = ?',[$id]);
+        $p = product::where('id','=',$id)->first();
         if($p){
-            session()->flash('msg','Product Id '.$p_id.' Deletion Failed');
+            session()->flash('msg','Product Id '.$id.' Deletion Failed');
             return redirect()->route("vendor.dashboard");
         }
         else {
-            session()->flash('msg','Product Id '.$p_id.' Deletion Successful');
+            session()->flash('msg','Product Id '.$id.' Deletion Successful');
             return redirect()->route("vendor.dashboard");
         }
     }
