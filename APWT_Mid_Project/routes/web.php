@@ -49,10 +49,10 @@ Route::post('/vendor/picupload',[vendorController::class,'picupload'])->name('ve
 Route::get('/vendor/addproduct',[vendorController::class,'addproduct'])->name('vendor.addproduct');
 Route::post('/vendor/addproduct',[vendorController::class,'addproductConfirm'])->name('vendor.addproductConfirm');
 Route::get('/vendor/allproducts',[pagesController::class,'products'])->name('vendor.allproducts');
-Route::get('/vendor/editproduct/{p_id}',[vendorController::class,'editproduct'])->name('vendor.editproduct');
-Route::post('/vendor/editproduct/{p_id}',[vendorController::class,'editproductConfirm'])->name('vendor.editproductConfirm');
-Route::get('/vendor/deleteproduct/{p_id}',[vendorController::class,'deleteproduct'])->name('vendor.deleteproduct');
-Route::get('/vendor/deleteproductConfirm/{p_id}',[vendorController::class,'deleteproductConfirm'])->name('vendor.deleteproductConfirm');
+Route::get('/vendor/editproduct/{id}',[vendorController::class,'editproduct'])->name('vendor.editproduct');
+Route::post('/vendor/editproduct/{id}',[vendorController::class,'editproductConfirm'])->name('vendor.editproductConfirm');
+Route::get('/vendor/deleteproduct/{id}',[vendorController::class,'deleteproduct'])->name('vendor.deleteproduct');
+Route::get('/vendor/deleteproductConfirm/{id}',[vendorController::class,'deleteproductConfirm'])->name('vendor.deleteproductConfirm');
 
 
 //Customer
