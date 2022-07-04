@@ -14,12 +14,12 @@ class CreateCartsTable extends Migration
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->increments('cart_id');    
-            $table->integer('p_quantity');
-            $table->integer('id')->unsigned();//->nullable(); //For Nullable Value -MR
-            $table->foreign('id')->references('id')->on('customers');
+            $table->increments('id');    
+            $table->integer('quantity');
+            $table->integer('c_id')->unsigned();//->nullable(); //For Nullable Value -MR
+            $table->foreign('c_id')->references('id')->on('customers');
             $table->integer('p_id')->unsigned();//->nullable(); //For Nullable Value -MR
-            $table->foreign('p_id')->references('p_id')->on('products');
+            $table->foreign('p_id')->references('id')->on('products');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
