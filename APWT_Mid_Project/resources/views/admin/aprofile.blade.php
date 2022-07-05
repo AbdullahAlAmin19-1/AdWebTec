@@ -1,4 +1,4 @@
-@extends('layouts.amain')
+@extends('layouts.main')
 @section('title')
 Profile
 @endsection

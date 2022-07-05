@@ -32,7 +32,7 @@
                     @elseif(session()->get('user_type')=='Admin')
                         <a href="{{route('admin.aeditprofile');}}" style="font-size: 18px">{{Session::get('username')}} </a></b></span></span>
                     <span style="padding-left: 25px;">
-                        <a href="{{route('admin.dashboard');}}" style="font-size: 18px">Home</a> |
+                        <a href="{{route('admin.adashboard');}}" style="font-size: 18px">Home</a> |
                     @endif
                         <!-- <a href="#" style="font-size: 18px">My Account</a> | -->
                         <a href="{{route('public.logout');}}" style="font-size: 18px">Logout</a>

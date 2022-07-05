@@ -72,7 +72,7 @@ Route::get('/customer/remove-product/{p_id}',[customersController::class,'cartpr
 //Admin
 Route::get('/admin/adashboard',[adminsController::class,'adashboard'])->name('admin.adashboard');
 Route::get('/admin/profile',[adminsController::class,'aprofile'])->name('admin.aprofile');
-Route::post('/admin/editprofile',[adminsController::class,'aeditprofile'])->name('admin.aeditprofile');
+Route::get('/admin/editprofile',[adminsController::class,'aeditprofile'])->name('admin.aeditprofile');
 Route::post('/admin/editprofile',[adminsController::class,'aeditprofileupdate'])->name('admin.aeditprofileupdate');
 Route::post('/admin/picupload',[adminsController::class,'apicupload'])->name('admin.apicupload');
 Route::get('/admin/dashboard/searchcustomer',[adminsController::class,'aviewcustomer'])->name('admin.aviewcustomer');
