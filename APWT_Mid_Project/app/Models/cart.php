@@ -13,7 +13,6 @@ class cart extends Model
 {
     use HasFactory;
 
-    protected $primarykey = "cart_id";
     protected $guarded = [];
 
     public function customer()

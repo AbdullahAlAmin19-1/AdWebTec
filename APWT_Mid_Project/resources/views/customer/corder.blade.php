@@ -1,4 +1,4 @@
-@extends('layouts.cmain')
+@extends('layouts.main')
 @section('title')
 Customer Order
 @endsection
@@ -15,13 +15,13 @@ Customer Order
                 @foreach ($products as $item) 
                 <tr>
                     <th>Product ID:</th>
-                    <th><input type="number" name="p_id" id="p_id" value="{{$item->p_id}}" style="width: 30px;" disabled></th>
+                    <th><input type="number" name="p_id" id="p_id" value="{{$item->id}}" style="width: 30px;" disabled></th>
                     <th>Product Name:</th>
-                    <th><input type="text" name="p_name" value="{{$item->p_name}}" disabled></th>
+                    <th><input type="text" name="p_name" value="{{$item->name}}" disabled></th>
                     {{-- <th>Quantity:</th>
                     <th><input type="number" name="p_qunatity" value="2" style="width: 30px;"  disabled></th> --}}
                     <th>Price:</th>
-                    <th><input type="number" name="p_price" value="{{$item->p_price}}" style="width: 50px;"  disabled></th>
+                    <th><input type="number" name="p_price" value="{{$item->price}}" style="width: 50px;"  disabled></th>
                 </tr>
                 @endforeach
 

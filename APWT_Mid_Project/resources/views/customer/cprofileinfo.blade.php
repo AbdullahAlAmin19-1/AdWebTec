@@ -1,4 +1,4 @@
-@extends('layouts.cmain')
+@extends('layouts.main')
 @section('title')
 Customer Profile Info
 @endsection
@@ -58,11 +58,11 @@ Customer Profile Info
                                     </td>
                                 </tr>
 
-                                <tr>
+                                {{-- <tr>
                                     <td><label for="cpassword"><b>CPassword:</b></label></td>
                                     <td><input type="password" name="cpassword" value="{{$customer->password}}" disabled>
                                     </td>
-                                </tr>
+                                </tr> --}}
 
                                 <tr>
                                     <td><label for="gender"><b>Gender:</b></label></td>
