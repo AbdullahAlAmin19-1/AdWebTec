@@ -9,36 +9,39 @@
     <div class="product-section">
         <center>
     
-            <table style="width: 40%;">
+            <table style="width: 90%;">
                 <h3>-- All Products --</h3>
                 
-                @foreach ($products as $item) 
-                <tr> 
+                <tr>
+                    @foreach ($p as $item) 
                     <th>
                         <center>
-                            <img src="product images/{{$item->p_thumbnail}}" alt="Product Image" height="120px" width="120px">
-                            <h3>{{$item->p_name}}</h3>
-                            <textarea style="width: 75%" disabled>{{$item->p_description}}</textarea>
-                            <h4>Price: {{$item->p_price}} Taka.</h4>
-                            <form action="{{route('customer.caddcart');}}" method="POST">
-                                {{@csrf_field()}}
-                            <input type="hidden" name="p_id" id="p_id" value="{{$item->p_id}}"> <br>
+                            <img src="product images/{{$item->thumbnail}}" alt="Product Image" height="120px" width="120px">
+                        <h3>{{$item->name}}</h3>
+                        <textarea style="width: 75%" disabled>{{$item->description}}</textarea>
+                        <h4>Price: {{$item->price}} Taka.</h4>
+                        <form action="{{route('customer.caddcart')}}" method="POST">
+                            {{@csrf_field()}}
+                            <input type="hidden" name="id" id="id" value="{{$item->id}}"> <br>
                             <label for="quantity" style="width: 50%">Quantity</label>
                             <input type="number" name="quantity" id="quantity" min="1" value="1" style="width: 50%"> <br>
                             @error('quantity')
                                     {{$message}} <br> <br> 
                                     @enderror
                             <input type="submit" name="caddcart" value="Add To Cart">
-                            </form>
-                        </center>
+                        </form>
+                    </center>
                     </th>
+                    @endforeach
                 </tr>
-                
-                @endforeach
     
             </table>
     
         </center>
     </div>
+
+<div align="center">
+    {{$p->links()}}
+</div>
 
 @endsection

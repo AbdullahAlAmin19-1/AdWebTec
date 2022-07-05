@@ -16,12 +16,8 @@ class customersController extends Controller
     }
     
     function cdashboard(){
-
-        $products5 = [];
-        // $products = product::all();
-        $products5 = product::where('p_id', '<=', 15)->get();
-        $products10 = product::where('p_id', '>', 15)->where('p_id', '<=', 10)->get();
-        return view("customer.cdashboard")->with('products5', $products5)->with('products10', $products10);
+        $p = DB::table('products')->simplePaginate(5);
+        return view('customer.cdashboard', compact('p'));
     }
 
     function cprofileinfo(){
@@ -38,14 +34,6 @@ class customersController extends Controller
         $customer = customer::where('id', '=', $id)->first();
 
         return view("customer.cprofile")->with('customer', $customer);
-    }
-
-    function clogout(){
-        //Session to clear all
-        session()->forget(['id', 'user_type', 'username']);
-
-        session()->flash('clogoutMsg','You have been successfully logged out!');
-        return redirect()->route('public.home');
     }
 
     function cprofileupdate(Request $req){
@@ -111,11 +99,10 @@ class customersController extends Controller
 
     function caddcart(Request $req){
         $id = session()->get('id');
-        echo $req->quantity;
 
         $cart = new cart();
-        $cart->p_quantity = $req->quantity;
-        $cart->id = $id;
+        $cart->quantity = $req->quantity;
+        $cart->c_id = $id;
         $cart->p_id = $req->p_id;
 
         $cart->save();
@@ -130,8 +117,8 @@ class customersController extends Controller
 
         //Using Join
         $products = DB::table('carts')
-            ->join('products', 'carts.p_id', '=', 'products.p_id')
-            ->where('carts.id', $id)
+            ->join('products', 'carts.p_id', '=', 'products.id')
+            ->where('carts.c_id', $id)
             ->get();
 
         return view("customer.ccart")->with('products', $products);
@@ -152,8 +139,8 @@ class customersController extends Controller
 
         //Using Join
         $products = DB::table('carts')
-            ->join('products', 'carts.p_id', '=', 'products.p_id')
-            ->where('carts.id', $id)
+            ->join('products', 'carts.p_id', '=', 'products.id')
+            ->where('carts.c_id', $id)
             ->select('products.*')
             ->get();
 

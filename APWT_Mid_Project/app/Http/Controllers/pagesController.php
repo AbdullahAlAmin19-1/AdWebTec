@@ -13,31 +13,38 @@ class pagesController extends Controller
         $products5 = [];
         $products10 = [];
         // $products = product::all();
-        $products5 = product::where('p_id', '<=', 15)->get();
-        $products10 = product::where('p_id', '>', 15)->where('p_id', '<=', 10)->get();
+        $products5 = product::where('id', '<=', 15)->get();
+        $products10 = product::where('id', '>', 15)->where('id', '<=', 10)->get();
         return view("public.home")->with('products5', $products5)->with('products10', $products10);
     }
     function login(){return view("public.login");}
     function registration(){return view("public.registration");}
-    function logout(){session()->flush();return redirect()->route("public.login");}    
+    function logout(){
+        session()->flush();
+        session()->flash('logoutMsg','User has been successfully logged out!');
+        return redirect()->route("public.login");
+    }    
     function forgotpassword(){return view("public.forgotpassword");} 
     function enterOTP(){return view("public.enterOTP");}
     function enternewpassword(){return view("public.enternewpassword");}
 
     function allproducts(){
-        $products = [];
-        $products = product::all();
-        return view("public.allproducts")->with('products', $products);
+        // $products = [];
+        // $products = product::all();
+        // return view("public.allproducts")->with('products', $products);
+
+        $p = DB::table('products')->simplePaginate(8);
+        return view('public.allproducts', compact('p'));
     }
     
     function products(){
-        $p = DB::table('products')->simplePaginate(4);
+        $p = DB::table('products')->simplePaginate(5);
  
         // return view('vendor.allproducts', compact('p'));
         return view('public.products', compact('p'));
     }
     function searchcategory($category){
-        $products = product::where('p_category', '=', "$category")->get();
+        $products = product::where('category', '=', "$category")->get();
         return view("public.productsbycategory")->with('products', $products);
     }
 
@@ -51,7 +58,7 @@ class pagesController extends Controller
         ]
     );
     $search_name = $req->search_name;
-    $products= product::where('p_name', 'like', '%'.$search_name.'%')->get();
+    $products= product::where('name', 'like', '%'.$search_name.'%')->get();
     return view("public.searchproduct")->with('products', $products);
     }
 }
