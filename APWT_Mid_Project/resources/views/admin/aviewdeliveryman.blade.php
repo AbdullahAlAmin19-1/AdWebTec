@@ -3,7 +3,7 @@
 Profile
 @endsection
 @section('content')
-<h2 align="center">Customer</h2><center>
+<h2 align="center">Deliveryman</h2><center>
 
 <div>
     <form action="{{route('admin.asearchcustomer')}}" method="POST">
@@ -19,11 +19,11 @@ Profile
     <center>
         <table border="2px" style="width: 80%; ">
             <tr>
-                <th colspan="8">-- Customers Details --</th>
+                <th colspan="8">-- Deliveryman Details --</th>
             </tr>
             <tr>
-                <th>Customer ID</th>
-                <th>Customer Name</th>
+                <th>ID</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Gender</th>

@@ -9,8 +9,8 @@
                 <tr>
                     <td>
                         <a href="{{route('admin.aviewcustomer')}}" style="font-size: 20px;">View Customers</a><br>
-                        <a href="#" style="font-size: 20px;">View Vendor Profile</a><br>
-                        <a href="#" style="font-size: 20px;">View Deliverymen</a><br>
+                        <a href="{{route('admin.aviewvendor')}}" style="font-size: 20px;">View Vendor Profile</a><br>
+                        <a href="{{route('admin.aviewdeliveryman')}}" style="font-size: 20px;">View Deliverymen</a><br>
                         <a href="#" style="font-size: 20px;">Approve Vouchers</a><br>
                     </td>
                 </tr>

@@ -18,15 +18,15 @@ class customerSeeder extends Seeder
     {
         for($i=0;$i<10;$i++){
             DB::table('customers')->insert([
-                'c_username' => Str::random(10),
-                'c_name' => Str::random(10),
-                'c_email' => Str::random(10).'@gmail.com',
-                'c_phone' => 1234567890,
-                'c_password' => Hash::make('password'),
-                'c_gender' => 'Female',
-                'c_dob' => "03.11.1999",
-                'c_address' => Str::random(10),
-                'c_propic'=>"",
+                'username' => Str::random(10),
+                'name' => Str::random(10),
+                'email' => Str::random(10).'@gmail.com',
+                'phone' => 1234567890,
+                'password' => Hash::make('password'),
+                'gender' => 'Female',
+                'dob' => "03.11.1999",
+                'address' => Str::random(10),
+                'propic'=>"",
             ]);
         }
     }

@@ -72,13 +72,16 @@ Route::get('/customer/remove-product/{p_id}',[customersController::class,'cartpr
 Route::get('/admin/adashboard',[adminsController::class,'adashboard'])->name('admin.adashboard');
 Route::get('/admin/profile',[adminsController::class,'aprofile'])->name('admin.aprofile');
 Route::get('/admin/editprofile',[adminsController::class,'aeditprofile'])->name('admin.aeditprofile');
+Route::get('/admin/changepassword',[adminsController::class,'changepassword'])->name('admin.achangepassword');
+Route::post('/admin/changepassword',[adminsController::class,'changepasswordupdate'])->name('admin.achangepasswordupdate');
 Route::post('/admin/editprofile',[adminsController::class,'aeditprofileupdate'])->name('admin.aeditprofileupdate');
 Route::post('/admin/picupload',[adminsController::class,'apicupload'])->name('admin.apicupload');
-Route::get('/admin/dashboard/searchcustomer',[adminsController::class,'aviewcustomer'])->name('admin.aviewcustomer');
 Route::get('/admin/dashboard/viewcustomer',[adminsController::class,'aviewcustomer'])->name('admin.aviewcustomer');
-Route::post('/admin/dashboard/viewcustomerdeatails',[adminsController::class,'searchcustomer'])->name('admin.asearchcustomer');
-
-
+//Route::post('/admin/dashboard/viewcustomer/{id}',[adminsController::class,'deletecustomer'])->name('admin.deletecustomer');
+Route::post('/admin/dashboard/viewcustomersearch',[adminsController::class,'searchcustomer'])->name('admin.asearchcustomer');
+Route::get('/admin/dashboard/remove-customer',[adminsController::class,'customerremove'])->name('admin.customerremove');
+Route::get('/admin/dashboard/viewdeliveryman',[adminsController::class,'aviewdeliveryman'])->name('admin.aviewdeliveryman');
+Route::get('/admin/dashboard/viewvendorprofile',[adminsController::class,'aviewvendor'])->name('admin.aviewvendor');
 
 
 

@@ -65,6 +65,7 @@ Profile
                                 <tr>
                                     <td></td>
                                     <td>
+                                        <a href="{{route('admin.achangepassword');}}" style="font-size: 20px;"> <input type="button" value="Change Password"></a>
                                         <a href="{{route('admin.aeditprofile');}}" style="font-size: 20px;"> <input type="button" value="Edit Profile"></a>
                                     </td>
                                 </tr>

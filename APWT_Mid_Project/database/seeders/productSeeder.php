@@ -18,13 +18,14 @@ class productSeeder extends Seeder
     {
         for($i=0;$i<10;$i++){
             DB::table('products')->insert([
-                'name' => "ACI Pure Salt",
+                'name' => "Pure Salt",
                 'category' => "Cooking",
                 'thumbnail' => "ACI Pure Salt.jpg",
                 // 'gallery' => "null",
-                'price' => 420,
+                'price' => 120,
                 'stock' => 100,
                 'size' => 10,
+                'v_id' => 1,
                 'description' => "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.",
             ]);
         }
