@@ -4,9 +4,6 @@
 @endsection
 @section('content')
 
-    {{-- Customer Logout - Flash Message --}}
-    <h3>{{Session::get('clogoutMsg')}}</h3>
-
     <h1 align="center">Online Groceries Ordering System</h1>
 
     <div class="product-section">
@@ -36,7 +33,7 @@
             <br>
     
             <table style="width: 90%;">
-                    <h3>-- Top Selling Products --</h3>
+                    <h3>-- Selling Products --</h3>
     
                 <tr>
                     @foreach ($p as $item) 
@@ -65,7 +62,7 @@
     
         </center>
     </div>
-    <div align="center">
+<div align="center">
     {{$p->links()}}
 </div>
 @endsection

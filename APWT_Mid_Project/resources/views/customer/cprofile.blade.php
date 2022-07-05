@@ -1,4 +1,4 @@
-@extends('layouts.cmain')
+@extends('layouts.main')
 @section('title')
 Customer Profile Edit
 @endsection
@@ -7,8 +7,8 @@ Customer Profile Edit
 
 <div class="main-section">
 
-    <h3>{{Session::get('cupdateMsg')}}</h3>
-    <h3>{{Session::get('cppupload')}}</h3>
+    <h3 style="color: red;">{{Session::get('cupdateMsg')}}</h3>
+    <h3 style="color: red;">{{Session::get('cppupload')}}</h3>
 
     <center>
         <table border="2" style="width: 100%;">

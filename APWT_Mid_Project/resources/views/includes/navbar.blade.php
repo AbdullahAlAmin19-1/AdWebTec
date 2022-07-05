@@ -26,7 +26,7 @@
                     <span style="padding-left: 25px;">
                         <a href="{{route('vendor.dashboard');}}" style="font-size: 18px">Home</a> |
                     @elseif(session()->get('user_type')=='Customer')
-                        <a href="{{route('customer.cprofile');}}" style="font-size: 18px">{{Session::get('username')}} </a></b></span></span>
+                        <a href="{{route('customer.cprofileinfo');}}" style="font-size: 18px">{{Session::get('username')}} </a></b></span></span>
                     <span style="padding-left: 25px;">
                         <a href="{{route('customer.cdashboard');}}" style="font-size: 18px">Home</a> |
                     @elseif(session()->get('user_type')=='Admin')
@@ -81,7 +81,7 @@
         <table style="width: 100%;">
             <tr>
                 <td style="width: 65; padding: 10px;">
-                    <h2><a href="{{route('public.home')}}">Grocery OS</a></h2>
+                    <h2><a href="{{route('public.products')}}">Grocery OS</a></h2>
                 </td>
                 <td style="width: 35%;" align="right">
                     <a href="{{route('public.products');}}" style="font-size: 18px">Home</a> |

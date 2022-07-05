@@ -1,11 +1,11 @@
-@extends('layouts.cmain')
+@extends('layouts.main')
 @section('title')
 Customer Cart
 @endsection
 @section('content')
 <h1 align="center">Customer Cart</h1>
 
-<h3>{{Session::get('cartRemove')}}</h3>
+<h3 style="color: red;">{{Session::get('cartRemove')}}</h3>
 
 <div class="main-section">
     <center>
@@ -25,13 +25,13 @@ Customer Cart
 
             @foreach ($products as $item) 
             <tr>
-                <td style="text-align: center;">{{$item->p_id}}</td>
-                <td style="text-align: center;">{{$item->p_name}}</td>
-                <td style="text-align: center;">{{$item->p_category}}</td>
-                <td style="text-align: center;">{{$item->p_price}}</td>
-                <td style="text-align: center;">{{$item->p_quantity}}</td>
-                <td style="text-align: center;">{{$item->p_price * $item->p_quantity}}</td>
-                <td style="text-align: center;"><a href="{{route('customer.cartproductremove',['p_id'=>$item->p_id])}}">Remove Product</a></td>
+                <td style="text-align: center;">{{$item->id}}</td>
+                <td style="text-align: center;">{{$item->name}}</td>
+                <td style="text-align: center;">{{$item->category}}</td>
+                <td style="text-align: center;">{{$item->price}}</td>
+                <td style="text-align: center;">{{$item->quantity}}</td>
+                <td style="text-align: center;">{{$item->price * $item->quantity}}</td>
+                <td style="text-align: center;"><a href="{{route('customer.cartproductremove',['p_id'=>$item->id])}}">Remove Product</a></td>
             </tr>
             @endforeach
 

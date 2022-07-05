@@ -20,7 +20,7 @@ use App\Http\Controllers\adminsController;
 
 Route::get('/welcome', [vendorController::class,'welcome'])->name('public.welcome');
 
-Route::get('/public/products',[pagesController::class,'home'])->name('public.home');
+// Route::get('/',[pagesController::class,'public.products'])->name('ppublic.products');
 Route::get('/login',[pagesController::class,'login'])->name('public.login');
 Route::get('/logout', [pagesController::class,'logout'])->name('public.logout');
 Route::post('/login',[usersController::class,'loginConfirm'])->name('public.login.confirm');
@@ -37,7 +37,6 @@ Route::post('/enternewpassword',[usersController::class,'enternewpassword'])->na
 //Public
 Route::get('/allproducts',[pagesController::class,'allproducts'])->name('public.allproducts');
 Route::get('/searchcategory/{category}', [pagesController::class, 'searchcategory'])-> name('public.searchcategory');
-// Route::get('/productsbycategory', [pagesController::class, 'productsbycategory'])-> name('public.productsbycategory');
 Route::post('/searchproduct',[pagesController::class,'searchproduct'])->name('public.searchproduct');
 Route::get('/',[pagesController::class,'products'])->name('public.products');
 
@@ -57,7 +56,7 @@ Route::get('/vendor/deleteproductConfirm/{id}',[vendorController::class,'deletep
 
 //Customer
 Route::get('/customer/cdashboard',[customersController::class,'cdashboard'])->name('customer.cdashboard');
-Route::get('/customer/cprofileinfo',[customersController::class,'cprofileinfo'])->name('customer.cprofileinfo');
+Route::get('/customer/cdeleteprofile',[customersController::class,'cprofileinfo'])->name('customer.cprofileinfo');
 Route::get('/customer/cprofile/edit',[customersController::class,'cprofile'])->name('customer.cprofile');
 Route::get('/customer/logout', [customersController::class, 'clogout'])-> name('customer.clogout');
 Route::post('/customer/cprofile/edit',[customersController::class,'cprofileupdate'])->name('customer.cprofile');
