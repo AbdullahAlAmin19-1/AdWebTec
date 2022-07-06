@@ -80,6 +80,9 @@ class usersController extends Controller
             elseif($vali->user_type == "Vendor"){
                 return redirect()->route("vendor.dashboard");
             }
+            elseif($vali->user_type == "Deliveryman"){
+                return redirect()->route("deliveryman.dashboard");
+            }
         }
         else {
             session()->flash('msg','User not valid');

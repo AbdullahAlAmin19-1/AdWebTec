@@ -20,6 +20,6 @@ class deliveryman extends Model
     }
     public function customers()
     {
-        return $this->belongsToMany(Customer::class,'customer_deliverymen','d_id','c_id');
+        return $this->belongsToMany(Customer::class);
     }
 }

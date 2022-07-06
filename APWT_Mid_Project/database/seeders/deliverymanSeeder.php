@@ -17,17 +17,17 @@ class deliverymanSeeder extends Seeder
     public function run()
     {
         for($i=0;$i<10;$i++){
-            DB::table('deliverymans')->insert([
-                'd_username' => Str::random(10),
-                'd_name' => Str::random(10),
-                'd_email' => Str::random(10).'@gmail.com',
-                'd_phone' => 1234567890,
-                'd_password' => Hash::make('password'),
-                'd_gender' => 'Male',
-                'd_dob' => "04.11.1999",
-                'd_address' => Str::random(10),
-                'd_valid'=>"11.04.2022",
-                'd_propic'=>"",
+            DB::table('deliverymen')->insert([
+                'username' => Str::random(10),
+                'name' => Str::random(10),
+                'email' => Str::random(10).'@gmail.com',
+                'phone' => 1234567890,
+                'password' => Hash::make('password'),
+                'gender' => 'Male',
+                'dob' => "04.11.1999",
+                'address' => Str::random(10),
+                'valid'=>"11.04.2022",
+                'propic'=>"",
             ]);
         }
     }

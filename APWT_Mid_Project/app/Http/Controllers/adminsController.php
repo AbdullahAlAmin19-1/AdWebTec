@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\admin;
+use App\Models\customer;
+use Illuminate\Support\Facades\DB;
 
 class adminsController extends Controller
 {
@@ -19,7 +21,7 @@ class adminsController extends Controller
     function adashboard(){
         return view("admin.adashboard");
     }
-    
+
     function aprofile(){
         $user=admin::where('id','=',session()->get('id'))->first();
         if($user){return view("admin.aprofile")->with('admin',$user);}
@@ -58,6 +60,26 @@ class adminsController extends Controller
         session()->flash('msg','Update Completed');
         return redirect()->route('admin.aprofile');
     }
+    function changepassword(Request $vali){
+        return view("admin.achangepassword");
+    }
+    function changepasswordupdate(Request $vali){
+        $this->validate($vali,
+            [
+                // "cur_pass"=>"required|current_password:api",
+                "new_pass"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+                "conf_new_pass"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
+            ],
+            []
+        );
+        $user=admin::where('id','=',session()->get('id'))->first();
+        $user->password = $vali->conf_new_pass;
+        $user->update();
+        session()->put('username', $user->username);
+        session()->flash('msg','Password Changed');
+        return redirect()->route('admin.aprofile');
+        
+    }
     function apicupload(Request $req){
         $this->validate($req, [
             "pic" => "required|mimes:jpg,png,jpeg",
@@ -83,5 +105,65 @@ class adminsController extends Controller
 
         session()->flash('msg','Profile picture has been successfully updated!');
         return redirect()->route('admin.aprofile');
+    }
+
+    function aviewcustomer(){
+
+        $user = DB::table('customers')->simplePaginate(20);
+        return view('admin.aviewcustomer', compact('user'));
+    }
+    function customerremove($id){
+
+        // $user = customer::where('id', $id)->delete();
+
+        // return redirect()->route('admin.aviewcustomer');
+
+        DB::delete('delete from customers where id = ?',[$id]);
+        $user = customer::where('id','=',$id)->first();
+        if($user){
+            session()->flash('msg','Product Id '.$id.' Deletion Failed');
+            return back();
+        }
+        else {
+            session()->flash('msg','Product Id '.$id.' Deletion Successful');
+            return redirect()->route("admin.aviewcustomer");
+        }
+
+    }
+    function deletecustomer($id){
+        DB::delete('delete from products where id = ?',[$id]);
+        $user = customer::where('id','=',$id)->first();
+        if($user){
+            session()->flash('msg','Product Id '.$id.' Deletion Failed');
+            return back();
+        }
+        else {
+            session()->flash('msg','Product Id '.$id.' Deletion Successful');
+            return redirect()->route("admin.aviewcustomer");
+        }
+    }
+    function searchcustomer(Request $req){
+
+        $this->validate($req, [
+            "search_name" => "required",
+        ],
+        [
+            'search_name.required' => 'Please enter any value!',
+        ]
+    );
+    $search_name = $req->search_name;
+    $customers= customer::where('name', 'like', '%'.$search_name.'%')->get();
+    return view("admin.asearchcustomer")->with('customers', $customers);
+    }
+
+    function aviewdeliveryman(){
+
+        $user = DB::table('deliverymen')->simplePaginate(20);
+        return view('admin.aviewdeliveryman', compact('user'));
+    }
+    function aviewvendor(){
+
+        $user = DB::table('vendors')->simplePaginate(20);
+        return view('admin.aviewvendor', compact('user'));
     }
 }
