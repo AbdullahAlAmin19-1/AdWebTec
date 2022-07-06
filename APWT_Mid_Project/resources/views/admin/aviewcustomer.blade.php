@@ -4,9 +4,8 @@ Profile
 @endsection
 @section('content')
 <h2 align="center">Customer</h2><center>
-
 <div>
-    <form action="{{route('admin.asearchcustomer')}}" method="POST">
+    <form action="{{route('admin.searchcustomer')}}" method="POST">
         {{@csrf_field()}}
         <input type="search" name="search_name" id="search_name" placeholder="Search here">
             @error('search_name')
@@ -15,6 +14,7 @@ Profile
         <input type="submit" name="search" value="Search">
     </form>
 </div>
+<h3 style="color: red;">{{Session::get('customerRemove')}}</h3>
 <div>
     <center>
         <table border="2px" style="width: 80%; ">
@@ -41,7 +41,7 @@ Profile
                 <td style="text-align: center;">{{$u->gender}}</td>
                 <td style="text-align: center;">{{$u->dob}}</td>
                 <td style="text-align: center;">{{$u->address}}</td>
-                <td style="text-align: center;"><a href="route('admin.customerremove',['id'=>$u->id])}}">Delete Customer</a></td>
+                <td style="text-align: center;"><a href="{{route('admin.customerremove',['id'=>$u->id])}}">Delete Customer</a></td>
             </tr>
             @endforeach
 
