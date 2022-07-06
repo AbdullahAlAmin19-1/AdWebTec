@@ -104,7 +104,6 @@ class customersController extends Controller
         $cart->quantity = $req->quantity;
         $cart->c_id = $id;
         $cart->p_id = $req->p_id;
-
         $cart->save();
 
         session()->flash('addcart','Product has been added in the card!');
@@ -141,7 +140,6 @@ class customersController extends Controller
         $products = DB::table('carts')
             ->join('products', 'carts.p_id', '=', 'products.id')
             ->where('carts.c_id', $id)
-            ->select('products.*')
             ->get();
 
         return view("customer.corder")->with('products', $products);
