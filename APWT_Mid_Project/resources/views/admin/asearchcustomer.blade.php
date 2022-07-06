@@ -40,7 +40,7 @@ Profile
                 <td style="text-align: center;">{{$u->gender}}</td>
                 <td style="text-align: center;">{{$u->dob}}</td>
                 <td style="text-align: center;">{{$u->address}}</td>
-                <td style="text-align: center;"><a href="route('admin.customerremove',['id'=>$u->id])}}">Delete Customer</a></td>
+                <td style="text-align: center;"><a href="{{route('admin.customerremove',['id'=>$u->id])}}">Delete Customer</a></td>
             </tr>
             @endforeach
 

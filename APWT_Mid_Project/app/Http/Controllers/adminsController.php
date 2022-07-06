@@ -109,38 +109,14 @@ class adminsController extends Controller
 
     function aviewcustomer(){
 
-        $user = DB::table('customers')->simplePaginate(20);
+        $user = DB::table('customers')->simplePaginate(15);
         return view('admin.aviewcustomer', compact('user'));
     }
     function customerremove($id){
 
-        // $user = customer::where('id', $id)->delete();
-
-        // return redirect()->route('admin.aviewcustomer');
-
-        DB::delete('delete from customers where id = ?',[$id]);
-        $user = customer::where('id','=',$id)->first();
-        if($user){
-            session()->flash('msg','Product Id '.$id.' Deletion Failed');
-            return back();
-        }
-        else {
-            session()->flash('msg','Product Id '.$id.' Deletion Successful');
-            return redirect()->route("admin.aviewcustomer");
-        }
-
-    }
-    function deletecustomer($id){
-        DB::delete('delete from products where id = ?',[$id]);
-        $user = customer::where('id','=',$id)->first();
-        if($user){
-            session()->flash('msg','Product Id '.$id.' Deletion Failed');
-            return back();
-        }
-        else {
-            session()->flash('msg','Product Id '.$id.' Deletion Successful');
-            return redirect()->route("admin.aviewcustomer");
-        }
+        $user = customer::where('id', $id)->delete();
+        session()->flash('customerRemove', "Customer has been removed!");
+        return redirect()->route('admin.aviewcustomer');
     }
     function searchcustomer(Request $req){
 
@@ -158,12 +134,32 @@ class adminsController extends Controller
 
     function aviewdeliveryman(){
 
-        $user = DB::table('deliverymen')->simplePaginate(20);
+        $user = DB::table('deliverymen')->simplePaginate(15);
         return view('admin.aviewdeliveryman', compact('user'));
+    }
+    function deliverymanremove($id){
+
+        $user =DB::delete('delete from deliverymen where id = ?',[$id]);
+        session()->flash('deliverymanRemove', "Deliveryman has been removed!");
+        return redirect()->route('admin.aviewdeliveryman');
+    }
+    function searchdeliveryman(Request $req){
+
+        $this->validate($req, [
+            "search_name" => "required",
+        ],
+        [
+            'search_name.required' => 'Please enter any value!',
+        ]
+    );
+    $search_name = $req->search_name;
+    //$deliverymen = DB::select('select * from deliverymen where name ');
+    $deliverymen = deliveryman::where('name', 'like', '%'.$search_name.'%')->get();
+    return view("admin.asearchdeliverymen")->with('customers', $customers);
     }
     function aviewvendor(){
 
-        $user = DB::table('vendors')->simplePaginate(20);
+        $user = DB::table('vendors')->simplePaginate(5);
         return view('admin.aviewvendor', compact('user'));
     }
 }

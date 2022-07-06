@@ -81,8 +81,10 @@ Route::post('/admin/picupload',[adminsController::class,'apicupload'])->name('ad
 Route::get('/admin/dashboard/viewcustomer',[adminsController::class,'aviewcustomer'])->name('admin.aviewcustomer');
 //Route::post('/admin/dashboard/viewcustomer/{id}',[adminsController::class,'deletecustomer'])->name('admin.deletecustomer');
 Route::post('/admin/dashboard/viewcustomersearch',[adminsController::class,'searchcustomer'])->name('admin.asearchcustomer');
-Route::get('/admin/dashboard/remove-customer',[adminsController::class,'customerremove'])->name('admin.customerremove');
+Route::post('/admin/dashboard/searchcustomer',[adminsController::class,'searchcustomer'])->name('admin.searchcustomer');
+Route::get('/admin/dashboard/remove-customer/{id}',[adminsController::class,'customerremove'])->name('admin.customerremove');
 Route::get('/admin/dashboard/viewdeliveryman',[adminsController::class,'aviewdeliveryman'])->name('admin.aviewdeliveryman');
+Route::get('/admin/dashboard/remove-deliveryman/{id}',[adminsController::class,'deliverymanremove'])->name('admin.deliverymanremove');
 Route::get('/admin/dashboard/viewvendorprofile',[adminsController::class,'aviewvendor'])->name('admin.aviewvendor');
 
 

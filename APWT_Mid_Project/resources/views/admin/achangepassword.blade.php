@@ -4,7 +4,8 @@
 @endsection
 @section('content')
 <form method="post" action="{{route('admin.achangepasswordupdate');}}" align="center">
-<fieldset>
+<center>
+<fieldset style="width: 50%;">
     <legend><h3>Change Password</h3></legend>
     <h1>{{Session::get('msg')}}</h1>
     {{@csrf_field()}}
@@ -14,5 +15,6 @@
     Confirm New Password: <input type="password" name="conf_new_pass" placeholder="Confirm New Password">@error('conf_new_pass'){{$message}}@enderror <br><br>
     <input type="submit" value="Submit">
 </fieldset>
+</center>
 </form> 
 @endsection

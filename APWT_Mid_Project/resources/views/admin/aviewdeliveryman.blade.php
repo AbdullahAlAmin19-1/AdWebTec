@@ -15,6 +15,7 @@ Profile
         <input type="submit" name="search" value="Search">
     </form>
 </div>
+<h3 style="color: red;">{{Session::get('deliverymanRemove')}}</h3>
 <div>
     <center>
         <table border="2px" style="width: 80%; ">
@@ -41,7 +42,7 @@ Profile
                 <td style="text-align: center;">{{$u->gender}}</td>
                 <td style="text-align: center;">{{$u->dob}}</td>
                 <td style="text-align: center;">{{$u->address}}</td>
-                <td style="text-align: center;"><a href="route('admin.customerremove',['id'=>$u->id])}}">Delete Customer</a></td>
+                <td style="text-align: center;"><a href="{{route('admin.deliverymanremove',['id'=>$u->id])}}">Delete Deliveryman</a></td>
             </tr>
             @endforeach
 
