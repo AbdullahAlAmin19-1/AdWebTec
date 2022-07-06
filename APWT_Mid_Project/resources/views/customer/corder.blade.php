@@ -18,21 +18,21 @@ Customer Order
                     <th><input type="number" name="p_id" id="p_id" value="{{$item->id}}" style="width: 30px;" disabled></th>
                     <th>Product Name:</th>
                     <th><input type="text" name="p_name" value="{{$item->name}}" disabled></th>
-                    {{-- <th>Quantity:</th>
-                    <th><input type="number" name="p_qunatity" value="2" style="width: 30px;"  disabled></th> --}}
+                    <th>Quantity:</th>
+                    <th><input type="number" name="p_qunatity" value="{{$item->quantity}}" style="width: 30px;"  disabled></th>
                     <th>Price:</th>
-                    <th><input type="number" name="p_price" value="{{$item->price}}" style="width: 50px;"  disabled></th>
+                    <th><input type="number" name="p_price" value="{{$item->quantity*$item->price}}" style="width: 50px;" disabled> Taka</th>
                 </tr>
                 @endforeach
 
                 <tr>
-                    <th colspan="4"></th>
+                    <th colspan="5"></th>
                     <th style="padding-top: 5px;">Coupon:</th>
-                    <th colspan="2" style="padding-top: 5px;"><input type="text" placeholder="Enter coupon code"></th>
+                    <th colspan="3" style="padding-top: 5px;"><input type="text" placeholder="Enter coupon code"></th>
                 </tr>
 
                 <tr>
-                    <th colspan="7" style="text-align: end; padding: 8px;"><input type="submit" value="Place Order"></th>
+                    <th colspan="8" style="text-align: end; padding: 8px;"><input type="submit" value="Place Order"></th>
                 </tr>
             
             </table>
