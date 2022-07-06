@@ -15,20 +15,43 @@ Customer Order
                 @foreach ($products as $item) 
                 <tr>
                     <th>Product ID:</th>
-                    <th><input type="number" name="p_id" id="p_id" value="{{$item->id}}" style="width: 30px;" disabled></th>
+                    <td><input type="number" name="p_id" id="p_id" value="{{$item->id}}" style="width: 30px;" disabled></td>
                     <th>Product Name:</th>
-                    <th><input type="text" name="p_name" value="{{$item->name}}" disabled></th>
+                    <td><input type="text" name="p_name" value="{{$item->name}}" disabled></td>
                     <th>Quantity:</th>
-                    <th><input type="number" name="p_qunatity" value="{{$item->quantity}}" style="width: 30px;"  disabled></th>
+                    <td><input type="number" name="p_qunatity" value="{{$item->quantity}}" style="width: 30px;"  disabled></td>
                     <th>Price:</th>
-                    <th><input type="number" name="p_price" value="{{$item->quantity*$item->price}}" style="width: 50px;" disabled> Taka</th>
+                    <td><input type="number" name="p_price" value="{{$item->quantity*$item->price}}" style="width: 50px;" disabled> Taka</td>
                 </tr>
                 @endforeach
 
                 <tr>
                     <th colspan="5"></th>
                     <th style="padding-top: 5px;">Coupon:</th>
-                    <th colspan="3" style="padding-top: 5px;"><input type="text" placeholder="Enter coupon code"></th>
+                    <td colspan="3" style="padding-top: 5px;"><input type="text" name="coupon" placeholder="Enter coupon code" value="{{old('coupon')}}"> <br>
+                        @error('coupon'){{$message}}@enderror
+                    </td>
+                </tr>
+
+                <tr>
+                    <th colspan="5"></th>
+                    <th style="padding-top: 5px;">Payment Option:</th>
+                    <td colspan="3" style="padding-top: 5px;">
+                        <select name="payment_option" id="payment_option">
+                            <option value="Cash On Delivery">Cash On Delivery</option>
+                            <option value="Bkash/Nagad">Bkash/Nagad</option>
+                        </select> <br>
+                        @error('payment_option'){{$message}}@enderror
+                    </td>
+                </tr>
+
+                <tr>
+                    <th colspan="5"></th>
+                    <th style="padding-top: 5px;">Delivery Address:</th>
+                    <td colspan="3" style="padding-top: 5px;">
+                        <textarea name="delivery_address" placeholder="Write Delivery Address" cols="22" rows="4" value="{{old('delivery_address')}}"></textarea>
+                        @error('delivery_address'){{$message}}@enderror
+                    </td>
                 </tr>
 
                 <tr>

@@ -67,6 +67,8 @@ Route::get('/customer/corder',[customersController::class,'corder'])->name('cust
 Route::post('/customer/corderForm',[customersController::class,'corderForm'])->name('customer.corderForm');
 Route::get('/customer/remove-product/{p_id}',[customersController::class,'cartproductremove'])->name('customer.cartproductremove');
 
+Route::get('/customer/cvieworder',[customersController::class,'cvieworder'])->name('customer.cvieworder');
+
 
 //Admin
 Route::get('/admin/adashboard',[adminsController::class,'adashboard'])->name('admin.adashboard');

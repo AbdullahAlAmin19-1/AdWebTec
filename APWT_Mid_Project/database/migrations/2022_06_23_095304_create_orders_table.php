@@ -15,12 +15,23 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('co_id')->unsigned()->nullable(); //For Nullable Value -MR
-            //$table->foreign('co_id')->references('id')->on('coupons');
+
+            $table->integer('p_id')->unsigned()->nullable(); //For Nullable Value -MR
+            $table->foreign('p_id')->references('id')->on('products');
+
             $table->integer('c_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('c_id')->references('id')->on('customers');
-            $table->integer('v_id')->unsigned()->nullable(); //For Nullable Value -MR
-            $table->foreign('v_id')->references('id')->on('vendors');
+
+            $table->string('status');
+            $table->string('payment_method');
+            $table->string('payment_status');
+            $table->string('delivery_address');
+
+            $table->integer('co_id')->unsigned()->nullable(); //For Nullable Value -MR
+            //$table->foreign('co_id')->references('id')->on('coupons');
+            // $table->integer('v_id')->unsigned()->nullable(); //For Nullable Value -MR
+            // $table->foreign('v_id')->references('id')->on('vendors');
+
             $table->integer('d_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('d_id')->references('id')->on('deliverymen');
             $table->timestamp('created_at')->nullable();

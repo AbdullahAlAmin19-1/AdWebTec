@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\cart;
 use Illuminate\Http\Request;
 use App\Models\customer;
+use App\Models\order;
 use App\Models\product;
 
 use Illuminate\Support\Facades\DB;
@@ -147,7 +148,42 @@ class customersController extends Controller
 
     function corderForm(Request $req){
 
+        $this->validate($req, [
+            "coupon" => "",
+            "payment_option" => "required",
+            "delivery_address" => "required",
+        ]);
+        
+        $c_id = session()->get('id');
+        $carts = cart::where('c_id', $c_id)->get();
+        
+        foreach($carts as $item){
+            $order = new order();
+            $order->p_id=$item->p_id;
+            $order->c_id=$item->c_id;
+            $order->status="Pending";
+            $order->payment_method=$req->payment_option;
+            $order->payment_status="Pending";
+            $order->delivery_address=$req->delivery_address;
+            $order->save();
+
+            cart::where('c_id', $c_id)->delete();
+        }
+
         session()->flash('corder','Your Order has been successfully placed!');
         return redirect()->route('customer.cdashboard');
+    }
+
+    function cvieworder(){
+
+        $c_id = session()->get('id');
+
+        //Using Join
+        $orders = DB::table('orders')
+            ->join('products', 'products.id', '=', 'orders.id')
+            ->where('orders.c_id', $c_id)
+            ->get();
+
+        return view("customer.cvieworder")->with('orders', $orders);
     }
 }
