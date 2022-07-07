@@ -16,7 +16,7 @@ class productSeeder extends Seeder
      */
     public function run()
     {
-        for($i=0;$i<10;$i++){
+        for($i=0;$i<50;$i++){
             DB::table('products')->insert([
                 'name' => "Pure Pure Salt",
                 'category' => "Cooking",
@@ -25,7 +25,7 @@ class productSeeder extends Seeder
                 'price' => 120,
                 'stock' => 100,
                 'size' => 10,
-                'v_id' => 1,
+                // 'v_id' => 1,
                 'description' => "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.",
             ]);
         }

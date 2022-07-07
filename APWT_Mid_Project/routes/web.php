@@ -18,9 +18,8 @@ use App\Http\Controllers\adminsController;
 |
 */
 
-Route::get('/welcome', [vendorController::class,'welcome'])->name('public.welcome');
+// Route::get('/welcome', [vendorController::class,'welcome'])->name('public.welcome');
 
-// Route::get('/',[pagesController::class,'public.products'])->name('ppublic.products');
 Route::get('/login',[pagesController::class,'login'])->name('public.login');
 Route::get('/logout', [pagesController::class,'logout'])->name('public.logout');
 Route::post('/login',[usersController::class,'loginConfirm'])->name('public.login.confirm');
@@ -40,19 +39,29 @@ Route::get('/searchcategory/{category}', [pagesController::class, 'searchcategor
 Route::post('/searchproduct',[pagesController::class,'searchproduct'])->name('public.searchproduct');
 Route::get('/',[pagesController::class,'products'])->name('public.products');
 
+//Vendor
 Route::get('/vendor/dashboard',[vendorController::class,'dashboard'])->name('vendor.dashboard');
 Route::get('/vendor/profile',[vendorController::class,'profile'])->name('vendor.profile');
 Route::get('/vendor/editprofile',[vendorController::class,'editprofile'])->name('vendor.editprofile');
 Route::post('/vendor/editprofile',[vendorController::class,'editprofileupdate'])->name('vendor.editprofileupdate');
 Route::post('/vendor/picupload',[vendorController::class,'picupload'])->name('vendor.picupload');
-Route::get('/vendor/addproduct',[vendorController::class,'addproduct'])->name('vendor.addproduct');
+Route::get('/vendor/addproduct',[vendorController::class,'productNavbar'])->name('vendor.addproduct');
 Route::post('/vendor/addproduct',[vendorController::class,'addproductConfirm'])->name('vendor.addproductConfirm');
-Route::get('/vendor/allproducts',[pagesController::class,'products'])->name('vendor.allproducts');
 Route::get('/vendor/editproduct/{id}',[vendorController::class,'editproduct'])->name('vendor.editproduct');
 Route::post('/vendor/editproduct/{id}',[vendorController::class,'editproductConfirm'])->name('vendor.editproductConfirm');
 Route::get('/vendor/deleteproduct/{id}',[vendorController::class,'deleteproduct'])->name('vendor.deleteproduct');
 Route::get('/vendor/deleteproductConfirm/{id}',[vendorController::class,'deleteproductConfirm'])->name('vendor.deleteproductConfirm');
-
+Route::get('/vendor/product',[vendorController::class,'productNavbar'])->name('vendor.productNavbar');
+Route::get('/vendor/coupon',[vendorController::class,'couponNavbar'])->name('vendor.coupon');
+Route::post('/vendor/createcoupon',[vendorController::class,'createcoupon'])->name('vendor.createcoupon');
+Route::get('/vendor/allcoupons',[vendorController::class,'allcoupons'])->name('vendor.allcoupons');
+Route::get('/vendor/editcoupon/{id}',[vendorController::class,'editcoupon'])->name('vendor.editcoupon');
+Route::get('/vendor/deletecoupon/{id}',[vendorController::class,'deletecoupon'])->name('vendor.deletecoupon');
+Route::post('/vendor/editcoupon/{id}',[vendorController::class,'editcouponconfirm'])->name('vendor.editcouponconfirm');
+Route::get('/vendor/orders',[vendorController::class,'orders'])->name('vendor.orders');
+Route::get('/vendor/orders/changeorderstatus/{id}',[vendorController::class,'changeorderstatus'])->name('vendor.changeorderstatus');
+Route::get('/vendor/orders/changepaymentstatus/{id}',[vendorController::class,'changepaymentstatus'])->name('vendor.changepaymentstatus');
+Route::get('/vendor/reviews',[vendorController::class,'reviews'])->name('vendor.reviews');
 
 //Customer
 Route::get('/customer/cdashboard',[customersController::class,'cdashboard'])->name('customer.cdashboard');
@@ -67,9 +76,7 @@ Route::get('/customer/corder',[customersController::class,'corder'])->name('cust
 Route::post('/customer/corderForm',[customersController::class,'corderForm'])->name('customer.corderForm');
 Route::get('/customer/remove-product/{p_id}',[customersController::class,'cartproductremove'])->name('customer.cartproductremove');
 Route::get('/customer/cvieworder',[customersController::class,'cvieworder'])->name('customer.cvieworder');
-
 Route::get('customer/mail',[customersController::class,'placeOrderMail'])->name('customer.placeOrder');
-
 
 //Admin
 Route::get('/admin/adashboard',[adminsController::class,'adashboard'])->name('admin.adashboard');
