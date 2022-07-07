@@ -35,16 +35,16 @@ class customer extends Model
 
     public function coupons()
     {
-        return $this->belongsToMany(Coupon::class);
+        return $this->belongsToMany(Coupon::class,'customer_coupons','c_id','co_id');
     }
 
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class,'customer_products','c_id','p_id');
     }
 
     public function deliverymen()
     {
-        return $this->belongsToMany(Deliveryman::class);
+        return $this->belongsToMany(Deliveryman::class,'customer_deliverymen','c_id','d_id');
     }
 }
