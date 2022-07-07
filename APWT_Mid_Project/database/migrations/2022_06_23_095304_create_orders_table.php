@@ -19,6 +19,8 @@ class CreateOrdersTable extends Migration
             $table->integer('p_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('p_id')->references('id')->on('products');
 
+            $table->integer('quantity');
+
             $table->integer('c_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('c_id')->references('id')->on('customers');
 

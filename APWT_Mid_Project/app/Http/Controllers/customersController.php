@@ -156,10 +156,16 @@ class customersController extends Controller
         
         $c_id = session()->get('id');
         $carts = cart::where('c_id', $c_id)->get();
+
+        echo $carts;
         
         foreach($carts as $item){
+
+            echo $item->quantity;
+
             $order = new order();
             $order->p_id=$item->p_id;
+            $order->quantity=$item->quantity;
             $order->c_id=$item->c_id;
             $order->status="Pending";
             $order->payment_method=$req->payment_option;
