@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\customer;
 use App\Models\order;
 use App\Models\product;
-
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\placeOrder;
 
 class customersController extends Controller
 {
@@ -115,7 +116,6 @@ class customersController extends Controller
 
         $id = session()->get('id');
 
-        //Using Join
         $products = DB::table('carts')
             ->join('products', 'carts.p_id', '=', 'products.id')
             ->where('carts.c_id', $id)
@@ -137,13 +137,14 @@ class customersController extends Controller
 
         $id = session()->get('id');
 
-        //Using Join
         $products = DB::table('carts')
             ->join('products', 'carts.p_id', '=', 'products.id')
             ->where('carts.c_id', $id)
             ->get();
 
-        return view("customer.corder")->with('products', $products);
+        $customer = customer::find($id);
+
+        return view("customer.corder")->with('products', $products)->with('customer', $customer);
     }
 
     function corderForm(Request $req){
@@ -172,7 +173,23 @@ class customersController extends Controller
             cart::where('c_id', $c_id)->delete();
         }
 
-        session()->flash('corder','Your Order has been successfully placed!');
+        // session()->flash('corder','Your Order has been successfully placed!');
+        return redirect()->route('customer.placeOrder');
+    }
+
+    function placeOrderMail(){
+
+        $c_id = session()->get('id');
+        $customer = customer::find($c_id);
+
+        $orders = DB::table('orders')
+            ->join('products', 'products.id', '=', 'orders.id')
+            ->where('orders.c_id', $c_id)
+            ->where('orders.status', '!=', "Delivered")
+            ->get();
+
+        Mail::to([$customer->email])->send(new placeOrder("Your Order has been placed!",Session()->get('user_type'),Session()->get('username'), $orders));
+
         return redirect()->route('customer.cdashboard');
     }
 
@@ -180,7 +197,6 @@ class customersController extends Controller
 
         $c_id = session()->get('id');
 
-        //Using Join
         $orders = DB::table('orders')
             ->join('products', 'products.id', '=', 'orders.id')
             ->where('orders.c_id', $c_id)

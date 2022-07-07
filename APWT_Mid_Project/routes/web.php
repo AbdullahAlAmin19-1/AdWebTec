@@ -68,6 +68,8 @@ Route::post('/customer/corderForm',[customersController::class,'corderForm'])->n
 Route::get('/customer/remove-product/{p_id}',[customersController::class,'cartproductremove'])->name('customer.cartproductremove');
 Route::get('/customer/cvieworder',[customersController::class,'cvieworder'])->name('customer.cvieworder');
 
+Route::get('customer/mail',[customersController::class,'placeOrderMail'])->name('customer.placeOrder');
+
 
 //Admin
 Route::get('/admin/adashboard',[adminsController::class,'adashboard'])->name('admin.adashboard');
