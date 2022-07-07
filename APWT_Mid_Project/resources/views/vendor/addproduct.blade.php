@@ -8,9 +8,9 @@
     <center>
     <h1>{{Session::get('msg')}}</h1>
         <fieldset>
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <table border="2" style="width: 100%;">
-                {{@csrf_field()}}<tr>
+                {{@csrf_field()}}
                     <tr>
                         <th><label for="name">Product Name:</label></th>
                         <td><input type="text" id='name' name="name" placeholder="Write Product Name" value="{{old('name')}}"></td>
@@ -23,8 +23,10 @@
                     </tr>
                     <tr>
                         <th><label for="thumbnail">Product Thumbnail:</label></th>
-                        <td><input type="text" id='thumbnail' name="thumbnail" placeholder="Write Product Thumbnail" value="{{old('thumbnail')}}"></td>
-                        <td>@error('thumbnail'){{$message}}@enderror</td>
+                        <td><input type="file" name="p_thumbnail"></td>
+                        <td>
+                            @error('p_thumbnail'){{$message}}@enderror
+                        </td>
                     </tr>
                     <tr>
                         <th><label for="gallery">Product Gallery:</label></th>
