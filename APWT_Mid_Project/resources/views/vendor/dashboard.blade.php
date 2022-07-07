@@ -12,7 +12,7 @@
         <td>
         <table border="2" style="width: 100%;">
         <tr><th colspan="2">Product Picture</th></tr>
-        <tr><td colspan="2"><img src="product images/{{$product->thumbnail}}" alt="Product Image" height="120px" width="120px"></td></tr>
+        <tr><td colspan="2"><img src="{{asset('storage/product_images')}}/{{$product->thumbnail}}" alt="Product Image" height="120px" width="120px"></td></tr>
         <tr>
             <td><a href="{{route('vendor.editproduct',['id'=>$product->id])}}"><input type="button" value="Edit Product"></a></td>
             <td><a href="{{route('vendor.deleteproduct',['id'=>$product->id])}}"><input type="button" value="Delete Product"></a></td>

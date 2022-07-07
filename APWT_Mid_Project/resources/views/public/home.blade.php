@@ -39,7 +39,7 @@
                     @foreach ($products5 as $item) 
                     <th>
                         <center>
-                            <img src="product images/{{$item->p_thumbnail}}" alt="Product Image" height="120px" width="120px">
+                            <img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="120px" width="120px">
                         <h3>{{$item->p_name}}</h3>
                         <textarea style="width: 75%" disabled>{{$item->p_description}}</textarea>
                         <h4>Price: {{$item->p_price}} Taka.</h4>
@@ -62,7 +62,7 @@
                     @foreach ($products10 as $item) 
                     <th>
                     <center>
-                        <img src="product images/{{$item->p_thumbnail}}" alt="Product Image" height="120px" width="120px">
+                        <img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="120px" width="120px">
                         <h3>{{$item->p_name}}</h3>
                         <textarea style="width: 75%" disabled>{{$item->p_description}}</textarea>
                         <h4>Price: {{$item->p_price}} Taka.</h4>

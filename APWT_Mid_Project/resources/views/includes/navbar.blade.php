@@ -6,7 +6,7 @@
                 <td style="width: 25%; padding: 10px;">
                     <h2><a href="{{route('public.products');}}">Grocery OS</a></h2>
                 </td>
-                @if(session()->get('user_type')=='Customer')
+                {{-- @if(session()->get('user_type')=='Customer')
                 <td style="width: 25%; padding-top:18px;">
                     <form action="{{route('public.searchproduct')}}" method="POST">
                         {{@csrf_field()}}
@@ -17,7 +17,7 @@
                         <input type="submit" name="search" value="Search">
                     </form>
                 </td>
-                @endif
+                @endif --}}
                 <td style="width: 50%;" align="right">
                     <span style="font-size: 18px">Welcome! <span>{{Session::get('user_type')}}, <b>
                         

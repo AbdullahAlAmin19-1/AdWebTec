@@ -55,7 +55,7 @@ Customer Order
                     <th colspan="7"></th>
                     <th style="padding-top: 5px;">Delivery Address:</th>
                     <td colspan="3" style="padding-top: 5px;">
-                        <textarea name="delivery_address" placeholder="Write Delivery Address" cols="22" rows="4" value="{{old('delivery_address')}}"></textarea>
+                        <textarea name="delivery_address" placeholder="Write Delivery Address" cols="22" rows="4" value="{{old('delivery_address')}}">{{$customer->address}}</textarea>
                         <br>
                         @error('delivery_address'){{$message}}@enderror
                     </td>

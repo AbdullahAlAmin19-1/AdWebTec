@@ -8,6 +8,14 @@
 
     <div class="product-section">
         <center>
+                <form action="{{route('public.searchproduct')}}" method="POST">
+                    {{@csrf_field()}}
+                    <input type="search" name="search_name" id="search_name" placeholder="Search here">
+                    @error('search_name')
+                                {{$message}}
+                                @enderror
+                    <input type="submit" name="search" value="Search">
+                </form>
     
             <table style="width: 70%; border: 1px solid black; border-radius: 10px;">
                 <h3>-- Categories --</h3>
@@ -39,7 +47,7 @@
                     @foreach ($p as $item) 
                     <th>
                         <center>
-                            <img src="product images/{{$item->thumbnail}}" alt="Product Image" height="120px" width="120px">
+                            <img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="120px" width="120px">
                         <h3>{{$item->name}}</h3>
                         <textarea style="width: 75%" disabled>{{$item->description}}</textarea>
                         <h4>Price: {{$item->price}} Taka.</h4>

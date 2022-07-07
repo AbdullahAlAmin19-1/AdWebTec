@@ -6,7 +6,7 @@
     <h1 align="center">Add Product</h1>
     <center>
     <h1>{{Session::get('msg')}}</h1>
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <table border="2" style="width: 100%;">
                 {{@csrf_field()}}
                     <tr>
@@ -21,8 +21,10 @@
                     </tr>
                     <tr>
                         <th><label for="thumbnail">Product Thumbnail:</label></th>
-                        <td><input type="file" id='thumbnail' name="thumbnail" placeholder="Write Product Thumbnail" value="{{old('thumbnail')}}"></td>
-                        <td>@error('thumbnail'){{$message}}@enderror</td>
+                        <td><input type="file" name="thumbnail"></td>
+                        <td>
+                            @error('thumbnail'){{$message}}@enderror
+                        </td>
                     </tr>
                     <tr>
                         <th><label for="price">Product Price:</label></th>

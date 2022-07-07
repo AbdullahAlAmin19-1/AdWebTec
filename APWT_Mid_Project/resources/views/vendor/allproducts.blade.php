@@ -11,7 +11,7 @@
         <td>
         <table border="2" style="width: 100%;">
         <tr><th>Product Picture</th></tr>
-        <tr><td>product images/{{$item->p_thumbnail}}</td></tr>
+        <tr><td><img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt=""></td></tr>
         </table>
         </td>
         <td>
