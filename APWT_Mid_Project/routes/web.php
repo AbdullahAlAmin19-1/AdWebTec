@@ -66,7 +66,6 @@ Route::post('/customer/caddcart',[customersController::class,'caddcart'])->name(
 Route::get('/customer/corder',[customersController::class,'corder'])->name('customer.corder');
 Route::post('/customer/corderForm',[customersController::class,'corderForm'])->name('customer.corderForm');
 Route::get('/customer/remove-product/{p_id}',[customersController::class,'cartproductremove'])->name('customer.cartproductremove');
-
 Route::get('/customer/cvieworder',[customersController::class,'cvieworder'])->name('customer.cvieworder');
 
 

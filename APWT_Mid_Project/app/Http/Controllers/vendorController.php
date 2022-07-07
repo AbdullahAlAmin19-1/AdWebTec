@@ -15,7 +15,7 @@ class vendorController extends Controller
     // function welcome(){return view("public.welcome");}
     public function dashboard()
     {
-        $p=product::where('id','=',session()->get('id'))->simplePaginate(4);
+        $p=product::where('v_id','=',session()->get('id'))->simplePaginate(4);
         return view('vendor.dashboard', compact('p'));
     }
     function profile(){

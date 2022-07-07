@@ -156,20 +156,16 @@ class customersController extends Controller
         
         $c_id = session()->get('id');
         $carts = cart::where('c_id', $c_id)->get();
-
-        echo $carts;
         
         foreach($carts as $item){
-
-            echo $item->quantity;
-
+            
             $order = new order();
             $order->p_id=$item->p_id;
             $order->quantity=$item->quantity;
             $order->c_id=$item->c_id;
             $order->status="Pending";
             $order->payment_method=$req->payment_option;
-            $order->payment_status="Pending";
+            $order->payment_status="Unpaid";
             $order->delivery_address=$req->delivery_address;
             $order->save();
 
@@ -188,6 +184,7 @@ class customersController extends Controller
         $orders = DB::table('orders')
             ->join('products', 'products.id', '=', 'orders.id')
             ->where('orders.c_id', $c_id)
+            ->where('orders.status', '!=', "Delivered")
             ->get();
 
         return view("customer.cvieworder")->with('orders', $orders);
