@@ -31,7 +31,7 @@ $pay_money = $total_price + 60;
                 <th>Quantity</th>
                 <th>Price (Tk)</th>
                 <th>Total Price (Tk)</th>
-                <th>Status</th>
+                <th>Order Status</th>
                 <th>Payment Method</th>
                 <th>Payment Status</th>
 
