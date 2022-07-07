@@ -88,22 +88,32 @@ class vendorController extends Controller
         $this->validate($vali, [
             "name" => "required",
             "category" => "required",
-            "thumbnail" => "required",
+            "p_thumbnail" => "required|mimes:jpg,png,jpeg",
             "price" => "required",
             "stock" => "required",
         ],
-        []
+        [
+            'p_thumbnail.required' => 'Please select a picture!',
+            'p_thumbnail.mimes' => 'Product Thumbnail must be a jpg, png or jpeg!',
+        ]
         );
+
+        $productname = $vali->name;
+        $extension = $vali->file('p_thumbnail')->getClientOriginalExtension();
+        $thumbnailname = $productname.time().".".$extension;
+
+        echo $thumbnailname;
+
+        $vali->file('p_thumbnail')->storeAs('public/product_images', $thumbnailname);
+
         $p=new product();
         // if($user){return view("vendor.profile")->with('vendor',$user);}
         // else {return view("vendor.dashboard");}
         $p->name = $vali->name;
         $p->category = $vali->category;
-        $p->thumbnail = $vali->thumbnail;
-        $p->gallery = $vali->gallery;
+        $p->thumbnail = $thumbnailname;
         $p->price = $vali->price;
         $p->stock = $vali->stock;
-        $p->color = $vali->color;
         $p->size = $vali->size;
         $p->description = $vali->description;
         $p->v_id = Session()->get('id');
