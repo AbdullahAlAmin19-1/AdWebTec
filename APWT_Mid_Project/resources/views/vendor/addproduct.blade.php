@@ -4,13 +4,11 @@
 @endsection
 @section('content')
     <h1 align="center">Add Product</h1>
-
     <center>
     <h1>{{Session::get('msg')}}</h1>
-        <fieldset>
             <form action="" method="POST">
                 <table border="2" style="width: 100%;">
-                {{@csrf_field()}}<tr>
+                {{@csrf_field()}}
                     <tr>
                         <th><label for="name">Product Name:</label></th>
                         <td><input type="text" id='name' name="name" placeholder="Write Product Name" value="{{old('name')}}"></td>
@@ -23,13 +21,8 @@
                     </tr>
                     <tr>
                         <th><label for="thumbnail">Product Thumbnail:</label></th>
-                        <td><input type="text" id='thumbnail' name="thumbnail" placeholder="Write Product Thumbnail" value="{{old('thumbnail')}}"></td>
+                        <td><input type="file" id='thumbnail' name="thumbnail" placeholder="Write Product Thumbnail" value="{{old('thumbnail')}}"></td>
                         <td>@error('thumbnail'){{$message}}@enderror</td>
-                    </tr>
-                    <tr>
-                        <th><label for="gallery">Product Gallery:</label></th>
-                        <td><input type="file" id='gallery' name="gallery" placeholder="Write Product Gallery" value="{{old('gallery')}}"></td>
-                        <td>@error('gallery'){{$message}}@enderror</td>
                     </tr>
                     <tr>
                         <th><label for="price">Product Price:</label></th>
@@ -41,11 +34,11 @@
                         <td><input type="number" id='stock' name="stock" placeholder="Write Product Stock" value="{{old('stock')}}"></td>
                         <td>@error('stock'){{$message}}@enderror</td>
                     </tr>  
-                    <tr>
+                    <!-- <tr>
                         <th><label for="color">Product Color:</label></th>
                         <td><input type="text" id='color' name="color" placeholder="Write Product Color" value="{{old('color')}}"></td>
                         <td>@error('color'){{$message}}@enderror</td>
-                    </tr>  
+                    </tr>   -->
                     <tr>
                         <th><label for="size">Product Size:</label></th>
                         <td><input type="number" id='size' name="size" placeholder="Write Product Size" value="{{old('size')}}"></td>
@@ -61,6 +54,5 @@
                     </tr>               
                 </table>
             </form>  
-        </fieldset>
     </center>
 @endsection

@@ -38,6 +38,8 @@ class pagesController extends Controller
     }
     
     function products(){
+        session()->forget('product_navbar');
+        session()->forget('coupon_navbar');
         $p = DB::table('products')->simplePaginate(5);
  
         // return view('vendor.allproducts', compact('p'));
