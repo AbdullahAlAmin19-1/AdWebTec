@@ -18,7 +18,7 @@ class productSeeder extends Seeder
     {
         for($i=0;$i<10;$i++){
             DB::table('products')->insert([
-                'name' => "Pure Salt",
+                'name' => "Pure Pure Salt",
                 'category' => "Cooking",
                 'thumbnail' => "ACI Pure Salt.jpg",
                 // 'gallery' => "null",
