@@ -16,7 +16,7 @@ class coupon extends Model
 
     public function customers()
     {
-        return $this->belongsToMany(Customer::class);
+        return $this->belongsToMany(Customer::class,'customer_coupons','co_id','c_id');
     }
 
     public function orders()
