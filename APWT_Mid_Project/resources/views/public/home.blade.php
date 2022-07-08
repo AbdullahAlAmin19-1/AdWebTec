@@ -51,7 +51,7 @@
                             @error('quantity')
                                     {{$message}} <br> <br> 
                                     @enderror
-                            <input type="submit" name="caddcart" value="Add To Cart">
+                            <input type="submit" name="caddcart" value="Add To Cart" style="width: 78%;">
                         </form>
                     </center>
                     </th>
@@ -74,7 +74,7 @@
                             @error('quantity')
                                     {{$message}} <br> <br> 
                                     @enderror
-                            <input type="submit" name="caddcart" value="Add To Cart">
+                            <input type="submit" name="caddcart" value="Add To Cart" style="width: 78%;">
                         </form>
                     </center>
                     </th>
