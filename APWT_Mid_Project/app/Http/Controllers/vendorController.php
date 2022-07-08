@@ -115,7 +115,7 @@ class vendorController extends Controller
         // else {return view("vendor.dashboard");}
         $p->name = $vali->name;
         $p->category = $vali->category;
-        $p->thumbnail = $vali->thumbnail;
+        $p->thumbnail = $thumbnailname;
         $p->price = $vali->price;
         $p->stock = $vali->stock;
         // $p->color = $vali->color;

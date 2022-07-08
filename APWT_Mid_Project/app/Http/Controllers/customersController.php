@@ -183,7 +183,7 @@ class customersController extends Controller
         $customer = customer::find($c_id);
 
         $orders = DB::table('orders')
-            ->join('products', 'products.id', '=', 'orders.id')
+            ->join('products', 'products.id', '=', 'orders.p_id')
             ->where('orders.c_id', $c_id)
             ->where('orders.status', '!=', "Delivered")
             ->get();
@@ -198,11 +198,15 @@ class customersController extends Controller
         $c_id = session()->get('id');
 
         $orders = DB::table('orders')
-            ->join('products', 'products.id', '=', 'orders.id')
+            ->join('products', 'products.id', '=', 'orders.p_id')
             ->where('orders.c_id', $c_id)
             ->where('orders.status', '!=', "Delivered")
             ->get();
 
         return view("customer.cvieworder")->with('orders', $orders);
+    }
+
+    function cCoupons(){
+        return view("customer.ccoupon");
     }
 }

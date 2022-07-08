@@ -24,9 +24,9 @@
                 <tr>
                     <th><a href="{{route('public.searchcategory', ['category'=>"Candy & Chocolate"])}}">Candy & Chocolate</a><th>
                     <th><a href="{{route('public.searchcategory', ['category'=>"Frozen & Canned"])}}">Frozen & Canned</a><th>
-                    <th><a href="{{route('public.searchcategory', ['category'=>"Bread & Bakery"])}}">Bread & Bakery</a><th>
                     <th><a href="{{route('public.searchcategory', ['category'=>"Snacks"])}}">Snacks</a><th>
                     <th><a href="{{route('public.searchcategory', ['category'=>"Beverages"])}}">Beverages</a><th>
+                    <th><a href="{{route('public.searchcategory', ['category'=>"Others"])}}">Others</a><th>
                 </tr>
             </table>
     

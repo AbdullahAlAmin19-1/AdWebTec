@@ -19,7 +19,8 @@ class couponSeeder extends Seeder
         for($i=0;$i<10;$i++){
             DB::table('coupons')->insert([
                 'co_code' => Str::random(3),
-                'co_amount' => 50,
+                'co_amount' => "40",
+                'v_id' => "1",
             ]);
         }
     }

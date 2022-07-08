@@ -16,14 +16,35 @@
                     </tr>
                     <tr>
                         <th><label for="category">Product Category:</label></th>
+                        <td>
+                            <select name="category" >
+                                <option value="Fruits & Vegetables">Fruits & Vegetables</option>
+                                <option value="Meat & Fish">Meat & Fish</option>
+                                <option value="Cooking">Cooking</option>
+                                <option value="Baking">Baking</option>
+                                <option value="Dairy">Dairy</option>
+
+                                <option value="Candy & Chocolate">Candy & Chocolate</option>
+                                <option value="Frozen & Canned">Frozen & Canned</option>
+                                <option value="Snacks">Snacks</option>
+                                <option value="Beverages">Beverages</option>
+                                <option value="Others" selected >Others</option>
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    {{-- <tr>
+                        <th><label for="category">Product Category:</label></th>
                         <td><input type="text" id='category' name="category" placeholder="Write Product Category" value="{{old('category')}}"></td>
                         <td>@error('category'){{$message}}@enderror</td>
-                    </tr>
+                    </tr> --}}
+
                     <tr>
-                        <th><label for="thumbnail">Product Thumbnail:</label></th>
-                        <td><input type="file" name="thumbnail"></td>
+                        <th><label for="p_thumbnail">Product Thumbnail:</label></th>
+                        <td><input type="file" name="p_thumbnail"></td>
                         <td>
-                            @error('thumbnail'){{$message}}@enderror
+                            @error('p_thumbnail'){{$message}}@enderror
                         </td>
                     </tr>
                     <tr>
