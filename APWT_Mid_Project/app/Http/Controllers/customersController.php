@@ -10,6 +10,7 @@ use App\Models\product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\placeOrder;
+use App\Models\review;
 
 class customersController extends Controller
 {
@@ -204,6 +205,19 @@ class customersController extends Controller
             ->get();
 
         return view("customer.cvieworder")->with('orders', $orders);
+    }
+
+    function cProductReview(){
+
+        $c_id = session()->get('id');
+        // $reviews = review::where('c_id', '=', $c_id)->get();
+
+        $reviews = DB::table('reviews')
+            ->join('products', 'products.id', '=', 'reviews.p_id')
+            ->where('reviews.c_id', $c_id)
+            ->get();
+
+        return view("customer.cProductReview")->with('reviews', $reviews);
     }
 
     function cCoupons(){

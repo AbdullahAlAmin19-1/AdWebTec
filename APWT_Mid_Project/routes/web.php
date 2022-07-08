@@ -78,6 +78,7 @@ Route::get('/customer/remove-product/{p_id}',[customersController::class,'cartpr
 Route::get('/customer/cvieworder',[customersController::class,'cvieworder'])->name('customer.cvieworder');
 Route::get('customer/placeOrderMail',[customersController::class,'placeOrderMail'])->name('customer.placeOrder');
 
+Route::get('customer/product-review',[customersController::class,'cProductReview'])->name('customer.cProductReview');
 Route::get('customer/coupons',[customersController::class,'cCoupons'])->name('customer.Coupons');
 
 //Admin
