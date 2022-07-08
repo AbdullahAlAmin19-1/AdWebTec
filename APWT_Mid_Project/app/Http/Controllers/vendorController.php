@@ -224,7 +224,13 @@ class vendorController extends Controller
     function changeorderstatus($id){
         $o = order::where('id','=',$id)->first();
         if($o->status=='Pending'){$o->status='Confirmed';}
-        elseif($o->status=='Confirmed'){$o->status='Delivered';}
+        elseif($o->status=='Confirmed'){
+            $o->status='Delivered';
+            $r = new review();
+            $r->c_id=$o->c_id;
+            $r->p_id=$o->p_id;
+            $r->save();
+        }
         $o->update();
         session()->flash('msg','Order Updated');
         return redirect()->route("vendor.orders");;
