@@ -3,16 +3,16 @@
     Orders
 @endsection
 @section('content')
-    <h1 align="center">All Oreder</h1>
+    <h1 align="center">All Order</h1>
         <center>
             <h1>{{Session::get('msg')}}</h1>
                 <table border="2" style="width: 100%;">
                 {{@csrf_field()}}
                     <tr>
                         <th>Order Id</th>
-                        <th>Product Id</th>
+                        <th>Product Name</th>
                         <th>Quantity</th>
-                        <th>Customer Id</th>
+                        <th>Customer Name</th>
                         <th>Order Status</th>
                         <th>Payment Method</th>
                         <th>Payment Status</th>
@@ -21,9 +21,9 @@
                     @foreach ($orders as $o)
                     <tr align="center">
                         <td>{{$o->id}}</td>
-                        <td>{{$o->p_id}}</td>
+                        <td>{{$o->products->name}}</td>
                         <td>{{$o->quantity}}</td>
-                        <td>{{$o->c_id}}</td>
+                        <td>{{$o->customer->name}}</td>
                         <td>{{$o->status}}
                             @if($o->status=='Pending')
                             <a href="{{route('vendor.changeorderstatus',['id'=>$o->id])}}">Change</a> 

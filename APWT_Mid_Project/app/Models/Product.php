@@ -9,24 +9,29 @@ use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\Review;
 use App\Models\Vendor;
+use App\Models\Order;
 
 class Product extends Model
 {
     use HasFactory;
-    public function carts()
-    {
-        return $this->belongsTo(Cart::class);
-    }
+    // public function carts()
+    // {
+    //     return $this->belongsTo(Cart::class);
+    // }
     public function customers()
     {
         return $this->belongsToMany(Customer::class,'customer_products','p_id','c_id');
     }
     public function reviews()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class, 'p_id');
     }
-    public function vendors()
+    public function vendor()
     {
-        return $this->belongsTo(Vendor::class);
+        return $this->belongsTo(Vendor::class,'v_id');
+    }
+    public function order()
+    {
+        return $this->hasMany(Order::class,'p_id');
     }
 }

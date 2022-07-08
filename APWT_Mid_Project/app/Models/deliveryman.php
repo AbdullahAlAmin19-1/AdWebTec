@@ -14,12 +14,12 @@ class deliveryman extends Model
 
     protected $guarded = [];
 
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }
-    public function customers()
-    {
-        return $this->belongsToMany(Customer::class,'customer_deliverymen','d_id','c_id');
-    }
+    // public function orders()
+    // {
+    //     return $this->hasMany(Order::class);
+    // }
+    // public function customers()
+    // {
+    //     return $this->belongsToMany(Customer::class,'customer_deliverymen','d_id','c_id');
+    // }
 }

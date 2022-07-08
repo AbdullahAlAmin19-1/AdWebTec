@@ -18,7 +18,7 @@ use App\Http\Controllers\adminsController;
 |
 */
 
-// Route::get('/welcome', [vendorController::class,'welcome'])->name('public.welcome');
+Route::get('/test', [vendorController::class,'test'])->name('test');
 
 Route::get('/login',[pagesController::class,'login'])->name('public.login');
 Route::get('/logout', [pagesController::class,'logout'])->name('public.logout');
@@ -44,6 +44,8 @@ Route::get('/vendor/dashboard',[vendorController::class,'dashboard'])->name('ven
 Route::get('/vendor/profile',[vendorController::class,'profile'])->name('vendor.profile');
 Route::get('/vendor/editprofile',[vendorController::class,'editprofile'])->name('vendor.editprofile');
 Route::post('/vendor/editprofile',[vendorController::class,'editprofileupdate'])->name('vendor.editprofileupdate');
+Route::get('/vendor/changepassword',[vendorController::class,'changepassword'])->name('vendor.changepassword');
+Route::post('/vendor/changepassword',[vendorController::class,'changepasswordupdated'])->name('vendor.changepasswordupdated');
 Route::post('/vendor/picupload',[vendorController::class,'picupload'])->name('vendor.picupload');
 Route::get('/vendor/addproduct',[vendorController::class,'productNavbar'])->name('vendor.addproduct');
 Route::post('/vendor/addproduct',[vendorController::class,'addproductConfirm'])->name('vendor.addproductConfirm');

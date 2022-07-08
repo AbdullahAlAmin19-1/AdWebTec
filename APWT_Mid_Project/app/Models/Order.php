@@ -9,6 +9,7 @@ use App\Models\Vendor;
 use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\Deliveryman;
+use App\Models\Product;
 
 class order extends Model
 {
@@ -16,23 +17,27 @@ class order extends Model
 
     protected $guarded = [];
 
+    public function products()
+    {
+        return $this->belongsTo(Product::class,'p_id');
+    }
     public function coupon()
     {
-        return $this->belongsTo(Coupon::class);
+        return $this->belongsTo(Coupon::class,'co_id');
     }
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class,'c_id');
     }
 
-    public function vendor()
-    {
-        return $this->belongsTo(Vendor::class);
-    }
+    // public function vendor()
+    // {
+    //     return $this->belongsTo(Vendor::class,'v_id');
+    // }
 
-    public function deliveryman()
-    {
-        return $this->belongsTo(Deliveryman::class);
-    }
+//     public function deliveryman()
+//     {
+//         return $this->belongsTo(Deliveryman::class);
+//     }
 }

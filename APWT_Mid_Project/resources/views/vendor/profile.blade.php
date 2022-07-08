@@ -12,60 +12,55 @@ Account
     <center>
         <table border="2" style="width: 100%;">
             <tr>
-                <td style="width: 30%; padding: 10px;">
+                <td style="width: 50%;">
+                <br>
                 <center>
-                    <img src="{{asset('storage/vendor_profile_images')}}/{{$vendor->propic}}" alt="Customer icon" style="width: 300px;">
+                    <img src="{{asset('storage/vendor_profile_images')}}/{{$vendor->propic}}" alt="Customer icon" style="width: 350px;">
                     <br> <br>
                 <center>
                 </td>
-                <td style="width: 70%; padding: 20px;">
+                <td style="width: 50%; padding: 20px;">
                         {{@csrf_field()}}
                         <fieldset>
                             <legend>My Profile</legend>
                             <table>
                                 <tr>
-                                    <td><label for="id"><b>ID:</b></label></td>
-                                    <td><input type="text" name="id" value="{{$vendor->id}}" disabled></td>
+                                    <td><b>ID:</b></td>
+                                    <td><input value="{{$vendor->id}}" disabled></td>
                                 </tr>
 
                                 <tr>
-                                    <td><label for="username"><b>User Name:</b></label></td>
-                                    <td><input type="text" name="username" value="{{$vendor->username}}" disabled></td>
+                                    <td><b>User Name:</b></td>
+                                    <td><input value="{{$vendor->username}}" disabled></td>
                                 </tr>
 
                                 <tr>
-                                    <td><label for="name"><b>Name:</b></label></td>
-                                    <td><input type="text" name="name" value="{{$vendor->name}}" disabled></td>
+                                    <td><b>Name:</b></td>
+                                    <td><input value="{{$vendor->name}}" disabled></td>
                                 </tr>
 
                                 <tr>
-                                    <td><label for="email"><b>Email:</b></label></td>
-                                    <td><input type="email" name="email" value="{{$vendor->email}}" disabled></td>
+                                    <td><b>Email:</b></td>
+                                    <td><input value="{{$vendor->email}}" disabled></td>
                                 </tr>
 
                                 <tr>
-                                    <td><label for="phone"><b>Phone:</b></label></td>
-                                    <td><input type="text" name="phone" value="{{$vendor->phone}}" disabled></td>
+                                    <td><b>Phone:</b></td>
+                                    <td><input value="+880{{$vendor->phone}}" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Gender:</b></td>
+                                    <td><input value="{{$vendor->gender}}" disabled></td>
                                 </tr>
 
                                 <tr>
-                                    <td><label for="password"><b>Password:</b></label></td>
-                                    <td><input type="password" name="password" value="{{$vendor->password}}" disabled></td>
+                                    <td><b>DOB:</b></td>
+                                    <td><input value="{{$vendor->dob}}" disabled></td>
                                 </tr>
 
                                 <tr>
-                                    <td><label for="gender"><b>Gender:</b></label></td>
-                                    <td><input type="text" name="gender" value="{{$vendor->gender}}" disabled></td>
-                                </tr>
-
-                                <tr>
-                                    <td><label for="dob"><b>DOB:</b></label></td>
-                                    <td><input type="date" name="dob" value="{{$vendor->dob}}" disabled></td>
-                                </tr>
-
-                                <tr>
-                                    <td><label for="address"><b>Address:</b></label></td>
-                                    <td><input type="text" name="address" value="{{$vendor->address}}" disabled></td>
+                                    <td><b>Address:</b></td>
+                                    <td><input value="{{$vendor->address}}" disabled></td>
                                 </tr>
 
                                 <tr>

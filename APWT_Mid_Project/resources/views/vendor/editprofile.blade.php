@@ -11,17 +11,17 @@ Account
         <table border="2" style="width: 100%;">
             <tr>
 
-                <td style="width: 30%; padding: 10px;">
-                <center>
+                <td style="width: 30%;">
+                <center><br><br>
                     <img src="{{asset('storage/vendor_profile_images')}}/{{$vendor->propic}}" alt="Customer icon" style="width: 200px;">
                     <br> <br>
-                <center>
                     <form action="{{route('vendor.picupload');}}" method="POST" enctype="multipart/form-data">
                     {{@csrf_field()}}<br>
-                        <label for="pic"><b>Select image</b></label>
-                        <input type="file" name="pic"> <br> @error('pic'){{$message}}@enderror <br>
+                        <label for="pic"><b>&ensp;Select image</b></label>
+                        <input type="file" name="pic"> <br><br> @error('pic'){{$message}}<br><br>@enderror 
                         <input type="submit" name="submit" value="Upload">
                     </form>
+                </center>
                 </td>
                 <td style="width: 70%; padding: 20px;">
 
@@ -77,15 +77,6 @@ Account
                                 </tr>
 
                                 <tr>
-                                    <td><label for="password"><b>Password:</b></label></td>
-                                    <td><input type="password" name="password" value="{{$vendor->password}}">
-                                        @error('password')
-                                {{$message}} <br>
-                                @enderror
-                                    </td>
-                                </tr>
-
-                                <tr>
                                     <td><label for="gender"><b>Gender:</b></label></td>
                                     <td><input type="text" name="gender" value="{{$vendor->gender}}">
                                         @error('gender')
@@ -115,7 +106,8 @@ Account
                                 <tr>
                                     <td></td>
                                     <td>
-                                        <input type="submit" name="update" value="Update">
+                                        <input type="submit" name="update" value="Update">&ensp;
+                                        <a href="{{route('vendor.changepassword')}}"><input type="button" value="Change Password"></a>
                                     </td>
                                 </tr>
 

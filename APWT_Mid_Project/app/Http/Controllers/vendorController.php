@@ -10,6 +10,10 @@ use App\Models\order;
 use App\Models\review;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\customer;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\confirmOrder;
+use App\Mail\confirmDelivery;
 
 class vendorController extends Controller
 {
@@ -40,7 +44,6 @@ class vendorController extends Controller
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
             "email" => "required|email",
             "phone" => "required|max:10|min:10",
-            "password" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
             "gender" => "required",
             "dob" => "required",
             "address" => "required"
@@ -54,7 +57,6 @@ class vendorController extends Controller
         $user->username = $vali->username;
         $user->email =$vali->email;
         $user->phone = $vali->phone;
-        $user->password = $vali->password;
         $user->gender = $vali->gender;
         $user->dob = $vali->dob;
         $user->address = $vali->address;
@@ -62,6 +64,31 @@ class vendorController extends Controller
         session()->put('username', $user->username);
         session()->flash('msg','Update Completed');
         return back();
+    }
+    function changepassword(){
+        $user=vendor::where('id','=',session()->get('id'))->first();
+        if($user){return view("vendor.changepassword")->with('vendor',$user);}
+        else {return view("vendor.dashboard");}
+    }
+    function changepasswordupdated(Request $vali){
+        $this->validate($vali, [
+            "cur_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+            "new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+            "conf_new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
+        ],
+        []
+        );
+        $user=vendor::where('id','=',session()->get('id'))->first();
+        if($user->password == $vali->cur_pass){
+            $user->password = $vali->new_pass;
+            $user->update();
+            session()->flash('msg','Password Update Completed');
+            return back();
+        }
+        else {
+            session()->flash('msg',"Current Password Dosen't Match");
+            return back();
+        }
     }
     function picupload(Request $req){
         $this->validate($req, [
@@ -223,9 +250,13 @@ class vendorController extends Controller
     }
     function changeorderstatus($id){
         $o = order::where('id','=',$id)->first();
-        if($o->status=='Pending'){$o->status='Confirmed';}
+        if($o->status=='Pending'){
+            $o->status='Confirmed';
+            Mail::to($o->customer->email)->send(new confirmOrder("Confermation of your Order",$o->customer->name,$o->products->name,$o->quantity,$o->delivery_address));
+                }
         elseif($o->status=='Confirmed'){
             $o->status='Delivered';
+            Mail::to($o->customer->email)->send(new confirmDelivery("Confermation of your Delivery",$o->customer->name,$o->products->name,$o->quantity,$o->delivery_address));
             $r = new review();
             $r->c_id=$o->c_id;
             $r->p_id=$o->p_id;
@@ -247,5 +278,30 @@ class vendorController extends Controller
         session()->forget('coupon_navbar');
         $r = review::all();
         return view('vendor.allreview')->with('reviews',$r);
+    }
+    function test(){
+        $co=coupon::where('id','=','2')->first();
+        // echo $co->customers;
+        // echo $co->vendor;
+        $c=customer::where('id','=','1')->first();
+        // echo $c->coupons;
+        // echo $c->products;
+        // echo $c->orders;
+        // echo $c->reviews;
+        $o=order::where('id','=','2')->first();
+        // echo $o->coupon;
+        // echo $o->customer->name;
+        // echo $o->products->name;
+        $p=product::where('id','=','2')->first();
+        // echo $p->customers;
+        // echo $p->reviews;
+        // echo $p->vendor;
+        // echo $p->order;
+        $r=review::where('id','=','1')->first();
+        // echo $r->product;
+        // echo $r->customer;
+        $v=vendor::where('id','=','1')->first();
+        // echo $v->coupons;
+        // echo $v->products;
     }
 }
