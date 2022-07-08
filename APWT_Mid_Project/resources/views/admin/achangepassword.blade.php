@@ -10,7 +10,7 @@
     <h1>{{Session::get('msg')}}</h1>
     {{@csrf_field()}}
     User name: <input type="text" name="uname" value="{{session()->get('username')}}" disabled><br><br>
-    <!-- Enter Old Password: <input type="password" name="cur_pass" placeholder="Enter Old Password">@error('cur_pass'){{$message}}@enderror <br><br> -->
+    Enter Old Password: <input type="password" name="cur_pass" placeholder="Enter Old Password">@error('cur_pass'){{$message}}@enderror <br><br>
     Enter New Password: <input type="password" name="new_pass" placeholder="Enter New Password">@error('new_pass'){{$message}}@enderror <br><br>
     Confirm New Password: <input type="password" name="conf_new_pass" placeholder="Confirm New Password">@error('conf_new_pass'){{$message}}@enderror <br><br>
     <input type="submit" value="Submit">
