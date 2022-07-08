@@ -8,6 +8,7 @@
 
         <h3 style="color: red;">{{Session::get('corder')}}</h3>
         <h3 style="color: red;">{{Session::get('addcart')}}</h3>
+        <h3 style="color: red;">{{Session::get('reviewMsg')}}</h3>
 
         <div class="product-section">
             <center>

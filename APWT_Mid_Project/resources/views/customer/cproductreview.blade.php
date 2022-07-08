@@ -9,15 +9,11 @@ Customer Product Review
     <center>
         @foreach ($reviews as $item)
 
-        <form action="#" method="POST">
+        <form action="{{route('customer.creviewForm')}}" method="POST">
+            {{@csrf_field()}}
             <table border="1px" style="width:40%; border-collapse: collapse;">
 
-                <tr>
-                    <th>Review ID</th>
-                    <th>
-                        <input type="text" name="r_id" value="{{$item->id}}" style="width: 100%" disabled>
-                    </th>
-                </tr>
+                <input type="hidden" name="r_id" value="{{$item->id}}" style="width: 100%">
 
                 <tr>
                     <th>Product ID</th>
@@ -36,12 +32,15 @@ Customer Product Review
                 <tr>
                     <th>Review Message</th>
                     <th>
-                        <textarea name="r_messagw" cols="20" rows="4" style="width: 100%" placeholder="Write Your Review Here"></textarea>
+                        <textarea name="r_message" cols="20" rows="4" style="width: 100%" placeholder="Write Your Review Here">{{$item->message}}</textarea>
+                        <br> @error('r_message')
+                        {{$message}} <br> <br> 
+                        @enderror
                     </th>
                 </tr>
 
                 <tr>
-                    <th colspan="2"><input type="submit" name="submit" value="Submit" style="width: 100%"></th>
+                    <th colspan="2"><input type="submit" name="update" value="Update" style="width: 100%"></th>
                 </tr>
             
             </table>

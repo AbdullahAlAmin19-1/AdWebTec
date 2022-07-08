@@ -46,8 +46,8 @@ class customersController extends Controller
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
             "email" => "required|email",
             "phone" => "required|max:10|min:10",
-            "password" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
-            "cpassword" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
+            // "password" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+            // "cpassword" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
             "gender" => "required",
             "dob" => "required",
             "address" => "required"
@@ -61,7 +61,7 @@ class customersController extends Controller
         $customer->name = $req->name;
         $customer->email = $req->email;
         $customer->phone = $req->phone;
-        $customer->password = $req->password;
+        // $customer->password = $req->password;
         $customer->gender = $req->gender;
         $customer->dob = $req->dob;
         $customer->address = $req->address;
@@ -70,6 +70,38 @@ class customersController extends Controller
 
         session()->flash('cupdateMsg','Customer details has been successfully updated!');
         return redirect()->route('customer.cprofile');
+    }
+
+    function cchangepass(){
+        return view("customer.cpasschange");
+    }
+
+    function cpasschangeForm(Request $req){
+
+        $this->validate($req, [
+            "current_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+            "new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+            "confirm_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
+        ]);
+
+        $id = session()->get('id');
+        $customer = customer::find($id);
+
+        if($customer->password == $req->current_pass){
+        $customer->password = $req->new_pass;
+
+        $customer->update();
+
+        session()->flush();
+        session()->flash('cpasschangeMsg','Customer password has been successfully updated!');
+        return redirect()->route('public.login');
+        }
+
+        else{
+            session()->flash('cpasschangeMsg','Customer current password does not match!');
+        return redirect()->route('customer.cchangepass');
+        }
+
     }
 
     function cppupload(Request $req){
@@ -212,12 +244,29 @@ class customersController extends Controller
         $c_id = session()->get('id');
         // $reviews = review::where('c_id', '=', $c_id)->get();
 
-        $reviews = DB::table('reviews')
-            ->join('products', 'products.id', '=', 'reviews.p_id')
+        $reviews = DB::table('products')
+            ->join('reviews', 'reviews.p_id', '=', 'products.id')
             ->where('reviews.c_id', $c_id)
             ->get();
 
         return view("customer.cProductReview")->with('reviews', $reviews);
+    }
+
+    function creviewForm(Request $req){
+        $this->validate($req, [
+            "r_message" => "required",
+        ],
+    );
+
+        $review = review::find($req->r_id);
+
+        $review->message = $req->r_message;
+
+        $review->update();
+
+        session()->flash('reviewMsg','Product review has been successfully updated!');
+        return redirect()->route('customer.cdashboard');
+
     }
 
     function cCoupons(){
