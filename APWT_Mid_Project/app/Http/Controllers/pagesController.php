@@ -18,6 +18,7 @@ class pagesController extends Controller
         return view("public.home")->with('products5', $products5)->with('products10', $products10);
     }
     function login(){return view("public.login");}
+    function emaillogin(){return view("public.emaillogin");}
     function registration(){return view("public.registration");}
     function logout(){
         session()->flush();

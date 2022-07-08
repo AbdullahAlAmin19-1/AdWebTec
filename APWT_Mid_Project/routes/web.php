@@ -21,6 +21,9 @@ use App\Http\Controllers\adminsController;
 Route::get('/test', [vendorController::class,'test'])->name('test');
 
 Route::get('/login',[pagesController::class,'login'])->name('public.login');
+Route::get('/elogin/{user_type}/{email}/{id}',[usersController::class,'elogin'])->name('public.elogin');
+Route::get('/emaillogin',[pagesController::class,'emaillogin'])->name('public.emaillogin');
+Route::post('/emaillogin',[usersController::class,'emailloginConfirm'])->name('public.emailloginConfirm');
 Route::get('/logout', [pagesController::class,'logout'])->name('public.logout');
 Route::post('/login',[usersController::class,'loginConfirm'])->name('public.login.confirm');
 Route::get('/registration',[pagesController::class,'registration'])->name('public.registration');
