@@ -82,9 +82,11 @@ Route::post('/customer/corderForm',[customersController::class,'corderForm'])->n
 Route::get('/customer/remove-product/{p_id}',[customersController::class,'cartproductremove'])->name('customer.cartproductremove');
 Route::get('/customer/cvieworder',[customersController::class,'cvieworder'])->name('customer.cvieworder');
 Route::get('customer/placeOrderMail',[customersController::class,'placeOrderMail'])->name('customer.placeOrder');
-
 Route::get('customer/product-review',[customersController::class,'cProductReview'])->name('customer.cProductReview');
 Route::get('customer/coupons',[customersController::class,'cCoupons'])->name('customer.Coupons');
+Route::post('/customer/reviewForm',[customersController::class,'creviewForm'])->name('customer.creviewForm');
+Route::get('customer/change-Password',[customersController::class,'cchangepass'])->name('customer.cchangepass');
+Route::Post('/customer/passchangeForm',[customersController::class,'cpasschangeForm'])->name('customer.cpasschangeForm');
 
 //Admin
 Route::get('/admin/adashboard',[adminsController::class,'adashboard'])->name('admin.adashboard');
