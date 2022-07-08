@@ -18,19 +18,19 @@ class customer extends Model
 
     protected $guarded = [];
 
-    public function carts()
-    {
-        return $this->hasMany(Cart::class);
-    }
+    // public function carts()
+    // {
+    //     return $this->hasMany(Cart::class);
+    // }
 
     public function reviews()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class, 'c_id');
     }
 
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class,'c_id');
     }
 
     public function coupons()
@@ -43,8 +43,8 @@ class customer extends Model
         return $this->belongsToMany(Product::class,'customer_products','c_id','p_id');
     }
 
-    public function deliverymen()
-    {
-        return $this->belongsToMany(Deliveryman::class,'customer_deliverymen','c_id','d_id');
-    }
+    // public function deliverymen()
+    // {
+    //     return $this->belongsToMany(Deliveryman::class,'customer_deliverymen','c_id','d_id');
+    // }
 }
