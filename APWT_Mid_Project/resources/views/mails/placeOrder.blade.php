@@ -1,5 +1,3 @@
-<div></div>
-
 <?php
 
 $total_price = 0;

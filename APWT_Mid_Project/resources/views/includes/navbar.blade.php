@@ -98,7 +98,7 @@
                         <a href="{{route('customer.ccart')}}" style="font-size: 20px;">Cart</a> |
                         <a href="{{route('customer.cvieworder')}}" style="font-size: 20px;">Orders</a> |
                         <a href="#" style="font-size: 20px;">Reviews</a> |
-                        <a href="#" style="font-size: 20px;">Coupons</a>
+                        <a href="{{route('customer.Coupons')}}" style="font-size: 20px;">Coupons</a>
                     </td>
                 </tr>
             </table>
