@@ -15,7 +15,7 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('message', 300);
+            $table->string('message', 300)->nullable();
             $table->integer('c_id')->unsigned()->nullable(); //For Nullable Value -MR
             $table->foreign('c_id')->references('id')->on('customers');
             $table->integer('p_id')->unsigned()->nullable(); //For Nullable Value -MR
