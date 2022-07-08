@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\admin;
 use App\Models\customer;
 use Illuminate\Support\Facades\DB;
+Use App\Rules\MatchOldPassword;
 
 class adminsController extends Controller
 {
@@ -66,16 +67,20 @@ class adminsController extends Controller
     function changepasswordupdate(Request $vali){
         $this->validate($vali,
             [
-                // "cur_pass"=>"required|current_password:api",
+                "cur_pass"=>['required', new MatchOldPassword],
                 "new_pass"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
                 "conf_new_pass"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
             ],
             []
         );
-        $user=admin::where('id','=',session()->get('id'))->first();
-        $user->password = $vali->conf_new_pass;
-        $user->update();
-        session()->put('username', $user->username);
+        // $user=admin::where('id','=',session()->get('id'))->first();
+        // $user->password = $vali->conf_new_pass;
+        // $user->update();
+        // session()->put('username', $user->username);
+        
+        $user= admin::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+   
+        // dd('Password change successfully.')
         session()->flash('msg','Password Changed');
         return redirect()->route('admin.aprofile');
         
