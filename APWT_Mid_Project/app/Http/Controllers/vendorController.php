@@ -303,5 +303,8 @@ class vendorController extends Controller
         $v=vendor::where('id','=','1')->first();
         // echo $v->coupons;
         // echo $v->products;
+        date_default_timezone_set('Asia/Dhaka');
+        echo $current_time = date("H:i:s");
+        // echo date_default_timezone_get(); 
     }
 }

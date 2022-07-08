@@ -9,6 +9,7 @@ use App\Models\customer;
 use App\Models\deliveryman;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendOTP;
+use App\Mail\elogin;
 use App\Models\product;
 
 class usersController extends Controller
@@ -78,6 +79,62 @@ class usersController extends Controller
                 return redirect()->route("vendor.dashboard");
             }
             elseif($vali->user_type == "Deliveryman"){
+                return redirect()->route("deliveryman.dashboard");
+            }
+        }
+        else {
+            session()->flash('msg','User not valid');
+            return back();
+        }
+    }
+    function emailloginConfirm(Request $vali){
+        $this->validate($vali,
+            [
+                "user_type"=>"required",
+                "email"=>"required|email"
+            ],
+            []
+        );
+        if($vali->user_type=="Admin"){$user=admin::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Vendor"){$user=vendor::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Customer"){$user=customer::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Deliveryman"){$user=deliveryman::where('email','=',$vali->email)->first();}
+       
+        if($user){
+            Mail::to($vali->email)->send(new elogin("Email Login",$vali->user_type,$user->email,$user->password,));
+            session()->flash('msg','Check Your Email for Fearther Information');
+            return back();
+        }
+        else {
+            session()->flash('msg','User not valid');
+            return back();
+        }
+    }
+    function elogin($user_type,$email,$id){
+        
+        if($user_type=="Admin"){$user=admin::where('email','=',$email)->where('password',$id)->first();}
+        elseif($user_type=="Vendor"){$user=vendor::where('email','=',$email)->where('password',$id)->first();}
+        elseif($user_type=="Customer"){$user=customer::where('email','=',$email)->where('password',$id)->first();}
+        elseif($user_type=="Deliveryman"){$user=deliveryman::where('email','=',$email)->where('password',$id)->first();}
+       
+        if($user){
+            session()->put('id',$user->id);
+            session()->put('user_type',$user_type);
+            session()->put('username', $user->username);
+            session()->put('propic', $user->propic);
+
+            if($user_type == "Admin"){
+                return redirect()->route("admin.adashboard");
+            }
+
+            elseif($user_type == "Customer"){
+                return redirect()->route("customer.cdashboard");
+            }
+
+            elseif($user_type == "Vendor"){
+                return redirect()->route("vendor.dashboard");
+            }
+            elseif($user_type == "Deliveryman"){
                 return redirect()->route("deliveryman.dashboard");
             }
         }

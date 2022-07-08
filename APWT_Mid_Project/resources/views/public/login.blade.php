@@ -42,7 +42,11 @@
                 </tr>
     
                 <tr>
-                    <th colspan="2"><input type="submit" value="Login"> <a href="{{route('public.forgotpassword')}}">Forgot Password?</a></th>
+                    <th colspan="2">
+                    <a href="{{route('public.forgotpassword')}}">Forgot Password?</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="submit" value="Login">&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="{{route('public.emaillogin')}}"><input type="button" value="Login using Email"></a>
+                    </th>
                 </tr>
             </table>
     
