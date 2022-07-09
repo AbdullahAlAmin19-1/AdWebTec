@@ -13,6 +13,7 @@ class adminsController extends Controller
     //
     function __construct(){
         $this->middleware("logged");
+        $this->middleware("admin");
     }
     
     function welcome(){

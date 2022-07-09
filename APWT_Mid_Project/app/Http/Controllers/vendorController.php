@@ -19,6 +19,7 @@ class vendorController extends Controller
 {
     function __construct(){
         $this->middleware("logged");
+        $this->middleware("vendor");
     }
     // function welcome(){return view("public.welcome");}
     public function dashboard(){
@@ -153,35 +154,48 @@ class vendorController extends Controller
         session()->flash('msg','Product Added');
         return back();
     }
+    function productpicupload(Request $req){
+        $this->validate($req, [
+            "pic" => "required|mimes:jpg,png,jpeg",
+        ],
+        [
+            'pic.required' => 'Please select a picture!',
+            'pic.mimes' => 'The profile pic must be a jpg, png or jpeg!',
+        ]
+        );
+        $product = product::find($req->id);
+        $extension = $req->file('pic')->getClientOriginalExtension();
+        $picname = $product->name.time().".".$extension;
+        $req->file('pic')->storeAs('public/product_images', $picname);
+        $product->thumbnail = $picname;
+        $product->update();
+
+        session()->flash('msg','Thumbnail Updated');
+        return back();
+    }    
     function editproduct($id){
-        // $p = product::find($id);
-        $p = product::where('id','=',$id)->first();
-        if($p){return view("vendor.editProduct")->with('p',$p);}
-        else {return view("vendor.dashboard");}
+        $p = product::find($id);
+        // $p = product::where('id','=',$id)->first();
+        if($p){return view("vendor.editProduct")->with('product',$p);}
+        else {return redirect()->route("vendor.dashboard");}
     }
     function editproductConfirm(Request $vali){
         $this->validate($vali, [
             "name" => "required",
             "category" => "required",
-            "thumbnail" => "required",
             "price" => "required",
             "stock" => "required",
         ],
         []
         );
-        //$p = product::where('p_id','=',$vali->id)->first();
 
         $p = product::find($vali->id);
-        $p->id = $vali->id;
         $p->name = $vali->name;
         $p->category = $vali->category;
-        $p->thumbnail = $vali->thumbnail;
-        // $p->gallery = $vali->gallery;
         $p->price = $vali->price;
         $p->stock = $vali->stock;
         $p->size = $vali->size;
         $p->description = $vali->description;
-        $p->v_id = $vali->v_id;
         $p->update();
         session()->flash('msg','Product Updated');
         return back();
@@ -210,6 +224,13 @@ class vendorController extends Controller
         return view('vendor.coupon');
     }
     function createcoupon(Request $value){
+        $this->validate($value, [
+            "codetype" => "required",
+            "code" => "required",
+            "amount" => "required"
+        ],
+        []
+        );
         $c=new coupon();
         if($value->codetype=='auto'){
             $c->code=Str::random($value->code);
@@ -231,8 +252,16 @@ class vendorController extends Controller
         return view('vendor.editcoupon')->with('c',$c);
     }
     function deletecoupon($id){
-        $c = coupon::all();
-        return view('vendor.editcoupon')->with('coupons',$c);
+        DB::delete('delete from coupons where id = ?',[$id]);
+        $c = coupon::where('id','=',$id)->first();
+        if($c){
+            session()->flash('msg','Coupon Id '.$id.' Deletion Failed');
+            return redirect()->route("vendor.allcoupons");
+        }
+        else {
+            session()->flash('msg','Coupon Id '.$id.' Deletion Successful');
+            return redirect()->route("vendor.allcoupons");
+        }
     }
     function editcouponconfirm(Request $value){
         $c = coupon::where('id','=',$value->id)->first();
@@ -246,7 +275,7 @@ class vendorController extends Controller
         session()->forget('product_navbar');
         session()->forget('coupon_navbar');
         $o = order::all();
-        return view('vendor.orders')->with('orders',$o);
+        return view('vendor.allorders')->with('orders',$o);
     }
     function changeorderstatus($id){
         $o = order::where('id','=',$id)->first();
@@ -277,7 +306,7 @@ class vendorController extends Controller
         session()->forget('product_navbar');
         session()->forget('coupon_navbar');
         $r = review::all();
-        return view('vendor.allreview')->with('reviews',$r);
+        return view('vendor.allreviews')->with('reviews',$r);
     }
     function test(){
         $co=coupon::where('id','=','2')->first();
@@ -303,7 +332,7 @@ class vendorController extends Controller
         $v=vendor::where('id','=','1')->first();
         // echo $v->coupons;
         // echo $v->products;
-        date_default_timezone_set('Asia/Dhaka');
+        // date_default_timezone_set('Asia/Dhaka');
         echo $current_time = date("H:i:s");
         // echo date_default_timezone_get(); 
     }

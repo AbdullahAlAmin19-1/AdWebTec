@@ -48,9 +48,9 @@
                 <table>
                     <tr>
                         <td>
-                            <a href="{{route('vendor.productNavbar');}}" style="font-size: 20px;">Products</a> |
+                            <a href="{{route('vendor.addproduct');}}" style="font-size: 20px;">Products</a> |
                             <a href="{{route('vendor.profile');}}" style="font-size: 20px;">Manage My Account</a> |
-                            <a href="{{route('vendor.coupon');}}" style="font-size: 20px;">Coupons</a> |
+                            <a href="{{route('vendor.createcoupon');}}" style="font-size: 20px;">Coupons</a> |
                             <a href="{{route('vendor.orders');}}" style="font-size: 20px;">Orders</a> |
                             <a href="{{route('vendor.reviews');}}" style="font-size: 20px;">Reviews</a>
                             <!-- <a href="#" style="font-size: 20px;">Vouchers</a> | -->
@@ -66,8 +66,7 @@
                     <tr>
                         <td>
                             <a href="{{route('vendor.addproduct');}}" style="font-size: 20px;">Add Products</a> |
-                            <a href="{{route('vendor.dashboard');}}" style="font-size: 20px;">My products</a> |
-                            <a href="{{route('public.products');}}" style="font-size: 20px;">All Products</a>
+                            <a href="{{route('vendor.dashboard');}}" style="font-size: 20px;">All products</a>
                         </td>
                     </tr>
                 </table>
@@ -80,7 +79,7 @@
                 <table>
                     <tr>
                         <td>
-                            <a href="{{route('vendor.coupon');}}" style="font-size: 20px;">Create Coupon</a> |
+                            <a href="{{route('vendor.createcoupon');}}" style="font-size: 20px;">Create Coupon</a> |
                             <a href="{{route('vendor.allcoupons');}}" style="font-size: 20px;">All Coupon</a>
                         </td>
                     </tr>

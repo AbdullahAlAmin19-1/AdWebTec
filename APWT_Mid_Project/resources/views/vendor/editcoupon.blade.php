@@ -5,8 +5,7 @@
 @section('content')
     <h1 align="center">Create Coupon</h1>
     <center>
-    <h1>{{Session::get('msg')}}</h1>
-        <h1>{{Session::get('msg')}}</h1>
+    <h3 style="color: red;">{{Session::get('msg')}}</h3>
              <form action="" method="POST">
                 <table style="width: 30%;">
                 {{@csrf_field()}}

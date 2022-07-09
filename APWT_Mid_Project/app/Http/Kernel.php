@@ -65,5 +65,8 @@ class Kernel extends HttpKernel
         'logged'=>\App\Http\Middleware\authUser::class,
         'resetpass'=>\App\Http\Middleware\resetpass::class,
         'checkotp'=>\App\Http\Middleware\checkOTP::class,
+        'vendor'=>\App\Http\Middleware\authVendor::class,
+        'customer'=>\App\Http\Middleware\authCustomer::class,
+        'admin'=>\App\Http\Middleware\authAdmin::class
     ];
 }

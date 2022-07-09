@@ -3,64 +3,58 @@
     dashboard
 @endsection
 @section('content')
-    <h1 align="center">My Product</h1> 
-    <h1 align="center">{{Session::get('msg')}}</h1>
+    <h1 align="center">All Product</h1> 
+    <h3 align="center" style="color: red;">{{Session::get('msg')}}</h3>
 <div class="container">
+{{@csrf_field()}}
     @foreach ($p as $product)
     <table border="2" style="width: 100%;">
     <tr>
         <td>
-        <table border="2" style="width: 100%;">
-        <tr><th colspan="2">Product Picture</th></tr>
-        <tr><td colspan="2"><img src="{{asset('storage/product_images')}}/{{$product->thumbnail}}" alt="Product Image" height="120px" width="120px"></td></tr>
+        <table border="1" style="width: 100%;">
+        <tr><th colspan="3">Product Picture</th></tr>
+        <tr><td colspan="2" align="center"><img src="{{asset('storage/product_images')}}/{{$product->thumbnail}}" alt="Product Image" height="120px" width="120px"></td></tr>
         <tr>
-            <td><a href="{{route('vendor.editproduct',['id'=>$product->id])}}"><input type="button" value="Edit Product"></a></td>
-            <td><a href="{{route('vendor.deleteproduct',['id'=>$product->id])}}"><input type="button" value="Delete Product"></a></td>
+            <td align="center"><a href="{{route('vendor.editproduct',['id'=>$product->id])}}"><input type="button" value="Edit Product"></a></td>
+            <td align="center"><a href="{{route('vendor.deleteproduct',['id'=>$product->id])}}"><input type="button" value="Delete Product"></a></td>
         </tr>
         </table>
         </td>
-        <td>
-        <table border="2" style="width: 100%;">
-        <tr>
-            <th>Vendor Id</th>
-            <td>{{$product->v_id}}</td>
-        </tr>
-        <tr>
-            <th>Product Name</th>
-            <td>{{ $product->name }}</td>
-        </tr>
-        <tr>
-            <th>Product Id</th>
-            <td>{{ $product->id }}</td>
-        </tr>
-        <tr>
-            <th>Product Category</th>
-            <td>{{$product->category}}</td>
-        </tr>
-        <tr>
-            <th>Product Thumbnail</th>
-            <td>{{$product->thumbnail}}</td>
-        </tr>
-        <tr>
-            <th>Product Price</th>
-            <td>{{$product->price}}</td>
-        </tr>
-        <tr>
-            <th>Product Stock</th>
-            <td>{{$product->stock}}</td>
-        </tr>
-        <tr>
-            <th>Product Size</th>
-            <td>{{$product->size}}</td>
-        </tr>
-        <tr>
-            <th>Product Description</th>
-            <td>{{$product->description}}</td>
+            <td>
+            <form action="" method="POST">
+                <table border="1" style="width: 100%;">
+                    <tr>
+                        <th>Product Name:</th>
+                        <td><input value="{{$product->name}}"disabled></td>
+                    </tr>
+                    <tr>
+                        <th>Product Id:</th>
+                        <td><input value="{{$product->id}}" disabled></td>
+                    </tr>
+                    <tr>
+                        <th>Product Category:</th>
+                        <td><input value="{{$product->category}}"disabled></td>
+                    </tr>
+                    <tr>
+                        <th>Product Price:</th>
+                        <td><input value="{{$product->price}}"disabled></td>
+                    </tr> 
+                    <tr>
+                        <th>Product Stock:</th>
+                        <td><input value="{{$product->stock}}"disabled></td>
+                    </tr> 
+                    <tr>
+                        <th>Product Size:</th>
+                        <td><input  value="{{$product->size}}"disabled></td>
+                    </tr>   
+                    <tr>
+                        <th>Product Description:</th>
+                        <td><input value="{{$product->description}}"disabled></td>
+                    </tr>
+                </table>
+            </td>
         </tr>
     </table>
-</td>
-</tr>
-</table>
     @endforeach
 </div>
 <div align="center">

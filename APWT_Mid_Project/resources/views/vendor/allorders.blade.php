@@ -5,25 +5,37 @@
 @section('content')
     <h1 align="center">All Order</h1>
         <center>
-    <h3 style="color: red;">{{Session::get('msg')}}</h3>
-                <table border="2" style="width: 100%;">
+        <h3 style="color: red;">{{Session::get('msg')}}</h3>
+                <table border="1" style="width: 100%;">
                 {{@csrf_field()}}
+                @foreach ($orders as $o)
                     <tr>
-                        <th>Order Id</th>
+                        <th>Customer Name: </th>
+                        <td colspan='5'>{{$o->customer->name}}</td>
+                        <th>Order Date: </th>
+                        <td>{{$o->created_at}}</td>
+                    <tr>
+                        <th>Phone Number: </th>
+                        <td>+880{{$o->customer->phone}}</td>
+                    <tr>
+                        <th>Delivery Address: </th>
+                        <td colspan='5'>{{$o->delivery_address}}</td>
+                    </tr>
                         <th>Product Name</th>
-                        <th>Quantity</th>
-                        <th>Customer Name</th>
+                        <th>Total Quantity</th>
+                        <th>Price</th>
+                        <th>Purchase Quantity</th>
+                        <th>Purchase Price</th>
                         <th>Order Status</th>
                         <th>Payment Method</th>
                         <th>Payment Status</th>
-                        <th>Delivery Address</th>
                     </tr>
-                    @foreach ($orders as $o)
                     <tr align="center">
-                        <td>{{$o->id}}</td>
                         <td>{{$o->products->name}}</td>
+                        <td>{{$o->products->stock}}</td>
+                        <td>{{$o->products->price}} Taka</td>
                         <td>{{$o->quantity}}</td>
-                        <td>{{$o->customer->name}}</td>
+                        <td>{{$o->products->price*$o->quantity}} Taka</td>
                         <td>{{$o->status}}
                             @if($o->status=='Pending')
                             <a href="{{route('vendor.changeorderstatus',['id'=>$o->id])}}">Change</a> 
@@ -37,7 +49,6 @@
                             <a href="{{route('vendor.changepaymentstatus',['id'=>$o->id])}}">Change</a> 
                             @endif
                         </td>
-                        <td>{{$o->delivery_address}}</td>
                         </tr>
                     @endforeach
                 </table>

@@ -3,69 +3,83 @@
     Edit Product
 @endsection
 @section('content')
-    <h1 align="center">Edit Product</h1>
+    <h1 align="center">Edit Product</h1> 
+    <h3 style="color: red;">{{Session::get('msg')}}</h3>
+<div class="container">
 
-    <center>
-    <h1>{{Session::get('msg')}}</h1>
-        <fieldset>
+    <table style="width: 100%;">
+    <tr>
+        <td style="width: 35%;">
+        <table align="center" border="1" style="width: 100%;">
+        <tr><th colspan="2">Product Picture</th></tr>
+        <tr><td align="center"style="width: 100%;"><img src="{{asset('storage/product_images')}}/{{$product->thumbnail}}" alt="Product Image" height="120px" width="120px"></td>
+            <td><form action="{{route('vendor.productpicupload')}}" method="POST" enctype="multipart/form-data">
+            {{@csrf_field()}}<br>
+                    <label for="pic"><b>&ensp;Select image: </b></label>
+                    <input type="file" name="pic"> <br> @error('pic'){{$message}}<br>@enderror 
+                    <input type="hidden" name="id" value="{{ $product->id }}">
+                    <input align="center" type="submit" name="submit" value="Upload">
+                </form>
+            </td>
+        </table>
+        </td>
+        <td style="width: 65%;">
             <form action="" method="POST">
-                <table border="1" style="width: 100%;">
-                {{@csrf_field()}}
-                    <tr>
-                        <th><label for="v_id">Vendor Id:</label></th>
-                        <td><input type="number" id='v_id' name="v_id" placeholder="Write Vendor Id" value="{{$p->v_id}}"></td>
-                        <td>@error('name'){{$message}}@enderror</td>
-                    </tr>
+            {{@csrf_field()}}
+                <table align="center" border="1" style="width:100%;">
                     <tr>
                         <th><label for="name">Product Name:</label></th>
-                        <td><input type="text" id='name' name="name" placeholder="Write Product Name" value="{{$p->name}}"></td>
-                        <td>@error('name'){{$message}}@enderror</td>
+                        <td><input type="text" id='name' name="name" placeholder="Write Product Name" value="{{$product->name}}">
+                        @error('name'){{$message}}@enderror</td>
                     </tr>
                     <tr>
                         <th><label for="id">Product Id:</label></th>
-                        <td><input type="number" id='id' name="id" placeholder="Write Product id" value="{{$p->id}}"></td>
-                        <td>@error('name'){{$message}}@enderror</td>
+                        <td><input type="number" id='id' name="id" placeholder="Write Product id" value="{{$product->id}}" disabled></td>
                     </tr>
                     <tr>
                         <th><label for="category">Product Category:</label></th>
-                        <td><input type="text" id='category' name="category" placeholder="Write Product Category" value="{{$p->category}}"></td>
-                        <td>@error('category'){{$message}}@enderror</td>
+                        <td>
+                            <select name="category" >
+                                <option value="Fruits & Vegetables">Fruits & Vegetables</option>
+                                <option value="Meat & Fish">Meat & Fish</option>
+                                <option value="Cooking">Cooking</option>
+                                <option value="Baking">Baking</option>
+                                <option value="Dairy">Dairy</option>
+                                <option value="Candy & Chocolate">Candy & Chocolate</option>
+                                <option value="Frozen & Canned">Frozen & Canned</option>
+                                <option value="Snacks">Snacks</option>
+                                <option value="Beverages">Beverages</option>
+                                <option value="{{$product->category}}" selected >{{$product->category}}</option>
+                            </select>
+                        @error('category'){{$message}}@enderror</td>
                     </tr>
-                    <tr>
-                        <th><label for="thumbnail">Product Thumbnail:</label></th>
-                        <td><input type="text" id='thumbnail' name="thumbnail" placeholder="Write Product Thumbnail" value="{{$p->thumbnail}}"></td>
-                        <td>@error('thumbnail'){{$message}}@enderror</td>
-                    </tr>
-                    <!-- <tr>
-                        <th><label for="gallery">Product Gallery:</label></th>
-                        <td><input type="file" id='gallery' name="gallery" placeholder="Write Product Gallery" value="{{$p->gallery}}"></td>
-                        <td>@error('gallery'){{$message}}@enderror</td>
-                    </tr> -->
                     <tr>
                         <th><label for="price">Product Price:</label></th>
-                        <td><input type="number" id='price' name="price" placeholder="Write Product Price" value="{{$p->price}}"></td>
-                        <td>@error('price'){{$message}}@enderror</td>
+                        <td><input type="number" id='price' name="price" placeholder="Write Product Price" value="{{$product->price}}">
+                        @error('price'){{$message}}@enderror</td>
                     </tr> 
                     <tr>
                         <th><label for="stock">Product Stock:</label></th>
-                        <td><input type="number" id='stock' name="stock" placeholder="Write Product Stock" value="{{$p->stock}}"></td>
-                        <td>@error('stock'){{$message}}@enderror</td>
+                        <td><input type="number" id='stock' name="stock" placeholder="Write Product Stock" value="{{$product->stock}}">
+                        @error('stock'){{$message}}@enderror</td>
                     </tr> 
                     <tr>
                         <th><label for="size">Product Size:</label></th>
-                        <td><input type="number" id='size' name="size" placeholder="Write Product Size" value="{{$p->size}}"></td>
-                        <td>@error('size'){{$message}}@enderror</td>
+                        <td><input type="number" id='size' name="size" placeholder="Write Product Size" value="{{$product->size}}">
+                        @error('size'){{$message}}@enderror</td>
                     </tr>   
                     <tr>
                         <th><label for="description">Product Description:</label></th>
-                        <td><input type="textarea" id='description' name="description" placeholder="Write Product Description" value="{{$p->description}}"></td>
-                        <td>@error('description'){{$message}}@enderror</td>
+                        <td><input type="textarea" id='description' name="description" placeholder="Write Product Description" value="{{$product->description}}">
+                        @error('description'){{$message}}@enderror</td>
                     </tr>
                     <tr>
-                        <th colspan="3"><input type="submit"value="Update"></tH>
-                    </tr>               
+                        <th colspan="2"><input type="submit"value="Update"></tH>
+                    </tr>
                 </table>
-            </form>  
-        </fieldset>
-    </center>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
 @endsection
