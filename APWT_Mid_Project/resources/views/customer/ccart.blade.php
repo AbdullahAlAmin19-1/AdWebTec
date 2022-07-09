@@ -5,10 +5,11 @@ Customer Cart
 @section('content')
 <h1 align="center">Customer Cart</h1>
 
-<h3 style="color: red;">{{Session::get('cartRemove')}}</h3>
-
 <div class="main-section">
     <center>
+
+        <h3 style="color: red;">{{Session::get('Msg')}}</h3>
+
         <table border="2px" style="width: 80%; border-collapse: collapse;">
             <tr>
                 <th colspan="7">-- Products In Cart --</th>

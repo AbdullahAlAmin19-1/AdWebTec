@@ -7,7 +7,8 @@
 <div class="main-section">
     
 <center>
-        <h3 style="color: red;">{{Session::get('cpasschangeMsg')}}</h3>
+
+        <h3 style="color: red;">{{Session::get('Msg')}}</h3>
         
     <form action="{{route('customer.cpasschangeForm')}}" method="POST">
         {{@csrf_field()}}
@@ -47,22 +48,7 @@
 
     </form>
 </center>
-    
-    
-    
-    
-    {{-- <form method="post" action="" align="center">
-        <fieldset>
-            <legend>Change Password</legend>
-            <h1>{{Session::get('msg')}}</h1>
-            {{@csrf_field()}}
-            Enter Current Password: <input type="password" name="cur_pass" placeholder="Enter Current Password">@error('cur_pass'){{$message}}@enderror <br><br>
-            Enter New Password: <input type="password" name="new_pass" placeholder="Enter New Password">@error('new_pass'){{$message}}@enderror <br><br>
-            Confirm New Password: <input type="password" name="conf_new_pass" placeholder="confirm New Password">@error('conf_new_pass'){{$message}}@enderror <br><br>
-            <input type="submit" value="Update">    <a href="{{route('public.forgotpassword')}}"> <input type="button" value="Forgot Password"></a>
-        </fieldset>
-        </form>  --}}
-</div>
 
+</div>
 
 @endsection

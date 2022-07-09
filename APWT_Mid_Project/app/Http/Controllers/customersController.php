@@ -45,7 +45,7 @@ class customersController extends Controller
             // "username" => "required",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
             "email" => "required|email",
-            "phone" => "required|max:10|min:10",
+            "phone"=>"required|numeric|digits:10",
             // "password" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
             // "cpassword" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
             "gender" => "required",
@@ -73,7 +73,7 @@ class customersController extends Controller
 
         $customer->update();
 
-        session()->flash('cupdateMsg','Customer details has been successfully updated!');
+        session()->flash('Msg','Customer details has been successfully updated!');
         return redirect()->route('customer.cprofile');
     }
 
@@ -138,7 +138,7 @@ class customersController extends Controller
         $customer->propic = $ppname;
         $customer->update();
 
-        session()->flash('cppupload','Customer profile picture has been successfully updated!');
+        session()->flash('Msg','Customer profile picture has been successfully updated!');
         return redirect()->route('customer.cprofile');
     }
 
@@ -151,7 +151,7 @@ class customersController extends Controller
         $cart->p_id = $req->p_id;
         $cart->save();
 
-        session()->flash('addcart','Product has been added in the card!');
+        session()->flash('Msg','Product has been added in the card!');
         return redirect()->route('customer.cdashboard');
     }
 
@@ -170,7 +170,7 @@ class customersController extends Controller
     function cartproductremove($p_id){
 
         $carts = cart::where('p_id', $p_id)->delete();
-        session()->flash('cartRemove', "Product has been removed from the cart!");
+        session()->flash('Msg', "Product has been removed from the cart!");
 
         return redirect()->route('customer.ccart');
 
@@ -187,7 +187,14 @@ class customersController extends Controller
 
         $customer = customer::find($id);
 
-        return view("customer.corder")->with('products', $products)->with('customer', $customer);
+        if(count($products) !== 0){
+            return view("customer.corder")->with('products', $products)->with('customer', $customer);
+        }
+
+        else{
+            session()->flash('Msg','Your products cart is empty!');
+            return redirect()->route('customer.ccart');
+        } 
     }
 
     function corderForm(Request $req){
@@ -216,7 +223,7 @@ class customersController extends Controller
             cart::where('c_id', $c_id)->delete();
         }
 
-        session()->flash('corder','Your Order has been successfully placed!');
+        session()->flash('Msg','Your Order has been successfully placed!');
         return redirect()->route('customer.placeOrder');
     }
 
@@ -246,7 +253,15 @@ class customersController extends Controller
             ->where('orders.status', '!=', "Delivered")
             ->get();
 
-        return view("customer.cvieworder")->with('orders', $orders);
+
+        if(count($orders) !== 0){
+            return view("customer.cvieworder")->with('orders', $orders);
+            }
+    
+        else{
+                session()->flash('Msg','You do not have any order, Order first!');
+                return redirect()->route('customer.ccart');
+            } 
     }
 
     function cProductReview(){
@@ -259,7 +274,14 @@ class customersController extends Controller
             ->where('reviews.c_id', $c_id)
             ->get();
 
-        return view("customer.cProductReview")->with('reviews', $reviews);
+            if(count($reviews) !== 0){
+                return view("customer.cProductReview")->with('reviews', $reviews);
+            }
+    
+            else{
+                session()->flash('Msg','Your do not have any review yet!');
+                return redirect()->route('customer.cdashboard');
+            } 
     }
 
     function creviewForm(Request $req){
@@ -274,9 +296,8 @@ class customersController extends Controller
 
         $review->update();
 
-        session()->flash('reviewMsg','Product review has been successfully updated!');
+        session()->flash('Msg','Product review has been successfully updated!');
         return redirect()->route('customer.cdashboard');
-
     }
 
     function cCoupons(){
