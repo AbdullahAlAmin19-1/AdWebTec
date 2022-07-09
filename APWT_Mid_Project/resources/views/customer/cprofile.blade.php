@@ -6,11 +6,10 @@ Customer Profile Edit
 <h1 align="center">Customer Profile Edit</h1>
 
 <div class="main-section">
-
-    <h3 style="color: red;">{{Session::get('cupdateMsg')}}</h3>
-    <h3 style="color: red;">{{Session::get('cppupload')}}</h3>
-
     <center>
+
+        <h3 style="color: red;">{{Session::get('Msg')}}</h3>
+
         <table border="2" style="width: 100%;">
             <tr>
 
@@ -81,24 +80,6 @@ Customer Profile Edit
                                 @enderror
                                     </td>
                                 </tr>
-
-                                {{-- <tr>
-                                    <td><label for="password"><b>Password:</b></label></td>
-                                    <td><input type="password" name="password" value="{{$customer->password}}">
-                                        @error('password')
-                                {{$message}} <br>
-                                @enderror
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td><label for="cpassword"><b>CPassword:</b></label></td>
-                                    <td><input type="password" name="cpassword" value="{{$customer->password}}">
-                                        @error('cpassword')
-                                {{$message}} <br>
-                                @enderror
-                                    </td>
-                                </tr> --}}
 
                                 <tr>
                                     <td><label for="gender"><b>Gender:</b></label></td>

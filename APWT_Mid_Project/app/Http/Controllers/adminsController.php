@@ -39,7 +39,7 @@ class adminsController extends Controller
             "username" => "required",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
             "email" => "required|email",
-            "phone" => "required|max:10|min:10",
+            "phone"=>"required|numeric|digits:10",
             "gender" => "required",
             "dob" => "required|before:-14 years",
             "address" => "required"

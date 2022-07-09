@@ -58,12 +58,6 @@ Customer Profile Info
                                     </td>
                                 </tr>
 
-                                {{-- <tr>
-                                    <td><label for="cpassword"><b>CPassword:</b></label></td>
-                                    <td><input type="password" name="cpassword" value="{{$customer->password}}" disabled style="width: 100%">
-                                    </td>
-                                </tr> --}}
-
                                 <tr>
                                     <td><label for="gender"><b>Gender:</b></label></td>
                                     <td><input type="text" name="gender" value="{{$customer->gender}}" disabled style="width: 100%">
