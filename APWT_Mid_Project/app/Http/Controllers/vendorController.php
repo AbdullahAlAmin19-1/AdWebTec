@@ -45,10 +45,13 @@ class vendorController extends Controller
             "email" => "required|email",
             "phone" => "required|max:10|min:10",
             "gender" => "required",
-            "dob" => "required",
+            "dob" => "required||before:-14 years",
             "address" => "required"
         ],
-        []
+        [
+            'name.regex' => 'Name cannot contain special characters or numbers.',
+            'dob.before' => 'User must be 14 years or older.',
+        ]
         );
         $user=vendor::where('id','=',session()->get('id'))->first();
         // if($user){return view("vendor.profile")->with('vendor',$user);}
@@ -76,7 +79,10 @@ class vendorController extends Controller
             "new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
             "conf_new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
         ],
-        []
+        [
+            'new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+            'conf_new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+        ]
         );
         $user=vendor::where('id','=',session()->get('id'))->first();
         if($user->password == $vali->cur_pass){

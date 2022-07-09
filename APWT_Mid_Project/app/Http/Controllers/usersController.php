@@ -21,14 +21,19 @@ class usersController extends Controller
                 "name"=>"required|regex:/^[A-Z a-z,.-]+$/i",
                 "uname"=>"required",
                 "email"=>"required|email",
-                "phone"=>"required|min:10|max:10",
+                "phone"=>"required|numeric|min:10|max:10",
                 "password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
                 "conf_password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
                 "gender"=>"required",
-                "dob"=>"required",
+                "dob"=>"required|before:-14 years",
                 "address"=>"required"
             ],
-            []
+            [
+                'name.regex' => 'Name cannot contain special characters or numbers.',
+                'password.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+                'conf_password.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+                'dob.before' => 'User must be 14 years or older.',
+            ]
         );
         if($vali->user_type=="Vendor"){$user = new vendor();}
         elseif($vali->user_type=="Customer"){$user = new customer();}
@@ -43,7 +48,7 @@ class usersController extends Controller
         $user->dob = $vali->dob;
         $user->address = $vali->address;
         $user->save();
-        session()->flash('msg','Registration Completed');
+        session()->flash('msg','Registration Completed!');
         return redirect()->route("public.login");
     }
 
@@ -83,7 +88,7 @@ class usersController extends Controller
             }
         }
         else {
-            session()->flash('msg','User not valid');
+            session()->flash('msg','User not valid!');
             return back();
         }
     }
@@ -106,7 +111,7 @@ class usersController extends Controller
             return back();
         }
         else {
-            session()->flash('msg','User not valid');
+            session()->flash('msg','User not valid!');
             return back();
         }
     }
@@ -139,7 +144,7 @@ class usersController extends Controller
             }
         }
         else {
-            session()->flash('msg','User not valid');
+            session()->flash('msg','User not valid!');
             return back();
         }
     }
@@ -164,7 +169,7 @@ class usersController extends Controller
             return redirect()->route("public.sendOTP");
         }
         else {
-            session()->flash('msg','User not valid');
+            session()->flash('msg','User not valid!');
             return back();
         }
     }
@@ -180,7 +185,7 @@ class usersController extends Controller
             return redirect()->route("public.enternewpassword");
         }
         else {
-            session()->flash('msg','OTP not valid');
+            session()->flash('msg','OTP not valid!');
             return back();
         }
     }
@@ -205,7 +210,7 @@ class usersController extends Controller
         return redirect()->route("public.login");
         }
         else{
-            session()->flash('msg','Password Change Failed');
+            session()->flash('msg','Password Change Failed!');
             return back();
         }
         

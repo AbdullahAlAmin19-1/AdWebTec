@@ -49,9 +49,14 @@ class customersController extends Controller
             // "password" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
             // "cpassword" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
             "gender" => "required",
-            "dob" => "required",
+            "dob" => "required|before:-14 years",
             "address" => "required"
-        ]);
+        ],
+        [
+            'name.regex' => 'Name cannot contain special characters or numbers.',
+            'dob.before' => 'User must be 14 years or older.',
+        ]
+        );
         
         $id = session()->get('id');
 
@@ -79,10 +84,16 @@ class customersController extends Controller
     function cpasschangeForm(Request $req){
 
         $this->validate($req, [
-            "current_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+            "current_pass" => "required",
             "new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
             "confirm_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
-        ]);
+        ],
+
+        [
+            'new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+            'confirm_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+        ]
+    );
 
         $id = session()->get('id');
         $customer = customer::find($id);
@@ -123,7 +134,6 @@ class customersController extends Controller
 
         $req->file('myPP')->storeAs('public/cprofile_images', $ppname);
 
-       
         $customer = customer::find($id);
         $customer->propic = $ppname;
         $customer->update();
@@ -206,7 +216,7 @@ class customersController extends Controller
             cart::where('c_id', $c_id)->delete();
         }
 
-        // session()->flash('corder','Your Order has been successfully placed!');
+        session()->flash('corder','Your Order has been successfully placed!');
         return redirect()->route('customer.placeOrder');
     }
 
@@ -215,8 +225,8 @@ class customersController extends Controller
         $c_id = session()->get('id');
         $customer = customer::find($c_id);
 
-        $orders = DB::table('orders')
-            ->join('products', 'products.id', '=', 'orders.p_id')
+        $orders = DB::table('products')
+            ->join('orders', 'orders.p_id', '=', 'products.id')
             ->where('orders.c_id', $c_id)
             ->where('orders.status', '!=', "Delivered")
             ->get();
@@ -230,8 +240,8 @@ class customersController extends Controller
 
         $c_id = session()->get('id');
 
-        $orders = DB::table('orders')
-            ->join('products', 'products.id', '=', 'orders.p_id')
+        $orders = DB::table('products')
+            ->join('orders', 'orders.p_id', '=', 'products.id')
             ->where('orders.c_id', $c_id)
             ->where('orders.status', '!=', "Delivered")
             ->get();

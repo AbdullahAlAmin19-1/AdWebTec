@@ -12,6 +12,10 @@ $pay_money = $total_price + 60;
 
 <div class="main-section">
     <center>
+
+        <h3>Hi! {{$username}}</h3>
+        <h4>Your order #{{$item->id}} has been received!</h4>
+
         <table border="2px" style="width: 90%; border-collapse: collapse;">
             <tr>
                 <th colspan="8">-- Customer Order List --</th>
@@ -65,6 +69,8 @@ $pay_money = $total_price + 60;
                 <td colspan="8" style="text-align: center;"><b>Delivery Date:</b> Within 3-5 Days | <b>DeliveryMan:</b> <a href="#">{{$item->d_id}}</a></td>
             </tr>
         </table>
+
+        <h4>Thank You! <br>- Grocery OS</h4>
     </center>
 
 </div>
