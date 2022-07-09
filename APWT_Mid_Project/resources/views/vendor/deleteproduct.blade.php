@@ -10,7 +10,7 @@
         <td>
         <table border="2" style="width: 100%;">
         <tr><th>Product Picture</th></tr>
-        <tr><td> {{$product->thumbnail}}</td></tr>
+        <tr><td><img src="{{asset('storage/product_images')}}/{{$product->thumbnail}}" alt="Product Image" height="120px" width="120px"></td></tr>
         </table>
         </td>
         <td>
@@ -22,10 +22,6 @@
         <tr>
             <th>Product Name</th>
             <td>{{ $product->name }}</td>
-        </tr>
-        <tr>
-            <th>Vendor Id</th>
-            <td>{{$product->v_id}}</td>
         </tr>
         <tr>
             <th>Product Category</th>

@@ -5,7 +5,6 @@
 @section('content')
     <h1 align="center">All Rewiew</h1>
         <center>
-            <h1>{{Session::get('msg')}}</h1>
                 <table border="2" style="width: 100%;">
                 {{@csrf_field()}}
                     <tr>

@@ -56,8 +56,8 @@ Route::get('/vendor/editproduct/{id}',[vendorController::class,'editproduct'])->
 Route::post('/vendor/editproduct/{id}',[vendorController::class,'editproductConfirm'])->name('vendor.editproductConfirm');
 Route::get('/vendor/deleteproduct/{id}',[vendorController::class,'deleteproduct'])->name('vendor.deleteproduct');
 Route::get('/vendor/deleteproductConfirm/{id}',[vendorController::class,'deleteproductConfirm'])->name('vendor.deleteproductConfirm');
-Route::get('/vendor/product',[vendorController::class,'productNavbar'])->name('vendor.productNavbar');
-Route::get('/vendor/coupon',[vendorController::class,'couponNavbar'])->name('vendor.coupon');
+Route::post('/vendor/productpicupload',[vendorController::class,'productpicupload'])->name('vendor.productpicupload');
+Route::get('/vendor/createcoupon',[vendorController::class,'couponNavbar'])->name('vendor.createcoupon');
 Route::post('/vendor/createcoupon',[vendorController::class,'createcoupon'])->name('vendor.createcoupon');
 Route::get('/vendor/allcoupons',[vendorController::class,'allcoupons'])->name('vendor.allcoupons');
 Route::get('/vendor/editcoupon/{id}',[vendorController::class,'editcoupon'])->name('vendor.editcoupon');

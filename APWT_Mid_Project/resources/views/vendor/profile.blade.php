@@ -7,7 +7,7 @@ Account
 
 <div class="main-section">
 
-    <h3>{{Session::get('cupdateMsg')}}</h3>
+<h3 align="center" style="color: red;">{{Session::get('msg')}}</h3>
 
     <center>
         <table border="2" style="width: 100%;">
