@@ -19,7 +19,7 @@ Profile
     <center>
         <table border="2px" style="width: 80%; ">
             <tr>
-                <th colspan="8">-- Customers Details --</th>
+                <th colspan="9">-- Customers Details --</th>
             </tr>
             <tr>
                 <th>Customer ID</th>
@@ -29,7 +29,7 @@ Profile
                 <th>Gender</th>
                 <th>DOB</th>
                 <th>Address</th>
-                <th>Action</th>
+                <th colspan="2">Action</th>
             </tr>
 
             @foreach ($user as $u) 
@@ -41,12 +41,13 @@ Profile
                 <td style="text-align: center;">{{$u->gender}}</td>
                 <td style="text-align: center;">{{$u->dob}}</td>
                 <td style="text-align: center;">{{$u->address}}</td>
-                <td style="text-align: center;"><a href="{{route('admin.customerremove',['id'=>$u->id])}}">Delete Customer</a></td>
+                <td style="text-align: center;"><a href="{{route('admin.customerremove',['id'=>$u->id])}}">Delete Customer Profile</a></td>
+                <td style="text-align: center;"><a href="{{route('admin.editcustomer',['id'=>$u->id])}}">Edit Customer Profile</a></td>
             </tr>
             @endforeach
 
             <tr>
-                <th align="center" colspan="8" style="padding: 5px;">{{$user->links()}}</th>
+                <th align="center" colspan="9" style="padding: 5px;">{{$user->links()}}</th>
             </tr>
         </table>
     </center>

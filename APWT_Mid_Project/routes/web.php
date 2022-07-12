@@ -97,12 +97,15 @@ Route::post('/admin/changepassword',[adminsController::class,'changepasswordupda
 Route::post('/admin/editprofile',[adminsController::class,'aeditprofileupdate'])->name('admin.aeditprofileupdate');
 Route::post('/admin/picupload',[adminsController::class,'apicupload'])->name('admin.apicupload');
 Route::get('/admin/dashboard/viewcustomer',[adminsController::class,'aviewcustomer'])->name('admin.aviewcustomer');
-//Route::post('/admin/dashboard/viewcustomer/{id}',[adminsController::class,'deletecustomer'])->name('admin.deletecustomer');
-Route::post('/admin/dashboard/viewcustomersearch',[adminsController::class,'searchcustomer'])->name('admin.asearchcustomer');
 Route::post('/admin/dashboard/searchcustomer',[adminsController::class,'searchcustomer'])->name('admin.searchcustomer');
 Route::get('/admin/dashboard/remove-customer/{id}',[adminsController::class,'customerremove'])->name('admin.customerremove');
+Route::get('/admin/dashboard/editcustomer/{id}',[adminsController::class,'editcustomer'])->name('admin.editcustomer');
+Route::post('/admin/dashboard/editcustomer/{id}',[adminsController::class,'editcustomerupdate'])->name('admin.editcustomerupdate');
+
 Route::get('/admin/dashboard/viewdeliveryman',[adminsController::class,'aviewdeliveryman'])->name('admin.aviewdeliveryman');
+Route::post('/admin/dashboard/viewdeliverymansearch',[adminsController::class,'searchdeliveryman'])->name('admin.searchdeliveryman');
 Route::get('/admin/dashboard/remove-deliveryman/{id}',[adminsController::class,'deliverymanremove'])->name('admin.deliverymanremove');
+
 Route::get('/admin/dashboard/viewvendorprofile',[adminsController::class,'aviewvendor'])->name('admin.aviewvendor');
 
 

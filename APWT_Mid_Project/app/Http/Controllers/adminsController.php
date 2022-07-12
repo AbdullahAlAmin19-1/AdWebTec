@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\admin;
 use App\Models\customer;
+use App\Models\deliveryman;
 use Illuminate\Support\Facades\DB;
 Use App\Rules\MatchOldPassword;
 
@@ -51,8 +52,6 @@ class adminsController extends Controller
         ]
     );
         $user=admin::where('id','=',session()->get('id'))->first();
-        // if($user){return view("vendor.profile")->with('vendor',$user);}
-        // else {return view("vendor.dashboard");}
         $user->name = $vali->name;
         $user->username = $vali->username;
         $user->email =$vali->email;
@@ -125,13 +124,11 @@ class adminsController extends Controller
         return view('admin.aviewcustomer', compact('user'));
     }
     function customerremove($id){
-
         $user = customer::where('id', $id)->delete();
         session()->flash('customerRemove', "Customer has been removed!");
         return redirect()->route('admin.aviewcustomer');
     }
     function searchcustomer(Request $req){
-
         $this->validate($req, [
             "search_name" => "required",
         ],
@@ -143,9 +140,36 @@ class adminsController extends Controller
     $customers= customer::where('name', 'like', '%'.$search_name.'%')->get();
     return view("admin.asearchcustomer")->with('customers', $customers);
     }
+    function editcustomer($id){
+        $user = customer::where('id', $id)->first();
+        return view("admin.aeditcustomer")->with('customer',$user);
+    }
+    function editcustomerupdate(Request $vali, $id){
+        $this->validate($vali, [
+            "username" => "required",
+            "name" => "required|regex:/^[a-z ,.'-]+$/i",
+            "email" => "required|email",
+            "phone" => "required|max:10|min:10",
+            "gender" => "required",
+            "dob" => "required",
+            "address" => "required"
+        ],
+        []
+    );
+        $user = customer::where('id', $id)->first();
+        $user->name = $vali->name;
+        $user->username = $vali->username;
+        $user->email =$vali->email;
+        $user->phone = $vali->phone;
+        $user->gender = $vali->gender;
+        $user->dob = $vali->dob;
+        $user->address = $vali->address;
+        $user->update();
+        session()->flash('msg','Update Completed');
+        return redirect()->route('admin.editcustomer');
+    }
 
     function aviewdeliveryman(){
-
         $user = DB::table('deliverymen')->simplePaginate(15);
         return view('admin.aviewdeliveryman', compact('user'));
     }
@@ -165,10 +189,10 @@ class adminsController extends Controller
         ]
     );
     $search_name = $req->search_name;
-    //$deliverymen = DB::select('select * from deliverymen where name ');
     $deliverymen = deliveryman::where('name', 'like', '%'.$search_name.'%')->get();
-    return view("admin.asearchdeliverymen")->with('customers', $customers);
+    return view("admin.asearchdeliveryman")->with('deliverymen', $deliverymen);
     }
+
     function aviewvendor(){
 
         $user = DB::table('vendors')->simplePaginate(5);
