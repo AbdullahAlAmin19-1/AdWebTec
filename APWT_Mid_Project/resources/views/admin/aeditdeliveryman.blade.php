@@ -3,7 +3,7 @@
 Account
 @endsection
 @section('content')
-<h1 align="center">Edit Customer Profile</h1>
+<h1 align="center">Edit Deliveryman Profile</h1>
 
 <div class="main-section">
 <h2>{{Session::get('msg')}}</h2>
@@ -12,10 +12,10 @@ Account
             <tr>
                 <td style="width: 40%; padding: 10px;">
                 <center>
-                    <img src="{{asset('storage/cprofile_images')}}/{{$customer->propic}}" alt="Customer Icon" style="width: 200px;">
+                    <img src="{{asset('storage/dprofile_images')}}/{{$deliveryman->propic}}" alt="Deliveryman Icon" style="width: 200px;">
                     <br> <br>
                 <center>
-                    <form action="{{route('admin.customerppupload');}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('admin.deliverymanppupload');}}" method="POST" enctype="multipart/form-data">
                     {{@csrf_field()}}<br>
                         <label for="pic"><b>Select image</b></label>
                         <input type="file" name="pic"> <br> @error('pic'){{$message}}@enderror <br>
@@ -26,15 +26,15 @@ Account
                     <form action="" method="POST">
                         {{@csrf_field()}}<br>       
                         <fieldset>
-                            <legend>Customer Profile</legend>
+                            <legend>Deliveryman Profile</legend>
                             <table>
                                 <tr>
                                     <td><label for="id"><b>ID:</b></label></td>
-                                    <td><input type="text" name="id" value="{{$customer->id}}" disabled></td>
+                                    <td><input type="text" name="id" value="{{$deliveryman->id}}" disabled></td>
                                 </tr>
                                 <tr>
                                     <td><label for="username"><b>Username:</b></label></td>
-                                    <td><input type="text" name="username" value="{{$customer->username}}">
+                                    <td><input type="text" name="username" value="{{$deliveryman->username}}">
                                         @error('username')
                                 {{$message}} <br>
                                 @enderror
@@ -42,7 +42,7 @@ Account
                                 </tr>
                                 <tr>
                                     <td><label for="name"><b>Name:</b></label></td>
-                                    <td><input type="text" name="name" value="{{$customer->name}}">
+                                    <td><input type="text" name="name" value="{{$deliveryman->name}}">
                                         @error('name')
                                 {{$message}} <br>
                                 @enderror
@@ -50,7 +50,7 @@ Account
                                 </tr>
                                 <tr>
                                     <td><label for="email"><b>Email:</b></label></td>
-                                    <td><input type="email" name="email" value="{{$customer->email}}">
+                                    <td><input type="email" name="email" value="{{$deliveryman->email}}">
                                         @error('email')
                                 {{$message}} <br>
                                 @enderror
@@ -58,7 +58,7 @@ Account
                                 </tr>
                                 <tr>
                                     <td><label for="phone"><b>Phone:</b></label></td>
-                                    <td><input type="text" name="phone" value="{{$customer->phone}}">
+                                    <td><input type="text" name="phone" value="{{$deliveryman->phone}}">
                                         @error('phone')
                                 {{$message}} <br>
                                 @enderror
@@ -66,7 +66,7 @@ Account
                                 </tr>
                                 <tr>
                                     <td><label for="gender"><b>Gender:</b></label></td>
-                                    <td><input type="text" name="gender" value="{{$customer->gender}}">
+                                    <td><input type="text" name="gender" value="{{$deliveryman->gender}}">
                                         @error('gender')
                                 {{$message}} <br>
                                 @enderror
@@ -74,7 +74,7 @@ Account
                                 </tr>
                                 <tr>
                                     <td><label for="dob"><b>DOB:</b></label></td>
-                                    <td><input type="date" name="dob" value="{{$customer->dob}}">
+                                    <td><input type="date" name="dob" value="{{$deliveryman->dob}}">
                                         @error('dob')
                                 {{$message}} <br>
                                 @enderror
@@ -82,7 +82,7 @@ Account
                                 </tr>
                                 <tr>
                                     <td><label for="address"><b>Address:</b></label></td>
-                                    <td><input type="text" name="address" value="{{$customer->address}}">
+                                    <td><input type="text" name="address" value="{{$deliveryman->address}}">
                                         @error('address')
                                 {{$message}} <br>
                                 @enderror

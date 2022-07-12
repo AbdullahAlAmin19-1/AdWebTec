@@ -24,7 +24,7 @@ class customerSeeder extends Seeder
                 'phone' => 1234567890,
                 'password' => Hash::make('password'),
                 'gender' => 'Female',
-                'dob' => "03.11.1999",
+                'dob' => "1999-12-26",
                 'address' => Str::random(10),
                 'propic'=>"",
             ]);

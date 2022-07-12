@@ -24,7 +24,7 @@ class vendorSeeder extends Seeder
                 'v_phone' => 1630406235,
                 'v_password' => Hash::make('password'),
                 'v_gender' => 'Male',
-                'v_dob' => "02.11.1999",
+                'v_dob' => "1999-12-26",
                 'v_address' => Str::random(10),
                 'v_propic'=>"",
             ]);

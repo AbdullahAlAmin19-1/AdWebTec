@@ -28,7 +28,9 @@
                             @error('quantity')
                                     {{$message}} <br> <br> 
                                     @enderror
+                                    @if(session()->get('user_type')=='Customer')
                             <input type="submit" name="caddcart" value="Add To Cart" style="width: 62%;">
+                            @endif
                             </form>
                         </center>
                     </th>

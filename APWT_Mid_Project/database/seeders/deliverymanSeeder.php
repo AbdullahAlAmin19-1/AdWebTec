@@ -26,7 +26,7 @@ class deliverymanSeeder extends Seeder
                 'gender' => 'Male',
                 'dob' => "04.11.1999",
                 'address' => Str::random(10),
-                'valid'=>"11.04.2022",
+                'valid'=>"1999-12-26",
                 'propic'=>"",
             ]);
         }

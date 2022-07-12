@@ -101,10 +101,14 @@ Route::post('/admin/dashboard/searchcustomer',[adminsController::class,'searchcu
 Route::get('/admin/dashboard/remove-customer/{id}',[adminsController::class,'customerremove'])->name('admin.customerremove');
 Route::get('/admin/dashboard/editcustomer/{id}',[adminsController::class,'editcustomer'])->name('admin.editcustomer');
 Route::post('/admin/dashboard/editcustomer/{id}',[adminsController::class,'editcustomerupdate'])->name('admin.editcustomerupdate');
+Route::post('/admin/dashboard/customerppupload',[adminsController::class,'customerppupload'])->name('admin.customerppupload');
 
 Route::get('/admin/dashboard/viewdeliveryman',[adminsController::class,'aviewdeliveryman'])->name('admin.aviewdeliveryman');
 Route::post('/admin/dashboard/viewdeliverymansearch',[adminsController::class,'searchdeliveryman'])->name('admin.searchdeliveryman');
 Route::get('/admin/dashboard/remove-deliveryman/{id}',[adminsController::class,'deliverymanremove'])->name('admin.deliverymanremove');
+Route::get('/admin/dashboard/editdeliveryman/{id}',[adminsController::class,'editdeliveryman'])->name('admin.editdeliveryman');
+Route::post('/admin/dashboard/editdeliveryman/{id}',[adminsController::class,'editdeliverymanupdate'])->name('admin.editdeliverymanupdate');
+Route::post('/admin/dashboard/deliverymanppupload',[adminsController::class,'deliverymanppupload'])->name('admin.deliverymanppupload');
 
 Route::get('/admin/dashboard/viewvendorprofile',[adminsController::class,'aviewvendor'])->name('admin.aviewvendor');
 
