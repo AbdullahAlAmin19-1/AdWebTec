@@ -54,7 +54,7 @@ Profile
 
                                 <tr>
                                     <td><label for="dob"><b>DOB:</b></label></td>
-                                    <td><input type="date" name="dob" value="{{$admin->dob}}" disabled></td>
+                                    <td><input name="dob" value="{{$admin->dob}}" disabled></td>
                                 </tr>
 
                                 <tr>

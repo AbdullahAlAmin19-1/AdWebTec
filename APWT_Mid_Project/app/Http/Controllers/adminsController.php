@@ -7,7 +7,6 @@ use App\Models\admin;
 use App\Models\customer;
 use App\Models\deliveryman;
 use Illuminate\Support\Facades\DB;
-Use App\Rules\MatchOldPassword;
 
 class adminsController extends Controller
 {
@@ -70,7 +69,7 @@ class adminsController extends Controller
     function changepasswordupdate(Request $vali){
         $this->validate($vali,
             [
-                "cur_pass"=>['required', new MatchOldPassword],
+                "cur_pass"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
                 "new_pass"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
                 "conf_new_pass"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
             ],
@@ -79,16 +78,18 @@ class adminsController extends Controller
                 'conf_new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
             ]
         );
-        // $user=admin::where('id','=',session()->get('id'))->first();
-        // $user->password = $vali->conf_new_pass;
-        // $user->update();
-        // session()->put('username', $user->username);
+        $user=admin::where('id','=',session()->get('id'))->first();
+        if($user->password == $vali->cur_pass){
+            $user->password = $vali->new_pass;
+            $user->update();
+            session()->flash('msg','Password Update Completed');
+            return redirect()->route('admin.aprofile');
+        }
+        else {
+            session()->flash('msg',"Current Password Dosen't Match");
+            return back();
+        }
         
-        $user= admin::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
-        // dd('Password change successfully.')
-        session()->flash('msg','Password Changed');
-        return redirect()->route('admin.aprofile');
         
     }
     function apicupload(Request $req){
@@ -144,19 +145,19 @@ class adminsController extends Controller
         $user = customer::where('id', $id)->first();
         return view("admin.aeditcustomer")->with('customer',$user);
     }
-    function editcustomerupdate(Request $vali, $id){
+    function editcustomerupdate(Request $vali){
         $this->validate($vali, [
             "username" => "required",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
             "email" => "required|email",
             "phone" => "required|max:10|min:10",
             "gender" => "required",
-            "dob" => "required",
+            "dob" => "required|before:-14 years",
             "address" => "required"
         ],
         []
     );
-        $user = customer::where('id', $id)->first();
+        $user = customer::find($vali->id);
         $user->name = $vali->name;
         $user->username = $vali->username;
         $user->email =$vali->email;
@@ -166,7 +167,27 @@ class adminsController extends Controller
         $user->address = $vali->address;
         $user->update();
         session()->flash('msg','Update Completed');
-        return redirect()->route('admin.editcustomer');
+        return back();
+    }
+    function customerppupload(Request $req){
+
+        $this->validate($req, [
+            "myPP" => "required|mimes:jpg,png,jpeg",
+        ],
+        [
+            'myPP.required' => 'Please select a picture!',
+            'myPP.mimes' => 'The profile pic must be a jpg, png or jpeg!',
+        ]
+    );
+        $customer = customer::find($req->id);
+        $extension = $req->file('myPP')->getClientOriginalExtension();
+        $picname = $customer->name.time().".".$extension;
+        $req->file('myPP')->storeAs('public/cprofile_images', $picname);
+        $customer->prpopic = $picname;
+        $customer->update();
+
+        session()->flash('msg','Customer profile picture has been successfully updated!');
+        return back();
     }
 
     function aviewdeliveryman(){
@@ -191,6 +212,54 @@ class adminsController extends Controller
     $search_name = $req->search_name;
     $deliverymen = deliveryman::where('name', 'like', '%'.$search_name.'%')->get();
     return view("admin.asearchdeliveryman")->with('deliverymen', $deliverymen);
+    }
+    function editdeliveryman($id){
+        $user = deliveryman::where('id', $id)->first();
+        return view("admin.aeditdeliveryman")->with('deliveryman',$user);
+    }
+    function editdeliverymanupdate(Request $vali){
+        $this->validate($vali, [
+            "username" => "required",
+            "name" => "required|regex:/^[a-z ,.'-]+$/i",
+            "email" => "required|email",
+            "phone" => "required|max:10|min:10",
+            "gender" => "required",
+            "dob" => "required|before:-14 years",
+            "address" => "required"
+        ],
+        []
+    );
+        $user = deliveryman::find($vali->id);
+        $user->name = $vali->name;
+        $user->username = $vali->username;
+        $user->email =$vali->email;
+        $user->phone = $vali->phone;
+        $user->gender = $vali->gender;
+        $user->dob = $vali->dob;
+        $user->address = $vali->address;
+        $user->update();
+        session()->flash('msg','Update Completed');
+        return back();
+    }
+    function deliverymanppupload(Request $req){
+
+        $this->validate($req, [
+            "myPP" => "required|mimes:jpg,png,jpeg",
+        ],
+        [
+            'myPP.required' => 'Please select a picture!',
+            'myPP.mimes' => 'The profile pic must be a jpg, png or jpeg!',
+        ]
+    );
+        $deliveryman = deliveryman::find($req->id);
+        $extension = $req->file('myPP')->getClientOriginalExtension();
+        $picname = $deliveryman->name.time().".".$extension;
+        $req->file('myPP')->storeAs('public/cprofile_images', $picname);
+        $deliveryman->prpopic = $picname;
+        $deliveryman->update();
+
+        session()->flash('msg','deliveryman profile picture has been successfully updated!');
+        return back();
     }
 
     function aviewvendor(){

@@ -8,13 +8,13 @@
 <div class="container">
     @foreach ($user as $u)
     <center>
-    <table border="2" style="width: 60%;">
+    <table border="1" style="width: 60%; height: 400px;">
     <tr>
         <td>
         <center>
-        <table border="2" style="width: 90%;">
+        <table border="1" style="width: 100%; height: 395px;">
         <tr><th colspan="2">Vendor Picture</th></tr>
-        <tr><td align="center" colspan="2"><img src="vendor_images/{{$u->propic}}" alt="Vendor Image" height="120px" width="120px"></td></tr>
+        <tr><td align="center" colspan="2"><img src="{{asset('storage/vendor_profile_images')}}/{{$u->propic}}" alt="Vendor Image" height="180px" width="240px"></td></tr>
         <tr>
             
         </tr>
@@ -22,7 +22,7 @@
         </center>
         </td>
         <td>
-        <table border="2" style="width: 100%;">
+        <table border="1" style="width: 100%; height: 395px;">
         <tr>
             <th >Vendor Id</th>
             <td>{{$u->id}}</td>
