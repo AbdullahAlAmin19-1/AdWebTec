@@ -14,7 +14,7 @@ $pay_money = $total_price + 60;
     <center>
 
         <h3>Hi! {{$username}}</h3>
-        <h4>Your order #{{$item->id}} has been received!</h4>
+        <h4>Your order has been received and is being processed!</h4>
 
         <table border="2px" style="width: 90%; border-collapse: collapse;">
             <tr>

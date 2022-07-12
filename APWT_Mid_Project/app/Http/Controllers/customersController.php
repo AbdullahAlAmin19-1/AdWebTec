@@ -254,9 +254,14 @@ class customersController extends Controller
             ->where('orders.status', '!=', "Delivered")
             ->get();
 
+        $dorders = DB::table('products')
+            ->join('orders', 'orders.p_id', '=', 'products.id')
+            ->where('orders.c_id', $c_id)
+            ->where('orders.status', '=', "Delivered")
+            ->get();
 
         if(count($orders) !== 0){
-            return view("customer.cvieworder")->with('orders', $orders);
+            return view("customer.cvieworder")->with('orders', $orders)->with('dorders', $dorders);
             }
     
         else{
@@ -268,19 +273,25 @@ class customersController extends Controller
     function cProductReview(){
 
         $c_id = session()->get('id');
-        // $reviews = review::where('c_id', '=', $c_id)->get();
 
         $reviews = DB::table('products')
             ->join('reviews', 'reviews.p_id', '=', 'products.id')
             ->where('reviews.c_id', $c_id)
+            ->where('reviews.message','=', null)
             ->get();
 
-            if(count($reviews) !== 0){
-                return view("customer.cProductReview")->with('reviews', $reviews);
+        $previews = DB::table('products')
+            ->join('reviews', 'reviews.p_id', '=', 'products.id')
+            ->where('reviews.c_id', $c_id)
+            ->where('reviews.message','!=', null)
+            ->get();
+
+            if(count($reviews) !== 0 || count($previews) !== 0){
+                return view("customer.cProductReview")->with('reviews', $reviews)->with('previews', $previews);
             }
     
             else{
-                session()->flash('Msg','Your do not have any review yet!');
+                session()->flash('Msg','Your do not have any product for review!');
                 return redirect()->route('customer.cdashboard');
             } 
     }
@@ -298,7 +309,7 @@ class customersController extends Controller
         $review->update();
 
         session()->flash('Msg','Product review has been successfully updated!');
-        return redirect()->route('customer.cdashboard');
+        return redirect()->route('customer.cProductReview');
     }
 
     function cCoupons(){
