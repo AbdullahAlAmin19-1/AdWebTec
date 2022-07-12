@@ -16,6 +16,7 @@ class customersController extends Controller
 {
     function __construct(){
         $this->middleware("logged");
+        $this->middleware("customer");
     }
     
     function cdashboard(){
@@ -45,13 +46,18 @@ class customersController extends Controller
             // "username" => "required",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
             "email" => "required|email",
-            "phone" => "required|max:10|min:10",
-            "password" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
-            "cpassword" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
+            "phone"=>"required|numeric|digits:10",
+            // "password" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+            // "cpassword" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
             "gender" => "required",
-            "dob" => "required",
+            "dob" => "required|before:-14 years",
             "address" => "required"
-        ]);
+        ],
+        [
+            'name.regex' => 'Name cannot contain special characters or numbers.',
+            'dob.before' => 'User must be 14 years or older.',
+        ]
+        );
         
         $id = session()->get('id');
 
@@ -61,15 +67,53 @@ class customersController extends Controller
         $customer->name = $req->name;
         $customer->email = $req->email;
         $customer->phone = $req->phone;
-        $customer->password = $req->password;
+        // $customer->password = $req->password;
         $customer->gender = $req->gender;
         $customer->dob = $req->dob;
         $customer->address = $req->address;
 
         $customer->update();
 
-        session()->flash('cupdateMsg','Customer details has been successfully updated!');
+        session()->flash('Msg','Customer details has been successfully updated!');
         return redirect()->route('customer.cprofile');
+    }
+
+    function cchangepass(){
+        return view("customer.cpasschange");
+    }
+
+    function cpasschangeForm(Request $req){
+
+        $this->validate($req, [
+            "current_pass" => "required",
+            "new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+            "confirm_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
+        ],
+
+        [
+            'new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+            'confirm_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+        ]
+    );
+
+        $id = session()->get('id');
+        $customer = customer::find($id);
+
+        if($customer->password == $req->current_pass){
+        $customer->password = $req->new_pass;
+
+        $customer->update();
+
+        session()->flush();
+        session()->flash('cpasschangeMsg','Customer password has been successfully updated!');
+        return redirect()->route('public.login');
+        }
+
+        else{
+            session()->flash('cpasschangeMsg','Customer current password does not match!');
+        return redirect()->route('customer.cchangepass');
+        }
+
     }
 
     function cppupload(Request $req){
@@ -91,12 +135,11 @@ class customersController extends Controller
 
         $req->file('myPP')->storeAs('public/cprofile_images', $ppname);
 
-       
         $customer = customer::find($id);
         $customer->propic = $ppname;
         $customer->update();
 
-        session()->flash('cppupload','Customer profile picture has been successfully updated!');
+        session()->flash('Msg','Customer profile picture has been successfully updated!');
         return redirect()->route('customer.cprofile');
     }
 
@@ -109,7 +152,7 @@ class customersController extends Controller
         $cart->p_id = $req->p_id;
         $cart->save();
 
-        session()->flash('addcart','Product has been added in the card!');
+        session()->flash('Msg','Product has been added in the card!');
         return redirect()->route('customer.cdashboard');
     }
 
@@ -128,7 +171,7 @@ class customersController extends Controller
     function cartproductremove($p_id){
 
         $carts = cart::where('p_id', $p_id)->delete();
-        session()->flash('cartRemove', "Product has been removed from the cart!");
+        session()->flash('Msg', "Product has been removed from the cart!");
 
         return redirect()->route('customer.ccart');
 
@@ -145,7 +188,14 @@ class customersController extends Controller
 
         $customer = customer::find($id);
 
-        return view("customer.corder")->with('products', $products)->with('customer', $customer);
+        if(count($products) !== 0){
+            return view("customer.corder")->with('products', $products)->with('customer', $customer);
+        }
+
+        else{
+            session()->flash('Msg','Your products cart is empty!');
+            return redirect()->route('customer.ccart');
+        } 
     }
 
     function corderForm(Request $req){
@@ -174,7 +224,7 @@ class customersController extends Controller
             cart::where('c_id', $c_id)->delete();
         }
 
-        // session()->flash('corder','Your Order has been successfully placed!');
+        session()->flash('Msg','Your Order has been successfully placed!');
         return redirect()->route('customer.placeOrder');
     }
 
@@ -183,8 +233,8 @@ class customersController extends Controller
         $c_id = session()->get('id');
         $customer = customer::find($c_id);
 
-        $orders = DB::table('orders')
-            ->join('products', 'products.id', '=', 'orders.p_id')
+        $orders = DB::table('products')
+            ->join('orders', 'orders.p_id', '=', 'products.id')
             ->where('orders.c_id', $c_id)
             ->where('orders.status', '!=', "Delivered")
             ->get();
@@ -198,13 +248,21 @@ class customersController extends Controller
 
         $c_id = session()->get('id');
 
-        $orders = DB::table('orders')
-            ->join('products', 'products.id', '=', 'orders.p_id')
+        $orders = DB::table('products')
+            ->join('orders', 'orders.p_id', '=', 'products.id')
             ->where('orders.c_id', $c_id)
             ->where('orders.status', '!=', "Delivered")
             ->get();
 
-        return view("customer.cvieworder")->with('orders', $orders);
+
+        if(count($orders) !== 0){
+            return view("customer.cvieworder")->with('orders', $orders);
+            }
+    
+        else{
+                session()->flash('Msg','You do not have any order, Order first!');
+                return redirect()->route('customer.ccart');
+            } 
     }
 
     function cProductReview(){
@@ -212,12 +270,35 @@ class customersController extends Controller
         $c_id = session()->get('id');
         // $reviews = review::where('c_id', '=', $c_id)->get();
 
-        $reviews = DB::table('reviews')
-            ->join('products', 'products.id', '=', 'reviews.p_id')
+        $reviews = DB::table('products')
+            ->join('reviews', 'reviews.p_id', '=', 'products.id')
             ->where('reviews.c_id', $c_id)
             ->get();
 
-        return view("customer.cProductReview")->with('reviews', $reviews);
+            if(count($reviews) !== 0){
+                return view("customer.cProductReview")->with('reviews', $reviews);
+            }
+    
+            else{
+                session()->flash('Msg','Your do not have any review yet!');
+                return redirect()->route('customer.cdashboard');
+            } 
+    }
+
+    function creviewForm(Request $req){
+        $this->validate($req, [
+            "r_message" => "required",
+        ],
+    );
+
+        $review = review::find($req->r_id);
+
+        $review->message = $req->r_message;
+
+        $review->update();
+
+        session()->flash('Msg','Product review has been successfully updated!');
+        return redirect()->route('customer.cdashboard');
     }
 
     function cCoupons(){

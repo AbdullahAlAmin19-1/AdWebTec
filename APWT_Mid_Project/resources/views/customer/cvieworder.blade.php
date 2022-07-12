@@ -5,7 +5,7 @@ Customer Orders
 @section('content')
 <h1 align="center">Customer Orders</h1>
 
-<h3 style="color: red;">{{Session::get('cartRemove')}}</h3>
+{{-- <h3 style="color: red;">{{Session::get('msg')}}</h3> --}}
 
 <?php
 

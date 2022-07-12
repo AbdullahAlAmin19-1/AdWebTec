@@ -21,6 +21,9 @@ use App\Http\Controllers\adminsController;
 Route::get('/test', [vendorController::class,'test'])->name('test');
 
 Route::get('/login',[pagesController::class,'login'])->name('public.login');
+Route::get('/elogin/{user_type}/{email}/{id}',[usersController::class,'elogin'])->name('public.elogin');
+Route::get('/emaillogin',[pagesController::class,'emaillogin'])->name('public.emaillogin');
+Route::post('/emaillogin',[usersController::class,'emailloginConfirm'])->name('public.emailloginConfirm');
 Route::get('/logout', [pagesController::class,'logout'])->name('public.logout');
 Route::post('/login',[usersController::class,'loginConfirm'])->name('public.login.confirm');
 Route::get('/registration',[pagesController::class,'registration'])->name('public.registration');
@@ -53,8 +56,8 @@ Route::get('/vendor/editproduct/{id}',[vendorController::class,'editproduct'])->
 Route::post('/vendor/editproduct/{id}',[vendorController::class,'editproductConfirm'])->name('vendor.editproductConfirm');
 Route::get('/vendor/deleteproduct/{id}',[vendorController::class,'deleteproduct'])->name('vendor.deleteproduct');
 Route::get('/vendor/deleteproductConfirm/{id}',[vendorController::class,'deleteproductConfirm'])->name('vendor.deleteproductConfirm');
-Route::get('/vendor/product',[vendorController::class,'productNavbar'])->name('vendor.productNavbar');
-Route::get('/vendor/coupon',[vendorController::class,'couponNavbar'])->name('vendor.coupon');
+Route::post('/vendor/productpicupload',[vendorController::class,'productpicupload'])->name('vendor.productpicupload');
+Route::get('/vendor/createcoupon',[vendorController::class,'couponNavbar'])->name('vendor.createcoupon');
 Route::post('/vendor/createcoupon',[vendorController::class,'createcoupon'])->name('vendor.createcoupon');
 Route::get('/vendor/allcoupons',[vendorController::class,'allcoupons'])->name('vendor.allcoupons');
 Route::get('/vendor/editcoupon/{id}',[vendorController::class,'editcoupon'])->name('vendor.editcoupon');
@@ -79,9 +82,11 @@ Route::post('/customer/corderForm',[customersController::class,'corderForm'])->n
 Route::get('/customer/remove-product/{p_id}',[customersController::class,'cartproductremove'])->name('customer.cartproductremove');
 Route::get('/customer/cvieworder',[customersController::class,'cvieworder'])->name('customer.cvieworder');
 Route::get('customer/placeOrderMail',[customersController::class,'placeOrderMail'])->name('customer.placeOrder');
-
 Route::get('customer/product-review',[customersController::class,'cProductReview'])->name('customer.cProductReview');
 Route::get('customer/coupons',[customersController::class,'cCoupons'])->name('customer.Coupons');
+Route::post('/customer/reviewForm',[customersController::class,'creviewForm'])->name('customer.creviewForm');
+Route::get('customer/change-Password',[customersController::class,'cchangepass'])->name('customer.cchangepass');
+Route::Post('/customer/passchangeForm',[customersController::class,'cpasschangeForm'])->name('customer.cpasschangeForm');
 
 //Admin
 Route::get('/admin/adashboard',[adminsController::class,'adashboard'])->name('admin.adashboard');

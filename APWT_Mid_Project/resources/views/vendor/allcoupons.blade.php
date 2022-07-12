@@ -5,8 +5,8 @@
 @section('content')
     <h1 align="center">All Coupon</h1>
         <center>
-            <h1>{{Session::get('msg')}}</h1>
-                <table border="2" style="width: 100%;">
+        <h3 style="color: red;">{{Session::get('msg')}}</h3>
+                <table border="2" style="width: 50%;">
                 {{@csrf_field()}}
                     <tr>
                         <th>Coupon Id</th>
@@ -19,7 +19,7 @@
                         <td>{{$c->id}}</td>
                         <td>{{$c->code}}</td>
                         <td>{{$c->amount}}</td>
-                        <td><a href="{{route('vendor.editcoupon',['id'=>$c->id])}}">Edit</a> <a href="{{route('vendor.editcoupon',['id'=>$c->id])}}">Delete</a></td>
+                        <td><a href="{{route('vendor.editcoupon',['id'=>$c->id])}}">Edit</a> <a href="{{route('vendor.deletecoupon',['id'=>$c->id])}}">Delete</a></td>
                         </tr>
                     @endforeach
                 </table>

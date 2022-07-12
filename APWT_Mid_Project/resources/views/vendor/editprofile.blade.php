@@ -8,23 +8,22 @@ Account
 <div class="main-section">
 
     <center>
+    <h3 style="color: red;">{{Session::get('msg')}}</h3>
         <table border="2" style="width: 100%;">
             <tr>
-
-                <td style="width: 30%;">
+                <td style="width: 40%;">
                 <center><br><br>
                     <img src="{{asset('storage/vendor_profile_images')}}/{{$vendor->propic}}" alt="Customer icon" style="width: 200px;">
                     <br> <br>
                     <form action="{{route('vendor.picupload');}}" method="POST" enctype="multipart/form-data">
                     {{@csrf_field()}}<br>
-                        <label for="pic"><b>&ensp;Select image</b></label>
+                        <label for="pic"><b>&ensp;Select image: </b></label>
                         <input type="file" name="pic"> <br><br> @error('pic'){{$message}}<br><br>@enderror 
                         <input type="submit" name="submit" value="Upload">
                     </form>
                 </center>
                 </td>
-                <td style="width: 70%; padding: 20px;">
-
+                <td style="width: 60%; padding: 20px;">
 
                     <form action="" method="POST">
 
@@ -110,17 +109,12 @@ Account
                                         <a href="{{route('vendor.changepassword')}}"><input type="button" value="Change Password"></a>
                                     </td>
                                 </tr>
-
                             </table>
-
                         </fieldset>
                     </form>
-
                 </td>
-                <td><center><h1>{{Session::get('msg')}}</h1></center></td>
             </tr>
         </table>
     </center>
-
 </div>
 @endsection

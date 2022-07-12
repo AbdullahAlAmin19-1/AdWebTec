@@ -6,7 +6,7 @@
 <form method="post" action="" align="center">
 <fieldset>
     <legend>Change Password</legend>
-    <h1>{{Session::get('msg')}}</h1>
+    <h3 style="color: red;">{{Session::get('msg')}}</h3>
     {{@csrf_field()}}
     Enter Current Password: <input type="password" name="cur_pass" placeholder="Enter Current Password">@error('cur_pass'){{$message}}@enderror <br><br>
     Enter New Password: <input type="password" name="new_pass" placeholder="Enter New Password">@error('new_pass'){{$message}}@enderror <br><br>

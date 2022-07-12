@@ -5,7 +5,6 @@ Customer Coupons
 @section('content')
 <h1 align="center">Customer Coupons</h1>
 
-
 <div class="main-section">
     <center>
         <table border="2px" style="width: 90%; border-collapse: collapse;">
@@ -18,16 +17,6 @@ Customer Coupons
                 <th>Discount Amount (Tk)</th>
 
             </tr>
-
-            {{-- @foreach ($orders as $item) 
-            <tr>
-                <td style="text-align: center;">{{$item->id}}</td>
-                <td style="text-align: center;">{{$item->name}}</td>
-                <td style="text-align: center;">{{$item->quantity}}</td>
-
-            </tr>
-            @endforeach --}}
-
         </table>
     </center>
 

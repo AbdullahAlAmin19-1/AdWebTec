@@ -9,6 +9,7 @@ use App\Models\customer;
 use App\Models\deliveryman;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendOTP;
+use App\Mail\elogin;
 use App\Models\product;
 
 class usersController extends Controller
@@ -20,14 +21,19 @@ class usersController extends Controller
                 "name"=>"required|regex:/^[A-Z a-z,.-]+$/i",
                 "uname"=>"required",
                 "email"=>"required|email",
-                "phone"=>"required|min:10|max:10",
+                "phone"=>"required|numeric|digits:10",
                 "password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
                 "conf_password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
                 "gender"=>"required",
-                "dob"=>"required",
+                "dob"=>"required|before:-14 years",
                 "address"=>"required"
             ],
-            []
+            [
+                'name.regex' => 'Name cannot contain special characters or numbers.',
+                'password.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+                'conf_password.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+                'dob.before' => 'User must be 14 years or older.',
+            ]
         );
         if($vali->user_type=="Vendor"){$user = new vendor();}
         elseif($vali->user_type=="Customer"){$user = new customer();}
@@ -42,7 +48,7 @@ class usersController extends Controller
         $user->dob = $vali->dob;
         $user->address = $vali->address;
         $user->save();
-        session()->flash('msg','Registration Completed');
+        session()->flash('msg','Registration Completed!');
         return redirect()->route("public.login");
     }
 
@@ -82,7 +88,63 @@ class usersController extends Controller
             }
         }
         else {
-            session()->flash('msg','User not valid');
+            session()->flash('msg','User not valid!');
+            return back();
+        }
+    }
+    function emailloginConfirm(Request $vali){
+        $this->validate($vali,
+            [
+                "user_type"=>"required",
+                "email"=>"required|email"
+            ],
+            []
+        );
+        if($vali->user_type=="Admin"){$user=admin::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Vendor"){$user=vendor::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Customer"){$user=customer::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Deliveryman"){$user=deliveryman::where('email','=',$vali->email)->first();}
+       
+        if($user){
+            Mail::to($vali->email)->send(new elogin("Email Login",$vali->user_type,$user->email,$user->password,));
+            session()->flash('msg','Check Your Email for Fearther Information');
+            return back();
+        }
+        else {
+            session()->flash('msg','User not valid!');
+            return back();
+        }
+    }
+    function elogin($user_type,$email,$id){
+        
+        if($user_type=="Admin"){$user=admin::where('email','=',$email)->where('password',$id)->first();}
+        elseif($user_type=="Vendor"){$user=vendor::where('email','=',$email)->where('password',$id)->first();}
+        elseif($user_type=="Customer"){$user=customer::where('email','=',$email)->where('password',$id)->first();}
+        elseif($user_type=="Deliveryman"){$user=deliveryman::where('email','=',$email)->where('password',$id)->first();}
+       
+        if($user){
+            session()->put('id',$user->id);
+            session()->put('user_type',$user_type);
+            session()->put('username', $user->username);
+            session()->put('propic', $user->propic);
+
+            if($user_type == "Admin"){
+                return redirect()->route("admin.adashboard");
+            }
+
+            elseif($user_type == "Customer"){
+                return redirect()->route("customer.cdashboard");
+            }
+
+            elseif($user_type == "Vendor"){
+                return redirect()->route("vendor.dashboard");
+            }
+            elseif($user_type == "Deliveryman"){
+                return redirect()->route("deliveryman.dashboard");
+            }
+        }
+        else {
+            session()->flash('msg','User not valid!');
             return back();
         }
     }
@@ -107,7 +169,7 @@ class usersController extends Controller
             return redirect()->route("public.sendOTP");
         }
         else {
-            session()->flash('msg','User not valid');
+            session()->flash('msg','User not valid!');
             return back();
         }
     }
@@ -123,7 +185,7 @@ class usersController extends Controller
             return redirect()->route("public.enternewpassword");
         }
         else {
-            session()->flash('msg','OTP not valid');
+            session()->flash('msg','OTP not valid!');
             return back();
         }
     }
@@ -148,7 +210,7 @@ class usersController extends Controller
         return redirect()->route("public.login");
         }
         else{
-            session()->flash('msg','Password Change Failed');
+            session()->flash('msg','Password Change Failed!');
             return back();
         }
         
