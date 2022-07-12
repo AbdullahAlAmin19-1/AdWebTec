@@ -3,8 +3,7 @@
 Profile
 @endsection
 @section('content')
-<h2 align="center">Deliveryman</h2><center>
-
+<h1 align="center">Deliveryman List</h1><center>
 <div>
     <form action="{{route('admin.searchdeliveryman')}}" method="POST">
         {{@csrf_field()}}
@@ -15,7 +14,6 @@ Profile
         <input type="submit" name="search" value="Search">
     </form>
 </div>
-<h3 style="color: red;">{{Session::get('deliverymanRemove')}}</h3>
 <div>
     <center>
         <table border="2px" style="width: 80%; ">
@@ -23,8 +21,8 @@ Profile
                 <th colspan="8">-- Deliveryman Details --</th>
             </tr>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
+                <th>Customer ID</th>
+                <th>Customer Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Gender</th>
@@ -33,7 +31,7 @@ Profile
                 <th>Action</th>
             </tr>
 
-            @foreach ($user as $u) 
+            @foreach ($deliverymen as $u) 
             <tr>
                 <td style="text-align: center;">{{$u->id}}</td>
                 <td style="text-align: center;">{{$u->name}}</td>
@@ -42,15 +40,12 @@ Profile
                 <td style="text-align: center;">{{$u->gender}}</td>
                 <td style="text-align: center;">{{$u->dob}}</td>
                 <td style="text-align: center;">{{$u->address}}</td>
-                <td style="text-align: center;"><a href="{{route('admin.deliverymanremove',['id'=>$u->id])}}">Delete Deliveryman</a></td>
+                <td style="text-align: center;"><a href="{{route('admin.deliverymanremove',['id'=>$u->id])}}">Delete Customer</a></td>
             </tr>
             @endforeach
 
-            <tr>
-                <th align="center" colspan="8" style="padding: 5px;">{{$user->links()}}</th>
-            </tr>
+            
         </table>
     </center>
 </div>
-
 @endsection
