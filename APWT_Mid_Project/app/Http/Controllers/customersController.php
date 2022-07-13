@@ -41,21 +41,21 @@ class customersController extends Controller
     }
 
     function cprofileupdate(Request $req){
-
+        $id = session()->get('id');
         $this->validate($req, [
-            // "username" => "required",
+            // "username" => "required|unique:customers,username,$id",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
-            "email" => "required|email",
+            "email" => "required|email|unique:customers,email,$id",
             "phone"=>"required|numeric|digits:10",
             // "password" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
             // "cpassword" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
             "gender" => "required",
-            "dob" => "required|before:-14 years",
+            "dob" => "required|before:-10 years",
             "address" => "required"
         ],
         [
             'name.regex' => 'Name cannot contain special characters or numbers.',
-            'dob.before' => 'User must be 14 years or older.',
+            'dob.before' => 'User must be 10 years or older.',
         ]
         );
         

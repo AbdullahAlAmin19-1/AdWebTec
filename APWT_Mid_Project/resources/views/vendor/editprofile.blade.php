@@ -36,7 +36,7 @@ Account
 
                                 <tr>
                                     <td><label for="id"><b>ID:</b></label></td>
-                                    <td><input type="text" name="id" value="{{$vendor->id}}" disabled></td>
+                                    <td><input type="number" name="id" value="{{$vendor->id}}" disabled></td>
                                 </tr>
 
                                 <tr>

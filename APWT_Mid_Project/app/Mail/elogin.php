@@ -16,11 +16,11 @@ class elogin extends Mailable
      *
      * @return void
      */
-    public function __construct($sub,$user_type,$email,$id)
+    public function __construct($sub,$user_type,$username,$id)
     {
         $this->sub = $sub;
         $this->user_type = $user_type;   
-        $this->email = $email;    
+        $this->username = $username;    
         $this->id = $id;   
     }
 
@@ -33,7 +33,7 @@ class elogin extends Mailable
     {
         return $this->view('mails.elogin')
         ->with('user_type',$this->user_type)
-        ->with('email',$this->email)
+        ->with('username',$this->username)
         ->with('id',$this->id)
         ->subject($this->sub);
     }
