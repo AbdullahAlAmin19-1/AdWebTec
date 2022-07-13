@@ -7,6 +7,7 @@ use App\Models\admin;
 use App\Models\vendor;
 use App\Models\customer;
 use App\Models\deliveryman;
+use App\Models\req_deliveryman;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendOTP;
 use App\Mail\elogin;
@@ -37,7 +38,7 @@ class usersController extends Controller
         );
         if($vali->user_type=="Vendor"){$user = new vendor();}
         elseif($vali->user_type=="Customer"){$user = new customer();}
-        elseif($vali->user_type=="Deliveryman"){$user = new deliveryman();}
+        elseif($vali->user_type=="Deliveryman"){$user = new req_deliveryman();}
         
         $user->name = $vali->name;
         $user->username = $vali->uname;

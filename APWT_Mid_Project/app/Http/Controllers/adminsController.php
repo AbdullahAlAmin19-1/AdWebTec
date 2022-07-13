@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\admin;
 use App\Models\customer;
 use App\Models\deliveryman;
+use App\Models\req_deliveryman;
 use Illuminate\Support\Facades\DB;
 
 class adminsController extends Controller
@@ -244,21 +245,51 @@ class adminsController extends Controller
     function deliverymanppupload(Request $req){
 
         $this->validate($req, [
-            "myPP" => "required|mimes:jpg,png,jpeg",
+            "pic" => "required|mimes:jpg,png,jpeg",
         ],
         [
-            'myPP.required' => 'Please select a picture!',
-            'myPP.mimes' => 'The profile pic must be a jpg, png or jpeg!',
+            'pic.required' => 'Please select a picture!',
+            'pic.mimes' => 'The profile pic must be a jpg, png or jpeg!',
         ]
     );
         $deliveryman = deliveryman::find($req->id);
-        $extension = $req->file('myPP')->getClientOriginalExtension();
+        $extension = $req->file('pic')->getClientOriginalExtension();
         $picname = $deliveryman->name.time().".".$extension;
-        $req->file('myPP')->storeAs('public/cprofile_images', $picname);
-        $deliveryman->prpopic = $picname;
+        $req->file('pic')->storeAs('public/dprofile_images', $picname);
+        $deliveryman->propic = $picname;
         $deliveryman->update();
 
         session()->flash('msg','deliveryman profile picture has been successfully updated!');
+        return back();
+    }
+
+    function aaprovedeliveryman(){
+        $user = DB::table('req_deliverymen')->simplePaginate(15);
+        return view('admin.aaprovedeliveryman', compact('user'));
+    }
+    function adddeliveryman($id){
+
+        $del = req_deliveryman::where('id', $id)->first();
+
+        $user = new deliveryman();
+        $user->name = $del->name;
+        $user->username = $del->username;
+        $user->email =$del->email;
+        $user->phone = $del->phone;
+        $user->password = $del->password;
+        $user->gender = $del->gender;
+        $user->dob = $del->dob;
+        $user->address = $del->address;
+        $user->save();
+        $del =DB::delete('delete from req_deliverymen where id = ?',[$id]);
+        session()->flash('adddeliveryman', "Deliveryman has been added!");
+        // session()->flash('msg','Registration Completed!');
+        return back();
+    }
+    function canceldeliveryman($id){
+        $del =DB::delete('delete from req_deliverymen where id = ?',[$id]);
+        session()->flash('adddeliveryman', "Deliveryman request has been cancelled!");
+        // session()->flash('msg','Registration Completed!');
         return back();
     }
 

@@ -3,8 +3,9 @@
 Profile
 @endsection
 @section('content')
-<h1 align="center">Deliveryman List</h1><center>
-<div>
+<h2 align="center">Approve Deliveryman</h2><center>
+
+<!-- <div>
     <form action="{{route('admin.searchdeliveryman')}}" method="POST">
         {{@csrf_field()}}
         <input type="search" name="search_name" id="search_name" placeholder="Search here">
@@ -13,16 +14,17 @@ Profile
             @enderror
         <input type="submit" name="search" value="Search">
     </form>
-</div>
+</div> -->
+<h3 style="color: red;">{{Session::get('adddeliveryman')}}</h3>
 <div>
     <center>
         <table border="2px" style="width: 80%; ">
             <tr>
-                <th colspan="9">-- Deliveryman Details --</th>
+                <th colspan="9">--Applied Deliveryman Details --</th>
             </tr>
             <tr>
-                <th>Customer ID</th>
-                <th>Customer Name</th>
+                <th>ID</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Gender</th>
@@ -31,7 +33,7 @@ Profile
                 <th colspan="2">Action</th>
             </tr>
 
-            @foreach ($deliverymen as $u) 
+            @foreach ($user as $u) 
             <tr>
                 <td style="text-align: center;">{{$u->id}}</td>
                 <td style="text-align: center;">{{$u->name}}</td>
@@ -40,13 +42,17 @@ Profile
                 <td style="text-align: center;">{{$u->gender}}</td>
                 <td style="text-align: center;">{{$u->dob}}</td>
                 <td style="text-align: center;">{{$u->address}}</td>
-                <td style="text-align: center;"><a href="{{route('admin.editdeliveryman',['id'=>$u->id])}}">Edit Deliveryman Profile</a></td>
-                <td style="text-align: center;"><a href="{{route('admin.deliverymanremove',['id'=>$u->id])}}">Delete Deliveryman</a></td>
+                <td style="text-align: center;"><a href="{{route('admin.adddeliveryman',['id'=>$u->id])}}">Confirm</a></td>
+                <td style="text-align: center;"><a href="{{route('admin.canceldeliveryman',['id'=>$u->id])}}">Cancel</a></td>
             </tr>
             @endforeach
 
-            
+            <tr>
+                <th align="center" colspan="9" style="padding: 5px;">{{$user->links()}}</th>
+                
+            </tr>
         </table>
     </center>
 </div>
+
 @endsection
