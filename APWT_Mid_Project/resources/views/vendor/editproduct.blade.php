@@ -39,7 +39,7 @@
                     <tr>
                         <th><label for="category">Product Category:</label></th>
                         <td>
-                            <select name="category" >
+                            <select name="category">
                                 <option value="Fruits & Vegetables">Fruits & Vegetables</option>
                                 <option value="Meat & Fish">Meat & Fish</option>
                                 <option value="Cooking">Cooking</option>
@@ -49,6 +49,7 @@
                                 <option value="Frozen & Canned">Frozen & Canned</option>
                                 <option value="Snacks">Snacks</option>
                                 <option value="Beverages">Beverages</option>
+                                <option value="Others">Others</option>
                                 <option value="{{$product->category}}" selected >{{$product->category}}</option>
                             </select>
                         @error('category'){{$message}}@enderror</td>

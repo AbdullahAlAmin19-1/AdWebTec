@@ -8,10 +8,12 @@ use App\Models\vendor;
 use App\Models\customer;
 use App\Models\deliveryman;
 use App\Models\req_deliveryman;
+use App\Models\customer_coupon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendOTP;
 use App\Mail\elogin;
 use App\Models\product;
+use Illuminate\Support\Facades\DB;
 
 class usersController extends Controller
 {
@@ -20,20 +22,20 @@ class usersController extends Controller
             [
                 "user_type"=>"required",
                 "name"=>"required|regex:/^[A-Z a-z,.-]+$/i",
-                "uname"=>"required",
-                "email"=>"required|email",
+                "username"=>"required|unique:vendors|unique:customers|unique:deliverymen",
+                "email"=>"required|email|unique:vendors|unique:customers|unique:deliverymen",
                 "phone"=>"required|numeric|digits:10",
                 "password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
                 "conf_password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
                 "gender"=>"required",
-                "dob"=>"required|before:-14 years",
+                "dob"=>"required|before:-10 years",
                 "address"=>"required"
             ],
             [
                 'name.regex' => 'Name cannot contain special characters or numbers.',
                 'password.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
                 'conf_password.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
-                'dob.before' => 'User must be 14 years or older.',
+                'dob.before' => 'User must be 10 years or older.',
             ]
         );
         if($vali->user_type=="Vendor"){$user = new vendor();}
@@ -41,7 +43,7 @@ class usersController extends Controller
         elseif($vali->user_type=="Deliveryman"){$user = new req_deliveryman();}
         
         $user->name = $vali->name;
-        $user->username = $vali->uname;
+        $user->username = $vali->username;
         $user->email =$vali->email;
         $user->phone = $vali->phone;
         $user->password = $vali->password;
@@ -49,6 +51,15 @@ class usersController extends Controller
         $user->dob = $vali->dob;
         $user->address = $vali->address;
         $user->save();
+        if($user){
+            if($vali->user_type=="Customer"){
+                $c=customer::where('username','=',$vali->username)->first();
+                $cco = new customer_coupon();
+                $cco->c_id=$c->id;
+                $cco->co_id=1;
+                $cco->save();
+            }
+        }
         session()->flash('msg','Registration Completed!');
         return redirect()->route("public.login");
     }
@@ -107,7 +118,7 @@ class usersController extends Controller
         elseif($vali->user_type=="Deliveryman"){$user=deliveryman::where('email','=',$vali->email)->first();}
        
         if($user){
-            Mail::to($vali->email)->send(new elogin("Email Login",$vali->user_type,$user->email,$user->password,));
+            Mail::to($vali->email)->send(new elogin("Email Login",$vali->user_type,$user->username,$user->password,));
             session()->flash('msg','Check Your Email for Fearther Information');
             return back();
         }
@@ -116,12 +127,12 @@ class usersController extends Controller
             return back();
         }
     }
-    function elogin($user_type,$email,$id){
+    function elogin($user_type,$username,$id){
         
-        if($user_type=="Admin"){$user=admin::where('email','=',$email)->where('password',$id)->first();}
-        elseif($user_type=="Vendor"){$user=vendor::where('email','=',$email)->where('password',$id)->first();}
-        elseif($user_type=="Customer"){$user=customer::where('email','=',$email)->where('password',$id)->first();}
-        elseif($user_type=="Deliveryman"){$user=deliveryman::where('email','=',$email)->where('password',$id)->first();}
+        if($user_type=="Admin"){$user=admin::where('username','=',$username)->where('password',$id)->first();}
+        elseif($user_type=="Vendor"){$user=vendor::where('username','=',$username)->where('password',$id)->first();}
+        elseif($user_type=="Customer"){$user=customer::where('username','=',$username)->where('password',$id)->first();}
+        elseif($user_type=="Deliveryman"){$user=deliveryman::where('username','=',$username)->where('password',$id)->first();}
        
         if($user){
             session()->put('id',$user->id);
