@@ -6,6 +6,7 @@ use App\Http\Controllers\usersController;
 use App\Http\Controllers\customersController;
 use App\Http\Controllers\vendorController;
 use App\Http\Controllers\adminsController;
+use App\Http\Controllers\mailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -105,6 +106,7 @@ Route::post('/admin/dashboard/editcustomer/{id}',[adminsController::class,'editc
 Route::post('/admin/dashboard/customerppupload',[adminsController::class,'customerppupload'])->name('admin.customerppupload');
 
 Route::get('/admin/dashboard/aaprovedeliveryman',[adminsController::class,'aaprovedeliveryman'])->name('admin.aaprovedeliveryman');
+Route::get('/admin/dashboard/approvedeliverymanmail/{id}',[mailController::class,'approvedeliverymanMail'])->name('mail.approvedeliverymanmail');
 Route::get('/admin/dashboard/aaprovedeliveryman/{id}',[adminsController::class,'adddeliveryman'])->name('admin.adddeliveryman');
 Route::get('/admin/dashboard/acanceldeliveryman/{id}',[adminsController::class,'canceldeliveryman'])->name('admin.canceldeliveryman');
 

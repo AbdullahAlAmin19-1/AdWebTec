@@ -283,14 +283,11 @@ class adminsController extends Controller
         $user->address = $del->address;
         $user->save();
         $del =DB::delete('delete from req_deliverymen where id = ?',[$id]);
-        session()->flash('adddeliveryman', "Deliveryman has been added!");
-        // session()->flash('msg','Registration Completed!');
-        return back();
+        return redirect()->route('mail.approvedeliverymanmail',['id'=>$user->id]);
     }
     function canceldeliveryman($id){
         $del =DB::delete('delete from req_deliverymen where id = ?',[$id]);
         session()->flash('adddeliveryman', "Deliveryman request has been cancelled!");
-        // session()->flash('msg','Registration Completed!');
         return back();
     }
 
