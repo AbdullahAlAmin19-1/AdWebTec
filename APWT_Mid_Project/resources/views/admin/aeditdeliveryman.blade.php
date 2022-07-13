@@ -19,6 +19,7 @@ Account
                     {{@csrf_field()}}<br>
                         <label for="pic"><b>Select image</b></label>
                         <input type="file" name="pic"> <br> @error('pic'){{$message}}@enderror <br>
+                        <input type="hidden" name="id" value="{{$deliveryman->id}}">
                         <input type="submit" name="submit" value="Upload">
                     </form>
                 </td>
