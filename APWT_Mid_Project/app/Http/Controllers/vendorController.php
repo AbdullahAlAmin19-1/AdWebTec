@@ -40,21 +40,23 @@ class vendorController extends Controller
         else {return view("vendor.dashboard");}
     }
     function editprofileupdate(Request $vali){
+        
+        $id = session()->get('id');
         $this->validate($vali, [
-            "username" => "required",
+            "username" => "required|unique:vendors,username,$id",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
-            "email" => "required|email",
+            "email" => "required|email|unique:vendors,email,$id",
             "phone"=>"required|numeric|digits:10",
             "gender" => "required",
-            "dob" => "required||before:-14 years",
+            "dob" => "required||before:-18 years",
             "address" => "required"
         ],
         [
             'name.regex' => 'Name cannot contain special characters or numbers.',
-            'dob.before' => 'User must be 14 years or older.',
+            'dob.before' => 'User must be 18 years or older.',
         ]
         );
-        $user=vendor::where('id','=',session()->get('id'))->first();
+        $user=vendor::where('id','=',$id)->first();
         // if($user){return view("vendor.profile")->with('vendor',$user);}
         // else {return view("vendor.dashboard");}
         $user->name = $vali->name;
@@ -315,8 +317,8 @@ class vendorController extends Controller
         return view('vendor.allreviews')->with('reviews',$r);
     }
     function test(){
-        $co=coupon::where('id','=','2')->first();
-        // echo $co->customers;
+        $co=coupon::where('id','=','1')->first();
+        echo $co->customers;
         // echo $co->vendor;
         $c=customer::where('id','=','1')->first();
         // echo $c->coupons;
@@ -339,7 +341,7 @@ class vendorController extends Controller
         // echo $v->coupons;
         // echo $v->products;
         // date_default_timezone_set('Asia/Dhaka');
-        echo $current_time = date("H:i:s");
+        // echo $current_time = date("H:i:s");
         // echo date_default_timezone_get(); 
     }
 }

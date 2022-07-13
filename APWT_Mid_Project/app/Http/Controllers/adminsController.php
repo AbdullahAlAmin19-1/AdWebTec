@@ -36,18 +36,19 @@ class adminsController extends Controller
         else {return view("admin.adashboard");}
     }
     function aeditprofileupdate(Request $vali){
+        $id = session()->get('id');
         $this->validate($vali, [
-            "username" => "required",
+            "username" => "required|unique:admins,username,$id",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
-            "email" => "required|email",
+            "email" => "required|email|unique:admins,email,$id",
             "phone"=>"required|numeric|digits:10",
             "gender" => "required",
-            "dob" => "required|before:-14 years",
+            "dob" => "required|before:-18 years",
             "address" => "required"
         ],
         [
             'name.regex' => 'Name cannot contain special characters or numbers.',
-            'dob.before' => 'User must be 14 years or older.',
+            'dob.before' => 'User must be 18 years or older.',
         ]
     );
         $user=admin::where('id','=',session()->get('id'))->first();
@@ -152,7 +153,7 @@ class adminsController extends Controller
             "email" => "required|email",
             "phone" => "required|max:10|min:10",
             "gender" => "required",
-            "dob" => "required|before:-14 years",
+            "dob" => "required|before:-10 years",
             "address" => "required"
         ],
         []
@@ -224,7 +225,7 @@ class adminsController extends Controller
             "email" => "required|email",
             "phone" => "required|max:10|min:10",
             "gender" => "required",
-            "dob" => "required|before:-14 years",
+            "dob" => "required|before:-16 years",
             "address" => "required"
         ],
         []

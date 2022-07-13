@@ -33,8 +33,8 @@ Registration
                 <tr>
                     <th>User Name:</th>
                     <td>
-                        <input type="text" name="uname" placeholder="Write Your User Name" value="{{old('uname')}}">
-                        @error('uname'){{$message}}@enderror
+                        <input type="text" name="username" placeholder="Write Your User Name" value="{{old('username')}}">
+                        @error('username'){{$message}}@enderror
                     </td>
                 </tr>
 
