@@ -21,8 +21,9 @@ class CreateNoticesTable extends Migration
             $table->foreign('c_id')->references('id')->on('customers');
             $table->integer('v_id')->unsigned()->nullable();
             $table->foreign('v_id')->references('id')->on('vendors');
+            $table->string('email', 100);
             $table->string('subject', 200)->nullable();
-            $table->string('message', 300)->nullable();
+            $table->string('massage', 300)->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
