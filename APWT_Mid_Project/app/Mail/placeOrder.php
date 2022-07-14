@@ -22,12 +22,13 @@ class placeOrder extends Mailable
      *
      * @return void
      */
-    public function __construct($sub,$user_type,$username,$orders)
+    public function __construct($sub,$user_type,$username,$orders,$coupon)
     {
         $this->sub = $sub;
         $this->user_type = $user_type;   
         $this->username = $username;    
         $this->orders = $orders;
+        $this->coupon = $coupon;
     }
 
     /**
@@ -41,6 +42,7 @@ class placeOrder extends Mailable
         ->with('user_type',$this->user_type)
         ->with('username',$this->username)
         ->with('orders',$this->orders)
+        ->with('coupon',$this->coupon)
         ->subject($this->sub);
     }
 }

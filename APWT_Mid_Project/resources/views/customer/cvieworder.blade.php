@@ -15,7 +15,7 @@ foreach($orders as $item){
     $total_price = $total_price + ($item->quantity * $item->price);
 }
 
-$pay_money = $total_price + 60;
+$pay_money = $total_price + 60 - $coupon->amount;
 
 ?>
 
@@ -57,6 +57,11 @@ $pay_money = $total_price + 60;
             <tr>
                 <th colspan="4">Delivery Charge:</th>
                 <th colspan="4"> 60 Taka</th>
+            </tr>
+
+            <tr>
+                <th colspan="4">Coupon Discount:</th>
+                <th colspan="4"><?php echo $coupon->amount; ?> Taka</th>
             </tr>
 
             <tr>

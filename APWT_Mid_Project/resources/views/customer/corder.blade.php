@@ -7,6 +7,9 @@ Customer Order
 
 <div class="main-section">
     <center>
+
+        <h3 style="color: red;">{{Session::get('Msg')}}</h3>
+        
         <form action="{{route('customer.corderForm');}}" method="POST">
             {{@csrf_field()}}
 
@@ -37,6 +40,7 @@ Customer Order
                     <td colspan="3" style="padding-top: 5px;"><input type="text" name="coupon" placeholder="Enter coupon code" value="{{old('coupon')}}"> <br>
                         @error('coupon'){{$message}}@enderror
                     </td>
+                    
                 </tr>
 
                 <tr>
