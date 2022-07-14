@@ -7,7 +7,7 @@ Customer Coupons
 
 <div class="main-section">
     <center>
-        <table border="2px" style="width: 90%; border-collapse: collapse;">
+        <table border="2px" style="width: 70%; border-collapse: collapse;">
             <tr>
                 <th colspan="8">-- Customer Coupon List --</th>
             </tr>
@@ -15,8 +15,15 @@ Customer Coupons
                 <th>Coupon ID</th>
                 <th>Coupon Code</th>
                 <th>Discount Amount (Tk)</th>
-
             </tr>
+
+            @foreach ($coupons as $item) 
+            <tr>
+                <td style="text-align: center;">{{$item->id}}</td>
+                <td style="text-align: center;">{{$item->code}}</td>
+                <td style="text-align: center;">{{$item->amount}}</td>
+            </tr>
+            @endforeach
         </table>
     </center>
 

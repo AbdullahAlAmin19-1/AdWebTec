@@ -42,6 +42,7 @@ Route::get('/allproducts',[pagesController::class,'allproducts'])->name('public.
 Route::get('/searchcategory/{category}', [pagesController::class, 'searchcategory'])-> name('public.searchcategory');
 Route::post('/searchproduct',[pagesController::class,'searchproduct'])->name('public.searchproduct');
 Route::get('/',[pagesController::class,'products'])->name('public.products');
+Route::get('/products/viewproduct/{id}',[pagesController::class,'viewproduct'])->name('public.viewproduct');
 
 //Vendor
 Route::get('/vendor/dashboard',[vendorController::class,'dashboard'])->name('vendor.dashboard');

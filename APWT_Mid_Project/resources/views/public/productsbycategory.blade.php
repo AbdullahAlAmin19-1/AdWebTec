@@ -17,19 +17,29 @@
                     <th>
                         <center>
                             <img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="120px" width="120px">
-                            <h3>{{$item->name}}</h3>
+                            <a href="{{route('public.viewproduct', ['id'=>$item->id])}}"><h3>{{$item->name}}</h3></a>
                             <textarea style="width: 75%" disabled>{{$item->description}}</textarea>
                             <h4>Price: {{$item->price}} Taka.</h4>
                             <form action="{{route('customer.caddcart');}}" method="POST">
                                 {{@csrf_field()}}
                             <input type="hidden" name="p_id" id="p_id" value="{{$item->id}}"> <br>
+
+                            @if(session()->get('user_type')=='Customer')
                             <label for="quantity" style="width: 50%">Quantity</label>
-                            <input type="number" name="quantity" id="quantity" min="1" value="1" style="width: 50%"> <br>
+                            <input type="number" name="quantity" id="quantity" min="1" value="1" style="width: 50%"> <br> <br>
                             @error('quantity')
-                                    {{$message}} <br> <br> 
+                                    {{$message}} <br>
                                     @enderror
-                                    @if(session()->get('user_type')=='Customer')
-                            <input type="submit" name="caddcart" value="Add To Cart" style="width: 62%;">
+                            <input type="submit" name="caddcart" value="Add To Cart" style="width: 78%;">
+                            
+                            @elseif(!session()->has('user_type'))
+                            <label for="quantity" style="width: 50%">Quantity</label>
+                            <input type="number" name="quantity" id="quantity" min="1" value="1" style="width: 50%"> <br> <br>
+                            @error('quantity')
+                                    {{$message}} <br>
+                                    @enderror
+                            <input type="submit" name="caddcart" value="Add To Cart" style="width: 78%;">
+                    
                             @endif
                             
                             </form>

@@ -289,11 +289,11 @@ class vendorController extends Controller
         $o = order::where('id','=',$id)->first();
         if($o->status=='Pending'){
             $o->status='Confirmed';
-            Mail::to($o->customer->email)->send(new confirmOrder("Confermation of your Order",$o->customer->name,$o->products->name,$o->quantity,$o->delivery_address));
+            Mail::to($o->customer->email)->send(new confirmOrder("Confirmation of your Order",$o->customer->name,$o->products->name,$o->quantity,$o->delivery_address));
                 }
         elseif($o->status=='Confirmed'){
             $o->status='Delivered';
-            Mail::to($o->customer->email)->send(new confirmDelivery("Confermation of your Delivery",$o->customer->name,$o->products->name,$o->quantity,$o->delivery_address));
+            Mail::to($o->customer->email)->send(new confirmDelivery("Confirmation of your Delivery",$o->customer->name,$o->products->name,$o->quantity,$o->delivery_address));
             $r = new review();
             $r->c_id=$o->c_id;
             $r->p_id=$o->p_id;
