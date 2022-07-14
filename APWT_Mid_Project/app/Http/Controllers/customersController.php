@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\placeOrder;
 use App\Models\review;
+use App\Models\notice;
 
 class customersController extends Controller
 {
@@ -367,5 +368,9 @@ class customersController extends Controller
             ->get();
 
         return view("customer.ccoupon")->with('coupons', $coupons);
+    }
+    function notices(){
+        $n = notice::where('c_id','=',session()->get('id'))->get();
+        return view('vendor.notice')->with('notices',$n);
     }
 }

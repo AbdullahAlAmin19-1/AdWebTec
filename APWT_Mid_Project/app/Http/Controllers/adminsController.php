@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\admin;
 use App\Models\customer;
 use App\Models\deliveryman;
+use App\Models\vendor;
 use App\Models\req_deliveryman;
+use App\Models\notice;
 use Illuminate\Support\Facades\DB;
 
 class adminsController extends Controller
@@ -39,9 +41,9 @@ class adminsController extends Controller
     function aeditprofileupdate(Request $vali){
         $id = session()->get('id');
         $this->validate($vali, [
-            "username" => "required|unique:admins,username,$id",
+            "username" => "required|unique:vendors|unique:customers|unique:deliverymen|unique:admins,username,$id",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
-            "email" => "required|email|unique:admins,email,$id",
+            "email" => "required|email|unique:vendors|unique:customers|unique:deliverymen|unique:admins,email,$id",
             "phone"=>"required|numeric|digits:10",
             "gender" => "required",
             "dob" => "required|before:-18 years",
@@ -149,9 +151,9 @@ class adminsController extends Controller
     }
     function editcustomerupdate(Request $vali){
         $this->validate($vali, [
-            "username" => "required",
+            "username" => "required|unique:vendors|unique:customers|unique:deliverymen",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
-            "email" => "required|email",
+            "email" => "required|email|unique:vendors|unique:customers|unique:deliverymen",
             "phone" => "required|max:10|min:10",
             "gender" => "required",
             "dob" => "required|before:-10 years",
@@ -221,9 +223,9 @@ class adminsController extends Controller
     }
     function editdeliverymanupdate(Request $vali){
         $this->validate($vali, [
-            "username" => "required",
+            "username" => "required|unique:vendors|unique:customers|unique:deliverymen",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
-            "email" => "required|email",
+            "email" => "required|email|unique:vendors|unique:customers|unique:deliverymen",
             "phone" => "required|max:10|min:10",
             "gender" => "required",
             "dob" => "required|before:-16 years",
@@ -295,5 +297,53 @@ class adminsController extends Controller
 
         $user = DB::table('vendors')->simplePaginate(5);
         return view('admin.aviewvendor', compact('user'));
+    }
+
+    function asendnotice(){
+        return view('admin.asendnotice');
+    }
+    function asendnoticeupdate(Request $vali){
+
+        if($vali->user_type=="Vendor"){
+            $this->validate($vali,
+            [
+                "email"=>"required|email|exists:vendors,email",
+                "subject"=>"required",
+                "massage"=>"required"
+            ],
+            [
+                'email.exists' => 'Email address does not found!!',
+            ]
+        );
+            $u=vendor::where('email','=',$vali->email)->first();
+            
+            $mail= new notice();
+            $mail->email =$vali->email;
+            $mail->a_id =$vali->a_id;
+            $mail->v_id =$u->id;
+            $mail->subject =$vali->subject;
+            $mail->massage =$vali->massage;
+            $mail->save();
+        }
+        elseif($vali->user_type=="Customer"){
+            $this->validate($vali,
+            [
+                "email"=>"required|email|exists:customers,email",
+                "subject"=>"required",
+                "massage"=>"required"
+            ]
+        );
+            $u=customer::where('email','=',$vali->email)->first();
+            
+            $mail= new notice();
+            $mail->email =$vali->email;
+            $mail->a_id =$vali->a_id;
+            $mail->c_id =$u->id;
+            $mail->subject =$vali->subject;
+            $mail->massage =$vali->massage;
+            $mail->save();
+        }
+        session()->flash('msg','Mail has been sent!!');
+        return redirect()->route('admin.asendnotice');
     }
 }
