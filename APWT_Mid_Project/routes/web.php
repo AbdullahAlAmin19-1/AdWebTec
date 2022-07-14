@@ -106,7 +106,6 @@ Route::post('/admin/dashboard/editcustomer/{id}',[adminsController::class,'editc
 Route::post('/admin/dashboard/customerppupload',[adminsController::class,'customerppupload'])->name('admin.customerppupload');
 
 Route::get('/admin/dashboard/aaprovedeliveryman',[adminsController::class,'aaprovedeliveryman'])->name('admin.aaprovedeliveryman');
-Route::get('/admin/dashboard/approvedeliverymanmail/{id}',[mailController::class,'approvedeliverymanMail'])->name('mail.approvedeliverymanmail');
 Route::get('/admin/dashboard/aaprovedeliveryman/{id}',[adminsController::class,'adddeliveryman'])->name('admin.adddeliveryman');
 Route::get('/admin/dashboard/acanceldeliveryman/{id}',[adminsController::class,'canceldeliveryman'])->name('admin.canceldeliveryman');
 
@@ -118,6 +117,10 @@ Route::post('/admin/dashboard/editdeliveryman/{id}',[adminsController::class,'ed
 Route::post('/admin/dashboard/deliverymanppupload',[adminsController::class,'deliverymanppupload'])->name('admin.deliverymanppupload');
 
 Route::get('/admin/dashboard/viewvendorprofile',[adminsController::class,'aviewvendor'])->name('admin.aviewvendor');
+
+//Mail
+Route::get('/admin/dashboard/approvedeliverymanmail/{id}',[mailController::class,'approvedeliverymanMail'])->name('mail.approvedeliverymanmail');
+
 
 
 
