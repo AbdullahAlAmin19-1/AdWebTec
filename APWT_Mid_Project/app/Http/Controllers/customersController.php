@@ -313,6 +313,13 @@ class customersController extends Controller
     }
 
     function cCoupons(){
-        return view("customer.ccoupon");
+
+        $c_id = session()->get('id');
+        $coupons = DB::table('coupons')
+            ->join('customer_coupons', 'customer_coupons.co_id', '=', 'coupons.id')
+            ->where('customer_coupons.c_id', $c_id)
+            ->get();
+
+        return view("customer.ccoupon")->with('coupons', $coupons);
     }
 }
