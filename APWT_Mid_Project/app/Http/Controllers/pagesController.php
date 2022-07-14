@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\product;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\review;
 
 class pagesController extends Controller
 {
@@ -66,7 +67,15 @@ class pagesController extends Controller
     }
 
     function viewproduct($id){
-        $product = product::where('id', '=', "$id")->first();
-        return view("public.viewproduct")->with('item', $product);
+        $product = product::where('id', '=', $id)->first();
+        // $reviews = review::where('p_id', '=', $id)->where('message', '!=', null)->get();
+
+        $reviews = DB::table('reviews')
+            ->join('customers', 'customers.id', '=', 'reviews.c_id')
+            ->where('reviews.p_id', $id)
+            ->where('reviews.message', '!=', null)
+            ->get();
+
+        return view("public.viewproduct")->with('item', $product)->with('reviews', $reviews);
     }
 }
