@@ -64,4 +64,9 @@ class pagesController extends Controller
     $products= product::where('name', 'like', '%'.$search_name.'%')->get();
     return view("public.searchproduct")->with('products', $products);
     }
+
+    function viewproduct($id){
+        $product = product::where('id', '=', "$id")->first();
+        return view("public.viewproduct")->with('item', $product);
+    }
 }

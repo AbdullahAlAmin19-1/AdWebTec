@@ -17,7 +17,7 @@
                     <th>
                         <center>
                             <img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="120px" width="120px">
-                            <h3>{{$item->name}}</h3>
+                            <a href="{{route('public.viewproduct', ['id'=>$item->id])}}"><h3>{{$item->name}}</h3></a>
                             <textarea style="width: 75%" disabled>{{$item->description}}</textarea>
                             <h4>Price: {{$item->price}} Taka.</h4>
                             <form action="{{route('customer.caddcart');}}" method="POST">
