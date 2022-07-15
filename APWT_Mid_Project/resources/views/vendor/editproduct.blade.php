@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <h1 align="center">Edit Product</h1> 
-    <h3 style="color: red;">{{Session::get('msg')}}</h3>
+    <h3 align="center" style="color: red;">{{Session::get('msg')}}</h3>
 <div class="container">
 
     <table style="width: 100%;">
@@ -15,8 +15,8 @@
         <tr><td align="center"style="width: 100%;"><img src="{{asset('storage/product_images')}}/{{$product->thumbnail}}" alt="Product Image" height="120px" width="120px"></td>
             <td><form action="{{route('vendor.productpicupload')}}" method="POST" enctype="multipart/form-data">
             {{@csrf_field()}}<br>
-                    <label for="pic"><b>&ensp;Select image: </b></label>
-                    <input type="file" name="pic"> <br> @error('pic'){{$message}}<br>@enderror 
+                    <label for="thumbnail"><b>&ensp;Select Thumbnail: </b></label>
+                    <input type="file" name="thumbnail"> <br> @error('pic'){{$message}}<br>@enderror 
                     <input type="hidden" name="id" value="{{ $product->id }}">
                     <input align="center" type="submit" name="submit" value="Upload">
                 </form>

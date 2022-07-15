@@ -69,6 +69,8 @@ Route::get('/vendor/orders',[vendorController::class,'orders'])->name('vendor.or
 Route::get('/vendor/orders/changeorderstatus/{id}',[vendorController::class,'changeorderstatus'])->name('vendor.changeorderstatus');
 Route::get('/vendor/orders/changepaymentstatus/{id}',[vendorController::class,'changepaymentstatus'])->name('vendor.changepaymentstatus');
 Route::get('/vendor/reviews',[vendorController::class,'reviews'])->name('vendor.reviews');
+Route::get('/vendor/product',[vendorController::class,'searchproductcon'])->name('vendor.searchproduct');
+Route::post('/vendor/product',[vendorController::class,'searchproduct'])->name('vendor.searchproduct');
 
 //Customer
 Route::get('/customer/cdashboard',[customersController::class,'cdashboard'])->name('customer.cdashboard');

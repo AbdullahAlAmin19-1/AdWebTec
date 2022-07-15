@@ -3,6 +3,15 @@
     dashboard
 @endsection
 @section('content')
+<br>
+    <form align="center" action="{{route('vendor.searchproduct')}}" method="POST">
+        {{@csrf_field()}}
+            <input type="search" name="search_name" id="search_name" placeholder="Search here">
+                @error('search_name')
+                    {{$message}}
+                @enderror
+            <input type="submit" name="search" value="Search">
+    </form>
     <h1 align="center">All Product</h1> 
     <h3 align="center" style="color: red;">{{Session::get('msg')}}</h3>
 <div class="container">
