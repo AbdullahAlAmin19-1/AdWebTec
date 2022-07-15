@@ -25,7 +25,8 @@ class vendorController extends Controller
     // function welcome(){return view("public.welcome");}
     public function dashboard(){
         session()->put('product_navbar','yes');
-        $p=product::where('v_id','=',session()->get('id'))->simplePaginate(4);
+        // $p=product::where('v_id','=',session()->get('id'))->simplePaginate(4);pa
+        $p = DB::table('products')->simplePaginate(5);
         return view('vendor.dashboard', compact('p'));
     }
     function profile(){
@@ -33,12 +34,12 @@ class vendorController extends Controller
         session()->forget('coupon_navbar');
         $user=vendor::where('id','=',session()->get('id'))->first();
         if($user){return view("vendor.profile")->with('vendor',$user);}
-        else {return view("vendor.dashboard");}
+        else {redirect()->route('vendor.dashboard');}
     }
     function editprofile(){
         $user=vendor::where('id','=',session()->get('id'))->first();
         if($user){return view("vendor.editprofile")->with('vendor',$user);}
-        else {return view("vendor.dashboard");}
+        else {redirect()->route('vendor.dashboard');}
     }
     function editprofileupdate(Request $vali){
         
@@ -75,7 +76,7 @@ class vendorController extends Controller
     function changepassword(){
         $user=vendor::where('id','=',session()->get('id'))->first();
         if($user){return view("vendor.changepassword")->with('vendor',$user);}
-        else {return view("vendor.dashboard");}
+        else {return redirect()->route('vendor.dashboard');}
     }
     function changepasswordupdated(Request $vali){
         $this->validate($vali, [
@@ -139,20 +140,14 @@ class vendorController extends Controller
         ]
         );
 
-        $productname = $vali->name;
         $extension = $vali->file('p_thumbnail')->getClientOriginalExtension();
-        $thumbnailname = $productname.time().".".$extension;
-
-        echo $thumbnailname;
-
-        $vali->file('p_thumbnail')->storeAs('public/product_images', $thumbnailname);
+        $thumbnail = $vali->name.time().".".$extension;
+        $vali->file('p_thumbnail')->storeAs('public/product_images', $thumbnail);
 
         $p=new product();
-        // if($user){return view("vendor.profile")->with('vendor',$user);}
-        // else {return view("vendor.dashboard");}
         $p->name = $vali->name;
         $p->category = $vali->category;
-        $p->thumbnail = $thumbnailname;
+        $p->thumbnail = $thumbnail;
         $p->price = $vali->price;
         $p->stock = $vali->stock;
         // $p->color = $vali->color;
@@ -161,21 +156,21 @@ class vendorController extends Controller
         $p->v_id = Session()->get('id');
         $p->save();
         session()->flash('msg','Product Added');
-        return back();
+        return view("vendor.editProduct")->with('product',$p);;
     }
     function productpicupload(Request $req){
         $this->validate($req, [
-            "pic" => "required|mimes:jpg,png,jpeg",
+            "thumbnail" => "required|mimes:jpg,png,jpeg",
         ],
         [
-            'pic.required' => 'Please select a picture!',
-            'pic.mimes' => 'The profile pic must be a jpg, png or jpeg!',
+            'thumbnail.required' => 'Please select a picture!',
+            'thumbnail.mimes' => 'The profile pic must be a jpg, png or jpeg!',
         ]
         );
         $product = product::find($req->id);
-        $extension = $req->file('pic')->getClientOriginalExtension();
+        $extension = $req->file('thumbnail')->getClientOriginalExtension();
         $picname = $product->name.time().".".$extension;
-        $req->file('pic')->storeAs('public/product_images', $picname);
+        $req->file('thumbnail')->storeAs('public/product_images', $picname);
         $product->thumbnail = $picname;
         $product->update();
 
@@ -213,7 +208,7 @@ class vendorController extends Controller
         // $p = product::find($p_id);
         $p = product::where('id','=',$id)->first();
         if($p){return view("vendor.deleteproduct")->with('product',$p);}
-        else {return view("vendor.dashboard");}
+        else {return redirect()->route('vendor.dashboard');}
     }
     function deleteproductConfirm($id){
         DB::delete('delete from products where id = ?',[$id]);
@@ -226,6 +221,23 @@ class vendorController extends Controller
             session()->flash('msg','Product Id '.$id.' Deletion Successful');
             return redirect()->route("vendor.dashboard");
         }
+    }
+    function searchproduct(Request $req){
+        session()->put('searchproduct',$req->search_name);
+        $this->validate($req, [
+            "search_name" => "required",
+        ],
+        [
+            'search_name.required' => 'Please enter any value!',
+        ]
+    );
+    $search_name = $req->search_name;
+    $p= product::where('name', 'like', '%'.$search_name.'%')->simplePaginate(5);
+    return view('vendor.dashboard', compact('p'));
+    }
+    function searchproductcon(){
+    $p= product::where('name', 'like', '%'.session()->get('searchproduct').'%')->simplePaginate(5);
+    return view('vendor.dashboard', compact('p'));
     }
     function couponNavbar(){
         session()->forget('product_navbar');
@@ -314,8 +326,10 @@ class vendorController extends Controller
     function reviews(){
         session()->forget('product_navbar');
         session()->forget('coupon_navbar');
-        $r = review::all();
-        return view('vendor.allreviews')->with('reviews',$r);
+        // $r = review::all();
+        // return view('vendor.allreviews')->with('reviews',$r);
+        $p = product::all();
+        return view('vendor.allreviews')->with('products',$p);
     }
     function notices(){
         $n = notice::where('v_id','=',session()->get('id'))->get();
@@ -348,5 +362,6 @@ class vendorController extends Controller
         // date_default_timezone_set('Asia/Dhaka');
         // echo $current_time = date("H:i:s");
         // echo date_default_timezone_get(); 
+        // echo  $p = DB::table('products');
     }
 }

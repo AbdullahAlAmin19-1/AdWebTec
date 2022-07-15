@@ -26,13 +26,13 @@ Admin Notice
                 <tr>
                     <th style="padding-top: 10px;">Subject:</th>
                     <td style="padding-top: 10px;"><textarea cols="22" rows="2" style="width: 80%;" type="text" name="subject" value="{{old('subject')}}"></textarea></td>
-                    @error('email'){{$message}}@enderror
+                    @error('subject'){{$message}}@enderror
                 </tr>
 
                 <tr>
-                    <th style="padding-top: 10px;">Massage:</th>
-                    <td style="padding-top: 10px;"><textarea style="width: 80%;" name="massage"cols="22" rows="8" value="{{old('massage')}}"></textarea></td>
-                        @error('massage'){{$message}}@enderror
+                    <th style="padding-top: 10px;">Message:</th>
+                    <td style="padding-top: 10px;"><textarea style="width: 80%;" name="message"cols="22" rows="8" value="{{old('message')}}"></textarea></td>
+                        @error('message'){{$message}}@enderror
                 </tr>
 
                 <tr>

@@ -6,7 +6,7 @@
     <h1 align="center">Add Product</h1>
     <center>
     <h3 style="color: red;">{{Session::get('msg')}}</h3>
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <table border="2" style="width: 60%;">
                 {{@csrf_field()}}
                     <tr>
