@@ -11,6 +11,7 @@ use App\Models\review;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\customer;
+use App\Models\notice;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\confirmOrder;
 use App\Mail\confirmDelivery;
@@ -329,6 +330,10 @@ class vendorController extends Controller
         // return view('vendor.allreviews')->with('reviews',$r);
         $p = product::all();
         return view('vendor.allreviews')->with('products',$p);
+    }
+    function notices(){
+        $n = notice::where('v_id','=',session()->get('id'))->get();
+        return view('vendor.notice')->with('notices',$n);
     }
     function test(){
         $co=coupon::where('id','=','1')->first();

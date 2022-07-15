@@ -71,6 +71,8 @@ Route::get('/vendor/orders/changepaymentstatus/{id}',[vendorController::class,'c
 Route::get('/vendor/reviews',[vendorController::class,'reviews'])->name('vendor.reviews');
 Route::get('/vendor/product',[vendorController::class,'searchproductcon'])->name('vendor.searchproduct');
 Route::post('/vendor/product',[vendorController::class,'searchproduct'])->name('vendor.searchproduct');
+Route::get('/vendor/notices',[vendorController::class,'notices'])->name('vendor.notices');
+
 
 //Customer
 Route::get('/customer/cdashboard',[customersController::class,'cdashboard'])->name('customer.cdashboard');
@@ -89,6 +91,7 @@ Route::get('customer/placeOrderMail',[customersController::class,'placeOrderMail
 Route::get('customer/product-review',[customersController::class,'cProductReview'])->name('customer.cProductReview');
 Route::get('customer/coupons',[customersController::class,'cCoupons'])->name('customer.Coupons');
 Route::post('/customer/reviewForm',[customersController::class,'creviewForm'])->name('customer.creviewForm');
+Route::get('/customer/notices',[customersController::class,'notices'])->name('customer.notices');
 Route::get('customer/change-Password',[customersController::class,'cchangepass'])->name('customer.cchangepass');
 Route::Post('/customer/passchangeForm',[customersController::class,'cpasschangeForm'])->name('customer.cpasschangeForm');
 
@@ -109,7 +112,6 @@ Route::post('/admin/dashboard/editcustomer/{id}',[adminsController::class,'editc
 Route::post('/admin/dashboard/customerppupload',[adminsController::class,'customerppupload'])->name('admin.customerppupload');
 
 Route::get('/admin/dashboard/aaprovedeliveryman',[adminsController::class,'aaprovedeliveryman'])->name('admin.aaprovedeliveryman');
-Route::get('/admin/dashboard/approvedeliverymanmail/{id}',[mailController::class,'approvedeliverymanMail'])->name('mail.approvedeliverymanmail');
 Route::get('/admin/dashboard/aaprovedeliveryman/{id}',[adminsController::class,'adddeliveryman'])->name('admin.adddeliveryman');
 Route::get('/admin/dashboard/acanceldeliveryman/{id}',[adminsController::class,'canceldeliveryman'])->name('admin.canceldeliveryman');
 
@@ -121,6 +123,13 @@ Route::post('/admin/dashboard/editdeliveryman/{id}',[adminsController::class,'ed
 Route::post('/admin/dashboard/deliverymanppupload',[adminsController::class,'deliverymanppupload'])->name('admin.deliverymanppupload');
 
 Route::get('/admin/dashboard/viewvendorprofile',[adminsController::class,'aviewvendor'])->name('admin.aviewvendor');
+
+Route::get('/admin/dashboard/sendnotice',[adminsController::class,'asendnotice'])->name('admin.asendnotice');
+Route::post('/admin/dashboard/sendnotice',[adminsController::class,'asendnoticeupdate'])->name('admin.asendnoticeupdate');
+
+//Mail
+Route::get('/admin/dashboard/approvedeliverymanmail/{id}',[mailController::class,'approvedeliverymanMail'])->name('mail.approvedeliverymanmail');
+
 
 
 

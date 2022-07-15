@@ -61,6 +61,33 @@ Product Info
                 </td>
             </tr>
         </table>
+
+        <br>
+    
+        <fieldset style="width: 60%">
+            <legend>Product Reviews</legend>
+            <table>
+                @foreach ($reviews as $item)
+                <tr>
+                    <th>Review By:</th>
+                    <td>{{$item->name}}</td>
+                </tr>
+                <tr>
+                    <th>Review Message:</th>
+                    <td>{{$item->message}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Updated at: {{$item->updated_at}}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <hr style="width:100%">
+                    </th>
+                </tr>
+                @endforeach
+            </table>
+        </fieldset>
+
     </center>
 
 </div>

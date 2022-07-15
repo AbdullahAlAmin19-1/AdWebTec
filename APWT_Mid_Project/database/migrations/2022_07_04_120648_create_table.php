@@ -136,7 +136,7 @@ class CreateTable extends Migration
         //     $table->integer('amount');
         //     $table->integer('v_id')->unsigned()->nullable(); //For Nullable Value -MR
         //     $table->foreign('v_id')->references('id')->on('vendors');
-        //     $table->integer('cco_id')->unsigned()->nullable(); //For Nullable Value -MR
+        //     // $table->integer('cco_id')->unsigned()->nullable(); //For Nullable Value -MR
         //     // $table->foreign('cco_id')->references('id')->on('customer_coupons');
         //     $table->timestamp('created_at')->nullable();
         //     $table->timestamp('updated_at')->nullable();
@@ -197,6 +197,20 @@ class CreateTable extends Migration
         // });
         // Schema::table('coupons', function (Blueprint $table) {
         //     $table->foreign('cco_id')->references('id')->on('customer_coupons');
+        // });
+
+        // Schema::create('notices', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->integer('a_id')->unsigned()->nullable();
+        //     $table->foreign('a_id')->references('id')->on('admins');
+        //     $table->integer('c_id')->unsigned()->nullable();
+        //     $table->foreign('c_id')->references('id')->on('customers');
+        //     $table->integer('v_id')->unsigned()->nullable();
+        //     $table->foreign('v_id')->references('id')->on('vendors');
+        //     $table->string('subject', 200)->nullable();
+        //     $table->string('message', 300)->nullable();
+        //     $table->timestamp('created_at')->nullable();
+        //     $table->timestamp('updated_at')->nullable();
         // });
     }
 

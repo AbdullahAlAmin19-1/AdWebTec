@@ -52,7 +52,8 @@
                             <a href="{{route('vendor.profile');}}" style="font-size: 20px;">Manage My Account</a> |
                             <a href="{{route('vendor.createcoupon');}}" style="font-size: 20px;">Coupons</a> |
                             <a href="{{route('vendor.orders');}}" style="font-size: 20px;">Orders</a> |
-                            <a href="{{route('vendor.reviews');}}" style="font-size: 20px;">Reviews</a>
+                            <a href="{{route('vendor.reviews');}}" style="font-size: 20px;">Reviews</a> |
+                            <a href="{{route('vendor.notices');}}" style="font-size: 20px;">Notices</a>
                             <!-- <a href="#" style="font-size: 20px;">Vouchers</a> | -->
                         </td>
                     </tr>
@@ -97,7 +98,8 @@
                         <a href="{{route('customer.ccart')}}" style="font-size: 20px;">Cart</a> |
                         <a href="{{route('customer.cvieworder')}}" style="font-size: 20px;">Orders</a> |
                         <a href="{{route('customer.cProductReview')}}" style="font-size: 20px;">Reviews</a> |
-                        <a href="{{route('customer.Coupons')}}" style="font-size: 20px;">Coupons</a>
+                        <a href="{{route('customer.Coupons')}}" style="font-size: 20px;">Coupons</a> |
+                            <a href="{{route('customer.notices');}}" style="font-size: 20px;">Notices</a>
                     </td>
                 </tr>
             </table>

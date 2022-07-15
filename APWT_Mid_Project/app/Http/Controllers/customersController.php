@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\placeOrder;
 use App\Models\review;
+use App\Models\notice;
 
 class customersController extends Controller
 {
@@ -47,8 +48,6 @@ class customersController extends Controller
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
             "email" => "required|email|unique:customers,email,$id",
             "phone"=>"required|numeric|digits:10",
-            // "password" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
-            // "cpassword" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
             "gender" => "required",
             "dob" => "required|before:-10 years",
             "address" => "required"
@@ -63,11 +62,9 @@ class customersController extends Controller
 
         $customer = customer::find($id);
 
-        // $customer->username = $req->username;
         $customer->name = $req->name;
         $customer->email = $req->email;
         $customer->phone = $req->phone;
-        // $customer->password = $req->password;
         $customer->gender = $req->gender;
         $customer->dob = $req->dob;
         $customer->address = $req->address;
@@ -201,15 +198,55 @@ class customersController extends Controller
     function corderForm(Request $req){
 
         $this->validate($req, [
-            "coupon" => "",
             "payment_option" => "required",
             "delivery_address" => "required",
         ]);
-        
+
         $c_id = session()->get('id');
-        $carts = cart::where('c_id', $c_id)->get();
+
+        if(isset($req->coupon)){
+            $coupon = DB::table('customer_coupons')
+            ->join('coupons', 'coupons.id', '=', 'customer_coupons.co_id')
+            ->where('customer_coupons.c_id', $c_id)
+            ->where('coupons.code', $req->coupon)
+            ->first();
+
+
+            if($coupon != null){
+                $carts = cart::where('c_id', $c_id)->get();
         
-        foreach($carts as $item){
+            foreach($carts as $item){
+            
+            $order = new order();
+            $order->p_id=$item->p_id;
+            $order->quantity=$item->quantity;
+            $order->c_id=$item->c_id;
+            $order->status="Pending";
+            $order->payment_method=$req->payment_option;
+            $order->payment_status="Unpaid";
+            $order->delivery_address=$req->delivery_address;
+
+            $order->co_id=$coupon->id;
+
+            $order->save();
+
+            cart::where('c_id', $c_id)->delete();
+        }
+
+        session()->flash('Msg','Your Order has been successfully placed!');
+        return redirect()->route('customer.placeOrder');
+            }
+    
+            else{
+                session()->flash('Msg', "Invalid Coupon Code!");
+                return redirect()->route('customer.corder');
+            }
+        }
+
+        else{
+            $carts = cart::where('c_id', $c_id)->get();
+        
+            foreach($carts as $item){
             
             $order = new order();
             $order->p_id=$item->p_id;
@@ -226,6 +263,8 @@ class customersController extends Controller
 
         session()->flash('Msg','Your Order has been successfully placed!');
         return redirect()->route('customer.placeOrder');
+        }
+    
     }
 
     function placeOrderMail(){
@@ -239,7 +278,11 @@ class customersController extends Controller
             ->where('orders.status', '!=', "Delivered")
             ->get();
 
-        Mail::to([$customer->email])->send(new placeOrder("Your Order has been placed!",Session()->get('user_type'),Session()->get('username'), $orders));
+        $coupon = DB::table('orders')
+            ->join('coupons', 'coupons.id', '=', 'orders.co_id')
+            ->first();
+        
+        Mail::to([$customer->email])->send(new placeOrder("Your Order has been placed!",Session()->get('user_type'),Session()->get('username'), $orders, $coupon));
 
         return redirect()->route('customer.cdashboard');
     }
@@ -260,8 +303,12 @@ class customersController extends Controller
             ->where('orders.status', '=', "Delivered")
             ->get();
 
+        $coupon = DB::table('orders')
+            ->join('coupons', 'coupons.id', '=', 'orders.co_id')
+            ->first();
+
         if(count($orders) !== 0){
-            return view("customer.cvieworder")->with('orders', $orders)->with('dorders', $dorders);
+            return view("customer.cvieworder")->with('orders', $orders)->with('dorders', $dorders)->with('coupon', $coupon);
             }
     
         else{
@@ -321,5 +368,9 @@ class customersController extends Controller
             ->get();
 
         return view("customer.ccoupon")->with('coupons', $coupons);
+    }
+    function notices(){
+        $n = notice::where('c_id','=',session()->get('id'))->get();
+        return view('vendor.notice')->with('notices',$n);
     }
 }
