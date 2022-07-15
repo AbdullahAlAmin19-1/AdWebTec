@@ -321,6 +321,7 @@ class adminsController extends Controller
             $mail->email =$vali->email;
             $mail->a_id =$vali->a_id;
             $mail->v_id =$u->id;
+            $mail->user_type =$vali->user_type;
             $mail->subject =$vali->subject;
             $mail->message =$vali->message;
             $mail->save();
@@ -342,10 +343,38 @@ class adminsController extends Controller
             $mail->email =$vali->email;
             $mail->a_id =$vali->a_id;
             $mail->c_id =$u->id;
+            $mail->user_type =$vali->user_type;
             $mail->subject =$vali->subject;
             $mail->message =$vali->message;
             $mail->save();
         }
         return redirect()->route('mail.sendNotice',['id'=>$mail->id]);
+    }
+    function aviewallnotice(){
+        $notice = notice::all();
+        return view('admin.aviewallnotice')->with('notices',$notice);
+    }
+    function aviewnotice($id){
+        $notice = notice::where('id', $id)->first();
+        return view('admin.aviewnotice')->with('notices',$notice);
+    }
+    function aeditnotice($id){
+        $notice = notice::where('id', $id)->first();
+        return view('admin.aeditnotice')->with('notices',$notice);
+    }
+    function aeditnoticeupdate(Request $vali){
+        $this->validate($vali, [
+            "subject"=>"required",
+            "message"=>"required"
+        ],
+        []
+    );
+    $mail= notice::find($vali->id);
+    $mail->subject =$vali->subject;
+    $mail->message =$vali->message;
+    $mail->update();
+
+    session()->flash('msg','Update Completed');
+    return redirect()->route('mail.updateNotice',['id'=>$mail->id]);
     }
 }
