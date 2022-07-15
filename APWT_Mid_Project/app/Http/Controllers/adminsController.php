@@ -343,7 +343,6 @@ class adminsController extends Controller
             $mail->massage =$vali->massage;
             $mail->save();
         }
-        session()->flash('msg','Mail has been sent!!');
-        return redirect()->route('admin.asendnotice');
+        return redirect()->route('mail.sendNotice',['id'=>$mail->id]);
     }
 }
