@@ -11,6 +11,12 @@ class confirmOrder extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $sub;
+    public $c_name;   
+    public $p_name;    
+    public $p_quantity; 
+    public $c_address;
+
     /**
      * Create a new message instance.
      *

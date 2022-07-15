@@ -14,9 +14,9 @@ class placeOrder extends Mailable
     public $sub;
     public $user_type;
     public $username;
-    public $p_name;
-    public $p_quantity;
-    public $p_price;
+    public $orders;
+    public $coupon;
+    
     /**
      * Create a new message instance.
      *

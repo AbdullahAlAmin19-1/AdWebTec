@@ -19,6 +19,10 @@ class order extends Model
 
     public function products()
     {
+        return $this->belongsToMany(Product::class,'product_orders','o_id','p_id');
+    }
+    public function product()
+    {
         return $this->belongsTo(Product::class,'p_id');
     }
     public function coupon()

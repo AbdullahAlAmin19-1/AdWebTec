@@ -8,11 +8,14 @@ use App\Models\product;
 use App\Models\coupon;
 use App\Models\order;
 use App\Models\review;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use App\Models\customer;
+use App\Models\cart;
 use App\Models\notice;
+use App\Models\customer_product;
+use App\Models\customer_coupon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use App\Mail\confirmOrder;
 use App\Mail\confirmDelivery;
 
@@ -156,7 +159,7 @@ class vendorController extends Controller
         $p->v_id = Session()->get('id');
         $p->save();
         session()->flash('msg','Product Added');
-        return view("vendor.editProduct")->with('product',$p);;
+        return redirect()->route('vendor.dashboard');
     }
     function productpicupload(Request $req){
         $this->validate($req, [
@@ -211,24 +214,34 @@ class vendorController extends Controller
         else {return redirect()->route('vendor.dashboard');}
     }
     function deleteproductConfirm($id){
+        $cart = cart::where('p_id','=',$id)->first();
+        if($cart){
+            session()->flash('msg','Product Id '.$id.' is in cart which will be plased on oredr, remove it from cart or complete/cancel the order before Deleting the Product');
+            return redirect()->route("vendor.dashboard");
+        }
+        $o = order::where('p_id','=',$id)->first();
+        if($o){
+            if($o->status!='Delivered'){
+                session()->flash('msg','Product Id '.$id.' has order pending, complete or cancel the order before Deleting the Product');
+                return redirect()->route("vendor.dashboard");
+            }
+            else{
+                $o->p_id=NUll;
+                $o->update();
+                review::where('p_id', $id)->delete();
+            }
+        }
+        // DB::delete('delete from customer_products where p_id = ?',[$id]);
         DB::delete('delete from products where id = ?',[$id]);
-        $p = product::where('id','=',$id)->first();
-        if($p){
-            session()->flash('msg','Product Id '.$id.' Deletion Failed');
-            return redirect()->route("vendor.dashboard");
-        }
-        else {
-            session()->flash('msg','Product Id '.$id.' Deletion Successful');
-            return redirect()->route("vendor.dashboard");
-        }
+        session()->flash('msg','Product Id '.$id.' Deletion Successful');
+        return redirect()->route("vendor.dashboard");
     }
     function searchproduct(Request $req){
-        session()->put('searchproduct',$req->search_name);
         $this->validate($req, [
             "search_name" => "required",
         ],
         [
-            'search_name.required' => 'Please enter any value!',
+            'search_name.required' => 'Please enter valid product Id',
         ]
     );
     $search_name = $req->search_name;
@@ -260,11 +273,14 @@ class vendorController extends Controller
             $c->code=$value->code;
         }
         $c->amount=$value->amount;
+        $c->v_id =$value->v_id;
         $c->save();
         session()->flash('msg','Coupon Created');
-        return redirect()->route("vendor.dashboard");
+        return redirect()->route("vendor.allcoupons");
     }
     function allcoupons(){
+        session()->forget('product_navbar');
+        session()->put('coupon_navbar','yes');
         $c = coupon::all();
         return view('vendor.allcoupons')->with('coupons',$c);
     }
@@ -273,16 +289,16 @@ class vendorController extends Controller
         return view('vendor.editcoupon')->with('c',$c);
     }
     function deletecoupon($id){
+        $cco = customer_coupon::where('co_id','=',$id)->first();
+        if($cco){
+            session()->flash('msg','Coupon Id '.$id.' belongs to customer, remove or wait for the customer to use it before Deleting the Coupon');
+            return redirect()->route("vendor.allcoupons");
+        }
+        DB::delete('delete from customer_coupons where co_id = ?',[$id]);
         DB::delete('delete from coupons where id = ?',[$id]);
         $c = coupon::where('id','=',$id)->first();
-        if($c){
-            session()->flash('msg','Coupon Id '.$id.' Deletion Failed');
-            return redirect()->route("vendor.allcoupons");
-        }
-        else {
-            session()->flash('msg','Coupon Id '.$id.' Deletion Successful');
-            return redirect()->route("vendor.allcoupons");
-        }
+        session()->flash('msg','Coupon Id '.$id.' Deletion Successful');
+        return redirect()->route("vendor.allcoupons");
     }
     function editcouponconfirm(Request $value){
         $c = coupon::where('id','=',$value->id)->first();
@@ -292,21 +308,56 @@ class vendorController extends Controller
         session()->flash('msg','Coupon Id '.$value->id.' Updated');
         return redirect()->route("vendor.allcoupons");;
     }
+    function assigncoupon(Request $req){
+        $this->validate($req, [
+            "id" => "required",
+        ],
+        [
+            'id.required' => 'Enter Valid Customer Id',
+        ]
+    );
+    $c = customer::where('id','=',$req->id)->first();
+    if(!$c){
+        session()->flash('msg','Invalid Customer Id, Enter a vaild Id');
+        return back();
+    }
+    $o = order::where('c_id','=',$req->id)->where('co_id','=',$req->co_id)->first();
+    if($o){
+        session()->flash('msg','Coupon Id '.$req->co_id.' has already been used by Custimer Id '.$req->id.'');
+        return back();
+    }
+    $cco = customer_coupon::where('c_id','=',$req->id)->where('co_id','=',$req->co_id)->first();
+    if($cco){
+        session()->flash('msg','Coupon Id '.$req->co_id.' has already been assign to Custimer Id '.$req->id.'');
+        return back();
+    }
+    $assign = new customer_coupon();
+    $assign->c_id=$req->id;
+    $assign->co_id=$req->co_id;
+    $assign->save();
+    session()->flash('msg','Coupon Id '.$req->co_id.' has been assigned to Custimer Id '.$req->id.'');
+    return back();
+    }
     function orders(){
         session()->forget('product_navbar');
         session()->forget('coupon_navbar');
-        $o = order::all();
-        return view('vendor.allorders')->with('orders',$o);
+        $c = customer::all();
+        // $o= $c->orders->first();
+        // $p= $o->products;
+        // echo $p;
+
+        return view('vendor.allorders')->with('customers',$c);
     }
     function changeorderstatus($id){
         $o = order::where('id','=',$id)->first();
         if($o->status=='Pending'){
             $o->status='Confirmed';
-            Mail::to($o->customer->email)->send(new confirmOrder("Confirmation of your Order",$o->customer->name,$o->products->name,$o->quantity,$o->delivery_address));
+            Mail::to($o->customer->email)->send(new confirmOrder("Confirmation of your Order",$o->customer->name,$o->product->name,$o->quantity,$o->delivery_address));
                 }
         elseif($o->status=='Confirmed'){
             $o->status='Delivered';
-            Mail::to($o->customer->email)->send(new confirmDelivery("Confirmation of your Delivery",$o->customer->name,$o->products->name,$o->quantity,$o->delivery_address));
+            Mail::to($o->customer->email)->send(new confirmDelivery("Confirmation of your Delivery",$o->customer->name,$o->product->name,$o->quantity,$o->delivery_address));
+            customer_coupon::where('co_id', $o->co_id) ->delete();
             $r = new review();
             $r->c_id=$o->c_id;
             $r->p_id=$o->p_id;
@@ -321,7 +372,18 @@ class vendorController extends Controller
         $o->payment_status='Confirmed';
         $o->update();
         session()->flash('msg','Order Updated');
-        return redirect()->route("vendor.orders");;
+        return redirect()->route("vendor.orders");
+    }
+    function searchorder(Request $req){
+        $this->validate($req, [
+            "id" => "required",
+        ],
+        [
+            'id.required' => 'Please enter valid product Id',
+        ]
+    );
+    $c= customer::where('id', '=', $req->id)->get();
+    return view('vendor.allorders')->with('customers',$c);
     }
     function reviews(){
         session()->forget('product_navbar');
@@ -331,13 +393,28 @@ class vendorController extends Controller
         $p = product::all();
         return view('vendor.allreviews')->with('products',$p);
     }
+    function searchreview(Request $req){
+        $this->validate($req, [
+            "id" => "required",
+        ],
+        [
+            'id.required' => 'Please enter any number',
+        ]
+    );
+    $p= product::where('id', '=', $req->id)->first();
+    if($p){return view('vendor.allreview')->with('product',$p);}
+    session()->flash('msg','Product not available');
+    return redirect()->route("vendor.reviews");
+    }
     function notices(){
+        session()->forget('product_navbar');
+        session()->forget('coupon_navbar');
         $n = notice::where('v_id','=',session()->get('id'))->get();
         return view('vendor.notice')->with('notices',$n);
     }
     function test(){
         $co=coupon::where('id','=','1')->first();
-        echo $co->customers;
+        // echo $co->customers;
         // echo $co->vendor;
         $c=customer::where('id','=','1')->first();
         // echo $c->coupons;
@@ -347,7 +424,7 @@ class vendorController extends Controller
         $o=order::where('id','=','2')->first();
         // echo $o->coupon;
         // echo $o->customer->name;
-        // echo $o->products->name;
+        echo $o->product->name;
         $p=product::where('id','=','2')->first();
         // echo $p->customers;
         // echo $p->reviews;

@@ -19,10 +19,10 @@ class coupon extends Model
         return $this->belongsToMany(Customer::class,'customer_coupons','co_id','c_id');
     }
 
-    // public function orders()
-    // {
-    //     return $this->hasMany(Order::class,'co_id');
-    // }
+    public function orders()
+    {
+        return $this->hasMany(Order::class,'co_id');
+    }
 
     public function vendor()
     {
