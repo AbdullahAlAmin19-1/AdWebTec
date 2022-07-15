@@ -309,7 +309,7 @@ class adminsController extends Controller
             [
                 "email"=>"required|email|exists:vendors,email",
                 "subject"=>"required",
-                "massage"=>"required"
+                "message"=>"required"
             ],
             [
                 'email.exists' => 'Email address does not found!!',
@@ -322,7 +322,7 @@ class adminsController extends Controller
             $mail->a_id =$vali->a_id;
             $mail->v_id =$u->id;
             $mail->subject =$vali->subject;
-            $mail->massage =$vali->massage;
+            $mail->message =$vali->message;
             $mail->save();
         }
         elseif($vali->user_type=="Customer"){
@@ -330,7 +330,10 @@ class adminsController extends Controller
             [
                 "email"=>"required|email|exists:customers,email",
                 "subject"=>"required",
-                "massage"=>"required"
+                "message"=>"required"
+            ],
+            [
+                'email.exists' => 'Email address does not found!!',
             ]
         );
             $u=customer::where('email','=',$vali->email)->first();
@@ -340,7 +343,7 @@ class adminsController extends Controller
             $mail->a_id =$vali->a_id;
             $mail->c_id =$u->id;
             $mail->subject =$vali->subject;
-            $mail->massage =$vali->massage;
+            $mail->message =$vali->message;
             $mail->save();
         }
         session()->flash('msg','Mail has been sent!!');
