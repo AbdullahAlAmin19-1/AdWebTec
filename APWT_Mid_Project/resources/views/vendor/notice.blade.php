@@ -15,7 +15,7 @@ Notice
             @foreach ($notices as $n)
             <tr>
                 <td style="text-align: center;padding: 10px;">{{$n->admin->name}}</td>
-                <td style="padding: 10px;"><sup>Date & Time: {{$n->updated_at}}</sup><br><br><b>Subject:</b> {{$n->subject}}<br><b>Massage:</b> {{$n->massage}} </td>
+                <td style="padding: 10px;"><sup>Date & Time: {{$n->updated_at}}</sup><br><br><b>Subject:</b> {{$n->subject}}<br><b>Message:</b> {{$n->message}} </td>
             </tr>
             @endforeach
             </table>
