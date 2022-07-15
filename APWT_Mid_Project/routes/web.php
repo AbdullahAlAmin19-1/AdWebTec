@@ -126,11 +126,14 @@ Route::get('/admin/dashboard/viewvendorprofile',[adminsController::class,'aviewv
 
 Route::get('/admin/dashboard/sendnotice',[adminsController::class,'asendnotice'])->name('admin.asendnotice');
 Route::post('/admin/dashboard/sendnotice',[adminsController::class,'asendnoticeupdate'])->name('admin.asendnoticeupdate');
-
+Route::get('/admin/dashboard/veiwallnotice',[adminsController::class,'aviewallnotice'])->name('admin.aviewallnotice');
+Route::get('/admin/dashboard/veiwnotice/{id}',[adminsController::class,'aviewnotice'])->name('admin.aviewnotice');
+Route::get('/admin/dashboard/editnotice/{id}',[adminsController::class,'aeditnotice'])->name('admin.aeditnotice');
+Route::post('/admin/dashboard/editnotice/{id}',[adminsController::class,'aeditnoticeupdate'])->name('admin.aeditnoticeupdate');
 //Mail
 Route::get('/admin/dashboard/approvedeliverymanmail/{id}',[mailController::class,'approvedeliverymanMail'])->name('mail.approvedeliverymanmail');
 Route::get('/admin/dashboard/sendnotice/{id}',[mailController::class,'sendNotice'])->name('mail.sendNotice');
-
+Route::get('/admin/dashboard/updatenotice/{id}',[mailController::class,'updateNotice'])->name('mail.updateNotice');
 
 
 
