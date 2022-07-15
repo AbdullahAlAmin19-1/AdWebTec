@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\customer;
 use App\Models\order;
 use App\Models\product;
+use App\Models\product_order;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\placeOrder;
@@ -257,6 +258,12 @@ class customersController extends Controller
             $order->payment_status="Unpaid";
             $order->delivery_address=$req->delivery_address;
             $order->save();
+            
+            $o=order::where('p_id','=',$item->p_id)->where('c_id','=',$item->c_id)->where('quantity','=',$item->quantity)->first();
+            $po = new product_order();
+            $po->p_id=$item->p_id;
+            $po->o_id=$o->id;
+            $po->save();
 
             cart::where('c_id', $c_id)->delete();
         }

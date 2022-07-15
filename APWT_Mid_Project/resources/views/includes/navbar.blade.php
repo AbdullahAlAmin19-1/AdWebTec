@@ -48,9 +48,9 @@
                 <table>
                     <tr>
                         <td>
-                            <a href="{{route('vendor.addproduct');}}" style="font-size: 20px;">Products</a> |
+                            <a href="{{route('vendor.dashboard');}}" style="font-size: 20px;">Products</a> |
                             <a href="{{route('vendor.profile');}}" style="font-size: 20px;">Manage My Account</a> |
-                            <a href="{{route('vendor.createcoupon');}}" style="font-size: 20px;">Coupons</a> |
+                            <a href="{{route('vendor.allcoupons');}}" style="font-size: 20px;">Coupons</a> |
                             <a href="{{route('vendor.orders');}}" style="font-size: 20px;">Orders</a> |
                             <a href="{{route('vendor.reviews');}}" style="font-size: 20px;">Reviews</a> |
                             <a href="{{route('vendor.notices');}}" style="font-size: 20px;">Notices</a>

@@ -72,6 +72,9 @@ Route::get('/vendor/reviews',[vendorController::class,'reviews'])->name('vendor.
 Route::get('/vendor/product',[vendorController::class,'searchproductcon'])->name('vendor.searchproduct');
 Route::post('/vendor/product',[vendorController::class,'searchproduct'])->name('vendor.searchproduct');
 Route::get('/vendor/notices',[vendorController::class,'notices'])->name('vendor.notices');
+Route::post('/vendor/order',[vendorController::class,'searchorder'])->name('vendor.searchorder');
+Route::post('/vendor/review',[vendorController::class,'searchreview'])->name('vendor.searchreview');
+Route::post('/vendor/assigncoupon',[vendorController::class,'assigncoupon'])->name('vendor.assigncoupon');
 
 
 //Customer

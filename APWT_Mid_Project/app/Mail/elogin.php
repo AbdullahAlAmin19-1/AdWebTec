@@ -11,6 +11,11 @@ class elogin extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $sub;
+    public $user_type;   
+    public $username;    
+    public $id;
+
     /**
      * Create a new message instance.
      *

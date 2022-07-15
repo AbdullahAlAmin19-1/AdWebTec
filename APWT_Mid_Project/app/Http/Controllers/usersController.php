@@ -8,6 +8,7 @@ use App\Models\vendor;
 use App\Models\customer;
 use App\Models\deliveryman;
 use App\Models\req_deliveryman;
+use App\Models\coupon;
 use App\Models\customer_coupon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendOTP;
@@ -52,12 +53,15 @@ class usersController extends Controller
         $user->address = $vali->address;
         $user->save();
         if($user){
-            if($vali->user_type=="Customer"){
-                $c=customer::where('username','=',$vali->username)->first();
-                $cco = new customer_coupon();
-                $cco->c_id=$c->id;
-                $cco->co_id=1;
-                $cco->save();
+            $co=coupon::all()->first();
+            if($co){
+                if($vali->user_type=="Customer"){
+                    $c=customer::where('username','=',$vali->username)->first();
+                    $cco = new customer_coupon();
+                    $cco->c_id=$c->id;
+                    $cco->co_id=$co->id;
+                    $cco->save();
+                }
             }
         }
         session()->flash('msg','Registration Completed!');

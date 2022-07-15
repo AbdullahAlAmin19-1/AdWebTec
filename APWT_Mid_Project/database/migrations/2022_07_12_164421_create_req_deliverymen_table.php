@@ -27,7 +27,7 @@ class CreateReqDeliverymenTable extends Migration
             $table->integer('nid')->unique()->nullable(); //For Nullable Value -MR            
             $table->string('propic')->nullable(); //For Nullable Value -MR
             $table->integer('cd_id')->unsigned()->nullable(); //For Nullable Value -MR
-            //$table->foreign('cd_id')->references('id')->on('customer_deliverymans');
+            //$table->foreign('cd_id')->references('id')->on('customer_deliverymen');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

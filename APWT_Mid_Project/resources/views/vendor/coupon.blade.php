@@ -30,7 +30,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th colspan="2"><input type="submit"value="Create"></tH>
+                    <td><input type="hidden" id='v_id' name="v_id" value="{{Session::get('id')}}"> <td><input type="submit"value="Create"></td>
                     </tr>               
                 </table>
             </form>  
