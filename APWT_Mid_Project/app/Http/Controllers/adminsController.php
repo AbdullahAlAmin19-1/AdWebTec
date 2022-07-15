@@ -346,7 +346,6 @@ class adminsController extends Controller
             $mail->message =$vali->message;
             $mail->save();
         }
-        session()->flash('msg','Mail has been sent!!');
-        return redirect()->route('admin.asendnotice');
+        return redirect()->route('mail.sendNotice',['id'=>$mail->id]);
     }
 }

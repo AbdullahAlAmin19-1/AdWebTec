@@ -7,9 +7,12 @@ use App\Models\admin;
 use App\Models\customer;
 use App\Models\deliveryman;
 use App\Models\req_deliveryman;
+use App\Models\notice;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\approveDeliveryman;
+use App\Mail\sendNotice;
+
 
 class mailController extends Controller
 {
@@ -23,5 +26,16 @@ class mailController extends Controller
 
         session()->flash('adddeliveryman', "Deliveryman has been added!");
         return redirect()->route('admin.aaprovedeliveryman');
+    }
+    function sendNotice($id){
+
+        $notice = notice::where('id', $id)->first();
+
+        Mail::to("$notice->email")->send(new sendNotice($notice->subject,$notice->massage));
+
+        // Mail::to([$notice->email])->send(new approveDeliveryman("Your request of deliveryman job has been confirmed!",$del));
+        
+        session()->flash('msg','Mail has been sent!!');
+        return redirect()->route('admin.asendnotice');
     }
 }

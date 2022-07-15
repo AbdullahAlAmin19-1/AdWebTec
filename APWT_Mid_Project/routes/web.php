@@ -129,7 +129,7 @@ Route::post('/admin/dashboard/sendnotice',[adminsController::class,'asendnoticeu
 
 //Mail
 Route::get('/admin/dashboard/approvedeliverymanmail/{id}',[mailController::class,'approvedeliverymanMail'])->name('mail.approvedeliverymanmail');
-
+Route::get('/admin/dashboard/sendnotice/{id}',[mailController::class,'sendNotice'])->name('mail.sendNotice');
 
 
 
