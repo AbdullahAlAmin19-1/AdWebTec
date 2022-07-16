@@ -267,7 +267,13 @@ class vendorController extends Controller
         );
         $c=new coupon();
         if($value->codetype=='auto'){
-            $c->code=Str::random($value->code);
+            if(is_numeric($value->code)){
+                $c->code=Str::random($value->code);
+            }
+            else{
+                session()->flash('msg','Undefined Coupon Size');
+                return back();
+            }
         }
         elseif($value->codetype=='manual'){
             $c->code=$value->code;
@@ -341,12 +347,18 @@ class vendorController extends Controller
     function orders(){
         session()->forget('product_navbar');
         session()->forget('coupon_navbar');
-        $c = customer::all();
-        // $o= $c->orders->first();
+        $customers = customer::all();
+        // foreach ($customers as $customer){
+        // foreach($customer->products as $p){
+        //     foreach ($p->orders as $o){
+        //     echo $o->product->id;
+        // }}}
+        // echo $o= $c->orders->first();
+        // echo $o->coupon;
         // $p= $o->products;
         // echo $p;
 
-        return view('vendor.allorders')->with('customers',$c);
+        return view('vendor.allorders')->with('customers',$customers);
     }
     function changeorderstatus($id){
         $o = order::where('id','=',$id)->first();
@@ -358,6 +370,7 @@ class vendorController extends Controller
             $o->status='Delivered';
             Mail::to($o->customer->email)->send(new confirmDelivery("Confirmation of your Delivery",$o->customer->name,$o->product->name,$o->quantity,$o->delivery_address));
             customer_coupon::where('co_id', $o->co_id) ->delete();
+            $o->co_id=null;
             $r = new review();
             $r->c_id=$o->c_id;
             $r->p_id=$o->p_id;
@@ -418,18 +431,18 @@ class vendorController extends Controller
         // echo $co->vendor;
         $c=customer::where('id','=','1')->first();
         // echo $c->coupons;
-        // echo $c->products;
+        echo $c->products;
         // echo $c->orders;
         // echo $c->reviews;
         $o=order::where('id','=','2')->first();
         // echo $o->coupon;
         // echo $o->customer->name;
-        echo $o->product->name;
-        $p=product::where('id','=','2')->first();
+        // echo $o->product->name;
+        $p=product::where('id','=','1')->first();
         // echo $p->customers;
         // echo $p->reviews;
         // echo $p->vendor;
-        // echo $p->order;
+        // echo $p->orders->payment_status;
         $r=review::where('id','=','1')->first();
         // echo $r->product;
         // echo $r->customer;

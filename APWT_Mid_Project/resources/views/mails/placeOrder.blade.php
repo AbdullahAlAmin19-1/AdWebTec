@@ -1,12 +1,15 @@
 <?php
 
 $total_price = 0;
+$discount_amount = 0;
 
 foreach($orders as $item){
     $total_price = $total_price + ($item->quantity * $item->price);
 }
-
-$pay_money = $total_price + 60 - $coupon->amount;
+if($coupon!=null){
+    $discount_amount=$coupon->amount;
+}
+$pay_money = $total_price + 60 - $discount_amount;
 
 ?>
 
@@ -52,7 +55,7 @@ $pay_money = $total_price + 60 - $coupon->amount;
 
             <tr>
                 <th colspan="4">Coupon Discount:</th>
-                <th colspan="4"><?php echo $coupon->amount; ?> Taka</th>
+                <th colspan="4"><?php echo $discount_amount; ?> Taka</th>
             </tr>
 
             <tr>

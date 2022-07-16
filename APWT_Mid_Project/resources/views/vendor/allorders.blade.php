@@ -20,6 +20,7 @@
             $total_price=0; 
             $discount_amount=0; 
             $delevery_status=0;
+            $pay_money=0;
             ?>  
                 <table border="1" style="width: 100%;">
                 {{@csrf_field()}}
@@ -46,15 +47,15 @@
                         <th>Payment Method</th>
                         <th>Payment Status</th>
                     </tr>
-                    @foreach ($customer->orders as $o)
-                    @foreach ($o->products as $p)  
+                    @foreach ($customer->products as $p)
+                    @foreach ($p->orders as $o)  
                     <tr align="center">
-                        <td>{{$p->id}}</td>
-                        <td>{{$p->name}}</td>
-                        <td>{{$p->stock}}</td>
-                        <td>{{$p->price}}</td>
+                        <td>{{$o->product->id}}</td>
+                        <td>{{$o->product->name}}</td>
+                        <td>{{$o->product->stock}}</td>
+                        <td>{{$o->product->price}}</td>
                         <td>{{$o->quantity}}</td>
-                        <td>{{$p->price}}</td>
+                        <td>{{$o->product->price*$o->quantity}}</td>
                         <td>{{$o->status}}
                             @if($o->status=='Pending')
                                 <a href="{{route('vendor.changeorderstatus',['id'=>$o->id])}}">Change</a> 
@@ -72,7 +73,7 @@
                     <?php
                         if($o->status!='Delivered'){$delevery_status=1;}
                         $total_price = $total_price + ($o->quantity * $p->price);
-                        if($o->coupon){$discount_amount=$o->coupon->amount;}                        
+                        if($o->coupon!=null){$discount_amount=$o->coupon->amount;}                        
                         $pay_money = $total_price + 60 - $discount_amount;
                     ?>             
                      @endforeach               
