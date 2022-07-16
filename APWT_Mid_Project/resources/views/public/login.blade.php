@@ -8,7 +8,6 @@
 
     <center>
         <h3 style="color: red;">{{Session::get('logoutMsg')}}</h3>
-        <h3 style="color: red;">{{Session::get('cpasschangeMsg')}}</h3>
         <h3 style="color: red;">{{Session::get('msg')}}</h3>
 
         <fieldset>

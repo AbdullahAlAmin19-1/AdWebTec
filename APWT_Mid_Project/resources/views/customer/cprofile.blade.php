@@ -47,7 +47,7 @@ Customer Profile Edit
 
                                 <tr>
                                     <td><label for="username"><b>Username:</b></label></td>
-                                    <td><input type="text" name="username" value="{{$customer->username}}" disabled style="width:100%;">
+                                    <td><input type="text" name="username" value="{{$customer->username}}" style="width:100%;">
                                         @error('username')
                                 {{$message}} <br>
                                 @enderror

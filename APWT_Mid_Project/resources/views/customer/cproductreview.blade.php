@@ -31,7 +31,9 @@ Customer Product Review
                 </tr>
 
                 <tr>
-                    <th>Review Message</th>
+                    <th>
+                        <img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="120px" width="120px">
+                    </th>
                     <th>
                         <textarea name="r_message" cols="20" rows="4" style="width: 100%" placeholder="Write Your Review Here">{{$item->message}}</textarea>
                         <br> @error('r_message')
@@ -73,7 +75,9 @@ Customer Product Review
                 </tr>
 
                 <tr>
-                    <th>Review Message</th>
+                    <th>
+                        <img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="120px" width="120px">
+                    </th>
                     <th>
                         <textarea name="r_message" cols="20" rows="4" style="width: 100%" placeholder="Write Your Review Here">{{$item->message}}</textarea>
                         <br> @error('r_message')

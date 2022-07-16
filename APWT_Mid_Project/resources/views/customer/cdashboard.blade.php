@@ -59,7 +59,7 @@
                             <input type="hidden" name="p_id" id="p_id" value="{{$item->id}}"> <br>
 
                             @if(session()->get('user_type')=='Customer')
-                            <label for="quantity" style="width: 50%">Quantity</label>
+                            <label for="quantity" style="width: 50%">Quantity: </label>
                             <input type="number" name="quantity" id="quantity" min="1" value="1" style="width: 50%"> <br> <br>
                             @error('quantity')
                                     {{$message}} <br>

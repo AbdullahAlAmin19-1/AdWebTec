@@ -5,8 +5,6 @@ Customer Orders
 @section('content')
 <h1 align="center">Customer Orders</h1>
 
-{{-- <h3 style="color: red;">{{Session::get('msg')}}</h3> --}}
-
 <?php
 
 $total_price = 0;
@@ -21,12 +19,16 @@ $pay_money = $total_price + 60 - $coupon->amount;
 
 <div class="main-section">
     <center>
+
+        <h3 style="color: red;">{{Session::get('msg')}}</h3>
+        
         <table border="2px" style="width: 90%; border-collapse: collapse;">
             <tr>
                 <th colspan="8">-- Current Order List --</th>
             </tr>
             <tr>
-                <th>Order ID</th>
+                {{-- <th>Order ID</th> --}}
+                <th>Product</th>
                 <th>Product Name</th>
                 <th>Quantity</th>
                 <th>Price (Tk)</th>
@@ -39,7 +41,8 @@ $pay_money = $total_price + 60 - $coupon->amount;
 
             @foreach ($orders as $item) 
             <tr>
-                <td style="text-align: center;">{{$item->id}}</td>
+                {{-- <td style="text-align: center;">{{$item->id}}</td> --}}
+                <td style="text-align: center; width: 150px;"><img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="50px" width="50px"></td>
                 <td style="text-align: center;">{{$item->name}}</td>
                 <td style="text-align: center;">{{$item->quantity}}</td>
                 <td style="text-align: center;">{{$item->price}}</td>
@@ -87,7 +90,8 @@ $pay_money = $total_price + 60 - $coupon->amount;
                 <th colspan="8">-- Previous Order List --</th>
             </tr>
             <tr>
-                <th>Order ID</th>
+                {{-- <th>Order ID</th> --}}
+                <th>Product</th>
                 <th>Product Name</th>
                 <th>Quantity</th>
                 <th>Price (Tk)</th>
@@ -100,7 +104,8 @@ $pay_money = $total_price + 60 - $coupon->amount;
 
             @foreach ($dorders as $item) 
             <tr>
-                <td style="text-align: center;">{{$item->id}}</td>
+                {{-- <td style="text-align: center;">{{$item->id}}</td> --}}
+                <td style="text-align: center; width: 150px;"><img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="50px" width="50px"></td>
                 <td style="text-align: center;">{{$item->name}}</td>
                 <td style="text-align: center;">{{$item->quantity}}</td>
                 <td style="text-align: center;">{{$item->price}}</td>
