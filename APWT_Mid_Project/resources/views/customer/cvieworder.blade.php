@@ -8,12 +8,16 @@ Customer Orders
 <?php
 
 $total_price = 0;
+$discount_amount = 0;
 
 foreach($orders as $item){
     $total_price = $total_price + ($item->quantity * $item->price);
 }
+if($coupon!=null){
+    $discount_amount=$coupon->amount;
+}
+$pay_money = $total_price + 60 - $discount_amount;
 
-$pay_money = $total_price + 60 - $coupon->amount;
 
 ?>
 
@@ -21,7 +25,9 @@ $pay_money = $total_price + 60 - $coupon->amount;
     <center>
 
         <h3 style="color: red;">{{Session::get('msg')}}</h3>
-        
+        <?php
+            if(count($orders) != 0){
+        ?>
         <table border="2px" style="width: 90%; border-collapse: collapse;">
             <tr>
                 <th colspan="8">-- Current Order List --</th>
@@ -64,7 +70,7 @@ $pay_money = $total_price + 60 - $coupon->amount;
 
             <tr>
                 <th colspan="4">Coupon Discount:</th>
-                <th colspan="4"><?php echo $coupon->amount; ?> Taka</th>
+                <th colspan="4"><?php echo $discount_amount; ?> Taka</th>
             </tr>
 
             <tr>
@@ -84,6 +90,11 @@ $pay_money = $total_price + 60 - $coupon->amount;
         </table>
 
         <br> <br>
+        <?php
+        }
+        else
+            echo 'You do not have any Pending orders!';
+        ?>
 
         <table border="2px" style="width: 90%; border-collapse: collapse;">
             <tr>

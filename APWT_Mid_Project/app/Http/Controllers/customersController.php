@@ -8,6 +8,7 @@ use App\Models\customer;
 use App\Models\order;
 use App\Models\product;
 use App\Models\product_order;
+use App\Models\customer_product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\placeOrder;
@@ -250,6 +251,11 @@ class customersController extends Controller
             $po->p_id=$item->p_id;
             $po->o_id=$o->id;
             $po->save();
+
+            $cp = new customer_product();
+            $cp->p_id=$item->p_id;
+            $cp->c_id=$item->c_id;
+            $cp->save();
             //
 
             cart::where('c_id', $c_id)->delete();
@@ -284,7 +290,11 @@ class customersController extends Controller
             $po = new product_order();
             $po->p_id=$item->p_id;
             $po->o_id=$o->id;
-            $po->save();
+
+            $cp = new customer_product();
+            $cp->p_id=$item->p_id;
+            $cp->c_id=$item->c_id;
+            $cp->save();
             //
 
             cart::where('c_id', $c_id)->delete();
@@ -335,7 +345,7 @@ class customersController extends Controller
             ->join('coupons', 'coupons.id', '=', 'orders.co_id')
             ->first();
 
-        if(count($orders) !== 0){
+        if(count($orders) != 0 || count($dorders) != 0 ){
             return view("customer.cvieworder")->with('orders', $orders)->with('dorders', $dorders)->with('coupon', $coupon);
             }
     

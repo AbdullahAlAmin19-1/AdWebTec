@@ -36,6 +36,6 @@ class Product extends Model
     }
     public function orders()
     {
-        return $this->hasOne(order::class,'p_id');
+        return $this->hasMany(order::class,'p_id');
     }
 }
