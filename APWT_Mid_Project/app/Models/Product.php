@@ -14,10 +14,10 @@ use App\Models\Order;
 class Product extends Model
 {
     use HasFactory;
-    // public function carts()
-    // {
-    //     return $this->belongsTo(Cart::class);
-    // }
+    public function carts()
+    {
+        return $this->belongsTo(Cart::class);
+    }
     public function customers()
     {
         return $this->belongsToMany(Customer::class,'customer_products','p_id','c_id');

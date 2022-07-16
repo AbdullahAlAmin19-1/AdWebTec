@@ -79,7 +79,7 @@ $pay_money = $total_price + 60 - $coupon->amount;
                 <th colspan="8">-- Delivery Details --</th>
             </tr>
             <tr>
-                <td colspan="8" style="text-align: center;"><b>Delivery Date:</b> Within 3-5 Days | <b>DeliveryMan:</b> <a href="#">{{$item->d_id}}</a></td>
+                <td colspan="8" style="text-align: center;"><b>Delivery Date:</b> Within 3-5 Days | <b>DeliveryMan:</b> <a href="#"></a></td>
             </tr>
         </table>
 
