@@ -21,6 +21,7 @@
             $discount_amount=0; 
             $delevery_status=0;
             $pay_money=0;
+            $coupon=0;
             ?>  
                 <table border="1" style="width: 100%;">
                 {{@csrf_field()}}
@@ -47,8 +48,11 @@
                         <th>Payment Method</th>
                         <th>Payment Status</th>
                     </tr>
-                    @foreach ($customer->products as $p)
-                    @foreach ($p->orders as $o)  
+                    <?php
+                    
+                    foreach ($customer->products as $p){
+                    foreach ($p->orders as $o){
+                    ?>   
                     <tr align="center">
                         <td>{{$o->product->id}}</td>
                         <td>{{$o->product->name}}</td>
@@ -56,6 +60,13 @@
                         <td>{{$o->product->price}}</td>
                         <td>{{$o->quantity}}</td>
                         <td>{{$o->product->price*$o->quantity}}</td>
+                        <?php
+                            if($o->coupon==NUll){}
+                            else{
+                                $coupon=$o->coupon->amount;
+                            }
+                            
+                        ?>
                         <td>{{$o->status}}
                             @if($o->status=='Pending')
                                 <a href="{{route('vendor.changeorderstatus',['id'=>$o->id])}}">Change</a> 
@@ -73,11 +84,12 @@
                     <?php
                         if($o->status!='Delivered'){$delevery_status=1;}
                         $total_price = $total_price + ($o->quantity * $p->price);
-                        if($o->coupon!=null){$discount_amount=$o->coupon->amount;}                        
+                        if($o->coupon!=null){$discount_amount=$coupon;}                        
                         $pay_money = $total_price + 60 - $discount_amount;
-                    ?>             
-                     @endforeach               
-                     @endforeach
+                    }
+                    break;
+                    }
+                    ?>  
                      <tr>
                 <th colspan="4">Total Price:</th>
                 <th colspan="5">{{$total_price}} Taka</td>
