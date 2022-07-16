@@ -7,7 +7,6 @@ Notice
 <div class="main-section">
     <center>
             <table style="width: 45%; margin:5px;" border="2px">
-            {{@csrf_field()}}
             <tr style="padding: 10px;">
             <th>Notice From</th>
             <th>Mail</th>
@@ -19,7 +18,17 @@ Notice
             </tr>
             @endforeach
             </table>
+        <?php
+            if(count($notices) == 0){
+        ?>
+                <h3 style="color: red;"><?php echo "You do not have any Notices!" ?></h3>
+        <?php
+            }
+
+        ?>
+
     </center>
 
 </div>
+
 @endsection

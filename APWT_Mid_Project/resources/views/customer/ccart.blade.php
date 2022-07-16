@@ -25,16 +25,16 @@ Customer Cart
                 <th>Action</th>
             </tr>
 
-            @foreach ($products as $item) 
+            @foreach ($carts as $item) 
             <tr>
                 {{-- <td style="text-align: center;">{{$item->id}}</td> --}}
-                <td style="text-align: center;"><img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="50px" width="50px"></td>
-                <td style="text-align: center;">{{$item->name}}</td>
-                <td style="text-align: center;">{{$item->category}}</td>
-                <td style="text-align: center;">{{$item->price}}</td>
+                <td style="text-align: center;"><img src="{{asset('storage/product_images')}}/{{$item->product->thumbnail}}" alt="Product Image" height="50px" width="50px"></td>
+                <td style="text-align: center;">{{$item->product->name}}</td>
+                <td style="text-align: center;">{{$item->product->category}}</td>
+                <td style="text-align: center;">{{$item->product->price}}</td>
                 <td style="text-align: center;">{{$item->quantity}}</td>
-                <td style="text-align: center;">{{$item->price * $item->quantity}}</td>
-                <td style="text-align: center;"><a href="{{route('customer.cartproductremove',['p_id'=>$item->id])}}">Remove Product</a></td>
+                <td style="text-align: center;">{{$item->product->price * $item->quantity}}</td>
+                <td style="text-align: center;"><a href="{{route('customer.cartproductremove',['p_id'=>$item->product->id])}}">Remove Product</a></td>
             </tr>
             @endforeach
 

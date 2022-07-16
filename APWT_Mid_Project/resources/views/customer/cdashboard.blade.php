@@ -6,10 +6,10 @@
     <div class="main-section">
         <h1 style="text-align: center">Customer Dashboard</h1>
 
-        <h3 style="color: red;">{{Session::get('Msg')}}</h3>
-
         <div class="product-section">
             <center>
+
+                <h3 style="color: red;">{{Session::get('Msg')}}</h3>
 
                 <form action="{{route('public.searchproduct')}}" method="POST">
                     {{@csrf_field()}}

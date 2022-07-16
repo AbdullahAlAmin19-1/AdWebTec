@@ -18,10 +18,10 @@ class customer extends Model
 
     protected $guarded = [];
 
-    // public function carts()
-    // {
-    //     return $this->hasMany(Cart::class);
-    // }
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'c_id');
+    }
 
     public function reviews()
     {

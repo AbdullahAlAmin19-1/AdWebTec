@@ -174,12 +174,19 @@ class customersController extends Controller
 
         $id = session()->get('id');
 
-        $products = DB::table('carts')
-            ->join('products', 'carts.p_id', '=', 'products.id')
-            ->where('carts.c_id', $id)
-            ->get();
 
-        return view("customer.ccart")->with('products', $products);
+        $carts = cart::where('c_id', $id)->get();
+
+        return view("customer.ccart")->with('carts', $carts);
+
+        // echo $carts->customers->name;
+
+        // $products = DB::table('carts')
+        //     ->join('products', 'carts.p_id', '=', 'products.id')
+        //     ->where('carts.c_id', $id)
+        //     ->get();
+
+        // return view("customer.ccart")->with('products', $products);
     }
 
     function cartproductremove($p_id){
@@ -350,7 +357,7 @@ class customersController extends Controller
             }
     
         else{
-                session()->flash('Msg','You do not have any order, Order first!');
+                session()->flash('Msg','Currently, You do not have any order, Order first!');
                 return redirect()->route('customer.ccart');
             } 
     }
@@ -409,6 +416,6 @@ class customersController extends Controller
     }
     function notices(){
         $n = notice::where('c_id','=',session()->get('id'))->get();
-        return view('vendor.notice')->with('notices',$n);
+        return view('customer.cnotices')->with('notices',$n);
     }
 }

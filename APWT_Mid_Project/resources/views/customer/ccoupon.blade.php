@@ -7,6 +7,7 @@ Customer Coupons
 
 <div class="main-section">
     <center>
+
         <table border="2px" style="width: 70%; border-collapse: collapse;">
             <tr>
                 <th colspan="8">-- Customer Coupon List --</th>
@@ -25,6 +26,16 @@ Customer Coupons
             </tr>
             @endforeach
         </table>
+
+        <?php
+            if(count($coupons) == 0){
+        ?>
+                <h3 style="color: red;"><?php echo "You do not have any Coupons!" ?></h3>
+        <?php
+            }
+
+            ?>
+            
     </center>
 
 </div>
