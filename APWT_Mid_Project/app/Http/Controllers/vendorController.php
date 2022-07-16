@@ -348,11 +348,15 @@ class vendorController extends Controller
         session()->forget('product_navbar');
         session()->forget('coupon_navbar');
         $customers = customer::all();
+        
         // foreach ($customers as $customer){
-        // foreach($customer->products as $p){
-        //     foreach ($p->orders as $o){
-        //     echo $o->product->id;
-        // }}}
+    //     foreach($customer->products as $p){
+    //         // $o=$p->orders;
+    //         foreach ($p->orders as $o){
+    //         echo $o->id;
+    //     }break;
+    // }
+    // }
         // echo $o= $c->orders->first();
         // echo $o->coupon;
         // $p= $o->products;
