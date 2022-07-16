@@ -30,7 +30,7 @@ class mailController extends Controller
     function sendNotice($id){
 
         $notice = notice::where('id', $id)->first();
-        Mail::to("$notice->email")->send(new sendNotice($notice->subject,$notice->massage));
+        Mail::to("$notice->email")->send(new sendNotice($notice->subject,$notice->message));
         
         session()->flash('msg','Mail has been sent!!');
         return redirect()->route('admin.asendnotice');
@@ -38,7 +38,7 @@ class mailController extends Controller
     function updateNotice($id){
 
         $notice = notice::where('id', $id)->first();
-        Mail::to("$notice->email")->send(new sendNotice($notice->subject,$notice->massage));
+        Mail::to("$notice->email")->send(new sendNotice($notice->subject,$notice->message));
         
         session()->flash('msg','Update Completed');
         return redirect()->route('admin.aviewnotice',['id'=>$notice->id]);

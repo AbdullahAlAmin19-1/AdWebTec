@@ -1,7 +1,6 @@
 <div class="mail-body">
-
     
-    <p>{{$massage}}</P>
+    <p>{{$msg}}</P>
 
     <h4>Thank You! <br>- Grocery OS</h4>
 

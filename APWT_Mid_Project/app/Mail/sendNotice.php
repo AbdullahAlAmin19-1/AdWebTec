@@ -11,7 +11,7 @@ class sendNotice extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $massage;
+    public $message;
     public $subject;
 
     /**
@@ -19,9 +19,9 @@ class sendNotice extends Mailable
      *
      * @return void
      */
-    public function __construct($subject,$massage)
+    public function __construct($subject,$message)
     {
-        $this->massage = $massage;
+        $this->message = $message;
         $this->subject = $subject;
     }
 
@@ -33,7 +33,7 @@ class sendNotice extends Mailable
     public function build()
     {
         return $this->view('mails.sendNotice')
-        ->with('massage',$this->massage)
+        ->with('msg',$this->message)
         ->subject($this->subject);
     }
 }
