@@ -66,6 +66,16 @@ Product Info
     
         <fieldset style="width: 60%">
             <legend><b>Product Reviews</b></legend>
+
+        <?php
+            if(count($reviews) == 0){
+        ?>
+                <h3 style="color: red;"><?php echo "There are no customer reviews yet!" ?></h3>
+        <?php
+            }
+
+        ?>
+
             <table>
                 @foreach ($reviews as $item)
                 <tr>
