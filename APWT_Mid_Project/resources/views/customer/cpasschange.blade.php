@@ -8,7 +8,7 @@
     
 <center>
 
-        <h3 style="color: red;">{{Session::get('Msg')}}</h3>
+        <h3 style="color: red;">{{Session::get('msg')}}</h3>
         
     <form action="{{route('customer.cpasschangeForm')}}" method="POST">
         {{@csrf_field()}}

@@ -19,7 +19,7 @@ Product Info
                 <td style="width: 50%; padding: 20px;">
                         
                         <fieldset>
-                            <legend>Product Info</legend>
+                            <legend><b>Product Info</b></legend>
                             <table>
                                     <tr>
                                         <a href="{{route('public.viewproduct', ['id'=>$item->id])}}"><h3>{{$item->name}}</h3></a>
@@ -36,7 +36,7 @@ Product Info
                                             <input type="hidden" name="p_id" id="p_id" value="{{$item->id}}">
                                             
                                             @if(session()->get('user_type')=='Customer')
-                                            <label for="quantity" style="width: 50%">Quantity</label>
+                                            <label for="quantity" style="width: 50%">Quantity: </label>
                                             <input type="number" name="quantity" id="quantity" min="1" value="1"> <br> <br>
                                             @error('quantity')
                                                     {{$message}} <br>
@@ -44,7 +44,7 @@ Product Info
                                             <input type="submit" name="caddcart" value="Add To Cart" style="width: 40%;">
                                             
                                             @elseif(!session()->has('user_type'))
-                                            <label for="quantity" style="width: 50%">Quantity</label>
+                                            <label for="quantity" style="width: 50%">Quantity: </label>
                                             <input type="number" name="quantity" id="quantity" min="1" value="1"> <br> <br>
                                             @error('quantity')
                                                     {{$message}} <br>
@@ -65,7 +65,7 @@ Product Info
         <br>
     
         <fieldset style="width: 60%">
-            <legend>Product Reviews</legend>
+            <legend><b>Product Reviews</b></legend>
             <table>
                 @foreach ($reviews as $item)
                 <tr>
@@ -77,7 +77,8 @@ Product Info
                     <td>{{$item->message}}</td>
                 </tr>
                 <tr>
-                    <td colspan="2">Updated at: {{$item->updated_at}}</td>
+                    <th>Review Date:</th>
+                    <td>{{$item->updated_at}}</td>
                 </tr>
                 <tr>
                     <th colspan="2">

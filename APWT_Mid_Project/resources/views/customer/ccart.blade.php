@@ -15,7 +15,8 @@ Customer Cart
                 <th colspan="7">-- Products In Cart --</th>
             </tr>
             <tr>
-                <th>Product ID</th>
+                {{-- <th>Product ID</th> --}}
+                <th>Product</th>
                 <th>Product Name</th>
                 <th>Product Category</th>
                 <th>Price</th>
@@ -26,7 +27,8 @@ Customer Cart
 
             @foreach ($products as $item) 
             <tr>
-                <td style="text-align: center;">{{$item->id}}</td>
+                {{-- <td style="text-align: center;">{{$item->id}}</td> --}}
+                <td style="text-align: center;"><img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="50px" width="50px"></td>
                 <td style="text-align: center;">{{$item->name}}</td>
                 <td style="text-align: center;">{{$item->category}}</td>
                 <td style="text-align: center;">{{$item->price}}</td>

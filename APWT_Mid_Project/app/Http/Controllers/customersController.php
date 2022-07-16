@@ -45,7 +45,7 @@ class customersController extends Controller
     function cprofileupdate(Request $req){
         $id = session()->get('id');
         $this->validate($req, [
-            // "username" => "required|unique:customers,username,$id",
+            "username" => "required|unique:customers,username,$id",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
             "email" => "required|email|unique:customers,email,$id",
             "phone"=>"required|numeric|digits:10",
@@ -63,6 +63,7 @@ class customersController extends Controller
 
         $customer = customer::find($id);
 
+        $customer->username = $req->username;
         $customer->name = $req->name;
         $customer->email = $req->email;
         $customer->phone = $req->phone;
@@ -71,7 +72,7 @@ class customersController extends Controller
         $customer->address = $req->address;
 
         $customer->update();
-
+        session()->put('username', $customer->username);
         session()->flash('Msg','Customer details has been successfully updated!');
         return redirect()->route('customer.cprofile');
     }
@@ -103,12 +104,12 @@ class customersController extends Controller
         $customer->update();
 
         session()->flush();
-        session()->flash('cpasschangeMsg','Customer password has been successfully updated!');
+        session()->flash('msg','Customer password has been successfully updated!');
         return redirect()->route('public.login');
         }
 
         else{
-            session()->flash('cpasschangeMsg','Customer current password does not match!');
+            session()->flash('msg','Customer current password does not match!');
         return redirect()->route('customer.cchangepass');
         }
 
@@ -144,14 +145,28 @@ class customersController extends Controller
     function caddcart(Request $req){
         $id = session()->get('id');
 
-        $cart = new cart();
-        $cart->quantity = $req->quantity;
-        $cart->c_id = $id;
-        $cart->p_id = $req->p_id;
-        $cart->save();
+        $cart = cart::where('p_id', $req->p_id)->where('c_id', $id)->get();
 
-        session()->flash('Msg','Product has been added in the card!');
-        return redirect()->route('customer.cdashboard');
+        if(count($cart) != null){
+            $cart = cart::where('p_id', $req->p_id)->where('c_id', $id)->first();
+            $cart->quantity = $cart->quantity + $req->quantity;
+            $cart->update();
+            
+            session()->flash('Msg','Product has been added in the card!');
+            return redirect()->route('customer.cdashboard');
+        }
+
+        else{
+            $cart = new cart();
+            $cart->quantity = $req->quantity;
+            $cart->c_id = $id;
+            $cart->p_id = $req->p_id;
+            $cart->save();
+
+            session()->flash('Msg','Product has been added in the card!');
+            return redirect()->route('customer.cdashboard');
+        }
+        
     }
 
     function ccart(){
@@ -226,15 +241,20 @@ class customersController extends Controller
             $order->payment_method=$req->payment_option;
             $order->payment_status="Unpaid";
             $order->delivery_address=$req->delivery_address;
-
             $order->co_id=$coupon->id;
-
             $order->save();
+
+            //
+            $o=order::where('p_id','=',$item->p_id)->where('c_id','=',$item->c_id)->where('quantity','=',$item->quantity)->first();
+            $po = new product_order();
+            $po->p_id=$item->p_id;
+            $po->o_id=$o->id;
+            $po->save();
+            //
 
             cart::where('c_id', $c_id)->delete();
         }
 
-        session()->flash('Msg','Your Order has been successfully placed!');
         return redirect()->route('customer.placeOrder');
             }
     
@@ -259,16 +279,16 @@ class customersController extends Controller
             $order->delivery_address=$req->delivery_address;
             $order->save();
             
+            //
             $o=order::where('p_id','=',$item->p_id)->where('c_id','=',$item->c_id)->where('quantity','=',$item->quantity)->first();
             $po = new product_order();
             $po->p_id=$item->p_id;
             $po->o_id=$o->id;
             $po->save();
+            //
 
             cart::where('c_id', $c_id)->delete();
         }
-
-        session()->flash('Msg','Your Order has been successfully placed!');
         return redirect()->route('customer.placeOrder');
         }
     
@@ -291,7 +311,8 @@ class customersController extends Controller
         
         Mail::to([$customer->email])->send(new placeOrder("Your Order has been placed!",Session()->get('user_type'),Session()->get('username'), $orders, $coupon));
 
-        return redirect()->route('customer.cdashboard');
+        session()->flash('msg','Your Order has been successfully placed!');
+        return redirect()->route('customer.cvieworder');
     }
 
     function cvieworder(){
