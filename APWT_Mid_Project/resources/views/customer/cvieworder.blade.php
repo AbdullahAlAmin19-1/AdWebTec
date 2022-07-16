@@ -92,8 +92,11 @@ $pay_money = $total_price + 60 - $discount_amount;
         <br> <br>
         <?php
         }
-        else
-            echo 'You do not have any Pending orders!';
+        else {
+            ?>
+            <h3 style="color: red;"><?php echo 'You do not have any Pending orders!'; ?></h3>
+            <?php
+        }
         ?>
 
         <table border="2px" style="width: 90%; border-collapse: collapse;">
@@ -128,6 +131,15 @@ $pay_money = $total_price + 60 - $discount_amount;
             @endforeach
 
         </table>
+
+        <?php
+            if(count($dorders) == 0){
+        ?>
+                <h3 style="color: red;"><?php echo "You do not have Previous Orders!" ?></h3>
+        <?php
+            }
+
+            ?>
 
     </center>
 

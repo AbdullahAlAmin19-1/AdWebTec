@@ -416,6 +416,6 @@ class customersController extends Controller
     }
     function notices(){
         $n = notice::where('c_id','=',session()->get('id'))->get();
-        return view('vendor.notice')->with('notices',$n);
+        return view('customer.cnotices')->with('notices',$n);
     }
 }

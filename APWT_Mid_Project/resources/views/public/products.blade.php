@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    Home
+    Grocery OS - Home
 @endsection
 @section('content')
 

@@ -8,6 +8,16 @@ Customer Product Review
 <div class="main-section">
     <center>
         <h3>-- Pending Reviews --</h3>
+
+        <?php
+        if(count($reviews) == 0){
+    ?>
+            <h3 style="color: red;"><?php echo "You do not have any Pending Reviews!" ?></h3>
+    <?php
+        }
+
+        ?>
+
         @foreach ($reviews as $item)
 
         <form action="{{route('customer.creviewForm')}}" method="POST">
@@ -52,6 +62,15 @@ Customer Product Review
         @endforeach
 
         <h3>-- Previous Reviews --</h3>
+
+        <?php
+        if(count($previews) == 0){
+    ?>
+            <h3 style="color: red;"><?php echo "You do not have any Previous Reviews!" ?></h3>
+    <?php
+        }
+
+        ?>
         @foreach ($previews as $item)
 
         <form action="{{route('customer.creviewForm')}}" method="POST">
