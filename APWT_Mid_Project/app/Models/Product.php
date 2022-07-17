@@ -38,4 +38,8 @@ class Product extends Model
     {
         return $this->hasMany(order::class,'p_id');
     }
+    public function oneorder()
+    {
+        return $this->hasOne(order::class,'p_id');
+    }
 }
