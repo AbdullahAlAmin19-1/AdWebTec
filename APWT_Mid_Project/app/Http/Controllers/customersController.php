@@ -231,7 +231,7 @@ class customersController extends Controller
                 $order->payment_method=$req->payment_option;
                 $order->payment_status="Unpaid";
                 $order->delivery_address=$req->delivery_address;
-                $order->co_id=$coupon->id;
+                $order->co_id=$checkcoupon->id;
                 $order->save();
     
                 //
