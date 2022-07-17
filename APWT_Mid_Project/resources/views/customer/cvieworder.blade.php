@@ -32,6 +32,7 @@ $pay_money = $total_price + 60 - $discount_amount;
                 <th colspan="8">-- Current Order List --</th>
             </tr>
             <tr>
+                <th>PID</th>
                 <th>Product</th>
                 <th>Product Name</th>
                 <th>Quantity</th>
@@ -45,6 +46,7 @@ $pay_money = $total_price + 60 - $discount_amount;
 
             @foreach ($orders as $item) 
             <tr>
+                <td style="text-align: center;">{{$item->product->id}}</td>
                 <td style="text-align: center; width: 150px;"><img src="{{asset('storage/product_images')}}/{{$item->product->thumbnail}}" alt="Product Image" height="50px" width="50px"></td>
                 <td style="text-align: center;">{{$item->product->name}}</td>
                 <td style="text-align: center;">{{$item->quantity}}</td>
@@ -101,6 +103,7 @@ $pay_money = $total_price + 60 - $discount_amount;
                 <th colspan="8">-- Previous Order List --</th>
             </tr>
             <tr>
+                <th>PID</th>
                 <th>Product</th>
                 <th>Product Name</th>
                 <th>Quantity</th>
@@ -111,6 +114,7 @@ $pay_money = $total_price + 60 - $discount_amount;
 
             @foreach ($dorders as $item) 
             <tr>
+                <td style="text-align: center;">{{$item->product->id}}</td>
                 <td style="text-align: center; width: 150px;"><img src="{{asset('storage/product_images')}}/{{$item->product->thumbnail}}" alt="Product Image" height="50px" width="50px"></td>
                 <td style="text-align: center;">{{$item->product->name}}</td>
                 <td style="text-align: center;">{{$item->quantity}}</td>
