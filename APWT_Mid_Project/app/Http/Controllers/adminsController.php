@@ -12,6 +12,7 @@ use App\Models\notice;
 use App\Models\order;
 use App\Models\Product;
 use App\Models\Coupon;
+use App\Models\requested_coupon;
 use App\Models\customer_product;
 use App\Models\customer_coupon;
 use Illuminate\Support\Facades\DB;
@@ -531,4 +532,30 @@ class adminsController extends Controller
     session()->flash('msg','Coupon Id '.$req->co_id.' has been assigned to Custimer Id '.$req->id.'');
     return back();
     }
+    function aapprovecoupon(){
+        $c = DB::table('requested_coupons')->simplePaginate(15);
+        return view('admin.aapprovecoupon', compact('c'));
+    }
+    function acouponapprove($id){
+
+        $req = requested_coupon::where('id', $id)->first();
+
+        $co = new coupon();
+        $co->code = $req->code;
+        $co->amount =$req->amount;
+        $co->v_id = $req->v_id;
+        $co->save();
+        $req =DB::delete('delete from requested_coupons where id = ?',[$id]);
+        // return redirect()->route('admin.aapprovecoupon');
+        session()->flash('msg','Coupon Added');
+        return back();
+    }
+    
+    function acancelcoupon($id){
+
+        $req =DB::delete('delete from requested_coupons where id = ?',[$id]);
+        session()->flash('msg','Coupon Canceled');
+        return back();
+    }
+    
 }
