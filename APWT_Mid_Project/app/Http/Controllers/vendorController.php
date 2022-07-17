@@ -364,7 +364,8 @@ class vendorController extends Controller
         $o = order::where('id','=',$id)->first();
         if($o->status=='Pending'){
             $o->status='Confirmed';
-            Mail::to($o->customer->email)->send(new confirmOrder("Confirmation of your Order",$o->customer->name,$o->product->name,$o->quantity,$o->delivery_address));
+            $o->d_id='1';
+            Mail::to($o->customer->email)->send(new confirmOrder("Confirmation of your Order",$o->customer->name,$o->product->name,$o->quantity,$o->delivery_address,$o->d_id));
         }
         // elseif($o->status=='Confirmed'){
         //     $o->status='Delivered';
@@ -378,27 +379,33 @@ class vendorController extends Controller
         // }
         $o->update();
         session()->flash('msg','Order Updated');
-        return redirect()->route("vendor.orders");;
+        return redirect()->route("vendor.orders");
     }
     function orderstatus($id){
-        $customer = customer::where('id', $id)->first();
-        foreach($customer->products as $p){
-                foreach ($p->orders as $o){
-                    $o->status='Delivered';
-                    Mail::to($o->customer->email)->send(new confirmDelivery("Confirmation of your Delivery",$o->customer->name,$o->product->name,$o->quantity,$o->delivery_address)); 
-                    customer_coupon::where('co_id', $o->co_id) ->delete();
-                    $o->co_id=null;
-                    $r = new review();
-                    $r->c_id=$o->c_id;
-                    $r->p_id=$o->p_id;
-                    $r->save();     
-                    $o->update();
-                }break;
+        $delivery_address='';
+        $d_id='1';
+        $orders = order::where('c_id', $id)->where('status', 'Confirmed')->where('payment_status', 'Confirmed')->get();
+        if($orders){
+            foreach($orders as $order){
+                $order->status='Delivered';
+                $delivery_address=$order->delivery_address;
+                customer_coupon::where('co_id', $order->co_id) ->delete();
+                $order->co_id=null;
+                $r = new review();
+                $r->c_id=$order->c_id;
+                $r->p_id=$order->p_id;
+                $r->save();     
+                $order->update();
             }
-        
-        
-        session()->flash('msg','Order Updated');
-        return redirect()->route("vendor.orders");;
+            $customer = customer::where('id','=',$id)->first();
+            Mail::to($customer->email)->send(new confirmDelivery("Confirmation of your Delivery",$customer->name,'$o->product->name','$o->quantity',$delivery_address,$d_id)); 
+            session()->flash('msg','Order Updated');
+            return redirect()->route("vendor.orders");;  
+        }
+        else{
+            session()->flash('msg','Order need to be confirmed');
+            return redirect()->route("vendor.orders");
+        }
     }
     function changepaymentstatus($id){
         $o = order::where('id','=',$id)->first();
@@ -461,11 +468,13 @@ class vendorController extends Controller
         // echo $co->vendor;
         $c=customer::where('id','=','1')->first();
         // echo $c->coupons;
-        echo $c->products;
+        // echo $c->products;
+        // $p=$c->products;
         // echo $c->orders;
         // echo $c->reviews;
         $o=order::where('id','=','2')->first();
         // echo $o->coupon;
+        // $cou->$o->coupon;
         // echo $o->customer->name;
         // echo $o->product->name;
         $p=product::where('id','=','1')->first();

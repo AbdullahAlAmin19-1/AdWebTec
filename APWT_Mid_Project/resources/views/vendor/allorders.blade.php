@@ -59,7 +59,6 @@
                     </tr>
                     <?php
                     foreach ($customer->orders as $o){
-                        $p=$o->product;
                         if($o->status!='Delivered'){
                            $nodelivery=1;
                     ?>   
@@ -91,7 +90,7 @@
                     </tr>   
                     <?php
                         if($o->status=='Confirmed' && $o->payment_status=='Confirmed'){$order_status=1;}
-                        $total_price = $total_price + ($o->quantity * $p->price);
+                        $total_price = $total_price + ($o->quantity * $o->product->price);
                         if($o->coupon!=null){$discount_amount=$coupon;}                        
                         $pay_money = $total_price + 60 - $discount_amount;
                         }
