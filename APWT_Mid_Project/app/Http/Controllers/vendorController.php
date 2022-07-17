@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\vendor;
 use App\Models\product;
 use App\Models\coupon;
+use App\Models\requested_coupon;
 use App\Models\order;
 use App\Models\review;
 use App\Models\customer;
@@ -261,7 +262,7 @@ class vendorController extends Controller
         ],
         []
         );
-        $c=new coupon();
+        $c=new requested_coupon();
         if($value->codetype=='auto'){
             if(is_numeric($value->code)){
                 $c->code=Str::random($value->code);
@@ -277,7 +278,7 @@ class vendorController extends Controller
         $c->amount=$value->amount;
         $c->v_id =$value->v_id;
         $c->save();
-        session()->flash('msg','Coupon Created');
+        session()->flash('msg','Coupon request has been sent!!');
         return redirect()->route("vendor.allcoupons");
     }
     function allcoupons(){
