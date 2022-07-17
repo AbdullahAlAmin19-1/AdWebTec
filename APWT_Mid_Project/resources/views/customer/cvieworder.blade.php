@@ -11,13 +11,12 @@ $total_price = 0;
 $discount_amount = 0;
 
 foreach($orders as $item){
-    $total_price = $total_price + ($item->quantity * $item->price);
+    $total_price = $total_price + ($item->quantity * $item->product->price);
 }
 if($coupon!=null){
     $discount_amount=$coupon->amount;
 }
 $pay_money = $total_price + 60 - $discount_amount;
-
 
 ?>
 
@@ -33,7 +32,6 @@ $pay_money = $total_price + 60 - $discount_amount;
                 <th colspan="8">-- Current Order List --</th>
             </tr>
             <tr>
-                {{-- <th>Order ID</th> --}}
                 <th>Product</th>
                 <th>Product Name</th>
                 <th>Quantity</th>
@@ -47,12 +45,11 @@ $pay_money = $total_price + 60 - $discount_amount;
 
             @foreach ($orders as $item) 
             <tr>
-                {{-- <td style="text-align: center;">{{$item->id}}</td> --}}
-                <td style="text-align: center; width: 150px;"><img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="50px" width="50px"></td>
-                <td style="text-align: center;">{{$item->name}}</td>
+                <td style="text-align: center; width: 150px;"><img src="{{asset('storage/product_images')}}/{{$item->product->thumbnail}}" alt="Product Image" height="50px" width="50px"></td>
+                <td style="text-align: center;">{{$item->product->name}}</td>
                 <td style="text-align: center;">{{$item->quantity}}</td>
-                <td style="text-align: center;">{{$item->price}}</td>
-                <td style="text-align: center;">{{$item->quantity * $item->price}}</td>
+                <td style="text-align: center;">{{$item->product->price}}</td>
+                <td style="text-align: center;">{{$item->quantity * $item->product->price}}</td>
                 <td style="text-align: center;">{{$item->status}}</td>
                 <td style="text-align: center;">{{$item->payment_method}}</td>
                 <td style="text-align: center;">{{$item->payment_status}}</td>
@@ -104,29 +101,22 @@ $pay_money = $total_price + 60 - $discount_amount;
                 <th colspan="8">-- Previous Order List --</th>
             </tr>
             <tr>
-                {{-- <th>Order ID</th> --}}
                 <th>Product</th>
                 <th>Product Name</th>
                 <th>Quantity</th>
                 <th>Price (Tk)</th>
                 <th>Total Price (Tk)</th>
                 <th>Order Status</th>
-                {{-- <th>Payment Method</th>
-                <th>Payment Status</th> --}}
-
             </tr>
 
             @foreach ($dorders as $item) 
             <tr>
-                {{-- <td style="text-align: center;">{{$item->id}}</td> --}}
-                <td style="text-align: center; width: 150px;"><img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="50px" width="50px"></td>
-                <td style="text-align: center;">{{$item->name}}</td>
+                <td style="text-align: center; width: 150px;"><img src="{{asset('storage/product_images')}}/{{$item->product->thumbnail}}" alt="Product Image" height="50px" width="50px"></td>
+                <td style="text-align: center;">{{$item->product->name}}</td>
                 <td style="text-align: center;">{{$item->quantity}}</td>
-                <td style="text-align: center;">{{$item->price}}</td>
-                <td style="text-align: center;">{{$item->quantity * $item->price}}</td>
+                <td style="text-align: center;">{{$item->product->price}}</td>
+                <td style="text-align: center;">{{$item->quantity * $item->product->price}}</td>
                 <td style="text-align: center;">{{$item->status}}</td>
-                {{-- <td style="text-align: center;">{{$item->payment_method}}</td>
-                <td style="text-align: center;">{{$item->payment_status}}</td> --}}
             </tr>
             @endforeach
 

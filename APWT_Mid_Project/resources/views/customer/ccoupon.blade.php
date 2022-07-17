@@ -20,9 +20,9 @@ Customer Coupons
 
             @foreach ($coupons as $item) 
             <tr>
-                <td style="text-align: center;">{{$item->id}}</td>
-                <td style="text-align: center;">{{$item->code}}</td>
-                <td style="text-align: center;">{{$item->amount}}</td>
+                <td style="text-align: center;">{{$item->coupon->id}}</td>
+                <td style="text-align: center;">{{$item->coupon->code}}</td>
+                <td style="text-align: center;">{{$item->coupon->amount}}</td>
             </tr>
             @endforeach
         </table>

@@ -7,6 +7,9 @@ Customer Product Review
 
 <div class="main-section">
     <center>
+        
+        <h3 style="color: red;">{{Session::get('msg')}}</h3>
+
         <h3>-- Pending Reviews --</h3>
 
         <?php
@@ -29,20 +32,20 @@ Customer Product Review
                 <tr>
                     <th>Product ID</th>
                     <th>
-                        <input type="text" name="p_id" value="{{$item->p_id}}" style="width: 100%" disabled>
+                        <input type="text" name="p_id" value="{{$item->product->id}}" style="width: 100%" disabled>
                     </th>
                 </tr>
 
                 <tr>
                     <th>Product Name</th>
                     <th>
-                        <input type="text" name="p_name" value="{{$item->name}}" style="width: 100%" disabled>
+                        <input type="text" name="p_name" value="{{$item->product->name}}" style="width: 100%" disabled>
                     </th>
                 </tr>
 
                 <tr>
                     <th>
-                        <img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="120px" width="120px">
+                        <img src="{{asset('storage/product_images')}}/{{$item->product->thumbnail}}" alt="Product Image" height="120px" width="120px">
                     </th>
                     <th>
                         <textarea name="r_message" cols="20" rows="4" style="width: 100%" placeholder="Write Your Review Here">{{$item->message}}</textarea>
@@ -82,20 +85,20 @@ Customer Product Review
                 <tr>
                     <th>Product ID</th>
                     <th>
-                        <input type="text" name="p_id" value="{{$item->p_id}}" style="width: 100%" disabled>
+                        <input type="text" name="p_id" value="{{$item->product->id}}" style="width: 100%" disabled>
                     </th>
                 </tr>
 
                 <tr>
                     <th>Product Name</th>
                     <th>
-                        <input type="text" name="p_name" value="{{$item->name}}" style="width: 100%" disabled>
+                        <input type="text" name="p_name" value="{{$item->product->name}}" style="width: 100%" disabled>
                     </th>
                 </tr>
 
                 <tr>
                     <th>
-                        <img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="Product Image" height="120px" width="120px">
+                        <img src="{{asset('storage/product_images')}}/{{$item->product->thumbnail}}" alt="Product Image" height="120px" width="120px">
                     </th>
                     <th>
                         <textarea name="r_message" cols="20" rows="4" style="width: 100%" placeholder="Write Your Review Here">{{$item->message}}</textarea>
