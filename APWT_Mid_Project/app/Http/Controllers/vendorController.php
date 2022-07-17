@@ -216,20 +216,20 @@ class vendorController extends Controller
     function deleteproductConfirm($id){
         $cart = cart::where('p_id','=',$id)->first();
         if($cart){
-            session()->flash('msg','Product Id '.$id.' is in cart which will be plased on oredr, remove it from cart or complete/cancel the order before Deleting the Product');
+            session()->flash('msg','Product Id '.$id.' is in cart, remove it from cart before Deleting the Product');
             return redirect()->route("vendor.dashboard");
         }
         $o = order::where('p_id','=',$id)->first();
         if($o){
             if($o->status!='Delivered'){
-                session()->flash('msg','Product Id '.$id.' has order pending, complete or cancel the order before Deleting the Product');
+                session()->flash('msg','Product Id '.$id.' can not be deleted');
                 return redirect()->route("vendor.dashboard");
             }
-            else{
-                $o->p_id=NUll;
-                $o->update();
-                review::where('p_id', $id)->delete();
-            }
+        }
+        $cp = customer_product::where('p_id','=',$id)->first();
+        if($cp){
+            session()->flash('msg','Product Id '.$id.' can not be deleted');
+            return redirect()->route("vendor.dashboard");
         }
         // DB::delete('delete from customer_products where p_id = ?',[$id]);
         DB::delete('delete from products where id = ?',[$id]);
