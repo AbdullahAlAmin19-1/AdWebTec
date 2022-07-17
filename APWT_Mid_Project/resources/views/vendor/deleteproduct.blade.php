@@ -10,7 +10,7 @@
         <td>
         <table border="2" style="width: 100%;">
         <tr><th>Product Picture</th></tr>
-        <tr><td><img src="{{asset('storage/product_images')}}/{{$product->thumbnail}}" alt="Product Image" height="120px" width="120px"></td></tr>
+        <tr><td align="center"><img src="{{asset('storage/product_images')}}/{{$product->thumbnail}}" alt="Product Image" height="120px" width="120px"></td></tr>
         </table>
         </td>
         <td>
