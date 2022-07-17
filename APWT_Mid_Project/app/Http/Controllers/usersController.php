@@ -89,7 +89,7 @@ class usersController extends Controller
             session()->put('propic', $user->propic);
 
             if($vali->user_type == "Admin"){
-                return redirect()->route("admin.adashboard");
+                return redirect()->route("public.products");
             }
 
             elseif($vali->user_type == "Customer"){

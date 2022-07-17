@@ -7,7 +7,6 @@ Notice
 <div class="main-section">
     <center>
             <table style="width: 45%; margin:5px;" border="2px">
-            {{@csrf_field()}}
             <tr style="padding: 10px;">
             <th>Notice From</th>
             <th>Mail</th>

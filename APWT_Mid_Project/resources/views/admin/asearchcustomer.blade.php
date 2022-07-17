@@ -2,7 +2,20 @@
 @section('title')
 Profile
 @endsection
-@section('content')
+@section('content')<div>
+        <center>
+            <table>
+                <tr>
+                    <td>
+                        <a href="{{route('admin.aviewvendor')}}" style="font-size: 20px;">Vendor Profile</a> |
+                        <a href="{{route('admin.aviewcustomer')}}" style="font-size: 20px;">Customers List</a> |
+                        <a href="{{route('admin.aviewdeliveryman')}}" style="font-size: 20px;">Deliverymen List</a>
+                    </td>
+                </tr>
+            </table>
+        </center>
+</div>
+
 <h1 align="center">Customer List</h1><center>
 <div>
     <form action="{{route('admin.searchcustomer')}}" method="POST">

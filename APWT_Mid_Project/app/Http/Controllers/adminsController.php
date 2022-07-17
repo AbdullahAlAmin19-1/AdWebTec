@@ -9,8 +9,13 @@ use App\Models\deliveryman;
 use App\Models\vendor;
 use App\Models\req_deliveryman;
 use App\Models\notice;
+use App\Models\order;
+use App\Models\Product;
+use App\Models\Coupon;
+use App\Models\customer_product;
+use App\Models\customer_coupon;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Str;
 class adminsController extends Controller
 {
     //
@@ -376,5 +381,144 @@ class adminsController extends Controller
 
     session()->flash('msg','Update Completed');
     return redirect()->route('mail.updateNotice',['id'=>$mail->id]);
+    }
+
+    function adeliveredorders(){
+        $order = order::where('status', '=', 'Delivered')->get();
+        // $order = order::all();
+        return view('admin.adeliveredorders')->with('orders',$order);
+    }
+    function adeliveredorderdetails($id){
+        $order = order::where('id', $id)->first();
+        return view('admin.adeliveredorderdetails')->with('orders',$order);
+    }
+
+    function aproducts(){
+        $products = DB::table('products')->simplePaginate(5);
+        return view('admin.aproducts', compact('products'));
+    }
+    function aaddproduct(){
+        return view('admin.aaddproduct');
+    }
+    function aaddproductupdate(Request $vali){
+        $this->validate($vali, [
+            "name" => "required",
+            "category" => "required",
+            "p_thumbnail" => "required|mimes:jpg,png,jpeg",
+            "price" => "required",
+            "stock" => "required",
+        ],
+        [
+            'p_thumbnail.required' => 'Please select a picture!',
+            'p_thumbnail.mimes' => 'Product Thumbnail must be a jpg, png or jpeg!',
+        ]
+        );
+
+        $extension = $vali->file('p_thumbnail')->getClientOriginalExtension();
+        $thumbnail = $vali->name.time().".".$extension;
+        $vali->file('p_thumbnail')->storeAs('public/product_images', $thumbnail);
+
+        $p=new product();
+        $p->name = $vali->name;
+        $p->category = $vali->category;
+        $p->thumbnail = $thumbnail;
+        $p->price = $vali->price;
+        $p->stock = $vali->stock;
+        $p->size = $vali->size;
+        $p->description = $vali->description;
+        $p->v_id = Session()->get('id');
+        $p->save();
+        session()->flash('msg','Product Added');
+        return redirect()->route('admin.aproducts');
+    }
+
+    function acoupons(){
+        $c = coupon::all();
+        return view('admin.acoupons')->with('coupons',$c);
+    }
+    function aeditcoupon($id){
+        $c = coupon::where('id','=',$id)->first();
+        return view('admin.aeditcoupon')->with('c',$c);
+    }
+    function aeditcouponupdate(Request $value){
+        $this->validate($value, [
+            "code" => "required",
+            "amount" => "required"
+        ],
+        []
+        );
+        $c = coupon::where('id','=',$value->id)->first();
+        $c->code=$value->code;
+        $c->amount=$value->amount;
+        $c->save();
+        session()->flash('msg','Coupon Id '.$value->id.' Updated');
+        return redirect()->route("admin.acoupons");;
+    }
+    function adeletecoupon($id){
+        DB::delete('delete from customer_coupons where co_id = ?',[$id]);
+        DB::delete('delete from coupons where id = ?',[$id]);
+        $c = coupon::where('id','=',$id)->first();
+        session()->flash('msg','Coupon Id '.$id.' Deletion Successful');
+        return redirect()->route("admin.acoupons");
+    }
+    function addcoupon(){
+        return view('admin.aaddcoupon');
+    }
+    function addcouponupdate(Request $value){
+        $this->validate($value, [
+            "codetype" => "required",
+            "code" => "required",
+            "amount" => "required"
+        ],
+        []
+        );
+        $c=new coupon();
+        if($value->codetype=='auto'){
+            if(is_numeric($value->code)){
+                $c->code=Str::random($value->code);
+            }
+            else{
+                session()->flash('msg','Undefined Coupon Size');
+                return back();
+            }
+        }
+        elseif($value->codetype=='manual'){
+            $c->code=$value->code;
+        }
+        $c->amount=$value->amount;
+        $c->v_id =$value->v_id;
+        $c->save();
+        session()->flash('msg','Coupon Created');
+        return redirect()->route("admin.acoupons");
+    }
+    function aassigncoupon(Request $req){
+        $this->validate($req, [
+            "id" => "required",
+        ],
+        [
+            'id.required' => 'Enter Valid Customer Id',
+        ]
+    );
+    $c = customer::where('id','=',$req->id)->first();
+    if(!$c){
+        session()->flash('msg','Invalid Customer Id, Enter a vaild Id');
+        return back();
+    }
+    $o = order::where('c_id','=',$req->id)->where('co_id','=',$req->co_id)->first();
+    if($o){
+        session()->flash('msg','Coupon Id '.$req->co_id.' has already been used by Custimer Id '.$req->id.'');
+        return back();
+    }
+    $cco = customer_coupon::where('c_id','=',$req->id)->where('co_id','=',$req->co_id)->first();
+    if($cco){
+        session()->flash('msg','Coupon Id '.$req->co_id.' has already been assign to Custimer Id '.$req->id.'');
+        return back();
+    }
+    $assign = new customer_coupon();
+    $assign->c_id=$req->id;
+    $assign->co_id=$req->co_id;
+    $assign->save();
+    session()->flash('msg','Coupon Id '.$req->co_id.' has been assigned to Custimer Id '.$req->id.'');
+    return back();
     }
 }
