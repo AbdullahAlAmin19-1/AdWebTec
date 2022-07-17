@@ -383,15 +383,25 @@ class adminsController extends Controller
     return redirect()->route('mail.updateNotice',['id'=>$mail->id]);
     }
 
-    function adeliveredorders(){
-        $order = order::where('status', '=', 'Delivered')->get();
-        // $order = order::all();
-        return view('admin.adeliveredorders')->with('orders',$order);
+    // function adeliveredorders(){
+    //     $order = order::where('status', '=', 'Delivered')->get();
+    //     // $order = order::all();
+    //     return view('admin.adeliveredorders')->with('orders',$order);
+    // }
+    // function adeliveredorderdetails($id){
+    //     $order = order::where('id', $id)->first();
+    //     return view('admin.adeliveredorderdetails')->with('orders',$order);
+    // }
+
+    function deliveredorders(){
+        $customers = customer::all();
+        return view('admin.deliveredorders')->with('customers',$customers);
+        }
+     function pendingorders(){
+            $customers = customer::all();
+            return view('admin.pendingorders')->with('customers',$customers);
     }
-    function adeliveredorderdetails($id){
-        $order = order::where('id', $id)->first();
-        return view('admin.adeliveredorderdetails')->with('orders',$order);
-    }
+
 
     function aproducts(){
         $products = DB::table('products')->simplePaginate(5);
