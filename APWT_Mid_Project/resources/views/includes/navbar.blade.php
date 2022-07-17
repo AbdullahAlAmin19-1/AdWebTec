@@ -114,7 +114,7 @@
                         <a href="{{route('admin.aaprovedeliveryman')}}" style="font-size: 20px;">Approve</a> |
                         <a href="{{route('admin.aproducts')}}" style="font-size: 20px;">Products</a> |
                         <a href="{{route('admin.acoupons')}}" style="font-size: 20px;">Coupons</a> |
-                        <a href="{{route('admin.adeliveredorders')}}" style="font-size: 20px;">Orders</a> |
+                        <a href="{{route('admin.deliveredorders')}}" style="font-size: 20px;">Orders</a> |
                         <a href="{{route('admin.asendnotice')}}" style="font-size: 20px;">Notice</a>
                     </td>
                 </tr>

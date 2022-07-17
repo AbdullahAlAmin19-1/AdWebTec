@@ -34,6 +34,7 @@ $pay_money = $total_price + 60 - $discount_amount;
             </tr>
 
             @foreach ($orders as $item) 
+            @if($item->status!='Delivered')
             <tr>
                 <td style="text-align: center;">{{$item->id}}</td>
                 <td style="text-align: center;">{{$item->product->name}}</td>
@@ -42,6 +43,7 @@ $pay_money = $total_price + 60 - $discount_amount;
                 <td style="text-align: center;">{{$item->quantity * $item->product->price}}</td>
                 <td style="text-align: center;">{{$item->status}}</td>
             </tr>
+            @endif
             @endforeach
 
             <tr>
