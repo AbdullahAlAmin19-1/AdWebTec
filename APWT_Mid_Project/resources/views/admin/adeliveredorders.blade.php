@@ -22,7 +22,7 @@ Delivered Order List
 
             <table border="2px" style="width: 60%; margin:15px; border: 1px solid black; border-collapse: collapse;">
                 <tr>
-                    <th>Order ID</th>
+                    <th>Customer ID</th>
                     <th>Customer Name</th>
                     <th>Phone Number</th>
                     <th>Payment Method</th>
@@ -30,7 +30,7 @@ Delivered Order List
                 </tr>
                 @foreach ($orders as $o)
                 <tr align="center">
-                    <td><a href="{{route('admin.adeliveredorderdetails',['id'=>$o->id])}}" style="font-size: 15px;">{{$o->id}}</a></td>
+                    <td><a href="{{route('admin.adeliveredorderdetails',['id'=>$o->c_id])}}" style="font-size: 15px;">{{$o->c_id}}</a></td>
                     <td>{{$o->customer->name}}</td>
                     <td>+88-0{{$o->customer->phone}}</td>
                     <td>{{$o->payment_method}}</td>

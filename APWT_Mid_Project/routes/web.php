@@ -134,8 +134,10 @@ Route::get('/admin/dashboard/veiwnotice/{id}',[adminsController::class,'aviewnot
 Route::get('/admin/dashboard/editnotice/{id}',[adminsController::class,'aeditnotice'])->name('admin.aeditnotice');
 Route::post('/admin/dashboard/editnotice/{id}',[adminsController::class,'aeditnoticeupdate'])->name('admin.aeditnoticeupdate');
 
-Route::get('/admin/dashboard/deliveredorders',[adminsController::class,'adeliveredorders'])->name('admin.adeliveredorders');
-Route::get('/admin/dashboard/deliveredorderdetails/{id}',[adminsController::class,'adeliveredorderdetails'])->name('admin.adeliveredorderdetails');
+// Route::get('/admin/dashboard/deliveredorders',[adminsController::class,'adeliveredorders'])->name('admin.adeliveredorders');
+// Route::get('/admin/dashboard/deliveredorderdetails/{id}',[adminsController::class,'adeliveredorderdetails'])->name('admin.adeliveredorderdetails');
+Route::get('/admin/dashboard/deliveredorders',[adminsController::class,'deliveredorders'])->name('admin.deliveredorders');
+Route::get('/admin/dashboard/pendingorders',[adminsController::class,'pendingorders'])->name('admin.pendingorders');
 
 Route::get('/admin/dashboard/products',[adminsController::class,'aproducts'])->name('admin.aproducts');
 Route::get('/admin/dashboard/addproduct',[adminsController::class,'aaddproduct'])->name('admin.aaddproduct');
