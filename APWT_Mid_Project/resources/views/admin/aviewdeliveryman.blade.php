@@ -3,6 +3,19 @@
 Profile
 @endsection
 @section('content')
+<div>
+        <center>
+            <table>
+                <tr>
+                    <td>
+                        <a href="{{route('admin.aviewvendor')}}" style="font-size: 20px;">Vendor Profile</a> |
+                        <a href="{{route('admin.aviewcustomer')}}" style="font-size: 20px;">Customers List</a> |
+                        <a href="{{route('admin.aviewdeliveryman')}}" style="font-size: 20px;">Deliverymen List</a>
+                    </td>
+                </tr>
+            </table>
+        </center>
+</div>
 <h2 align="center">Deliveryman</h2><center>
 
 <div>

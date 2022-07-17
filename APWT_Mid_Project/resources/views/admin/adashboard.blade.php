@@ -14,6 +14,7 @@
                         <a href="{{route('admin.aaprovedeliveryman')}}" style="font-size: 20px;">Approve Deliveryman</a><br>
                         <a href="{{route('admin.asendnotice')}}" style="font-size: 20px;">Send Notice</a><br>
                         <a href="{{route('admin.aviewallnotice')}}" style="font-size: 20px;">View Notice</a><br>
+                        <a href="{{route('admin.adeliveredorders')}}" style="font-size: 20px;">Delivered Orders</a><br>
                     </td>
                 </tr>
             </table>

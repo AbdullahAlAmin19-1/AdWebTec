@@ -3,6 +3,18 @@
 View Notice
 @endsection
 @section('content')
+<div>
+        <center>
+            <table>
+                <tr>
+                    <td>
+                        <a href="{{route('admin.asendnotice')}}" style="font-size: 20px;">Send Notice</a> |
+                        <a href="{{route('admin.aviewallnotice')}}" style="font-size: 20px;">View Notice</a>
+                    </td>
+                </tr>
+            </table>
+        </center>
+</div>
 <h1 align="center">View Notice</h1>
 <h3 align="center" style="color: red;">{{Session::get('msg')}}</h3>
 <div class="main-section">
