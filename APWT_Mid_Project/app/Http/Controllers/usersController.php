@@ -75,7 +75,9 @@ class usersController extends Controller
                 "email"=>"required|email",
                 "password"=>"required|min:8"
             ],
-            []
+            [
+                'password.regex' => 'Must contain special character, number, uppercase and lowercase letter.'
+            ]
         );
         if($vali->user_type=="Admin"){$user=admin::where('email','=',$vali->email)->where('password',$vali->password)->first();}
         elseif($vali->user_type=="Vendor"){$user=vendor::where('email','=',$vali->email)->where('password',$vali->password)->first();}
@@ -211,7 +213,10 @@ class usersController extends Controller
                 "new_pass"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
                 "conf_new_pass"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
             ],
-            []
+            [
+                'new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+                'conf_new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+            ]
         );
         if(session()->get('user_type')=="Admin"){$user=admin::where('email','=',session()->get('email'))->first();}
         elseif(session()->get('user_type')=="Vendor"){$user=vendor::where('email','=',session()->get('email'))->first();}
