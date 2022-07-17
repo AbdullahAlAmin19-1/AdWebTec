@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class customer_coupon extends Model
 {
     use HasFactory;
+
+    public function coupon()
+    {
+        return $this->belongsTo(coupon::class, 'co_id');
+    }
 }

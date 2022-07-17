@@ -6,12 +6,13 @@ use App\Models\cart;
 use Illuminate\Http\Request;
 use App\Models\customer;
 use App\Models\order;
-use App\Models\product;
 use App\Models\product_order;
 use App\Models\customer_product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\placeOrder;
+use App\Models\coupon;
+use App\Models\customer_coupon;
 use App\Models\review;
 use App\Models\notice;
 
@@ -130,7 +131,6 @@ class customersController extends Controller
         $username = session()->get('username');
 
         $extension = $req->file('myPP')->getClientOriginalExtension();
-
         $ppname = $username.time().".".$extension;
 
         $req->file('myPP')->storeAs('public/cprofile_images', $ppname);
@@ -173,27 +173,14 @@ class customersController extends Controller
     function ccart(){
 
         $id = session()->get('id');
-
-
         $carts = cart::where('c_id', $id)->get();
-
         return view("customer.ccart")->with('carts', $carts);
-
-        // echo $carts->customers->name;
-
-        // $products = DB::table('carts')
-        //     ->join('products', 'carts.p_id', '=', 'products.id')
-        //     ->where('carts.c_id', $id)
-        //     ->get();
-
-        // return view("customer.ccart")->with('products', $products);
     }
 
     function cartproductremove($p_id){
 
         $carts = cart::where('p_id', $p_id)->delete();
         session()->flash('Msg', "Product has been removed from the cart!");
-
         return redirect()->route('customer.ccart');
 
     }
@@ -202,11 +189,7 @@ class customersController extends Controller
 
         $id = session()->get('id');
 
-        $products = DB::table('carts')
-            ->join('products', 'carts.p_id', '=', 'products.id')
-            ->where('carts.c_id', $id)
-            ->get();
-
+        $products = cart::where('c_id', $id)->get();
         $customer = customer::find($id);
 
         if(count($products) !== 0){
@@ -229,52 +212,59 @@ class customersController extends Controller
         $c_id = session()->get('id');
 
         if(isset($req->coupon)){
-            $coupon = DB::table('customer_coupons')
-            ->join('coupons', 'coupons.id', '=', 'customer_coupons.co_id')
-            ->where('customer_coupons.c_id', $c_id)
-            ->where('coupons.code', $req->coupon)
-            ->first();
 
-
+            $coupon = customer_coupon::where('c_id', $c_id)->first();
             if($coupon != null){
-                $carts = cart::where('c_id', $c_id)->get();
-        
-            foreach($carts as $item){
+                $checkcoupon = coupon::where('id', $coupon->co_id)->where('code', $req->coupon)->first();
+
+                if($checkcoupon  != null){
+
+                    $carts = cart::where('c_id', $c_id)->get();
             
-            $order = new order();
-            $order->p_id=$item->p_id;
-            $order->quantity=$item->quantity;
-            $order->c_id=$item->c_id;
-            $order->status="Pending";
-            $order->payment_method=$req->payment_option;
-            $order->payment_status="Unpaid";
-            $order->delivery_address=$req->delivery_address;
-            $order->co_id=$coupon->id;
-            $order->save();
-
-            //
-            $o=order::where('p_id','=',$item->p_id)->where('c_id','=',$item->c_id)->where('quantity','=',$item->quantity)->first();
-            $po = new product_order();
-            $po->p_id=$item->p_id;
-            $po->o_id=$o->id;
-            $po->save();
-
-            $cp = new customer_product();
-            $cp->p_id=$item->p_id;
-            $cp->c_id=$item->c_id;
-            $cp->save();
-            //
-
-            cart::where('c_id', $c_id)->delete();
-        }
-
-        return redirect()->route('customer.placeOrder');
+                foreach($carts as $item){
+                
+                $order = new order();
+                $order->p_id=$item->p_id;
+                $order->quantity=$item->quantity;
+                $order->c_id=$item->c_id;
+                $order->status="Pending";
+                $order->payment_method=$req->payment_option;
+                $order->payment_status="Unpaid";
+                $order->delivery_address=$req->delivery_address;
+                $order->co_id=$coupon->id;
+                $order->save();
+    
+                //
+                $o=order::where('p_id','=',$item->p_id)->where('c_id','=',$item->c_id)->where('quantity','=',$item->quantity)->first();
+                $po = new product_order();
+                $po->p_id=$item->p_id;
+                $po->o_id=$o->id;
+                $po->save();
+    
+                $cp = new customer_product();
+                $cp->p_id=$item->p_id;
+                $cp->c_id=$item->c_id;
+                $cp->save();
+                //
+    
+                cart::where('c_id', $c_id)->delete();
             }
     
-            else{
-                session()->flash('Msg', "Invalid Coupon Code!");
-                return redirect()->route('customer.corder');
+            return redirect()->route('customer.placeOrder');
+                }
+        
+                else{
+                    session()->flash('Msg', "Invalid Coupon Code!");
+                    return redirect()->route('customer.corder');
+                }
             }
+
+            else{
+                session()->flash('Msg', "p Invalid Coupon Code!");
+                    return redirect()->route('customer.corder');
+            }
+
+            
         }
 
         else{
@@ -312,15 +302,11 @@ class customersController extends Controller
     }
 
     function placeOrderMail(){
-
+        
         $c_id = session()->get('id');
         $customer = customer::find($c_id);
 
-        $orders = DB::table('products')
-            ->join('orders', 'orders.p_id', '=', 'products.id')
-            ->where('orders.c_id', $c_id)
-            ->where('orders.status', '!=', "Delivered")
-            ->get();
+        $orders = order::where('c_id', $c_id)->get(); 
 
         $coupon = DB::table('orders')
             ->join('coupons', 'coupons.id', '=', 'orders.co_id')
@@ -336,17 +322,8 @@ class customersController extends Controller
 
         $c_id = session()->get('id');
 
-        $orders = DB::table('products')
-            ->join('orders', 'orders.p_id', '=', 'products.id')
-            ->where('orders.c_id', $c_id)
-            ->where('orders.status', '!=', "Delivered")
-            ->get();
-
-        $dorders = DB::table('products')
-            ->join('orders', 'orders.p_id', '=', 'products.id')
-            ->where('orders.c_id', $c_id)
-            ->where('orders.status', '=', "Delivered")
-            ->get();
+        $orders = order::where('c_id', $c_id)->where('status', '!=', "Delivered")->get();
+        $dorders = order::where('c_id', $c_id)->where('status', '=', "Delivered")->get();
 
         $coupon = DB::table('orders')
             ->join('coupons', 'coupons.id', '=', 'orders.co_id')
@@ -357,7 +334,7 @@ class customersController extends Controller
             }
     
         else{
-                session()->flash('Msg','Currently, You do not have any order, Order first!');
+                session()->flash('Msg','You do not have any order, Order first!');
                 return redirect()->route('customer.ccart');
             } 
     }
@@ -366,18 +343,9 @@ class customersController extends Controller
 
         $c_id = session()->get('id');
 
-        $reviews = DB::table('products')
-            ->join('reviews', 'reviews.p_id', '=', 'products.id')
-            ->where('reviews.c_id', $c_id)
-            ->where('reviews.message','=', null)
-            ->get();
-
-        $previews = DB::table('products')
-            ->join('reviews', 'reviews.p_id', '=', 'products.id')
-            ->where('reviews.c_id', $c_id)
-            ->where('reviews.message','!=', null)
-            ->get();
-
+        $reviews = review::where('c_id', $c_id)->where('message', '=', null)->get();
+        $previews = review::where('c_id', $c_id)->where('message', '!=', null)->get();
+        
             if(count($reviews) !== 0 || count($previews) !== 0){
                 return view("customer.cProductReview")->with('reviews', $reviews)->with('previews', $previews);
             }
@@ -397,21 +365,16 @@ class customersController extends Controller
         $review = review::find($req->r_id);
 
         $review->message = $req->r_message;
-
         $review->update();
 
-        session()->flash('Msg','Product review has been successfully updated!');
+        session()->flash('msg','Product review has been successfully updated!');
         return redirect()->route('customer.cProductReview');
     }
 
     function cCoupons(){
 
         $c_id = session()->get('id');
-        $coupons = DB::table('coupons')
-            ->join('customer_coupons', 'customer_coupons.co_id', '=', 'coupons.id')
-            ->where('customer_coupons.c_id', $c_id)
-            ->get();
-
+        $coupons = customer_coupon::where('c_id', $c_id)->get();
         return view("customer.ccoupon")->with('coupons', $coupons);
     }
     function notices(){

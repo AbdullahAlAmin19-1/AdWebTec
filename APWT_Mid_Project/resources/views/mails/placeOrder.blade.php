@@ -4,7 +4,7 @@ $total_price = 0;
 $discount_amount = 0;
 
 foreach($orders as $item){
-    $total_price = $total_price + ($item->quantity * $item->price);
+    $total_price = $total_price + ($item->quantity * $item->product->price);
 }
 if($coupon!=null){
     $discount_amount=$coupon->amount;
@@ -36,10 +36,10 @@ $pay_money = $total_price + 60 - $discount_amount;
             @foreach ($orders as $item) 
             <tr>
                 <td style="text-align: center;">{{$item->id}}</td>
-                <td style="text-align: center;">{{$item->name}}</td>
+                <td style="text-align: center;">{{$item->product->name}}</td>
                 <td style="text-align: center;">{{$item->quantity}}</td>
-                <td style="text-align: center;">{{$item->price}}</td>
-                <td style="text-align: center;">{{$item->quantity * $item->price}}</td>
+                <td style="text-align: center;">{{$item->product->price}}</td>
+                <td style="text-align: center;">{{$item->quantity * $item->product->price}}</td>
                 <td style="text-align: center;">{{$item->status}}</td>
             </tr>
             @endforeach

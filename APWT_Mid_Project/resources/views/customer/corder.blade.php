@@ -18,14 +18,16 @@ Customer Order
                 <tr>
                     <th>Product ID:</th>
                     <td><input type="number" name="p_id" id="p_id" value="{{$item->id}}" style="width: 30px;" disabled></td>
+                    <th></th>
+                    <td style="text-align: center; width: 150px;"><img src="{{asset('storage/product_images')}}/{{$item->product->thumbnail}}" alt="Product Image" height="50px" width="50px"></td>
                     <th>Product Name:</th>
-                    <td><input type="text" name="p_name" value="{{$item->name}}" disabled></td>
+                    <td><input type="text" name="p_name" value="{{$item->product->name}}" disabled></td>
                     <th>Price:</th>
-                    <td><input type="number" name="p_price" value="{{$item->price}}" style="width: 50px;" disabled> Taka</td>
+                    <td><input type="number" name="p_price" value="{{$item->product->price}}" style="width: 50px;" disabled> Taka</td>
                     <th>Quantity:</th>
                     <td><input type="number" name="p_qunatity" value="{{$item->quantity}}" style="width: 30px;"  disabled></td>
                     <th>Total Price:</th>
-                    <td><input type="number" name="p_price" value="{{$item->quantity*$item->price}}" style="width: 50px;" disabled> Taka</td>
+                    <td><input type="number" name="p_price" value="{{$item->quantity*$item->product->price}}" style="width: 50px;" disabled> Taka</td>
                 </tr>
                 @endforeach
 
