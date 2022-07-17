@@ -90,6 +90,7 @@
                     </tr>   
                     <?php
                         if($o->status=='Confirmed' && $o->payment_status=='Confirmed'){$order_status=1;}
+                        else{$order_status=0;}
                         $total_price = $total_price + ($o->quantity * $o->product->price);
                         if($o->coupon!=null){$discount_amount=$coupon;}                        
                         $pay_money = $total_price + 60 - $discount_amount;
