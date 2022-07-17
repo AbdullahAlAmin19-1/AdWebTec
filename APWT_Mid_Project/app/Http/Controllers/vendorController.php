@@ -248,10 +248,6 @@ class vendorController extends Controller
     $p= product::where('name', 'like', '%'.$search_name.'%')->simplePaginate(5);
     return view('vendor.dashboard', compact('p'));
     }
-    function searchproductcon(){
-    $p= product::where('name', 'like', '%'.session()->get('searchproduct').'%')->simplePaginate(5);
-    return view('vendor.dashboard', compact('p'));
-    }
     function couponNavbar(){
         session()->forget('product_navbar');
         session()->put('coupon_navbar','yes');
@@ -369,18 +365,38 @@ class vendorController extends Controller
         if($o->status=='Pending'){
             $o->status='Confirmed';
             Mail::to($o->customer->email)->send(new confirmOrder("Confirmation of your Order",$o->customer->name,$o->product->name,$o->quantity,$o->delivery_address));
-                }
-        elseif($o->status=='Confirmed'){
-            $o->status='Delivered';
-            Mail::to($o->customer->email)->send(new confirmDelivery("Confirmation of your Delivery",$o->customer->name,$o->product->name,$o->quantity,$o->delivery_address));
-            customer_coupon::where('co_id', $o->co_id) ->delete();
-            $o->co_id=null;
-            $r = new review();
-            $r->c_id=$o->c_id;
-            $r->p_id=$o->p_id;
-            $r->save();
         }
+        // elseif($o->status=='Confirmed'){
+        //     $o->status='Delivered';
+        //     Mail::to($o->customer->email)->send(new confirmDelivery("Confirmation of your Delivery",$o->customer->name,$o->product->name,$o->quantity,$o->delivery_address));
+        //     customer_coupon::where('co_id', $o->co_id) ->delete();
+        //     $o->co_id=null;
+        //     $r = new review();
+        //     $r->c_id=$o->c_id;
+        //     $r->p_id=$o->p_id;
+        //     $r->save();
+        // }
         $o->update();
+        session()->flash('msg','Order Updated');
+        return redirect()->route("vendor.orders");;
+    }
+    function orderstatus($id){
+        $customer = customer::where('id', $id)->first();
+        foreach($customer->products as $p){
+                foreach ($p->orders as $o){
+                    $o->status='Delivered';
+                    Mail::to($o->customer->email)->send(new confirmDelivery("Confirmation of your Delivery",$o->customer->name,$o->product->name,$o->quantity,$o->delivery_address)); 
+                    customer_coupon::where('co_id', $o->co_id) ->delete();
+                    $o->co_id=null;
+                    $r = new review();
+                    $r->c_id=$o->c_id;
+                    $r->p_id=$o->p_id;
+                    $r->save();     
+                    $o->update();
+                }break;
+            }
+        
+        
         session()->flash('msg','Order Updated');
         return redirect()->route("vendor.orders");;
     }
@@ -389,6 +405,10 @@ class vendorController extends Controller
         $o->payment_status='Confirmed';
         $o->update();
         session()->flash('msg','Order Updated');
+        return back();
+    }
+    function search(){
+        session()->flash('msg','Enter value to search');
         return redirect()->route("vendor.orders");
     }
     function searchorder(Request $req){
@@ -398,9 +418,15 @@ class vendorController extends Controller
         [
             'id.required' => 'Please enter valid product Id',
         ]
-    );
-    $c= customer::where('id', '=', $req->id)->get();
-    return view('vendor.allorders')->with('customers',$c);
+        );
+        $c= customer::where('id', '=', $req->id)->get();
+        if(count($c)!=0){
+            return view('vendor.allorders')->with('customers',$c);
+        }
+        else{
+            session()->flash('msg','Customer Invalid');
+            return redirect()->route("vendor.orders");
+        }
     }
     function reviews(){
         session()->forget('product_navbar');

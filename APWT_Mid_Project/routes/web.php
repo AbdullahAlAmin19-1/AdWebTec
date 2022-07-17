@@ -68,12 +68,12 @@ Route::post('/vendor/editcoupon/{id}',[vendorController::class,'editcouponconfir
 Route::get('/vendor/orders',[vendorController::class,'orders'])->name('vendor.orders');
 Route::get('/vendor/orders/changeorderstatus/{id}',[vendorController::class,'changeorderstatus'])->name('vendor.changeorderstatus');
 Route::get('/vendor/orders/changepaymentstatus/{id}',[vendorController::class,'changepaymentstatus'])->name('vendor.changepaymentstatus');
+Route::get('/vendor/orders/orderstatus/{id}',[vendorController::class,'orderstatus'])->name('vendor.orderstatus');
 Route::get('/vendor/reviews',[vendorController::class,'reviews'])->name('vendor.reviews');
-Route::get('/vendor/product',[vendorController::class,'searchproductcon'])->name('vendor.searchproduct');
-Route::post('/vendor/product',[vendorController::class,'searchproduct'])->name('vendor.searchproduct');
+Route::post('/vendor/dashboard',[vendorController::class,'searchproduct'])->name('vendor.searchproduct');
 Route::get('/vendor/notices',[vendorController::class,'notices'])->name('vendor.notices');
-Route::post('/vendor/order',[vendorController::class,'searchorder'])->name('vendor.searchorder');
-Route::post('/vendor/review',[vendorController::class,'searchreview'])->name('vendor.searchreview');
+Route::post('/vendor/orders',[vendorController::class,'searchorder'])->name('vendor.searchorder');
+Route::post('/vendor/reviews',[vendorController::class,'searchreview'])->name('vendor.searchreview');
 Route::post('/vendor/assigncoupon',[vendorController::class,'assigncoupon'])->name('vendor.assigncoupon');
 
 
