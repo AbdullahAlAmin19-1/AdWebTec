@@ -156,10 +156,11 @@ class adminsController extends Controller
         return view("admin.aeditcustomer")->with('customer',$user);
     }
     function editcustomerupdate(Request $vali){
+        $id=$vali->id;
         $this->validate($vali, [
-            "username" => "required|unique:vendors|unique:customers|unique:deliverymen",
+            "username" => "required|unique:vendors|unique:customers,username,$id|unique:deliverymen",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
-            "email" => "required|email|unique:vendors|unique:customers|unique:deliverymen",
+            "email" => "required|email|unique:vendors|unique:customers,email,$id|unique:deliverymen",
             "phone" => "required|max:10|min:10",
             "gender" => "required",
             "dob" => "required|before:-10 years",
@@ -228,10 +229,11 @@ class adminsController extends Controller
         return view("admin.aeditdeliveryman")->with('deliveryman',$user);
     }
     function editdeliverymanupdate(Request $vali){
+        $id=$vali->id;
         $this->validate($vali, [
-            "username" => "required|unique:vendors|unique:customers|unique:deliverymen",
+            "username" => "required|unique:vendors|unique:customers|unique:deliverymen,username,$id",
             "name" => "required|regex:/^[a-z ,.'-]+$/i",
-            "email" => "required|email|unique:vendors|unique:customers|unique:deliverymen",
+            "email" => "required|email|unique:vendors|unique:customers|unique:deliverymen,email,$id",
             "phone" => "required|max:10|min:10",
             "gender" => "required",
             "dob" => "required|before:-16 years",

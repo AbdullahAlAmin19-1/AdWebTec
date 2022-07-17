@@ -40,16 +40,16 @@
                 <th>Product Stock</th>
                 <th>Product Size</th>
                 <th>Product Description:</th>
-                <th>Action</th>
+                <th colspan="2">Action</th>
             </tr>
             @foreach ($products as $product)
             <tr>
                 <td style="text-align: center;">{{$product->id}}</td>
                 <td style="text-align: center;"><img src="{{asset('storage/product_images')}}/{{$product->thumbnail}}" alt="Product Image" height="120px" width="120px"></td>
+                <td style="text-align: center;">{{$product->name}}</td>
                 <td style="text-align: center;">{{$product->category}}</td>
                 <td style="text-align: center;">{{$product->price}}</td>
                 <td style="text-align: center;">{{$product->stock}}</td>
-                <td style="text-align: center;">{{$product->size}}</td>
                 <td style="text-align: center;">{{$product->size}}</td>
                 <td style="text-align: center;">{{$product->description}}</td>
                 <td style="text-align: center;"><a href="{{route('vendor.editproduct',['id'=>$product->id])}}">

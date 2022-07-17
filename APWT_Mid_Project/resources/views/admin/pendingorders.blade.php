@@ -15,7 +15,7 @@ Delivered Order List
             </table>
         </center>
 </div>
-<h1 align="center">Delivered Order List</h1>
+<h1 align="center">Pending Order List</h1>
 <!-- <h3 align="center" style="color: red;">{{Session::get('msg')}}</h3> -->
 <div class="main-section">
     <center>
