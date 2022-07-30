@@ -59,21 +59,21 @@ $pay_money = $total_price + 60 - $discount_amount;
             @endforeach
 
             <tr>
-                <th colspan="4">Total Price:</th>
+                <th colspan="5">Total Price:</th>
                 <th colspan="4"><?php echo $total_price; ?> Taka</td>
             </tr>
             <tr>
-                <th colspan="4">Delivery Charge:</th>
+                <th colspan="5">Delivery Charge:</th>
                 <th colspan="4"> 60 Taka</th>
             </tr>
 
             <tr>
-                <th colspan="4">Coupon Discount:</th>
+                <th colspan="5">Coupon Discount:</th>
                 <th colspan="4"><?php echo $discount_amount; ?> Taka</th>
             </tr>
 
             <tr>
-                <th colspan="8">Money To Pay: <?php echo $pay_money; ?> Taka</th>
+                <th colspan="9">Money To Pay: <?php echo $pay_money; ?> Taka</th>
             </tr>
         </table>
 

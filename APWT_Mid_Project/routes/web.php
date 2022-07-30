@@ -150,7 +150,9 @@ Route::post('/admin/dashboard/editcoupon/{id}',[adminsController::class,'aeditco
 Route::get('/admin/dashboard/deletecoupon/{id}',[adminsController::class,'adeletecoupon'])->name('admin.adeletecoupon');
 Route::get('/admin/dashboard/addcoupon',[adminsController::class,'addcoupon'])->name('admin.addcoupon');
 Route::post('/admin/dashboard/addcoupon',[adminsController::class,'addcouponupdate'])->name('admin.addcouponupdate');
-
+Route::get('/admin/dashboard/approvecoupon',[adminsController::class,'aapprovecoupon'])->name('admin.aapprovecoupon');
+Route::get('/admin/dashboard/approvecoupon/{id}',[adminsController::class,'acouponapprove'])->name('admin.acouponapprove');
+Route::get('/admin/dashboard/cancelcoupon/{id}',[adminsController::class,'acancelcoupon'])->name('admin.acancelcoupon');
 //Mail
 Route::get('/admin/dashboard/approvedeliverymanmail/{id}',[mailController::class,'approvedeliverymanMail'])->name('mail.approvedeliverymanmail');
 Route::get('/admin/dashboard/sendnotice/{id}',[mailController::class,'sendNotice'])->name('mail.sendNotice');

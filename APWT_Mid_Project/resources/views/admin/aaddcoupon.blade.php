@@ -8,8 +8,9 @@
             <table>
                 <tr>
                     <td>
+                        <a href="{{route('admin.aapprovecoupon')}}" style="font-size: 20px;">Approve Coupon</a> |
                         <a href="{{route('admin.acoupons')}}" style="font-size: 20px;">Coupons List</a> |
-                        <a href="{{route('admin.addcoupon')}}" style="font-size: 20px;">Add Coupon</a> |
+                        <a href="{{route('admin.addcoupon')}}" style="font-size: 20px;">Add Coupon</a>
                     </td>
                 </tr>
             </table>
