@@ -10,32 +10,32 @@ const LandingBody = () => {
           <ul class="nav justify-content-center">
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <img style={{ width: "150px" }} src="./categories/fruits-vegetables.webp" alt="" /> <br />
+                <img style={{ width: "150px" }} src="Images/Categories/fruits-vegetables.webp" alt="" /> <br />
                 Fruits & Vegetables</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <img style={{ width: "150px" }} src="./categories/meat-fish.webp" alt="" /> <br />
+                <img style={{ width: "150px" }} src="Images/Categories/meat-fish.webp" alt="" /> <br />
                 Meat & Fish</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <img style={{ width: "150px" }} src="./categories/cooking.webp" alt="" /> <br />
+                <img style={{ width: "150px" }} src="Images/Categories/cooking.webp" alt="" /> <br />
                 Cooking</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <img style={{ width: "150px" }} src="./categories/baking.webp" alt="" /> <br />
+                <img style={{ width: "150px" }} src="Images/Categories/baking.webp" alt="" /> <br />
                 Baking</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <img style={{ width: "150px" }} src="./categories/dairy.webp" alt="" /> <br />
+                <img style={{ width: "150px" }} src="Images/Categories/dairy.webp" alt="" /> <br />
                 Dairy</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <img style={{ width: "150px" }} src="./categories/candy-chocolate.webp" alt="" /> <br />
+                <img style={{ width: "150px" }} src="Images/Categories/candy-chocolate.webp" alt="" /> <br />
                 Candy & Chocolate</a>
             </li>
           </ul>
@@ -45,32 +45,32 @@ const LandingBody = () => {
           <ul class="nav justify-content-center">
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <img style={{ width: "150px" }} src="./categories/frozen-canned.webp" alt="" /> <br />
+                <img style={{ width: "150px" }} src="Images/Categories/frozen-canned.webp" alt="" /> <br />
                 Frozen & Canned</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <img style={{ width: "150px" }} src="./categories/bread-bakery.webp" alt="" /> <br />
+                <img style={{ width: "150px" }} src="Images/Categories/bread-bakery.webp" alt="" /> <br />
                 Bread & Bakery</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <img style={{ width: "150px" }} src="./categories/breakfast.webp" alt="" /> <br />
+                <img style={{ width: "150px" }} src="Images/Categories/breakfast.webp" alt="" /> <br />
                 Breakfast</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <img style={{ width: "150px" }} src="./categories/snacks.webp" alt="" /> <br />
+                <img style={{ width: "150px" }} src="Images/Categories/snacks.webp" alt="" /> <br />
                 Snacks</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <img style={{ width: "150px" }} src="./categories/beverages.webp" alt="" /> <br />
+                <img style={{ width: "150px" }} src="Images/Categories/beverages.webp" alt="" /> <br />
                 Beverages</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
-                <img style={{ width: "150px" }} src="./categories/others.webp" alt="" /> <br />
+                <img style={{ width: "150px" }} src="Images/Categories/others.webp" alt="" /> <br />
                 Others</a>
             </li>
           </ul>
