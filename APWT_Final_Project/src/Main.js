@@ -1,10 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import LandingPage from './Pages/LandingPage';
-import RegPage from './Pages/RegPage';
+// import LandingPage from './Pages/LandingPage';
+// import RegPage from './Pages/RegPage';
 
-import VendorList from './VendorList';
+import LandingPage from './Public/Pages/LandingPage';
+import RegPage from './Public/Pages/RegPage';
+
+import VendorList from './Public/VendorList';
 
 function Main() {
   return (
