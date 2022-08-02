@@ -79,7 +79,7 @@ Route::post('/vendor/assigncoupon',[vendorController::class,'assigncoupon'])->na
 
 //Customer
 Route::get('/customer/cdashboard',[customersController::class,'cdashboard'])->name('customer.cdashboard');
-Route::get('/customer/cdeleteprofile',[customersController::class,'cprofileinfo'])->name('customer.cprofileinfo');
+Route::get('/customer/cprofileinfo',[customersController::class,'cprofileinfo'])->name('customer.cprofileinfo');
 Route::get('/customer/cprofile/edit',[customersController::class,'cprofile'])->name('customer.cprofile');
 Route::get('/customer/logout', [customersController::class, 'clogout'])-> name('customer.clogout');
 Route::post('/customer/cprofile/edit',[customersController::class,'cprofileupdate'])->name('customer.cprofile');
