@@ -28,7 +28,7 @@ Route::get('/public/products',[APIController::class,'products']);
 Route::get('/users/user',[APIController::class,'user']);
 
 //Admin
-
+Route::get('/admin/profileinfo',[APIAdminController::class,'profileinfo']);
 //Vendor
 
 //Customer
