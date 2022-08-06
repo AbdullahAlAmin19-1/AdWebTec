@@ -41,6 +41,7 @@ Route::post('/vendor/updateprofile',[APIVendorController::class,'updateprofile']
 Route::post('/vendor/updatedp',[APIVendorController::class,'updatedp']);
 Route::post('/vendor/addProduct',[APIVendorController::class,'addProduct']);
 Route::get('/vendor/editProduct/{id}',[APIVendorController::class,'editProduct']);
+Route::get('/vendor/deleteProduct/{id}',[APIVendorController::class,'deleteProduct']);
 Route::post('/vendor/updateProduct',[APIVendorController::class,'updateProduct']);
 Route::post('/vendor/updateThumbnail',[APIVendorController::class,'updateThumbnail']);
 

@@ -10,6 +10,8 @@ import ProductByCategory from './Public/Pages/ProductByCategory';
 // Vendor
 import VAllProducts from './Vendor/Pages/AllProducts';
 import VAddProducts from './Vendor/Pages/AddProduct';
+import VEditProduct from './Vendor/Pages/EditProduct';
+import VDeleteProduct from './Vendor/Components/DeleteProduct.js';
 import VProfile from './Vendor/Pages/Profile';
 import VEditProfile from './Vendor/Pages/EditProfile.js';
 
@@ -38,6 +40,8 @@ const Main = () => {
           {/* Vendor Routes */}
           <Route path="/vendor/allProducts" element={<VAllProducts />} />
           <Route path="/vendor/addProduct" element={<VAddProducts />} />
+          <Route path="/vendor/editProduct/:id" element={<VEditProduct />} />
+          <Route path="/vendor/deleteProduct/:id" element={<VDeleteProduct />} />
           <Route path="/vendor/profile" element={<VProfile />} />
           <Route path="/vendor/editProfile/:id" element={<VEditProfile />} />
 
