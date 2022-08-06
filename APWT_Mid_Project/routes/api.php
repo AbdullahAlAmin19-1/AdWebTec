@@ -34,7 +34,7 @@ Route::get('/products/item/{id}',[APIController::class,'viewproduct']);
 Route::get('/users/user',[APIController::class,'user']);
 
 //Admin
-
+Route::get('/admin/profileinfo',[APIAdminController::class,'profileinfo']);
 //Vendor
 Route::get('/vendor/profile',[APIVendorController::class,'profile']);
 Route::post('/vendor/updateprofile',[APIVendorController::class,'updateprofile']);

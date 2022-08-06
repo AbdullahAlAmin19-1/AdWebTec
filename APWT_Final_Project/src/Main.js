@@ -22,6 +22,9 @@ import Cart from './Customer/Pages/Cart';
 import VendorList from './Public/VendorList';
 import ViewProduct from './Public/Pages/ViewProduct';
 
+// Admin
+import AdminDashboard from './Admin/Pages/AdminDashboard';
+
 const Main = () => {
   return (
     <div>
@@ -50,6 +53,8 @@ const Main = () => {
 
           <Route path="/list" element={<VendorList />} />
 
+          {/* Admin Routes */}
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
       </BrowserRouter>
     </div>
