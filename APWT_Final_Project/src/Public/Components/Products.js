@@ -20,6 +20,7 @@ const Products = () => {
   const addcartHandle = (event) => {
     event.preventDefault();
 
+
     alert(quantity);
     alert(p_id);
   }
@@ -61,22 +62,25 @@ const Products = () => {
               <hr className="my-0" />
               <div className="card-body">
                 <div className="d-flex justify-content-between align-items-center">
-                  
+
                   {/* Getting error while getting the p_id */}
 
                   {/* <form onSubmit={addcartHandle}>
                     <input type="text" name="p_id" value={item.id} style={{ width: "100%" }} onLoadStart={(e) => { setP_id(e.target.value) }} />
+
 
                     <label htmlFor="quantity">Quantity</label>
                     <input type="number" name="quantity" min="1" value={quantity} style={{ width: "100%" }} onChange={(e) => { setQuantity(e.target.value) }} />
 
                     <button type="submit" className="btn btn-primary mt-1" style={{ width: "100%" }} >Add to
                       cart</button>
+
                   </form> */}
 
 
                   {/* Second solution */}
                 <button type="button" className="btn btn-primary mt-1" style={{ width: "100%" }} ><Link className="nav-link" to={`/products/item/${item.id}`} >View Product</Link></button>
+
 
                 </div>
               </div>

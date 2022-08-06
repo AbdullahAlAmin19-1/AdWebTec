@@ -17,7 +17,7 @@ const RegBody = () => {
             alert("Ok");
             console.log(succ.data);
             if(succ.data.user_type=='Admin'){window.location.href="/customer/profileinfo";}
-            if(succ.data.user_type=='Vendor'){window.location.href="/customer/profileinfo";}
+            if(succ.data.user_type=='Vendor'){window.location.href="/vendor/profile";}
             if(succ.data.user_type=='Customer'){window.location.href="/customer/profileinfo";}
             if(succ.data.user_type=='Deliveryman'){window.location.href="/customer/profileinfo";}
             

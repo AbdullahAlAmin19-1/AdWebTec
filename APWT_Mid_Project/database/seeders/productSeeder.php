@@ -16,7 +16,7 @@ class productSeeder extends Seeder
      */
     public function run()
     {
-        for($i=0;$i<50;$i++){
+        for($i=0;$i<2;$i++){
             DB::table('products')->insert([
                 'name' => "Pure Pure Salt",
                 'category' => "Cooking",
