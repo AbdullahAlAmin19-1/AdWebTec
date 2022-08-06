@@ -18,7 +18,7 @@ const Products = () => {
   const addcartHandle = (event) => {
     event.preventDefault();
 
-    alert(quantity);
+    alert(event.p_id);
     // const data = { c_id: p_id};
     // console.log(data);
   }
@@ -60,8 +60,9 @@ const Products = () => {
               <hr className="my-0" />
               <div className="card-body">
                 <div className="d-flex justify-content-between align-items-center">
+                  
                   <form onSubmit={addcartHandle}>
-                    <input type="text" name="p_id" value={item.id} style={{ width: "100%" }} />
+                    <input type="text" name="p_id" value={item.id} style={{ width: "100%" }}/>
 
                     <label htmlFor="quantity">Quantity</label>
                     <input type="number" name="quantity" min="1" value={quantity} style={{ width: "100%" }} onChange={(e) => { setQuantity(e.target.value) }} />
@@ -69,6 +70,7 @@ const Products = () => {
                     <button type="submit" className="btn btn-primary mt-1" style={{ width: "100%" }} >Add to
                       cart</button>
                   </form>
+
                 </div>
               </div>
             </div>

@@ -7,6 +7,12 @@ import RegPage from './Public/Pages/RegPage';
 import LoginPage from './Public/Pages/LoginPage';
 import ProductByCategory from './Public/Pages/ProductByCategory';
 
+// Vendor
+import VAllProducts from './Vendor/Pages/AllProducts';
+import VAddProducts from './Vendor/Pages/AddProduct';
+import VProfile from './Vendor/Pages/Profile';
+import VEditProfile from './Vendor/Pages/EditProfile.js';
+
 // Customer
 import Dashboard from './Customer/Pages/Dashboard';
 import ProfileInfo from './Customer/Pages/ProfileInfo';
@@ -29,6 +35,12 @@ const Main = () => {
           <Route path="/categories/:category" element={<ProductByCategory />} />
 
           <Route path="/products" element={<Products />} />
+
+          {/* Vendor Routes */}
+          <Route path="/vendor/allProducts" element={<VAllProducts />} />
+          <Route path="/vendor/addProduct" element={<VAddProducts />} />
+          <Route path="/vendor/profile" element={<VProfile />} />
+          <Route path="/vendor/editProfile/:id" element={<VEditProfile />} />
 
           {/* Customer Routes */}
           <Route path="/customer/dashboard" element={<Dashboard />} />
