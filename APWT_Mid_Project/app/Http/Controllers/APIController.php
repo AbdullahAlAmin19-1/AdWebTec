@@ -86,4 +86,10 @@ class APIController extends Controller
         return response()->json($products);
     }
 
+    function viewproduct($id){
+
+        $products =Product::where('id', '=', $id)->first();
+        return response()->json($products);
+    }
+
 }

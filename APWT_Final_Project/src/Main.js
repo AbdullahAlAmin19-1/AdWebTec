@@ -14,7 +14,7 @@ import EditProfile from './Customer/Pages/EditProfile'
 import Cart from './Customer/Pages/Cart';
 
 import VendorList from './Public/VendorList';
-import Products from './Public/Components/Products';
+import ViewProduct from './Public/Pages/ViewProduct';
 
 const Main = () => {
   return (
@@ -27,8 +27,7 @@ const Main = () => {
           <Route path="/registration" element={<RegPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/categories/:category" element={<ProductByCategory />} />
-
-          <Route path="/products" element={<Products />} />
+          <Route path="/products/item/:id" element={<ViewProduct />} />
 
           {/* Customer Routes */}
           <Route path="/customer/dashboard" element={<Dashboard />} />
