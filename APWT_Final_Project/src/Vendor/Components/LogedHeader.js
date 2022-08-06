@@ -11,7 +11,7 @@ const CusHeader = () => {
                     <div className="col-3">
                         <ul className="nav">
                             <li className="nav-item">
-                                <Link className="nav-link" to="/customer/dashboard">Home</Link>
+                                <Link className="nav-link" to="/vendor/dashboard">Home</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/">Logout</Link>
@@ -29,7 +29,7 @@ const CusHeader = () => {
                     <div className="col-3">
                         <ul className="nav justify-content-end">
                             <li className="nav-item">
-                                <h6 className="text-white mt-2">Welcome! <span>Customer, <span style={{ color: "red" }}><Link style={{textDecoration: 'none'}} to="/customer/profileinfo">MdRasen</Link></span></span></h6>
+                                <h6 className="text-white mt-2">Welcome! <span>Vendor, <span style={{ color: "red" }}><Link style={{textDecoration: 'none'}} to="/vendor/profile">Vendor Name</Link></span></span></h6>
                             </li>
                         </ul>
                     </div>
@@ -40,19 +40,19 @@ const CusHeader = () => {
             <div className="col bg-dark p-2">
                     <ul className="nav justify-content-center">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/customer/profileinfo">Manage Account</Link>
+                            <Link className="nav-link" to="/vendor/allproducts">Products</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/customer/cart">Cart</Link>
+                            <Link className="nav-link" to="/vendor/profile">Manage Account</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="#">Coupons</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="#">Orders</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="#">Reviews</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="#">Coupons</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="#">Notices</Link>
