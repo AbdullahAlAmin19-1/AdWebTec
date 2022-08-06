@@ -24,6 +24,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Public
 Route::post('/users/registration',[APIController::class,'registration']);
 Route::get('/public/products',[APIController::class,'products']);
+// Route::get('/products/item',[APIController::class,'viewproduct']);
+
+Route::get('/products/item/{id}',[APIController::class,'viewproduct']);
+
 
 Route::get('/users/user',[APIController::class,'user']);
 
