@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\vendor;
+use App\Models\Product;
 
 class APIController extends Controller
 {
-    //
     function registration(Request $req){
         $validator = Validator::make($req->all(),[
             "name"=>"required",
@@ -34,10 +35,21 @@ class APIController extends Controller
         );
     }
 
+    //
     function user(){
         $data = Vendor::all();
-
-        echo $data;
-        // return response()->json($data);
+        return response()->json($data);
     }
+    //
+
+    function products(){
+
+        // $products = DB::table('products')->simplePaginate(5); //For Pagination
+        $products = Product::all();
+ 
+        // return view('vendor.allproducts', compact('p'));
+        // return view('public.products', compact('p'));
+        return response()->json($products);
+    }
+
 }

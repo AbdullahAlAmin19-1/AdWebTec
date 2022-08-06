@@ -9,8 +9,11 @@ import ProductByCategory from './Public/Pages/ProductByCategory';
 // Customer
 import Dashboard from './Customer/Pages/Dashboard';
 import ProfileInfo from './Customer/Pages/ProfileInfo';
-import VendorList from './Public/VendorList';
+import EditProfile from './Customer/Pages/EditProfile'
+import Cart from './Customer/Pages/Cart';
 
+import VendorList from './Public/VendorList';
+import Products from './Public/Components/Products';
 
 const Main = () => {
   return (
@@ -23,10 +26,13 @@ const Main = () => {
           <Route path="/registration" element={<RegPage />} />
           <Route path="/categories/:category" element={<ProductByCategory />} />
 
+          <Route path="/products" element={<Products />} />
+
           {/* Customer Routes */}
           <Route path="/customer/dashboard" element={<Dashboard />} />
-          <Route path="/customer/categories/:category" element={<ProductByCategory />} />
           <Route path="/customer/profileinfo" element={<ProfileInfo />} />
+          <Route path="/customer/profileinfo/edit/:id" element={<EditProfile />} />
+          <Route path="/customer/cart" element={<Cart />} />
 
 
           <Route path="/list" element={<VendorList />} />

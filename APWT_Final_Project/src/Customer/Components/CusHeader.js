@@ -4,7 +4,7 @@ const CusHeader = () => {
     return (
         <>
             <div className="container-fluid">
-                <div className="row p-2 bg-dark text-center">
+                <div className="row p-2 pt-3 bg-dark text-center">
                     <div className="col-1 mt-2">
                         <h5><Link className="navbar-brand text-white" to="/">Grocery OS</Link></h5>
                     </div>
@@ -37,13 +37,13 @@ const CusHeader = () => {
                 </div>
             </div>
 
-            <div className="col bg-dark">
+            <div className="col bg-dark p-2">
                     <ul className="nav justify-content-center">
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">Manage Account</Link>
+                            <Link className="nav-link" to="/customer/profileinfo">Manage Account</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">Cart</Link>
+                            <Link className="nav-link" to="/customer/cart">Cart</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="#">Orders</Link>
