@@ -14,7 +14,7 @@ const CusHeader = () => {
                                 <Link className="nav-link" to="/customer/dashboard">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="#">Logout</Link>
+                                <Link className="nav-link" to="/">Logout</Link>
                             </li>
                         </ul>
                     </div>

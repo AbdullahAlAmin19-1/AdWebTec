@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\vendor;
+use App\Models\customer;
+use App\Models\req_deliveryman;
 use App\Models\Product;
 
 class APIController extends Controller
@@ -17,22 +19,54 @@ class APIController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors());
         }
-        $s = new Vendor();
-        $s->name = $req->name;
-        $s->username = $req->username;
-        $s->email = $req->email;
-        $s->phone = $req->phone;
-        $s->password = $req->password;
-        $s->gender = $req->gender;
-        $s->dob = $req->dob;
-        $s->address = $req->address;
-        $s->save();
+        if($req->user_type=="Vendor"){$user = new vendor();}
+        elseif($req->user_type=="Customer"){$user = new customer();}
+        elseif($req->user_type=="Deliveryman"){$user = new req_deliveryman();}
+        $user->name = $req->name;
+        $user->username = $req->username;
+        $user->email = $req->email;
+        $user->phone = $req->phone;
+        $user->password = $req->password;
+        $user->gender = $req->gender;
+        $user->dob = $req->dob;
+        $user->address = $req->address;
+        $user->save();
         return response()->json(
             [
                 "msg"=>"Added Successfully",
-                "data"=>$s        
+                "data"=>$user        
             ]
         );
+    }
+
+    function login(Request $req){
+        $validator = Validator::make($req->all(),[
+            "email"=>"required",
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors());
+        }
+        $user=null;
+        if($req->user_type=="Admin"){$user=admin::where('email','=',$req->email)->where('password',$req->password)->first();}
+        elseif($req->user_type=="Vendor"){$user=vendor::where('email','=',$req->email)->where('password',$req->password)->first();}
+        elseif($req->user_type=="Customer"){$user=customer::where('email','=',$req->email)->where('password',$req->password)->first();}
+        elseif($req->user_type=="Deliveryman"){$user=deliveryman::where('email','=',$req->email)->where('password',$req->password)->first();}
+        if($user!=null){
+            return response()->json(
+                [
+                    "msg"=>"Login Successfully",
+                    "user_type"=>$req->user_type,
+                    "data"=>$user        
+                ]
+            );
+        }
+        else{
+            return response()->json(
+                [
+                    "msg"=>"Login Faild"
+                ]
+                );
+        }
     }
 
     //

@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // Public
 import LandingPage from './Public/Pages/LandingPage';
 import RegPage from './Public/Pages/RegPage';
+import LoginPage from './Public/Pages/LoginPage';
 import ProductByCategory from './Public/Pages/ProductByCategory';
 
 // Customer
@@ -24,6 +25,7 @@ const Main = () => {
           {/* Public Route */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/registration" element={<RegPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/categories/:category" element={<ProductByCategory />} />
 
           <Route path="/products" element={<Products />} />
