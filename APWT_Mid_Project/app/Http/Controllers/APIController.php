@@ -37,7 +37,7 @@ class APIController extends Controller
 
     //
     function user(){
-        $data = Vendor::all();
+        $data = product::all();
         return response()->json($data);
     }
     //
