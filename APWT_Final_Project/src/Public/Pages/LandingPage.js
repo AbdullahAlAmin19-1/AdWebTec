@@ -1,13 +1,15 @@
 import React from 'react'
 import Header from '../Components/Header'
-import LandingBody from '../Components/LandingBody'
+import ProductCategories from '../Components/ProductCategories'
 import Footer from '../Components/Footer'
+import Products from '../Components/Products'
 
 const LandingPage = () => {
   return (
     <>
       <Header />
-      <LandingBody />
+      <ProductCategories />
+      <Products />
       <Footer />
     </>
   )

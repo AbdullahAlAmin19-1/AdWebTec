@@ -17,7 +17,7 @@ const RegBody = () => {
         event.preventDefault();
         const data={name:name,username:username,email:email,phone:phone,password:password,conf_pass:conf_pass,gender:gender,dob:dob,address:address};
         // alert(data.name);
-        axios.post("http://localhost:8000/api/vendors/registration",data).
+        axios.post("http://localhost:8000/api/users/registration",data).
         then((succ)=>{
             //setMsg(succ.data.msg);
             alert("Ok");

@@ -11,26 +11,26 @@ const Footer = () => {
                         <h1 className="text-white">Grocery OS</h1>
                         <p className="text-white small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
                         <p className="text-white mb-0">&copy; Copyrights. All rights reserved.
-                            <Link className="text-primary" style={{textDecoration: 'none'}} to="/"> Grocery OS</Link>
+                            <Link className="text-primary" style={{ textDecoration: 'none' }} to="/"> Grocery OS</Link>
                         </p>
                     </div>
                     <div className="col-2">
                         <h5 className="text-white mb-3">Quick links</h5>
                         <ul className="list-unstyled text-muted">
-                            <li><Link className="text-primary" style={{textDecoration: 'none'}} to="/">Home</Link></li>
-                            <li><Link className="text-primary" style={{textDecoration: 'none'}} to="#">About Us</Link></li>
-                            <li><Link className="text-primary" style={{textDecoration: 'none'}} to="#">Contact Us</Link></li>
-                            <li><Link className="text-primary" style={{textDecoration: 'none'}} to="#">FAQ</Link></li>
+                            <li><Link className="text-primary" style={{ textDecoration: 'none' }} to="/">Home</Link></li>
+                            <li><Link className="text-primary" style={{ textDecoration: 'none' }} to="#">About Us</Link></li>
+                            <li><Link className="text-primary" style={{ textDecoration: 'none' }} to="#">Contact Us</Link></li>
+                            <li><Link className="text-primary" style={{ textDecoration: 'none' }} to="#">FAQ</Link></li>
                         </ul>
                     </div>
 
                     <div className="col-2">
                         <h5 className="text-white mb-3">Social links</h5>
                         <ul className="list-unstyled text-muted">
-                            <li><Link className="text-primary" style={{textDecoration: 'none'}} to="#">Facebook</Link></li>
-                            <li><Link className="text-primary" style={{textDecoration: 'none'}} to="#">Instagram</Link></li>
-                            <li><Link className="text-primary" style={{textDecoration: 'none'}} to="#">Youtube</Link></li>
-                            <li><Link className="text-primary" style={{textDecoration: 'none'}} to="#">Linkedin</Link></li>
+                            <li><Link className="text-primary" style={{ textDecoration: 'none' }} to="#">Facebook</Link></li>
+                            <li><Link className="text-primary" style={{ textDecoration: 'none' }} to="#">Instagram</Link></li>
+                            <li><Link className="text-primary" style={{ textDecoration: 'none' }} to="#">Youtube</Link></li>
+                            <li><Link className="text-primary" style={{ textDecoration: 'none' }} to="#">Linkedin</Link></li>
                         </ul>
                     </div>
 

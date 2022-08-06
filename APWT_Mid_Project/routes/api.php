@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\APIController;
+use App\Http\Controllers\APICustomersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Check
-Route::post('/vendors/registration',[APIController::class,'registration']);
-Route::get('/vendors/user',[APIController::class,'user']);
+//Public
+Route::post('/users/registration',[APIController::class,'registration']);
+Route::get('/public/products',[APIController::class,'products']);
+
+Route::get('/users/user',[APIController::class,'user']);
+
+//Admin
+
+//Vendor
+
+//Customer
+Route::get('/customer/profileinfo',[APICustomersController::class,'profileinfo']);
+Route::post('/customer/updateprofile',[APICustomersController::class,'updateprofile']);
+Route::post('/customer/updatedp',[APICustomersController::class,'updatedp']);
+
