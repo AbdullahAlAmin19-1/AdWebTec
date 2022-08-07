@@ -6,7 +6,10 @@ const ProfileBody = () => {
     const [customer, setCustomer] = useState({});
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/customer/profileinfo").then(
+
+        var c_id = 1; //Setting dummy value
+
+        axios.get("http://localhost:8000/api/customer/profileinfo/"+c_id).then(
             (res) => {
                 setCustomer(res.data);
                 // debugger;
