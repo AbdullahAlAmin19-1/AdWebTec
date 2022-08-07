@@ -26,6 +26,8 @@ import ViewProduct from './Public/Pages/ViewProduct';
 
 // Admin
 import AdminDashboard from './Admin/Pages/AdminDashboard';
+import Reviews from './Customer/Pages/Reviews';
+import ReviewUpdate from './Customer/Pages/ReviewUpdate';
 
 const Main = () => {
   return (
@@ -53,6 +55,8 @@ const Main = () => {
           <Route path="/customer/profileinfo" element={<ProfileInfo />} />
           <Route path="/customer/profileinfo/edit/:id" element={<EditProfile />} />
           <Route path="/customer/cart" element={<Cart />} />
+          <Route path="/customer/reviews" element={<Reviews />} />
+          <Route path="/customer/reviewupdate/:id" element={<ReviewUpdate />} />
 
 
           <Route path="/list" element={<VendorList />} />

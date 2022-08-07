@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\customer;
 use App\Models\cart;
+use App\Models\review;
 
 class APICustomersController extends Controller
 {
@@ -109,5 +110,36 @@ class APICustomersController extends Controller
         $id = $req->cart_id;
         $carts = cart::where('id', $id)->delete();
         return response()->json(["msg" => "Product has been deleted successfully!"]);
+    }
+
+    function reviews($id){
+
+        $reviews = review::where('c_id', $id)->where('message', '=', null)->get();
+        $previews = review::where('c_id', $id)->where('message', '!=', null)->get();
+        
+            if(count($reviews) !== 0 || count($previews) !== 0){
+                // return view("customer.cProductReview")->with('reviews', $reviews)->with('previews', $previews);
+                return response()->json(["reviews" => $reviews, "previews" => $previews]);
+            }
+    
+            else{
+                return response()->json(["msg" => "Your do not have any product for review!"]);
+            }
+    }
+
+    function reviewview($id){
+        $review = review::where('id', $id)->first();
+
+        return response()->json($review);
+    }
+
+    function reviewupdate(Request $req){
+        
+        $review = review::find($req->r_id);
+
+        $review->message = $req->r_message;
+        $review->update();
+
+        return response()->json(["msg" => "Review has been updated!"]);
     }
 }

@@ -19,6 +19,7 @@ class review extends Model
         return $this->belongsTo(Customer::class, 'c_id');
     }
 
+    protected $with = ['product'];
     public function product()
     {
         return $this->belongsTo(Product::class, 'p_id');
