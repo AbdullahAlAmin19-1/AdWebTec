@@ -13,7 +13,7 @@ const ViewProductBody = ({ value }) => {
         axios.get("http://localhost:8000/api/products/item/" + p_id).then(
             (res) => {
                 setProduct(res.data);
-                // debugger;
+                debugger;
             },
             (error) => {
                 debugger;

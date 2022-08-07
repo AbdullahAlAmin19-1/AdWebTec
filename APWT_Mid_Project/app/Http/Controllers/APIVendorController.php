@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use App\Models\vendor;
 use App\Models\product;
+use App\Models\requested_coupon;
+use App\Models\coupon;
 
 class APIVendorController extends Controller
 {
@@ -150,11 +153,55 @@ class APIVendorController extends Controller
         return response()->json(["msg"=>"No file"]);
     }
 
-    function deleteproduct($id){
+    function deleteProduct($id){
         DB::delete('delete from products where id = ?',[$id]);
         return response()->json(
             [
                 "msg" => "Product Deleted",
+            ]
+        );
+    }
+
+    function allCoupons(){
+        $c = coupon::all();
+        return response()->json($c, 200);
+    }
+
+    function addCoupon(Request $value){
+    
+        $c=new requested_coupon();
+        if($value->codetype=='auto'){
+            if(is_numeric($value->code)){
+                $c->code=Str::random($value->code);
+            }
+        }
+        elseif($value->codetype=='manual'){
+            $c->code=$value->code;
+        }
+        $c->amount=$value->amount;
+        $c->save();
+        return response()->json($c, 200);
+    }
+
+    function editCoupon($id){
+        $c = coupon::where('id','=',$id)->first();
+        return response()->json($c, 200);
+    }
+
+    
+    function updateCoupon(Request $value){
+        $c = coupon::where('id','=',$value->id)->first();
+        $c->code=$value->code;
+        $c->amount=$value->amount;
+        $c->save();
+        return response()->json($c, 200);
+    }
+
+    function deleteCoupon($id){
+        DB::delete('delete from coupons where id = ?',[$id]);
+        return response()->json(
+            [
+                "msg" => "Coupon Deleted",
             ]
         );
     }

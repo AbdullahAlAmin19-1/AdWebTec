@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const CusHeader = () => {
+const LogedHeader = () => {
     return (
         <>
             <div className="container-fluid">
@@ -46,7 +46,7 @@ const CusHeader = () => {
                             <Link className="nav-link" to="/vendor/profile">Manage Account</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">Coupons</Link>
+                            <Link className="nav-link" to="/vendor/allCoupons">Coupons</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="#">Orders</Link>
@@ -63,4 +63,4 @@ const CusHeader = () => {
     )
 }
 
-export default CusHeader
+export default LogedHeader

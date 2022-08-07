@@ -10,7 +10,7 @@ const EditProfile = () => {
   return (
     <>
       <LogedHeader/>
-      <EditProfileBody id={id}/>
+      <EditProfileBody v_id={id}/>
       <Footer/>
     </>
   )

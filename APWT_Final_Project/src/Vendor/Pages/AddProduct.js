@@ -4,7 +4,7 @@ import ProductBar from '../Components/ProductBar'
 import AddProductBody from '../Components/AddProductBody'
 import Footer from '../../Public/Components/Footer'
 
-const LandingPage = () => {
+const AddProduct = () => {
   return (
     <>
       <LogedHeader />
@@ -15,4 +15,4 @@ const LandingPage = () => {
   )
 }
 
-export default LandingPage
+export default AddProduct
