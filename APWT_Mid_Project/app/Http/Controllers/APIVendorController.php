@@ -10,9 +10,9 @@ use App\Models\product;
 
 class APIVendorController extends Controller
 {
-    function profile()
+    function profile($id)
     {
-        $user = vendor::where('id', '=', 1)->first();
+        $user = vendor::where('id', '=', $id)->first();
         return response()->json($user, 200);
     }
 

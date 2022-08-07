@@ -1,24 +1,40 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const CartBody = () => {
 
+  const [cartproducts, setCartproducts] = useState([]);
+  var c_id = 1; //Getting dummy value
+
   useEffect(() => {
 
-    var sum = 1+2;
-    alert(sum);
+    axios.get("http://localhost:8000/api/customer/viewcart/" + c_id).then(
+      (res) => {
+        setCartproducts(res.data);
+        console.log(res.data);
+        // debugger;
+      },
+      (error) => {
+        debugger;
+      }
 
-    // axios.get("http://localhost:8000/api/customer/profileinfo").then(
-    //     (res) => {
-    //         setCustomer(res.data);
-    //         // debugger;
-    //     },
-    //     (error) => {
-    //         debugger;
-    //     }
+    );
+  }, []);
 
-    // );
-},[]);
+  const handleRemove = (id)=>{
+    // alert(id);
+    const data = {cart_id: id};
+        axios.post("http://localhost:8000/api/customer/cartproductremove", data).
+            then((succ) => {
+                //setMsg(succ.data.msg);
+                alert(succ.data.msg);
+                window.location.reload();
+
+            }, (err) => {
+                debugger;
+            })
+}
 
   return (
     <>
@@ -42,35 +58,29 @@ const CartBody = () => {
               </thead>
               <tbody>
 
-                <tr className="text-center">
-                  <td className="p-1">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Product Image"
-                      style={{ width: "50px" }}/>
-                  </td>
-                  <td>Lorem ipsum dolor sit amet consectetur, adipisicing eli</td>
-                  <td>Lore ipsum</td>
-                  <td>120</td>
-                  <td>3</td>
-                  <td>360</td>
-                  <td><button type="button" className="btn btn-danger">
-                    <Link className="nav-link" to="#">Remove Product</Link>
-                  </button></td>
-                </tr>
+                {
+                  cartproducts.map((item) =>
+                    <>
 
-                <tr className="text-center">
-                  <td className="p-1">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Product Image"
-                      style={{ width: "50px" }}/>
-                  </td>
-                  <td>Lorem ipsum dolor sit amet consectetur, adipisicing eli</td>
-                  <td>Lore ipsum</td>
-                  <td>120</td>
-                  <td>3</td>
-                  <td>360</td>
-                  <td><button type="button" className="btn btn-danger">
-                    <Link className="nav-link" to="#">Remove Product</Link>
-                  </button></td>
-                </tr>
+                      <tr className="text-center">
+                        <td className="p-1">
+                          <img src={`http://127.0.0.1:8000/storage/product_images/${item.product.thumbnail}`} alt="Product Image"
+                            style={{ width: "50px" }} />
+                        </td>
+                        <td>{item.product.name}</td>
+                        <td>{item.product.category}</td>
+                        <td>{item.product.price}</td>
+                        <td>{item.quantity}</td>
+                        <td>{item.product.price * item.quantity}</td>
+                        {/* <td><button type="button" className="btn btn-danger">
+                          <Link className="nav-link" to="#">Remove Product</Link>
+                        </button></td> */}
+                        <td><button type="button" className="btn btn-danger" onClick={()=>{handleRemove(item.id)}}>Remove</button></td>
+                      </tr>
+
+                    </>
+                  )
+                }
 
               </tbody>
             </table>
