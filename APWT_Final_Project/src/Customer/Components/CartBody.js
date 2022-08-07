@@ -41,7 +41,7 @@ const CartBody = () => {
       <div className="container-fluid p-4">
         <div className="card">
           <div className="card-header">
-            <h3>Shopping Cart</h3>
+            <h3 className="text-center">Shopping Cart</h3>
           </div>
           <div className="card-body">
             <table className="table table-bordered">
@@ -86,7 +86,7 @@ const CartBody = () => {
             </table>
 
             <div className="text-center">
-              <button type="button" className="btn btn-outline-primary m-1"><Link className="nav-link" to="/customer/dashboard">Back to shopping</Link></button>
+              <button type="button" className="btn btn-outline-primary m-1"><Link className="nav-link" to="/">Back to shopping</Link></button>
               <button type="button" className="btn btn-primary m-1">Continue To Order</button>
             </div>
 
