@@ -45,6 +45,11 @@ Route::get('/vendor/editProduct/{id}',[APIVendorController::class,'editProduct']
 Route::get('/vendor/deleteProduct/{id}',[APIVendorController::class,'deleteProduct']);
 Route::post('/vendor/updateProduct',[APIVendorController::class,'updateProduct']);
 Route::post('/vendor/updateThumbnail',[APIVendorController::class,'updateThumbnail']);
+Route::get('/vendor/allCoupons',[APIVendorController::class,'allcoupons']);
+Route::post('/vendor/addCoupon',[APIVendorController::class,'addCoupon']);
+Route::get('/vendor/editCoupon/{id}',[APIVendorController::class,'editCoupon']);
+Route::post('/vendor/updateCoupon',[APIVendorController::class,'updateCoupon']);
+Route::get('/vendor/deleteCoupon/{id}',[APIVendorController::class,'deleteCoupon']);
 
 //Customer
 Route::get('/customer/profileinfo/{id}',[APICustomersController::class,'profileinfo']);

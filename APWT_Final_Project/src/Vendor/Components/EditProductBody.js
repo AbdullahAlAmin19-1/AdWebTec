@@ -2,9 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const EditProduct = ({p_id}) => {
-    
-    var value=p_id;
+const EditProductBody = ({p_id}) => {
     const [product, setProduct] = useState({});
     const [id, setId] = useState("");
     const [name, setName] = useState("");
@@ -16,7 +14,7 @@ const EditProduct = ({p_id}) => {
     const [description, setDescription] = useState("");
     // alert(id);
     useEffect(() => {
-        axios.get("http://localhost:8000/api/vendor/editProduct"+value).then(
+        axios.get("http://localhost:8000/api/vendor/editProduct"+p_id).then(
             (succ) => {
                 setProduct(succ.data);
                 setId(succ.data.id);
@@ -153,4 +151,4 @@ const EditProduct = ({p_id}) => {
     )
 }
 
-export default EditProduct
+export default EditProductBody

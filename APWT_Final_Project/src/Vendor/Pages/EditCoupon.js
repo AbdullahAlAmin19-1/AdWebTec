@@ -1,20 +1,20 @@
 import React from 'react'
 import { useParams } from "react-router-dom"
 import LogedHeader from '../Components/LogedHeader'
-import ProductBar from '../Components/ProductBar'
+import CouponBar from '../Components/CouponBar'
+import EditCouponBody from '../Components/EditCouponBody'
 import Footer from '../../Public/Components/Footer'
-import EditProductBody from '../Components/EditProductBody'
 
-const EditProduct = () => {
+const EditCoupon = () => {
   const{id} = useParams();
   return (
     <>
       <LogedHeader />
-      <ProductBar />
-      <EditProductBody p_id={id}/>
+      <CouponBar />
+      <EditCouponBody co_id={id}/>
       <Footer />
     </>
   )
 }
 
-export default EditProduct
+export default EditCoupon

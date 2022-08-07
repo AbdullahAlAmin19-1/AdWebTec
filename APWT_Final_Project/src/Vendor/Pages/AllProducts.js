@@ -5,7 +5,7 @@ import Footer from '../../Public/Components/Footer'
 import ProductCategories from '../../Public/Components/ProductCategories'
 import Products from '../Components/Products'
 
-const LandingPage = () => {
+const AllProducts = () => {
   return (
     <>
       <LogedHeader />
@@ -17,4 +17,4 @@ const LandingPage = () => {
   )
 }
 
-export default LandingPage
+export default AllProducts
