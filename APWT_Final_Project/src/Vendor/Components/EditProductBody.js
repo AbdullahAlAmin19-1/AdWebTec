@@ -4,6 +4,9 @@ import axios from 'axios';
 
 const EditProductBody = ({p_id}) => {
     const [product, setProduct] = useState({});
+    
+    const[pic,setPic] = useState("");
+
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
@@ -14,7 +17,8 @@ const EditProductBody = ({p_id}) => {
     const [description, setDescription] = useState("");
     // alert(id);
     useEffect(() => {
-        axios.get("http://localhost:8000/api/vendor/editProduct"+p_id).then(
+    // document.title='Product';
+        axios.get("http://localhost:8000/api/vendor/editProduct/"+p_id).then(
             (succ) => {
                 setProduct(succ.data);
                 setId(succ.data.id);
@@ -54,8 +58,8 @@ const EditProductBody = ({p_id}) => {
         event.preventDefault();
 
         var data = new FormData();
-        data.append("file",thumbnail,thumbnail.name);
-
+        data.append("file",pic,pic.name);
+        
         axios.post("http://localhost:8000/api/vendor/updateThumbnail", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
@@ -84,8 +88,8 @@ const EditProductBody = ({p_id}) => {
                                 <p className="text-muted mb-1 text-center">Products, Grocery OS</p>
                                     <form className="form" onSubmit={handleThumbnail}>
                                         <input type="hidden" name='id' value={id} />
-                                        <label htmlFor="thumbnail">Select a picture</label>
-                                        <input type="file" name='thumbnail' className="form-control mb-1" placeholder="Upload a picture" onChange={(e)=>{setThumbnail(e.target.files[0])}} />
+                                        <label htmlFor="pic">Select a picture</label>
+                                        <input type="file" name={name} className="form-control mb-1" placeholder="Upload a thumbnail" onChange={(e)=>{setPic(e.target.files[0])}} />
                                         <button type="submit" name="submit" className="btn btn-primary">Update</button>
                                     </form>
                                 </div>

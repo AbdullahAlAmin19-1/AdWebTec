@@ -2,14 +2,21 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const EditCouponBody = ({ co_id }) => {
-    const [Coupon, setCoupons] = useState([]);
+    var [Coupon, setCoupons] = useState([]);
+
     const [id, setId] = useState("");
     const [code, setCode] = useState("");
     const [amount, setAmount] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/vendor/editCoupon" +co_id).then((succ) => {
+    // document.title='Coupon';
+    axios.get("http://localhost:8000/api/vendor/editCoupon/" +co_id).then((succ) => {
         setCoupons(succ.data);
+
+        
+        setId(succ.data.id);
+        setCode(succ.data.code);
+        setAmount(succ.data.amount);
         debugger;
     }, (err) => {
       alert("Not working");
@@ -58,7 +65,7 @@ const EditCouponBody = ({ co_id }) => {
                                                 </div>
                                                 <div className="form-outline">
                                                         <label className="form-label" for="code">Code</label>
-                                                        <input type="text" name="code" className="form-control form-control-lg" value={code} onChange={(e) => { setCode(e.target.value) }}/>
+                                                        <input type="text" name="code" className="form-control form-control-lg" placeholder="Enter name" value={code} onChange={(e) => { setCode(e.target.value) }}/>
                                                 </div>
                                                 <div className="form-outline">
                                                         <label className="form-label" for="amount">Amount</label>

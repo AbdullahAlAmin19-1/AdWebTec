@@ -81,8 +81,7 @@ const AddProductBody = () => {
                                                 </div>
                                             </div>
                                             <div className="d-flex justify-content-end pt-1">
-                                                <button type="button" className="btn btn-light btn-lg">Already have an account?</button>
-                                                <button type="submit" className="btn btn-warning btn-lg ms-2">Register</button>
+                                                <button type="submit" className="btn btn-warning btn-lg ms-2">Add</button>
                                             </div>
 
                                         </div>

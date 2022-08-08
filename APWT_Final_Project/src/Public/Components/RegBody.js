@@ -53,19 +53,19 @@ const RegBody = () => {
 
                                             <div className="form-check form-check-inline mb-0">
                                                 <input className="form-check-input" type="radio" name="user_type"
-                                                    value="Vendor" onClick={(e) => { setUser(e.target.value) }}/>
+                                                    id="vendor" value="Vendor" onClick={(e) => { setUser(e.target.value) }}/>
                                                 <label className="form-check-label" for="vendor">Vendor</label>
                                             </div>
 
                                             <div className="form-check form-check-inline mb-0">
                                                 <input className="form-check-input" type="radio" name="user_type"
-                                                    value="Customer" onClick={(e) => { setUser(e.target.value) }}/>
+                                                    id="customer" value="Customer" onClick={(e) => { setUser(e.target.value) }}/>
                                                 <label className="form-check-label" for="customer">Customer</label>
                                             </div>
 
                                             <div className="form-check form-check-inline mb-0">
                                                 <input className="form-check-input" type="radio" name="user_type"
-                                                    value="Deliveryman" onClick={(e) => { setUser(e.target.value) }}/>
+                                                    id="deliveryman" value="Deliveryman" onClick={(e) => { setUser(e.target.value) }}/>
                                                 <label className="form-check-label" for="deliveryman">Deliveryman</label>
                                             </div>
 
