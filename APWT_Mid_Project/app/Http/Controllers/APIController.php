@@ -87,7 +87,6 @@ class APIController extends Controller
     }
 
     function viewproduct($id){
-
         $products =Product::where('id', '=', $id)->first();
         return response()->json($products);
     }

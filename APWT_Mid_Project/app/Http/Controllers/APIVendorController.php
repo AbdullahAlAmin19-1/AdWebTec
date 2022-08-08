@@ -50,10 +50,7 @@ class APIVendorController extends Controller
 
     function updatedp(Request $req)
     {
-
         //Get user id and username here
-        //
-
         $no_id = 1;
         $no_username = "Al Amin";
 
@@ -141,16 +138,30 @@ class APIVendorController extends Controller
 
     function updateThumbnail(Request $req)
     {
-        $product = product::find($req->id);
-        $extension = $req->file('thumbnail')->getClientOriginalExtension();
-        $picname = $product->name.time().".".$extension;
-        $req->file('thumbnail')->storeAs('public/product_images', $picname);
-        $product->thumbnail = $picname;
-        $product->update();
-        if($product){
-            return response()->json(["msg"=>$ppName]);
+        if($req->hasfile('file')){
+            // $product = product::where('name', '=', $req->name)->first();
+            
+            $p= product::where('id', '=', $req->id)->first();
+            $extension = $req->file->getClientOriginalName();
+            $thumbnail = $product->name.time().$orgName;
+            $req->file->storeAs('public/product_images',$thumbnail);
+            $product->thumbnail = $thumbnail;
+            $product->update();
+            return response()->json(["msg"=>$thumbnail]);
         }
         return response()->json(["msg"=>"No file"]);
+        // 
+        // $extension = $req->file('thumbnail')->getClientOriginalExtension();
+        // $picname = $product->name.time().".".$extension;
+        
+        // $req->file('thumbnail')->storeAs('public/product_images', $picname);
+        // $product = product::find($req->id);
+        // $product->thumbnail = $picname;
+        // $product->update();
+        // if($product){
+        //     return response()->json(["msg"=>$ppName]);
+        // }
+        // return response()->json(["msg"=>"No file"]);
     }
 
     function deleteProduct($id){

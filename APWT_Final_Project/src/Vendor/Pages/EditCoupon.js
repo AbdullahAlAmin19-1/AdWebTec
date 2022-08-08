@@ -11,7 +11,7 @@ const EditCoupon = () => {
     <>
       <LogedHeader />
       <CouponBar />
-      <EditCouponBody co_id={id}/>
+       <EditCouponBody co_id={id}/> 
       <Footer />
     </>
   )
