@@ -9,9 +9,14 @@ import ProductByCategory from './Public/Pages/ProductByCategory';
 
 // Vendor
 import VAllProducts from './Vendor/Pages/AllProducts';
-import VAddProducts from './Vendor/Pages/AddProduct';
+import VAddProduct from './Vendor/Pages/AddProduct';
+import VEditProduct from './Vendor/Pages/EditProduct';
+import VDeleteProduct from './Vendor/Components/DeleteProduct';
 import VProfile from './Vendor/Pages/Profile';
-import VEditProfile from './Vendor/Pages/EditProfile.js';
+import VEditProfile from './Vendor/Pages/EditProfile';
+import VAllCoupons from './Vendor/Pages/AllCoupons';
+import VAddCoupon from './Vendor/Pages/AddCoupon';
+import VEditCoupon from './Vendor/Pages/EditCoupon';
 
 // Customer
 import Dashboard from './Customer/Pages/Dashboard';
@@ -24,6 +29,8 @@ import ViewProduct from './Public/Pages/ViewProduct';
 
 // Admin
 import AdminDashboard from './Admin/Pages/AdminDashboard';
+import Reviews from './Customer/Pages/Reviews';
+import ReviewUpdate from './Customer/Pages/ReviewUpdate';
 
 const Main = () => {
   return (
@@ -40,15 +47,23 @@ const Main = () => {
 
           {/* Vendor Routes */}
           <Route path="/vendor/allProducts" element={<VAllProducts />} />
-          <Route path="/vendor/addProduct" element={<VAddProducts />} />
+          <Route path="/vendor/addProduct" element={<VAddProduct />} />
+          <Route path="/vendor/editProduct/:id" element={<VEditProduct />} />
+          <Route path="/vendor/deleteProduct/:id" element={<VDeleteProduct />} />
           <Route path="/vendor/profile" element={<VProfile />} />
           <Route path="/vendor/editProfile/:id" element={<VEditProfile />} />
+          <Route path="/vendor/allCoupons" element={<VAllCoupons />} />
+          <Route path="/vendor/addCoupon" element={<VAddCoupon />} />
+          <Route path="/vendor/editCoupon/:id" element={<VEditCoupon />} />
+          <Route path="/vendor/deleteCoupon/:id" element={<VEditCoupon />} />
 
           {/* Customer Routes */}
           <Route path="/customer/dashboard" element={<Dashboard />} />
           <Route path="/customer/profileinfo" element={<ProfileInfo />} />
           <Route path="/customer/profileinfo/edit/:id" element={<EditProfile />} />
           <Route path="/customer/cart" element={<Cart />} />
+          <Route path="/customer/reviews" element={<Reviews />} />
+          <Route path="/customer/reviewupdate/:id" element={<ReviewUpdate />} />
 
 
           <Route path="/list" element={<VendorList />} />

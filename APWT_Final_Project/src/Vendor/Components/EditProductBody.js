@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const AddProduct = () => {
+const EditProductBody = ({p_id}) => {
     const [product, setProduct] = useState({});
     const [id, setId] = useState("");
     const [name, setName] = useState("");
@@ -12,9 +12,9 @@ const AddProduct = () => {
     const [stock, setStock] = useState("");
     const [size, setSize] = useState("");
     const [description, setDescription] = useState("");
-
+    // alert(id);
     useEffect(() => {
-        axios.get("http://localhost:8000/api/vendor/editProduct/{id}").then(
+        axios.get("http://localhost:8000/api/vendor/editProduct"+p_id).then(
             (succ) => {
                 setProduct(succ.data);
                 setId(succ.data.id);
@@ -27,7 +27,7 @@ const AddProduct = () => {
                 setDescription(succ.data.description);
                 debugger;
             },
-            (error) => {
+            (err) => {
                 debugger;
             }
         );
@@ -36,9 +36,9 @@ const AddProduct = () => {
     const handleForm = (event) => {
         event.preventDefault();
 
-        const data = {name: name, category: category, thumbnail: thumbnail, price: price, stock: stock, size: size, description: description };
+        const data = {id:id, name: name, category: category, price: price, stock: stock, size: size, description: description };
 
-        axios.post("http://localhost:8000/api/vendor/editProduct", data).
+        axios.post("http://localhost:8000/api/vendor/updateProduct", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 alert(succ.data.msg);
@@ -84,8 +84,8 @@ const AddProduct = () => {
                                 <p className="text-muted mb-1 text-center">Products, Grocery OS</p>
                                     <form className="form" onSubmit={handleThumbnail}>
                                         <input type="hidden" name='id' value={id} />
-                                        <label htmlFor="mydP">Select a picture</label>
-                                        <input type="file" name='mydp' className="form-control mb-1" placeholder="Upload a picture" onChange={(e)=>{setThumbnail(e.target.files[0])}} />
+                                        <label htmlFor="thumbnail">Select a picture</label>
+                                        <input type="file" name='thumbnail' className="form-control mb-1" placeholder="Upload a picture" onChange={(e)=>{setThumbnail(e.target.files[0])}} />
                                         <button type="submit" name="submit" className="btn btn-primary">Update</button>
                                     </form>
                                 </div>
@@ -135,7 +135,8 @@ const AddProduct = () => {
                                             <div className="row pt-2">
                                                 <div className="d-flex mb-2">
                                                     <button type="submit" className="btn btn-primary">Update</button>
-                                                    <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="/vendor/profile">Cancel</Link></button>
+                                                    <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to={`/vendor/deleteProduct/${id}`}>Delete</Link></button>
+                                                    <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="/vendor/allProducts">Cancel</Link></button>
                                                 </div>
                                             </div>
                                         </form>
@@ -150,4 +151,4 @@ const AddProduct = () => {
     )
 }
 
-export default AddProduct
+export default EditProductBody

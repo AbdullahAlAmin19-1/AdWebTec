@@ -35,17 +35,31 @@ Route::get('/users/user',[APIController::class,'user']);
 
 //Admin
 Route::get('/admin/profileinfo',[APIAdminController::class,'profileinfo']);
+
 //Vendor
-Route::get('/vendor/profile',[APIVendorController::class,'profile']);
+Route::get('/vendor/profile/{id}',[APIVendorController::class,'profile']);
 Route::post('/vendor/updateprofile',[APIVendorController::class,'updateprofile']);
 Route::post('/vendor/updatedp',[APIVendorController::class,'updatedp']);
 Route::post('/vendor/addProduct',[APIVendorController::class,'addProduct']);
 Route::get('/vendor/editProduct/{id}',[APIVendorController::class,'editProduct']);
+Route::get('/vendor/deleteProduct/{id}',[APIVendorController::class,'deleteProduct']);
 Route::post('/vendor/updateProduct',[APIVendorController::class,'updateProduct']);
 Route::post('/vendor/updateThumbnail',[APIVendorController::class,'updateThumbnail']);
+Route::get('/vendor/allCoupons',[APIVendorController::class,'allcoupons']);
+Route::post('/vendor/addCoupon',[APIVendorController::class,'addCoupon']);
+Route::get('/vendor/editCoupon/{id}',[APIVendorController::class,'editCoupon']);
+Route::post('/vendor/updateCoupon',[APIVendorController::class,'updateCoupon']);
+Route::get('/vendor/deleteCoupon/{id}',[APIVendorController::class,'deleteCoupon']);
 
 //Customer
-Route::get('/customer/profileinfo',[APICustomersController::class,'profileinfo']);
+Route::get('/customer/profileinfo/{id}',[APICustomersController::class,'profileinfo']);
 Route::post('/customer/updateprofile',[APICustomersController::class,'updateprofile']);
 Route::post('/customer/updatedp',[APICustomersController::class,'updatedp']);
+Route::post('/customer/addcart',[APICustomersController::class,'addcart']);
+Route::get('/customer/viewcart/{id}',[APICustomersController::class,'viewcart']);
+Route::post('/customer/cartproductremove',[APICustomersController::class,'cartproductremove']);
+Route::get('/customer/reviews/{id}',[APICustomersController::class,'reviews']);
+Route::get('reviewview/{id}',[APICustomersController::class,'reviewview']);
+Route::post('/customer/reviewupdate',[APICustomersController::class,'reviewupdate']);
+
 

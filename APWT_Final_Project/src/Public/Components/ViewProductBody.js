@@ -4,13 +4,16 @@ import axios from 'axios';
 
 const ViewProductBody = ({ value }) => {
     const [product, setProduct] = useState({});
+    const [quantity, setQuantity] = useState("1");
+
     var p_id = value;
+    var c_id = 1; //Getting dummy value
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/products/item/"+p_id).then(
+        axios.get("http://localhost:8000/api/products/item/" + p_id).then(
             (res) => {
                 setProduct(res.data);
-                // debugger;
+                debugger;
             },
             (error) => {
                 debugger;
@@ -18,6 +21,23 @@ const ViewProductBody = ({ value }) => {
 
         );
     }, []);
+
+
+    const addcartHandle = (event) => {
+        event.preventDefault();
+
+        const data = { p_id: p_id, c_id: c_id, quantity: quantity };
+        console.log(data);
+        axios.post("http://localhost:8000/api/customer/addcart", data).
+            then((succ) => {
+                //setMsg(succ.data.msg);
+                alert(succ.data.msg);
+                window.location.href="/customer/cart";
+
+            }, (err) => {
+                debugger;
+            })
+    }
 
     return (
         <>
@@ -48,38 +68,38 @@ const ViewProductBody = ({ value }) => {
                                             <h6 className="mb-2 text-primary">Product Details</h6>
                                         </div>
 
-                                        <form className="form">
+                                        <form className="form" onSubmit={addcartHandle}>
 
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <label className="text-muted" htmlFor="id">Product Name</label>
-                                                <input type="text" className="form-control" value={product.name} />
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <label className="text-muted" htmlFor="name">Product Name</label>
+                                                    <input type="text" className="form-control" value={product.name} />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-6">
-                                                <label className="text-muted" htmlFor="userame">Category</label>
-                                                <input type="text" className="form-control" value={product.category} />
+                                            <div className="row">
+                                                <div className="col-6">
+                                                    <label className="text-muted" htmlFor="category">Category</label>
+                                                    <input type="text" className="form-control" value={product.category} />
+                                                </div>
+                                                <div className="col-6">
+                                                    <label className="text-muted" htmlFor="price">Price (Tk)</label>
+                                                    <input type="text" className="form-control" value={product.price} />
+                                                </div>
                                             </div>
-                                            <div className="col-6">
-                                                <label className="text-muted" htmlFor="Name">Price (Tk)</label>
-                                                <input type="text" className="form-control" value={product.price} />
-                                            </div>
-                                        </div>
 
-                                        <div className="row">
-                                            <div className="col-12">
-                                                <label className="text-muted" htmlFor="id">Select Quantity</label>
-                                                <input type="number" className="form-control" min="1" value="1" />
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <label className="text-muted" htmlFor="quantity">Select Quantity</label>
+                                                    <input type="number" className="form-control" name="quantity" min="1" value={quantity} onChange={(e) => { setQuantity(e.target.value) }} />
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="row pt-2">
-                                            <div className="d-flex mb-2">
-                                                <button type="submit" className="btn btn-primary">Add To Cart</button>
-                                                <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="/">Go Back</Link></button>
+                                            <div className="row pt-2">
+                                                <div className="d-flex mb-2">
+                                                    <button type="submit" className="btn btn-primary">Add To Cart</button>
+                                                    <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="/">Go Back</Link></button>
+                                                </div>
                                             </div>
-                                        </div>
 
                                         </form>
 

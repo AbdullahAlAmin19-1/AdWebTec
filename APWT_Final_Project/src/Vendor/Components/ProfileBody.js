@@ -5,8 +5,10 @@ import axios from 'axios';
 const ProfileBody = () => {
     const [vendor, setVendor] = useState({});
 
+    var v_id = 1;
+
     useEffect(() => {
-        axios.get("http://localhost:8000/api/vendor/profile").then(
+        axios.get("http://localhost:8000/api/vendor/profile/"+v_id).then(
             (succ) => {
                 setVendor(succ.data);
                 // debugger;

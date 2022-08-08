@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const AddProduct = () => {
+const AddProductBody = () => {
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
     const [thumbnail, setThumbnail] = useState("");
@@ -33,7 +33,7 @@ const AddProduct = () => {
                             <div className="card card-addProduct my-4">
                                 <div className="row g-0">
                                     <div className="col-xl-6 d-none d-xl-block">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-addProduct/img4.webp"
+                                            <img src={`http://127.0.0.1:8000/storage/images/Product.png`}
                                             alt="Sample photo" className="img-fluid"
                                             style={{ bordertopleftradius: ".25rem", borderbottomleftradius: ".25rem;" }} />
                                     </div>
@@ -98,4 +98,4 @@ const AddProduct = () => {
     )
 }
 
-export default AddProduct
+export default AddProductBody
