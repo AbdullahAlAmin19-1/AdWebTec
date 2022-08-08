@@ -58,4 +58,8 @@ Route::post('/customer/updatedp',[APICustomersController::class,'updatedp']);
 Route::post('/customer/addcart',[APICustomersController::class,'addcart']);
 Route::get('/customer/viewcart/{id}',[APICustomersController::class,'viewcart']);
 Route::post('/customer/cartproductremove',[APICustomersController::class,'cartproductremove']);
+Route::get('/customer/reviews/{id}',[APICustomersController::class,'reviews']);
+Route::get('reviewview/{id}',[APICustomersController::class,'reviewview']);
+Route::post('/customer/reviewupdate',[APICustomersController::class,'reviewupdate']);
+
 

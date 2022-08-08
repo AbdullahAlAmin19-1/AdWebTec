@@ -14,6 +14,9 @@ const AdHeader = () => {
                                 <Link className="nav-link" to="#">Home</Link>
                             </li>
                             <li className="nav-item">
+                                <Link className="nav-link" to="#">Profile</Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link className="nav-link" to="#">Logout</Link>
                             </li>
                         </ul>

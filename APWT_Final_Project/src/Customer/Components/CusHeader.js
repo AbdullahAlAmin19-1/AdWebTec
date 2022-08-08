@@ -49,7 +49,7 @@ const CusHeader = () => {
                             <Link className="nav-link" to="#">Orders</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">Reviews</Link>
+                            <Link className="nav-link" to="/customer/reviews">Reviews</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="#">Coupons</Link>
