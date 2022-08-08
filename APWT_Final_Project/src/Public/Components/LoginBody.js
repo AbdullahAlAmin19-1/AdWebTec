@@ -16,7 +16,7 @@ const RegBody = () => {
         then((succ)=>{
             alert("Ok");
             console.log(succ.data);
-            if(succ.data.user_type=='Admin'){window.location.href="/customer/profileinfo";}
+            if(succ.data.user_type=='Admin'){window.location.href="/admin/dashboard";}
             if(succ.data.user_type=='Vendor'){window.location.href="/vendor/profile";}
             if(succ.data.user_type=='Customer'){window.location.href="/customer/profileinfo";}
             if(succ.data.user_type=='Deliveryman'){window.location.href="/customer/profileinfo";}
@@ -48,6 +48,11 @@ const RegBody = () => {
                                             <div className="d-md-flex justify-content-start align-items-center mb-4 py-2">
 
                                             <h6 className="mb-0 me-4">Login as: </h6>
+                                            <div className="form-check form-check-inline mb-0">
+                                                <input className="form-check-input" type="radio" name="user"
+                                                    value="Admin" onClick={(e) => { setUser(e.target.value) }}/>
+                                                <label className="form-check-label" for="Admin">Admin</label>
+                                            </div>
 
                                             <div className="form-check form-check-inline mb-0">
                                                 <input className="form-check-input" type="radio" name="user"
