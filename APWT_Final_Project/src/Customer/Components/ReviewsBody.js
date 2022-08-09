@@ -24,6 +24,20 @@ const ReviewsBody = () => {
         );
     }, []);
 
+    const handleDelete = (id)=>{
+        // alert(id);
+        const data = {r_id: id};
+            axios.post("http://localhost:8000/api/customer/reviewdelete", data).
+                then((succ) => {
+                    //setMsg(succ.data.msg);
+                    alert(succ.data.msg);
+                    window.location.reload();
+    
+                }, (err) => {
+                    debugger;
+                })
+    }
+
     return (
         <>
             <div className="container-fluid p-4">
@@ -106,8 +120,9 @@ const ReviewsBody = () => {
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td colSpan="2">
-                                                                    <button type="submit" className="btn btn-primary my-1" style={{ width: "100%" }}> <Link to={`/customer/reviewupdate/${item.id}`} className="nav-link" >Update Review</Link> </button>
+                                                                <td colSpan="2" className="text-center">
+                                                                    <button type="submit" className="btn btn-primary mx-1" style={{ width: "45%" }}> <Link to={`/customer/reviewupdate/${item.id}`} className="nav-link" >Update Review</Link> </button>
+                                                                    <button type="button" className="btn btn-danger" onClick={()=>{handleDelete(item.id)}} >Delete Review</button>
                                                                 </td>
                                                             </tr>
 

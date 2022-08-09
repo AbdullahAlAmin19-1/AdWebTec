@@ -26,7 +26,7 @@ const LoginBody = () => {
             console.log(localStorage.getItem('username'));
 
 
-            alert("Login Conpleted");
+            alert("Login Completed");
 
             if(succ.data.user_type=='Admin'){window.location.href="/admin/dashboard";}
             if(succ.data.user_type=='Vendor'){window.location.href="/vendor/profile";}

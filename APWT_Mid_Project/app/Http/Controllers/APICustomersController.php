@@ -147,4 +147,14 @@ class APICustomersController extends Controller
 
         return response()->json(["msg" => "Review has been updated!"]);
     }
+
+    function reviewdelete(Request $req){
+        
+        $review = review::find($req->r_id);
+
+        $review->message = null;
+        $review->update();
+
+        return response()->json(["msg" => "Review has been deleted!"]);
+    }
 }

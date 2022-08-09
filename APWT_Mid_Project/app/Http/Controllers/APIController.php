@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Datetime;
 use App\Models\vendor;
 use App\Models\customer;
+use App\Models\admin;
+use App\Models\deliveryman;
 use App\Models\req_deliveryman;
 use App\Models\Product;
 use App\Models\token;
@@ -53,7 +55,7 @@ class APIController extends Controller
         if($req->user_type=="Admin"){$user=admin::where('email','=',$req->email)->where('password',$req->password)->first();}
         elseif($req->user_type=="Vendor"){$user=vendor::where('email','=',$req->email)->where('password',$req->password)->first();}
         elseif($req->user_type=="Customer"){$user=customer::where('email','=',$req->email)->where('password',$req->password)->first();}
-        elseif($req->user_type=="Deliveryman"){$user=deliveryman::where('email','=',$req->email)->where('password',$req->password)->first();}
+        elseif($req->user_type=="Deliveryman"){$user=req_deliveryman::where('email','=',$req->email)->where('password',$req->password)->first();}
         if($user!=null){
             $key = Str::random(67);
             $token = new token();
