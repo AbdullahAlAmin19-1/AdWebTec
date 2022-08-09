@@ -23,8 +23,6 @@ class logged
                     ->whereNull('expired_at')
                      ->first();
             if($token){
-                session()->put('user_id',$request->header("user_id"));
-                session()->put('product_id',$request->header("product_id"));
                 return $next($request);
             }
             return response()->json(["msg"=>"Supplied Token is invalid or expired"],401);

@@ -5,6 +5,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use((config)=>{
     config.headers.common["Authorization"] = localStorage.getItem('_authToken');
+    config.headers.common["user_type"] = localStorage.getItem('user_type');
     config.headers.common["user_id"] = localStorage.getItem('user_id');
     config.headers.common["product_id"] = localStorage.getItem('product_id');
     return config;

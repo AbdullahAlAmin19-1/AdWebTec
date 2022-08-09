@@ -16,9 +16,13 @@ class authAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session()->get('user_type')=='Admin'){
+        // if(session()->get('user_type')=='Admin'){
+        //     return $next($request);
+        // }
+        // return redirect()->route('public.products');
+        if($request->header("user_type")=='Admin'){
             return $next($request);
         }
-        return redirect()->route('public.products');
+        return response()->json(["msg"=>"User Type not valid"],401);
     }
 }

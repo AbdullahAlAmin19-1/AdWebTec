@@ -15,7 +15,9 @@ class APIVendorController extends Controller
 {
     function __construct(){
         $this->middleware("authUser");
+        $this->middleware("vendor");
     }
+
     function profile($id)
     {
         $user = vendor::where('id', '=', $id)->first();
