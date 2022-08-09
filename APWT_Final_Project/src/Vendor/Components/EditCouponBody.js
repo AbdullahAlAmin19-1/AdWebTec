@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const EditCouponBody = ({ co_id }) => {
     var [Coupon, setCoupons] = useState([]);
@@ -9,8 +9,8 @@ const EditCouponBody = ({ co_id }) => {
     const [amount, setAmount] = useState("");
 
   useEffect(() => {
-    // document.title='Coupon';
-    axios.get("http://localhost:8000/api/vendor/editCoupon/" +co_id).then((succ) => {
+    document.title='Edit Coupon';
+    AxiosConfig.get("vendor/editCoupon/" +co_id).then((succ) => {
         setCoupons(succ.data);
 
         
@@ -24,11 +24,12 @@ const EditCouponBody = ({ co_id }) => {
     })
   }, []);
 
+
     const handleForm = (event) => {
         event.preventDefault();
         const data = {id: id, code: code, amount: amount};
         // alert(data.name);
-        axios.post("http://localhost:8000/api/vendor/updateCoupon",data).
+        AxiosConfig.post("vendor/updateCoupon",data).
         then((succ)=>{
             // debugger;
             // alert("Ok");

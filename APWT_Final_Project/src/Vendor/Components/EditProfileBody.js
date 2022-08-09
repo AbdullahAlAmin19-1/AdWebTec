@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const EditProfileBody = ({ v_id }) => {
     const [vendor, setVendor] = useState({});
@@ -18,7 +18,8 @@ const EditProfileBody = ({ v_id }) => {
     const [propic, setProPic] = useState("");
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/vendor/profile/"+v_id).then(
+        document.title='Edit Profile';
+        AxiosConfig.get("vendor/profile/"+v_id).then(
             (succ) => {
                 setVendor(succ.data);
                 setId(succ.data.id);
@@ -43,10 +44,11 @@ const EditProfileBody = ({ v_id }) => {
 
         const data = { id: id, name: name, username: username, email: email, phone: phone, gender: gender, dob: dob, address: address };
 
-        axios.post("http://localhost:8000/api/vendor/updateprofile", data).
+        AxiosConfig.post("vendor/updateprofile", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 alert(succ.data.msg);
+                localStorage.setItem('username',succ.data.user.username);
                 window.location.href="/vendor/profile";
                 // debugger;
             }, (err) => {
@@ -61,7 +63,7 @@ const EditProfileBody = ({ v_id }) => {
         var data = new FormData();
         data.append("file",pic,pic.name);
 
-        axios.post("http://localhost:8000/api/vendor/updatedp", data).
+        AxiosConfig.post("vendor/updatedp", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 alert(succ.data.msg);
@@ -116,7 +118,7 @@ const EditProfileBody = ({ v_id }) => {
                                             <div className="row">
                                                 <div className="col-6">
                                                     <label htmlFor="userame">Username</label>
-                                                    <input type="text" className="form-control" name='username' placeholder="Enter username" value={username} onChange={(e) => { setUsername(e.target.value) }} disabled/>
+                                                    <input type="text" className="form-control" name='username' placeholder="Enter username" value={username} onChange={(e) => { setUsername(e.target.value) }}/>
                                                 </div>
                                                 <div className="col-6">
                                                     <label htmlFor="Name">Name</label>

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../Services/AxiosConfig';
 import { Link } from "react-router-dom";
 
-const RegBody = () => {
+const LoginBody = () => {
     const [user, setUser] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -12,10 +12,22 @@ const RegBody = () => {
         const data={user_type:user,email:email,password:password,};
         console.log(data);
         // alert(data.name);
-        axios.post("http://localhost:8000/api/users/login",data).
+        AxiosConfig.post("users/login",data).
         then((succ)=>{
-            alert("Ok");
-            console.log(succ.data);
+            debugger;
+            //setTokens
+            localStorage.setItem('_authToken',succ.data.token.token_key);
+            localStorage.setItem('user_type',succ.data.user_type);
+            localStorage.setItem('user_id',succ.data.user.id);
+            localStorage.setItem('username',succ.data.user.username);
+            
+            console.log(localStorage.getItem('user_type'));
+            console.log(localStorage.getItem('user_id'));
+            console.log(localStorage.getItem('username'));
+
+
+            alert("Login Conpleted");
+
             if(succ.data.user_type=='Admin'){window.location.href="/admin/dashboard";}
             if(succ.data.user_type=='Vendor'){window.location.href="/vendor/profile";}
             if(succ.data.user_type=='Customer'){window.location.href="/customer/profileinfo";}
@@ -48,12 +60,7 @@ const RegBody = () => {
                                             <div className="d-md-flex justify-content-start align-items-center mb-4 py-2">
 
                                             <h6 className="mb-1">Login as:  </h6>
-                                            <div className="form-check form-check-inline mb-0">
-                                                <input className="form-check-input" type="radio" name="user"
-                                                    value="Admin" onClick={(e) => { setUser(e.target.value) }}/>
-                                                <label className="form-check-label" for="Admin">Admin</label>
-                                            </div>
-
+                                            
                                             <div className="form-check form-check-inline mb-0">
                                                 <input className="form-check-input" type="radio" name="user"
                                                     id="admin" value="Admin" onClick={(e) => { setUser(e.target.value) }}/>
@@ -108,4 +115,4 @@ const RegBody = () => {
     )
 }
 
-export default RegBody
+export default LoginBody

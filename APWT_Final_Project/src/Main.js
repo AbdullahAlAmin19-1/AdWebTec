@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './Public/Pages/LandingPage';
 import RegPage from './Public/Pages/RegPage';
 import LoginPage from './Public/Pages/LoginPage';
+import Logout from './Public/Components/Logout';
 import ProductByCategory from './Public/Pages/ProductByCategory';
 
 // Vendor
@@ -43,6 +44,7 @@ const Main = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/registration" element={<RegPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/categories/:category" element={<ProductByCategory />} />
           <Route path="/products/item/:id" element={<ViewProduct />} />
 
