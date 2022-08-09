@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const EditProductBody = ({p_id}) => {
     const [product, setProduct] = useState({});
@@ -17,8 +17,8 @@ const EditProductBody = ({p_id}) => {
     const [description, setDescription] = useState("");
     // alert(id);
     useEffect(() => {
-    // document.title='Product';
-        axios.get("http://localhost:8000/api/vendor/editProduct/"+p_id).then(
+    document.title='Edit Product';
+    AxiosConfig.get("vendor/editProduct/"+p_id).then(
             (succ) => {
                 setProduct(succ.data);
                 setId(succ.data.id);
@@ -42,7 +42,7 @@ const EditProductBody = ({p_id}) => {
 
         const data = {id:id, name: name, category: category, price: price, stock: stock, size: size, description: description };
 
-        axios.post("http://localhost:8000/api/vendor/updateProduct", data).
+        AxiosConfig.post("vendor/updateProduct", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 alert(succ.data.msg);
@@ -59,8 +59,10 @@ const EditProductBody = ({p_id}) => {
 
         var data = new FormData();
         data.append("file",pic,pic.name);
-        
-        axios.post("http://localhost:8000/api/vendor/updateThumbnail", data).
+
+        localStorage.setItem('product_id',id);
+
+        AxiosConfig.post("vendor/updateThumbnail", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 alert(succ.data.msg);

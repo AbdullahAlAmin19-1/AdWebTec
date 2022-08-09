@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../Services/AxiosConfig';
 import { Link } from 'react-router-dom';
 
 const Products = () => {
@@ -8,7 +8,7 @@ const Products = () => {
   const [p_id, setP_id] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/public/products").then((rsp) => {
+    AxiosConfig.get("public/products").then((rsp) => {
       setAllproducts(rsp.data);
       console.log(rsp.data);
     }, (er) => {

@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const ProfileBody = () => {
     const [vendor, setVendor] = useState({});
-
-    var v_id = 1;
-
+    
     useEffect(() => {
-        axios.get("http://localhost:8000/api/vendor/profile/"+v_id).then(
+        document.title='Profile';
+        AxiosConfig.get("vendor/profile/"+localStorage.getItem('user_id')).then(
             (succ) => {
                 setVendor(succ.data);
                 // debugger;

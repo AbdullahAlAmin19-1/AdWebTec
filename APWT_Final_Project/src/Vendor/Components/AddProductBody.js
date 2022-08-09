@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const AddProductBody = () => {
     const [name, setName] = useState("");
@@ -14,7 +14,7 @@ const AddProductBody = () => {
         event.preventDefault();
         const data = {name: name, category: category, thumbnail: thumbnail, price: price, stock: stock, size: size, description: description };
         // alert(data.name);
-        axios.post("http://localhost:8000/api/vendor/addProduct",data).
+        AxiosConfig.post("vendor/addProduct",data).
         then((succ)=>{
             //setMsg(succ.data.msg);
             alert("Ok");
@@ -23,7 +23,17 @@ const AddProductBody = () => {
             debugger;
         })
     }
-    
+
+    useEffect(() => {
+        document.title='Add Product';
+        AxiosConfig.post("vendor/addCoupon").
+        then((succ)=>{
+            debugger;
+        },(err)=>{
+            debugger;
+        })
+    }, []);
+
     return (
         <>
             <section className="bg-dark">

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../Services/AxiosConfig';
 
 const RegBody = () => {
     const [user, setUser] = useState("");
@@ -17,7 +17,7 @@ const RegBody = () => {
         event.preventDefault();
         const data={user_type:user,name:name,username:username,email:email,phone:phone,password:password,conf_pass:conf_pass,gender:gender,dob:dob,address:address};
         // alert(data.name);
-        axios.post("http://localhost:8000/api/users/registration",data).
+        AxiosConfig.post("users/registration",data).
         then((succ)=>{
             //setMsg(succ.data.msg);
             alert("Ok");
@@ -36,12 +36,12 @@ const RegBody = () => {
                         <div className="col">
                             <div className="card card-registration my-4">
                                 <div className="row g-0">
-                                    <div className="col-xl-6 d-none d-xl-block">
+                                    <div className="col-xl-5 d-none d-xl-block">
                                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
                                             alt="Sample photo" className="img-fluid"
                                             style={{ bordertopleftradius: ".25rem", borderbottomleftradius: ".25rem;" }} />
                                     </div>
-                                    <div className="col-xl-6">
+                                    <div className="col-xl-7">
                                         <form action="" onSubmit={handleForm}>
                                         <div className="card-body p-md-5 text-black">
                                             <h3 className="mb-5 text-uppercase">Registration form</h3>

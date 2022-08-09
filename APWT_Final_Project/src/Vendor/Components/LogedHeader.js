@@ -11,10 +11,10 @@ const LogedHeader = () => {
                     <div className="col-3">
                         <ul className="nav">
                             <li className="nav-item">
-                                <Link className="nav-link" to="/vendor/dashboard">Home</Link>
+                                <Link className="nav-link" to="/vendor/allProducts">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/">Logout</Link>
+                                <Link className="nav-link" to="/logout">Logout</Link>
                             </li>
                         </ul>
                     </div>
@@ -29,7 +29,7 @@ const LogedHeader = () => {
                     <div className="col-3">
                         <ul className="nav justify-content-end">
                             <li className="nav-item">
-                                <h6 className="text-white mt-2">Welcome! <span>Vendor, <span style={{ color: "red" }}><Link style={{textDecoration: 'none'}} to="/vendor/profile">Vendor Name</Link></span></span></h6>
+                                <h6 className="text-white mt-2">Welcome! <span>Vendor, <span style={{ color: "red" }}><Link style={{textDecoration: 'none'}} to="/vendor/profile">{localStorage.getItem('username')}</Link></span></span></h6>
                             </li>
                         </ul>
                     </div>
@@ -40,7 +40,7 @@ const LogedHeader = () => {
             <div className="col bg-dark p-2">
                     <ul className="nav justify-content-center">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/vendor/allproducts">Products</Link>
+                            <Link className="nav-link" to="/vendor/allProducts">Products</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/vendor/profile">Manage Account</Link>
