@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\vendor;
 use App\Models\customer;
+use App\Models\admin;
 use App\Models\req_deliveryman;
 use App\Models\Product;
 

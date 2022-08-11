@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\APIController;
 use App\Http\Controllers\APIVendorController;
 use App\Http\Controllers\APICustomersController;
-
+use App\Http\Controllers\APIAdminController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,8 +34,18 @@ Route::get('/products/item/{id}',[APIController::class,'viewproduct']);
 Route::get('/users/user',[APIController::class,'user']);
 
 //Admin
-Route::get('/admin/profileinfo',[APIAdminController::class,'profileinfo']);
-
+Route::get('/admin/profile/{id}',[APIAdminController::class,'profile']);
+Route::get('/admin/editprofile/{id}',[APIAdminController::class,'profile']);
+Route::post('/admin/updateprofile',[APIAdminController::class,'updateprofile']);
+Route::post('/admin/updatepropic',[APIAdminController::class,'updatepropic']);
+Route::post('/admin/sendnoticeupdate',[APIAdminController::class,'sendnoticeupdate']);
+Route::get('/admin/viewnotice',[APIAdminController::class,'viewallnotice']);
+Route::get('/admin/viewrequestedcoupon',[APIAdminController::class,'viewrequestedcoupon']);
+Route::get('/admin/viewcoupon',[APIAdminController::class,'viewcoupon']);
+Route::get('/admin/cancelcoupon/{id}',[APIAdminController::class,'cancelcoupon']);
+Route::get('/admin/approvecoupon/{id}',[APIAdminController::class,'approvecoupon']);
+Route::post('/admin/addcoupon',[APIAdminController::class,'addcoupon']);
+Route::get('/admin/removecoupon/{id}',[APIAdminController::class,'removecoupon']);
 //Vendor
 Route::get('/vendor/profile/{id}',[APIVendorController::class,'profile']);
 Route::post('/vendor/updateprofile',[APIVendorController::class,'updateprofile']);
