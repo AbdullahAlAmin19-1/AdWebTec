@@ -29,10 +29,21 @@ import Cart from './Customer/Pages/Cart';
 import VendorList from './Public/VendorList';
 import ViewProduct from './Public/Pages/ViewProduct';
 
-// Admin
-import AdminDashboard from './Admin/Pages/AdminDashboard';
+
 import Reviews from './Customer/Pages/Reviews';
 import ReviewUpdate from './Customer/Pages/ReviewUpdate';
+
+
+// Admin
+import AdminDashboard from './Admin/Pages/AdminDashboard';
+import Aprofile from './Admin/Pages/Aprofile';
+import Aeditprofile from './Admin/Pages/Aeditprofile'
+import Asendnotice from './Admin/Pages/Asendnotice';
+import Aviewnotice from './Admin/Pages/Aviewnotice';
+import Aapprovecoupon from './Admin/Pages/Aapprovecoupon';
+import Aaddcoupon from './Admin/Pages/Aaddcoupon';
+import Aviewcoupon from './Admin/Pages/Aviewcoupon';
+
 
 const Main = () => {
   return (
@@ -73,6 +84,13 @@ const Main = () => {
 
           {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/profile" element={<Aprofile />} />
+          <Route path="/admin/profile/edit/:id" element={<Aeditprofile />} />
+          <Route path="/admin/sendnotice" element={<Asendnotice />} />
+          <Route path="/admin/viewnotice" element={<Aviewnotice />} />
+          <Route path="/admin/approvecoupon" element={<Aapprovecoupon />} />
+          <Route path="/admin/addcoupon" element={<Aaddcoupon />} />
+          <Route path="/admin/viewcoupon" element={<Aviewcoupon />} />
         </Routes>
       </BrowserRouter>
     </div>
