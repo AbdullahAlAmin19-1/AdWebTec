@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 
@@ -8,7 +8,8 @@ const AllCouponsBody = () => {
   const [allCoupons, setAllCouponss] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/vendor/allCoupons").then((succ) => {
+    document.title='All Coupons';
+    AxiosConfig.get("vendor/allCoupons").then((succ) => {
         setAllCouponss(succ.data);
         console.log(succ.data);
     }, (err) => {

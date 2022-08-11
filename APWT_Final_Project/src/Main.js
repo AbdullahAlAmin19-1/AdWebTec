@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './Public/Pages/LandingPage';
 import RegPage from './Public/Pages/RegPage';
 import LoginPage from './Public/Pages/LoginPage';
+import Logout from './Public/Components/Logout';
 import ProductByCategory from './Public/Pages/ProductByCategory';
 
 // Vendor
@@ -17,6 +18,7 @@ import VEditProfile from './Vendor/Pages/EditProfile';
 import VAllCoupons from './Vendor/Pages/AllCoupons';
 import VAddCoupon from './Vendor/Pages/AddCoupon';
 import VEditCoupon from './Vendor/Pages/EditCoupon';
+import VDeleteCoupon from './Vendor/Components/DeleteCoupon';
 
 // Customer
 import Dashboard from './Customer/Pages/Dashboard';
@@ -53,6 +55,7 @@ const Main = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/registration" element={<RegPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/categories/:category" element={<ProductByCategory />} />
           <Route path="/products/item/:id" element={<ViewProduct />} />
 
@@ -66,7 +69,7 @@ const Main = () => {
           <Route path="/vendor/allCoupons" element={<VAllCoupons />} />
           <Route path="/vendor/addCoupon" element={<VAddCoupon />} />
           <Route path="/vendor/editCoupon/:id" element={<VEditCoupon />} />
-          <Route path="/vendor/deleteCoupon/:id" element={<VEditCoupon />} />
+          <Route path="/vendor/deleteCoupon/:id" element={<VDeleteCoupon />} />
 
           {/* Customer Routes */}
           <Route path="/customer/dashboard" element={<Dashboard />} />

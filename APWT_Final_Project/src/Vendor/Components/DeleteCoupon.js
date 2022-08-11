@@ -1,15 +1,17 @@
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from "react-router-dom"
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const DeleteCoupon = () => {
+    document.title='Delete Coupon';
     const{id} = useParams();
     useEffect(() => {
-        axios.get("http://localhost:8000/api/vendor/deleteCoupon"+id).then(
+        AxiosConfig.get("vendor/deleteCoupon/"+id).then(
             (succ) => {
                 debugger;
-                window.location.href="/Vendor/allProducts";
+                window.location.href="/Vendor/allCoupons";
+                alert("Coupon Deleted");
             },
             (err) => {
                 debugger;

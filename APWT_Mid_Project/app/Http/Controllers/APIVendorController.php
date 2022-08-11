@@ -13,6 +13,11 @@ use App\Models\coupon;
 
 class APIVendorController extends Controller
 {
+    function __construct(){
+        $this->middleware("authUser");
+        $this->middleware("vendor");
+    }
+
     function profile($id)
     {
         $user = vendor::where('id', '=', $id)->first();
@@ -43,31 +48,33 @@ class APIVendorController extends Controller
 
         return response()->json(
             [
-                "msg" => "Updated Successfully",
+                "user"=>$user, 
+                "msg" => "Updated Successfully"
             ]
         );
     }
 
     function updatedp(Request $req)
     {
-
         //Get user id and username here
-        //
-
-        $no_id = 1;
-        $no_username = "Al Amin";
+        $user = vendor::where('id', session()->get('user_id'))->first();
 
         if($req->hasfile('file')){
             $orgName = $req->file->getClientOriginalName();
-            $ppName = $no_username.time().$orgName;
+            $ppName = $user->username.time().$orgName;
             $req->file->storeAs('public/vendor_profile_images',$ppName);
 
-            $customer = vendor::find($no_id);
-            $customer->propic = $ppName;
-            $customer->update();
+            $user->propic = $ppName;
+            $user->update();
             return response()->json(["msg"=>$ppName]);
         }
         return response()->json(["msg"=>"No file"]);
+    }
+
+    function products()
+    {
+        $products = Product::all();
+        return response()->json($products);
     }
 
     function addProduct(Request $req){
@@ -141,14 +148,16 @@ class APIVendorController extends Controller
 
     function updateThumbnail(Request $req)
     {
-        $product = product::find($req->id);
-        $extension = $req->file('thumbnail')->getClientOriginalExtension();
-        $picname = $product->name.time().".".$extension;
-        $req->file('thumbnail')->storeAs('public/product_images', $picname);
-        $product->thumbnail = $picname;
-        $product->update();
-        if($product){
-            return response()->json(["msg"=>$ppName]);
+        $product = product::where('id', session()->get('product_id'))->first();
+
+        if($req->hasfile('file')){
+            $orgName = $req->file->getClientOriginalName();
+            $thumbnail = $product->name.time().$orgName;
+            $req->file->storeAs('public/product_images',$thumbnail);
+
+            $product->thumbnail = $thumbnail;
+            $product->update();
+            return response()->json(["msg"=>$thumbnail]);
         }
         return response()->json(["msg"=>"No file"]);
     }

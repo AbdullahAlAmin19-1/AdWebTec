@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const AddCouponBody = () => {
     const [codetype, setCodetype] = useState("");
@@ -10,16 +10,24 @@ const AddCouponBody = () => {
         event.preventDefault();
         const data = {codetype: codetype, code: code, amount: amount};
         // alert(data.name);
-        axios.post("http://localhost:8000/api/vendor/addCoupon",data).
+        AxiosConfig.post("vendor/addCoupon",data).
         then((succ)=>{
             // debugger;
-            // alert("Ok");
+            alert("Coupon Created");
             window.location.href="/vendor/allCoupons";
         },(err)=>{
             // debugger;
         })
     }
-    
+    useEffect(() => {
+        document.title='Add Coupon';
+        AxiosConfig.post("vendor/addCoupon").
+        then((succ)=>{
+            debugger;
+        },(err)=>{
+            debugger;
+        })
+      }, []);
     return (
         <>
             <section className="bg-dark">
@@ -56,7 +64,7 @@ const AddCouponBody = () => {
                                             </div>
                                             </div>
                                                 <div className="form-outline">
-                                                        <label className="form-label" for="code">Code</label>
+                                                        <label className="form-label" for="code">Code Digit(Auto) / Code(Manual)</label>
                                                         <input type="text" name="code" className="form-control form-control-lg" value={code} onChange={(e) => { setCode(e.target.value) }}/>
                                                 </div>
                                                 <div className="form-outline">

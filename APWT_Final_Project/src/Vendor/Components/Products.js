@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 import { Link } from 'react-router-dom';
 
 
@@ -9,21 +9,14 @@ const Products = () => {
   const [p_id, setP_id] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/public/products").then((rsp) => {
+    document.title='All Products';
+    AxiosConfig.get("vendor/products").then((rsp) => {
       setAllproducts(rsp.data);
       console.log(rsp.data);
     }, (er) => {
       alert("Not working");
     })
   }, []);
-
-  const addcartHandle = (event) => {
-    event.preventDefault();
-
-
-    alert(quantity);
-    alert(p_id);
-  }
 
   return (
     <>

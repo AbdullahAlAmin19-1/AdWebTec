@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const EditProfileBody = ({ v_id }) => {
     const [vendor, setVendor] = useState({});
 
-    const[mydp,setMydp] = useState("");
+    const[pic,setPic] = useState("");
 
     const [id, setId] = useState("");
     const [name, setName] = useState("");
@@ -18,7 +18,8 @@ const EditProfileBody = ({ v_id }) => {
     const [propic, setProPic] = useState("");
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/vendor/profile").then(
+        document.title='Edit Profile';
+        AxiosConfig.get("vendor/profile/"+v_id).then(
             (succ) => {
                 setVendor(succ.data);
                 setId(succ.data.id);
@@ -43,10 +44,11 @@ const EditProfileBody = ({ v_id }) => {
 
         const data = { id: id, name: name, username: username, email: email, phone: phone, gender: gender, dob: dob, address: address };
 
-        axios.post("http://localhost:8000/api/vendor/updateprofile", data).
+        AxiosConfig.post("vendor/updateprofile", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 alert(succ.data.msg);
+                localStorage.setItem('username',succ.data.user.username);
                 window.location.href="/vendor/profile";
                 // debugger;
             }, (err) => {
@@ -59,9 +61,9 @@ const EditProfileBody = ({ v_id }) => {
         event.preventDefault();
 
         var data = new FormData();
-        data.append("file",mydp,mydp.name);
+        data.append("file",pic,pic.name);
 
-        axios.post("http://localhost:8000/api/vendor/updatedp", data).
+        AxiosConfig.post("vendor/updatedp", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 alert(succ.data.msg);
@@ -89,8 +91,8 @@ const EditProfileBody = ({ v_id }) => {
                                 <p className="text-muted mb-1 text-center">Vendor, Grocery OS</p>
                                     <form className="form" onSubmit={handleDp}>
                                         <input type="hidden" name='id' value={id} />
-                                        <label htmlFor="mydP">Select a picture</label>
-                                        <input type="file" name='mydp' className="form-control mb-1" placeholder="Upload a picture" onChange={(e)=>{setMydp(e.target.files[0])}} />
+                                        <label htmlFor="pic">Select a picture</label>
+                                        <input type="file" name={username} className="form-control mb-1" placeholder="Upload Profile picture" onChange={(e)=>{setPic(e.target.files[0])}} />
                                         <button type="submit" name="submit" className="btn btn-primary">Update</button>
                                     </form>
                                 </div>
@@ -116,7 +118,7 @@ const EditProfileBody = ({ v_id }) => {
                                             <div className="row">
                                                 <div className="col-6">
                                                     <label htmlFor="userame">Username</label>
-                                                    <input type="text" className="form-control" name='username' placeholder="Enter username" value={username} onChange={(e) => { setUsername(e.target.value) }} />
+                                                    <input type="text" className="form-control" name='username' placeholder="Enter username" value={username} onChange={(e) => { setUsername(e.target.value) }}/>
                                                 </div>
                                                 <div className="col-6">
                                                     <label htmlFor="Name">Name</label>
@@ -126,7 +128,7 @@ const EditProfileBody = ({ v_id }) => {
                                             <div className="row">
                                                 <div className="col-6">
                                                     <label htmlFor="Email">Email</label>
-                                                    <input type="text" className="form-control" name='email' placeholder="Enter email" value={email} onChange={(e) => { setEmail(e.target.value) }} />
+                                                    <input type="text" className="form-control" name='email' placeholder="Enter email" value={email} onChange={(e) => { setEmail(e.target.value) }} disabled/>
                                                 </div>
                                                 <div className="col-6">
                                                     <label htmlFor="Phone">Phone</label>

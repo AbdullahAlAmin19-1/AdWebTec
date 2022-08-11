@@ -25,6 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Public
 Route::post('/users/registration',[APIController::class,'registration']);
 Route::post('/users/login',[APIController::class,'login']);
+Route::post('/users/logout',[APIController::class,'logout']);
 Route::get('/public/products',[APIController::class,'products']);
 // Route::get('/products/item',[APIController::class,'viewproduct']);
 
@@ -50,6 +51,7 @@ Route::get('/admin/removecoupon/{id}',[APIAdminController::class,'removecoupon']
 Route::get('/vendor/profile/{id}',[APIVendorController::class,'profile']);
 Route::post('/vendor/updateprofile',[APIVendorController::class,'updateprofile']);
 Route::post('/vendor/updatedp',[APIVendorController::class,'updatedp']);
+Route::get('/vendor/products',[APIVendorController::class,'products']);
 Route::post('/vendor/addProduct',[APIVendorController::class,'addProduct']);
 Route::get('/vendor/editProduct/{id}',[APIVendorController::class,'editProduct']);
 Route::get('/vendor/deleteProduct/{id}',[APIVendorController::class,'deleteProduct']);
@@ -71,5 +73,6 @@ Route::post('/customer/cartproductremove',[APICustomersController::class,'cartpr
 Route::get('/customer/reviews/{id}',[APICustomersController::class,'reviews']);
 Route::get('reviewview/{id}',[APICustomersController::class,'reviewview']);
 Route::post('/customer/reviewupdate',[APICustomersController::class,'reviewupdate']);
+Route::post('/customer/reviewdelete',[APICustomersController::class,'reviewdelete']);
 
 

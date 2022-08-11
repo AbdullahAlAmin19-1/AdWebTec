@@ -8,7 +8,12 @@ use Illuminate\Support\Facades\Validator;
 
 class APICustomersController extends Controller
 {
-    function profileinfo()
+    // function __construct(){
+    //     // $this->middleware("authUser");
+    //     // $this->middleware("customer");
+    // }
+    
+    function profileinfo($id)
     {
         // $id = session()->get('id');
         //Get customer id here
@@ -68,5 +73,15 @@ class APICustomersController extends Controller
             return response()->json(["msg"=>$ppName]);
         }
         return response()->json(["msg"=>"No file"]);
+    }
+
+    function reviewdelete(Request $req){
+        
+        $review = review::find($req->r_id);
+
+        $review->message = null;
+        $review->update();
+
+        return response()->json(["msg" => "Review has been deleted!"]);
     }
 }

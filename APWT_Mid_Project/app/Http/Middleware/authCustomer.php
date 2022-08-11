@@ -20,5 +20,9 @@ class authCustomer
             return $next($request);
         }
         return redirect()->route('public.products');
+        if($request->header("user_type")=='Customer'){
+            return $next($request);
+        }
+        return response()->json(["msg"=>"User Type not valid"],401);
     }
 }

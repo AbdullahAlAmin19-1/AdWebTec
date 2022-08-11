@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Datetime;
 use App\Models\vendor;
 use App\Models\customer;
 use App\Models\admin;
 use App\Models\req_deliveryman;
 use App\Models\Product;
+use App\Models\token;
 
 class APIController extends Controller
 {
@@ -51,13 +54,21 @@ class APIController extends Controller
         if($req->user_type=="Admin"){$user=admin::where('email','=',$req->email)->where('password',$req->password)->first();}
         elseif($req->user_type=="Vendor"){$user=vendor::where('email','=',$req->email)->where('password',$req->password)->first();}
         elseif($req->user_type=="Customer"){$user=customer::where('email','=',$req->email)->where('password',$req->password)->first();}
-        elseif($req->user_type=="Deliveryman"){$user=deliveryman::where('email','=',$req->email)->where('password',$req->password)->first();}
+        elseif($req->user_type=="Deliveryman"){$user=req_deliveryman::where('email','=',$req->email)->where('password',$req->password)->first();}
         if($user!=null){
+            $key = Str::random(67);
+            $token = new token();
+            $token->token_key = $key;
+            $token->user_id = $user->id;
+            $token->user_type = $req->user_type;
+            $token->created_at = new Datetime();
+            $token->save();
             return response()->json(
                 [
                     "msg"=>"Login Successfully",
-                    "user_type"=>$req->user_type,
-                    "data"=>$user        
+                    "user_type"=>$req->user_type, 
+                    "user"=>$user, 
+                    "token"=>$token      
                 ]
             );
         }
@@ -68,6 +79,14 @@ class APIController extends Controller
                 ]
                 );
         }
+    }
+
+    function logout(Request $req){
+        $key = $req->key;
+        $token = token::where('token_key',$key)->first();
+        $token->expired_at = new Datetime();
+        $token->save();
+        return response()->json(["msg"=>"Logged out"]);
     }
 
     //
@@ -88,7 +107,6 @@ class APIController extends Controller
     }
 
     function viewproduct($id){
-
         $products =Product::where('id', '=', $id)->first();
         return response()->json($products);
     }

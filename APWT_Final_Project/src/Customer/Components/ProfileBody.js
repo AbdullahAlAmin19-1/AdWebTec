@@ -8,6 +8,7 @@ const ProfileBody = () => {
     useEffect(() => {
 
         var c_id = 1; //Setting dummy value
+        
 
         axios.get("http://localhost:8000/api/customer/profileinfo/" + c_id).then(
             (res) => {
