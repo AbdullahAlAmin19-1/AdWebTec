@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import AxiosConfig from '../../Public/Services/AxiosConfig';
+import axios from 'axios';
 
-const EditProfileBody = ({ c_id }) => {
-    const [customer, setCustomer] = useState({});
+const Editprofile = ({ a_id }) => {
+    const [admin, setAdmin] = useState({});
 
     const [mydp, setMydp] = useState("");
 
@@ -18,12 +18,12 @@ const EditProfileBody = ({ c_id }) => {
     const [propic, setProPic] = useState("");
 
     useEffect(() => {
-        document.title='Grocery OS - Edit Profile';
-        var c_id = 1; //Setting dummy value
 
-        AxiosConfig.get("customer/profileinfo/" + c_id).then(
+        var a_id = 1; //Setting dummy value
+
+        axios.get("http://localhost:8000/api/admin/profile/" + a_id).then(
             (res) => {
-                setCustomer(res.data);
+                setAdmin(res.data);
 
                 setId(res.data.id);
                 setName(res.data.name);
@@ -47,11 +47,11 @@ const EditProfileBody = ({ c_id }) => {
 
         const data = { id: id, name: name, username: username, email: email, phone: phone, gender: gender, dob: dob, address: address };
 
-        AxiosConfig.post("customer/updateprofile", data).
+        axios.post("http://localhost:8000/api/admin/updateprofile", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
-                alert(succ.data.msg);
-                window.location.href = "/customer/profileinfo";
+                //alert(succ.data.msg);
+                window.location.href = "/admin/profile";
                 // debugger;
             }, (err) => {
                 debugger;
@@ -65,11 +65,11 @@ const EditProfileBody = ({ c_id }) => {
         var data = new FormData();
         data.append("file", mydp, mydp.name);
 
-        AxiosConfig.post("customer/updatedp", data).
+        axios.post("http://localhost:8000/api/admin/updatepropic", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
-                alert(succ.data.msg);
-                window.location.href = "/customer/profileinfo";
+                //alert(succ.data.msg);
+                window.location.href = "/admin/profile";
                 // debugger;
             }, (err) => {
                 debugger;
@@ -82,7 +82,7 @@ const EditProfileBody = ({ c_id }) => {
             <div className="container-fluid p-4">
                 <div className="card">
                     <div className="card-header">
-                        <h3 className="text-center">Customer Profile Edit</h3>
+                        <h3 className="text-center">Admin Profile Edit</h3>
                     </div>
                     <div className="card-body">
 
@@ -93,10 +93,10 @@ const EditProfileBody = ({ c_id }) => {
                                         <div className="user-profile">
                                             <div className='text-center'>
 
-                                                <img className="m-2 rounded" src={`http://127.0.0.1:8000/storage/cprofile_images/${propic}`}
-                                                    alt="customer avatar" style={{ width: "150px" }} />
+                                                <img className="m-2 rounded" src={`http://127.0.0.1:8000/storage/admin_profile_images/${propic}`}
+                                                    alt="admin avatar" style={{ width: "150px" }} />
                                             </div>
-                                            <p className="text-muted mb-1 text-center">Customer, Grocery OS</p>
+                                            <p className="text-muted mb-1 text-center">Admin, Grocery OS</p>
                                             <form className="form" onSubmit={handleDp}>
                                                 <input type="hidden" name='id' value={id} />
                                                 <label htmlFor="mydP">Select a picture</label>
@@ -126,7 +126,7 @@ const EditProfileBody = ({ c_id }) => {
                                                     <div className="row">
                                                         <div className="col-6">
                                                             <label htmlFor="userame">Username</label>
-                                                            <input type="text" className="form-control" name='username' placeholder="Enter username" value={username} onChange={(e) => { setUsername(e.target.value) }} />
+                                                            <input type="text" className="form-control" name='username' placeholder="Enter username" value={username} disabled />
                                                         </div>
                                                         <div className="col-6">
                                                             <label htmlFor="Name">Name</label>
@@ -136,7 +136,7 @@ const EditProfileBody = ({ c_id }) => {
                                                     <div className="row">
                                                         <div className="col-6">
                                                             <label htmlFor="Email">Email</label>
-                                                            <input type="text" className="form-control" name='email' placeholder="Enter email" value={email} onChange={(e) => { setEmail(e.target.value) }} disabled />
+                                                            <input type="text" className="form-control" name='email' placeholder="Enter email" value={email} disabled />
                                                         </div>
                                                         <div className="col-6">
                                                             <label htmlFor="Phone">Phone</label>
@@ -162,7 +162,7 @@ const EditProfileBody = ({ c_id }) => {
                                                     <div className="row pt-2">
                                                         <div className="d-flex mb-2">
                                                             <button type="submit" className="btn btn-primary">Update</button>
-                                                            <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="/customer/profileinfo">Cancel</Link></button>
+                                                            <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="/admin/profile">Cancel</Link></button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -180,4 +180,4 @@ const EditProfileBody = ({ c_id }) => {
     )
 }
 
-export default EditProfileBody
+export default Editprofile

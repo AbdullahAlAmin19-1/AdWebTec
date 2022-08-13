@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import AxiosConfig from '../../Public/Services/AxiosConfig';
+import axios from 'axios';
 
-const ProfileBody = () => {
-    const [customer, setCustomer] = useState({});
+const Profile = () => {
+    const [admin, setAdmin] = useState({});
 
     useEffect(() => {
-        document.title='Grocery OS - Profile';
-        var c_id = 1; //Setting dummy value
 
-        AxiosConfig.get("customer/profileinfo/" + c_id).then(
+        var a_id = 1; //Setting dummy value
+
+        axios.get("http://localhost:8000/api/admin/profile/" + a_id).then(
             (res) => {
-                setCustomer(res.data);
+                setAdmin(res.data);
                 // debugger;
             },
             (error) => {
@@ -27,7 +27,7 @@ const ProfileBody = () => {
             <div className="container-fluid p-4">
                 <div className="card">
                     <div className="card-header">
-                        <h3 className="text-center">Customer Profile Info</h3>
+                        <h3 className="text-center">Admin Profile</h3>
                     </div>
                     <div className="card-body">
 
@@ -35,13 +35,13 @@ const ProfileBody = () => {
                             <div className="col-4">
                                 <div className="card mb-4 mt-1">
                                     <div className="card-body text-center">
-                                        <img src={`http://127.0.0.1:8000/storage/cprofile_images/${customer.propic}`} alt="customer avatar"
+                                        <img src={`http://127.0.0.1:8000/storage/admin_profile_images/${admin.propic}`} alt="Admin avatar"
                                             className="rounded" style={{ width: "150px" }} />
-                                        <h5 className="my-3">{customer.username}</h5>
-                                        <p className="text-muted mb-1">Customer, Grocery OS</p>
-                                        <p className="text-muted mb-4">{customer.address}</p>
+                                        <h5 className="my-3">{admin.username}</h5>
+                                        <p className="text-muted mb-1">admin, Grocery OS</p>
+                                        <p className="text-muted mb-4">{admin.address}</p>
                                         <div className="d-flex justify-content-center mb-2">
-                                            <button type="button" className="btn btn-primary"><Link className='nav-link' to={`/customer/profileinfo/edit/${customer.id}`}>Edit Profile</Link></button>
+                                            <button type="button" className="btn btn-primary"><Link className='nav-link' to={`/admin/profile/edit/${admin.id}`}>Edit Profile</Link></button>
                                             <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="#">Change Password</Link></button>
                                         </div>
                                     </div>
@@ -61,44 +61,44 @@ const ProfileBody = () => {
                                                 <div className="row">
                                                     <div className="col-12">
                                                         <label className="text-muted" htmlFor="id">User ID</label>
-                                                        <input type="text" className="form-control" value={customer.id} />
+                                                        <input type="text" className="form-control" value={admin.id} disabled/>
                                                     </div>
                                                 </div>
                                                 <div className="row">
                                                     <div className="col-6">
                                                         <label className="text-muted" htmlFor="userame">Username</label>
-                                                        <input type="text" className="form-control" value={customer.username} />
+                                                        <input type="text" className="form-control" value={admin.username} disabled/>
                                                     </div>
                                                     <div className="col-6">
                                                         <label className="text-muted" htmlFor="Name">Name</label>
-                                                        <input type="text" className="form-control" value={customer.name} />
+                                                        <input type="text" className="form-control" value={admin.name} disabled/>
                                                     </div>
                                                 </div>
                                                 <div className="row">
                                                     <div className="col-6">
                                                         <label className="text-muted" htmlFor="Email">Email</label>
-                                                        <input type="text" className="form-control" value={customer.email} />
+                                                        <input type="text" className="form-control" value={admin.email} disabled/>
                                                     </div>
                                                     <div className="col-6">
                                                         <label className="text-muted" htmlFor="Phone">Phone</label>
-                                                        <input type="text" className="form-control" value={customer.phone} />
+                                                        <input type="text" className="form-control" value={admin.phone} disabled/>
                                                     </div>
                                                 </div>
                                                 <div className="row">
                                                     <div className="col-6">
                                                         <label className="text-muted" htmlFor="Gender">Gender</label>
-                                                        <input type="text" className="form-control" value={customer.gender} />
+                                                        <input type="text" className="form-control" value={admin.gender} disabled/>
                                                     </div>
                                                     <div className="col-6">
                                                         <label className="text-muted" htmlFor="Dob">Date Of Birth</label>
-                                                        <input type="date" className="form-control" value={customer.dob} />
+                                                        <input type="date" className="form-control" value={admin.dob} disabled/>
                                                     </div>
                                                 </div>
 
                                                 <div className="row">
                                                     <div className="col-12">
                                                         <label className="text-muted" htmlFor="Address">Address</label>
-                                                        <input type="text" className="form-control" value={customer.address} />
+                                                        <input type="text" className="form-control" value={admin.address} disabled/>
                                                     </div>
                                                 </div>
 
@@ -119,4 +119,4 @@ const ProfileBody = () => {
     )
 }
 
-export default ProfileBody
+export default Profile

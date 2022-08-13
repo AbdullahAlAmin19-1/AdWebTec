@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 import { Link } from 'react-router-dom';
 
 const ReviewsBody = () => {
@@ -9,13 +9,14 @@ const ReviewsBody = () => {
     var c_id = 1; //Getting dummy value
 
     useEffect(() => {
+        document.title='Grocery OS - Reviews';
 
-        axios.get("http://localhost:8000/api/customer/reviews/" + c_id).then(
+        AxiosConfig.get("customer/reviews/" + c_id).then(
             (res) => {
                 setReviews(res.data.reviews);
                 setPReviews(res.data.previews)
                 // console.log(res.data.previews);
-                // debugger;
+			// debugger;
             },
             (error) => {
                 debugger;
@@ -23,6 +24,20 @@ const ReviewsBody = () => {
 
         );
     }, []);
+
+    const handleDelete = (id)=>{
+        // alert(id);
+        const data = {r_id: id};
+        AxiosConfig.post("customer/reviewdelete", data).
+                then((succ) => {
+                    //setMsg(succ.data.msg);
+                    alert(succ.data.msg);
+                    window.location.reload();
+    
+                }, (err) => {
+                    debugger;
+                })
+    }
 
     return (
         <>
@@ -106,8 +121,9 @@ const ReviewsBody = () => {
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td colSpan="2">
-                                                                    <button type="submit" className="btn btn-primary my-1" style={{ width: "100%" }}> <Link to={`/customer/reviewupdate/${item.id}`} className="nav-link" >Update Review</Link> </button>
+                                                                <td colSpan="2" className="text-center">
+                                                                    <button type="submit" className="btn btn-primary mx-1" style={{ width: "45%" }}> <Link to={`/customer/reviewupdate/${item.id}`} className="nav-link" >Update Review</Link> </button>
+                                                                    <button type="button" className="btn btn-danger" onClick={()=>{handleDelete(item.id)}} >Delete Review</button>
                                                                 </td>
                                                             </tr>
 
