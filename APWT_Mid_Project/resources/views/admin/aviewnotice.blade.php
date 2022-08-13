@@ -26,7 +26,7 @@ View Notice
                     <td style="padding-top: 10px;">{{$notices->updated_at}}</td>
                 </tr>
                 <tr>
-                    <th style="padding-top: 10px;">ID</th>
+                    <th style="padding-top: 10px;">ID:</th>
                     @if($notices->user_type=="Vendor")
                     <td style="padding-top: 10px;">{{$notices->v_id}}</td>
                     @elseif($notices->user_type=="Customer")

@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import Table from 'react-bootstrap/Table';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
-const Viewnotice = () => {
+const Viewnotice = ({ n_id }) => {
     const [notices, setNotices] = useState([]);
     // const[cl, setCl]=useState();
     useEffect(() => {
-        axios.get("http://localhost:8000/api/admin/viewnotice").then(
+      document.title='View Notice';
+      AxiosConfig.get("admin/viewnotice/"+n_id).then(
             (res) => {
                 setNotices(res.data);
                 console.log(res.data);
@@ -23,32 +23,56 @@ const Viewnotice = () => {
 
     return(
         <>
-        
-    <Table striped bordered hover>
-    <thead>
-      <tr>
-        <th>Notice Id</th>
-        <th>User Type</th>
-        <th>Email</th>
-        <th>Subject</th>
-        <th>Message</th>
-      </tr>
-    </thead>
-    {notices.map((not) =>
-    <tbody>
-      <tr>
-        <td>{not.id}</td>
-        <td>{not.user_type}</td>
-        
-        {/* {not.v_id != null && <td>{not.vendor.name}</td>}
-        {not.c_id != null && <td>{not.customer.name}</td>} */}
-        <td>{not.email}</td>
-        <td>{not.subject}</td>
-        <td>{not.message}</td>
-      </tr>
-    </tbody>
-    )}
-  </Table>
+        <section className="bg-dark">
+            
+        <div className="container py-1">
+            
+        <div className="card card-registration my-6">
+                        <div className="col">
+                                <div className="row g-0">
+                                    <div className="col-xl-12">
+                                        <div className="card-body p-md-5 text-black">
+    <center>
+    <table>
+                <tr>
+                    <th >Date And Time:</th>
+                    <td >{notices.updated_at}</td>
+                </tr>
+                <tr>
+                    <th >ID:</th>
+                    {notices.user_type=="Vendor" && <td >{notices.v_id}</td>}
+                    {notices.user_type=="Customer" && <td >{notices.c_id}</td>}
+                </tr>
+                <tr>
+                    <th >To:</th>
+                    {notices.user_type=="Vendor" && <td >{notices.vendor.name}</td>}
+                    {notices.user_type=="Customer" && <td >{notices.customer.name}</td>}
+                </tr>
+                <tr>
+                    <th >Email:</th>
+                    <td >{notices.email}</td>
+                </tr>
+                <tr>
+                    <th >Subject:</th>
+                    <td >{notices.subject}</td>
+                </tr>
+                <tr>
+                    <th >Message:</th>
+                    <td >{notices.message}</td>
+                </tr>
+                <tr><th></th>
+                    <td><button type="button" className="btn btn-primary mt-1" style={{ width: "100%" }} ><Link className="nav-link" to={`/admin/editnotice/${notices.id}`}>Update Notice</Link></button></td>
+                </tr>
+  </table>
+  </center>
+  
+  </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+  </section>
   </>
         
     )

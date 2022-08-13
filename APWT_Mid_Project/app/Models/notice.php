@@ -11,7 +11,7 @@ use App\Models\admin;
 class notice extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    // protected $guarded = ['customer','vendor'];
 
     public function customer()
     {

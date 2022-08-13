@@ -1,17 +1,17 @@
 import AdHeader from "../Components/AdHeader"
 import { useParams } from "react-router-dom"
 import Footer from "../../Public/Components/Footer"
-import Viewnotice from "../Components/Viewnotice"
+import Editnotice from "../Components/Editnotice"
 
-const Aviewnotice = () => {
+const Aeditnotice = () => {
     const{id} = useParams();
   return (
     <>
     <AdHeader/>
-    <Viewnotice n_id={id}/>
+    <Editnotice n_id={id}/>
     <Footer/>
     </>
   )
 }
 
-export default Aviewnotice
+export default Aeditnotice

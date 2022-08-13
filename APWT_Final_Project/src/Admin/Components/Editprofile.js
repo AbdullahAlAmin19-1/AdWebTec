@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const Editprofile = ({ a_id }) => {
     const [admin, setAdmin] = useState({});
@@ -18,10 +18,8 @@ const Editprofile = ({ a_id }) => {
     const [propic, setProPic] = useState("");
 
     useEffect(() => {
-
-        var a_id = 1; //Setting dummy value
-
-        axios.get("http://localhost:8000/api/admin/profile/" + a_id).then(
+        document.title='Edit Profile';
+        AxiosConfig.get("admin/profile/" + a_id).then(
             (res) => {
                 setAdmin(res.data);
 
@@ -47,7 +45,7 @@ const Editprofile = ({ a_id }) => {
 
         const data = { id: id, name: name, username: username, email: email, phone: phone, gender: gender, dob: dob, address: address };
 
-        axios.post("http://localhost:8000/api/admin/updateprofile", data).
+        AxiosConfig.post("admin/updateprofile", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 //alert(succ.data.msg);
@@ -65,7 +63,7 @@ const Editprofile = ({ a_id }) => {
         var data = new FormData();
         data.append("file", mydp, mydp.name);
 
-        axios.post("http://localhost:8000/api/admin/updatepropic", data).
+        AxiosConfig.post("admin/updatepropic", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 //alert(succ.data.msg);

@@ -1,17 +1,28 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const Sendnotice = () => {
+    const [aid, setAid] = useState("");
     const [user, setUser] = useState("");
     const [email, setEmail] = useState("");
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
 
+    
+    useEffect(() => {
+        document.title='Send Notice';
+        AxiosConfig.post("admin/sendnoticeupdate").
+        then((succ)=>{
+            debugger;
+        },(err)=>{
+            debugger;
+        })
+      }, []);
     const handleForm = (event) => {
         event.preventDefault();
-        const data={user_type:user,email:email,subject:subject,message:message};
+        const data={user_type:user,a_id:1,email:email,subject:subject,message:message};
         // alert(data.name);
-        axios.post("http://localhost:8000/api/admin/sendnoticeupdate",data).
+        AxiosConfig.post("admin/sendnoticeupdate",data).
         then((succ)=>{
             //setMsg(succ.data.msg);
             debugger;
@@ -42,7 +53,7 @@ const Sendnotice = () => {
                                             <h6 className="mb-0 me-4">Send Notice To: </h6>
 
                                             <div className="form-check form-check-inline mb-0">
-                                                <input type="hidden" name="a_id" value="1"/>
+                                                <input type="hidden" name="a_id" value={1} onChange={(e) => { setAid(e.target.value) }}/>
                                                 <input className="form-check-input" type="radio" name="user_type"
                                                     value="Vendor" onClick={(e) => { setUser(e.target.value) }}/>
                                                 <label className="form-check-label" for="vendor">Vendor</label>
