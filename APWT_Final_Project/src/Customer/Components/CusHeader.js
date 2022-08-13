@@ -6,20 +6,20 @@ const CusHeader = () => {
 
     var c_id = 1; //Getting dummy value
 
-    useEffect(() => {
-        // document.title='Grocery OS - Cart';
-        AxiosConfig.get("customer/viewcart/" + c_id).then(
-          (res) => {
-            // setCartproducts(res.data);
-            // console.log(res.data);
-            // debugger;
-          },
-          (error) => {
-            debugger;
-          }
+    // useEffect(() => {
+    //     // document.title='Grocery OS - Cart';
+    //     AxiosConfig.get("customer/viewcart/" + c_id).then(
+    //       (res) => {
+    //         // setCartproducts(res.data);
+    //         // console.log(res.data);
+    //         // debugger;
+    //       },
+    //       (error) => {
+    //         debugger;
+    //       }
     
-        );
-      }, []);
+    //     );
+    //   }, []);
 
     return (
         <>
