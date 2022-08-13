@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const ReviewUpdateView = ({ value }) => {
 
@@ -10,7 +10,9 @@ const ReviewUpdateView = ({ value }) => {
     var r_id = value;
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/reviewview/" + r_id).then(
+        document.title='Grocery OS - Update Review';
+
+        AxiosConfig.get("reviewview/" + r_id).then(
             (res) => {
                 setReview(res.data);
                 setMessage(res.data.message);
@@ -30,7 +32,7 @@ const ReviewUpdateView = ({ value }) => {
 
         const data = { r_id: r_id, p_id: product.id, r_message: message };
         console.log(data);
-        axios.post("http://localhost:8000/api/customer/reviewupdate", data).
+        AxiosConfig.post("customer/reviewupdate", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 // alert(succ.data.msg);

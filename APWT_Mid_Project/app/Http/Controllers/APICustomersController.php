@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Validator;
 
 class APICustomersController extends Controller
 {
-    // function __construct(){
-    //     // $this->middleware("authUser");
-    //     // $this->middleware("customer");
-    // }
+
+    function __construct(){
+        $this->middleware("authUser");
+        $this->middleware("customer");
+    }
     
     function profileinfo($id)
     {
