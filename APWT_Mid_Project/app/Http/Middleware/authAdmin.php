@@ -16,10 +16,10 @@ class authAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session()->get('user_type')=='Admin'){
-            return $next($request);
-        }
-        return redirect()->route('public.products');
+        // if(session()->get('user_type')=='Admin'){
+        //     return $next($request);
+        // }
+        // return redirect()->route('public.products');
         if($request->header("user_type")=='Admin'){
             return $next($request);
         }

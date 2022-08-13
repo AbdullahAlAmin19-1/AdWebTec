@@ -11,8 +11,8 @@ use App\Models\review;
 class APICustomersController extends Controller
 {
     function __construct(){
-        // $this->middleware("authUser");
-        // $this->middleware("customer");
+        $this->middleware("authUser");
+        $this->middleware("customer");
     }
     
     function profileinfo($id)
@@ -115,6 +115,10 @@ class APICustomersController extends Controller
         $id = $req->cart_id;
         $carts = cart::where('id', $id)->delete();
         return response()->json(["msg" => "Product has been deleted successfully!"]);
+
+		// Check Comment
+		// Check Comment
+
     }
 
     function reviews($id){
