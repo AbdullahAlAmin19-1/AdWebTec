@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\customer;
+use App\Models\cart;
+use App\Models\review;
 
 class APICustomersController extends Controller
 {
-
     function __construct(){
         $this->middleware("authUser");
         $this->middleware("customer");
@@ -16,11 +17,8 @@ class APICustomersController extends Controller
     
     function profileinfo($id)
     {
-        // $id = session()->get('id');
-        //Get customer id here
-
         $customer = [];
-        $customer = customer::where('id', '=', 1)->first();
+        $customer = customer::where('id', '=', $id)->first();
         return response()->json($customer, 200);
     }
 
@@ -56,24 +54,101 @@ class APICustomersController extends Controller
 
     function updatedp(Request $req)
     {
-
-        //Get user id and username here
-        //
-
         $no_id = 1;
         $no_username = "MdRasen";
 
-        if($req->hasfile('file')){
+        if ($req->hasfile('file')) {
             $orgName = $req->file->getClientOriginalName();
-            $ppName = $no_username.time().$orgName;
-            $req->file->storeAs('public/cprofile_images',$ppName);
+            $ppName = $no_username . time() . $orgName;
+            $req->file->storeAs('public/cprofile_images', $ppName);
 
             $customer = customer::find($no_id);
             $customer->propic = $ppName;
             $customer->update();
-            return response()->json(["msg"=>$ppName]);
+            return response()->json(["msg" => $ppName]);
         }
-        return response()->json(["msg"=>"No file"]);
+        return response()->json(["msg" => "No file"]);
+    }
+
+    function addcart(Request $req)
+    {
+        $validator = Validator::make($req->all(), [
+            "quantity" => "required",
+            //Others validation here
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $c_id = $req->c_id;
+        $p_id = $req->p_id;
+
+        $cart = cart::where('p_id', $p_id)->where('c_id', $c_id)->get();
+
+        // return response()->json($cart);
+
+        if (count($cart) != null) {
+            $cart = cart::where('p_id', $p_id)->where('c_id', $c_id)->first();
+            $cart->quantity = $cart->quantity + $req->quantity;
+            $cart->update();
+
+            return response()->json(["msg" => "Product has been added successfully!"]);
+
+        } else {
+            $cart = new cart();
+            $cart->quantity = $req->quantity;
+            $cart->c_id = $c_id;
+            $cart->p_id = $req->p_id;
+            $cart->save();
+
+            return response()->json(["msg" => "Product has been added successfully!"]);
+        }
+    }
+
+    function viewcart($id){
+        $carts = cart::where('c_id', $id)->get();
+        return response()->json($carts);
+    }
+
+    function cartproductremove(Request $req){
+        $id = $req->cart_id;
+        $carts = cart::where('id', $id)->delete();
+        return response()->json(["msg" => "Product has been deleted successfully!"]);
+
+		// Check Comment
+
+    }
+
+    function reviews($id){
+
+        $reviews = review::where('c_id', $id)->where('message', '=', null)->get();
+        $previews = review::where('c_id', $id)->where('message', '!=', null)->get();
+        
+            if(count($reviews) !== 0 || count($previews) !== 0){
+                // return view("customer.cProductReview")->with('reviews', $reviews)->with('previews', $previews);
+                return response()->json(["reviews" => $reviews, "previews" => $previews]);
+            }
+    
+            else{
+                return response()->json(["msg" => "Your do not have any product for review!"]);
+            }
+    }
+
+    function reviewview($id){
+        $review = review::where('id', $id)->first();
+
+        return response()->json($review);
+    }
+
+    function reviewupdate(Request $req){
+        
+        $review = review::find($req->r_id);
+
+        $review->message = $req->r_message;
+        $review->update();
+
+        return response()->json(["msg" => "Review has been updated!"]);
     }
 
     function reviewdelete(Request $req){
