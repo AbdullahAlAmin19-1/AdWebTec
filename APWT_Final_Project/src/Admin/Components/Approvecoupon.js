@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 import Table from 'react-bootstrap/Table';
-import { Button } from 'bootstrap';
 
 
 const Approvecoupon = () => {
@@ -10,7 +8,8 @@ const Approvecoupon = () => {
   
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/admin/viewrequestedcoupon").then((succ) => {
+    document.title='Approve Coupon';
+    AxiosConfig.get("admin/viewrequestedcoupon").then((succ) => {
         setAllCouponss(succ.data);
         console.log(succ.data);
     }, (err) => {
@@ -20,10 +19,7 @@ const Approvecoupon = () => {
   }, []);
 
   const handleRemove = (id)=>{
-    // alert(id);
-    var co_id = id;
-    // const data = {co_id: id};
-        axios.get("http://localhost:8000/api/admin/cancelcoupon/"+ co_id).
+    AxiosConfig.get("admin/cancelcoupon/"+ id).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 alert(succ.data.msg);
@@ -34,9 +30,7 @@ const Approvecoupon = () => {
             })
  }
  const handleApprove = (id)=>{
-    // alert(id);
-    var co_id = id;
-        axios.get("http://localhost:8000/api/admin/approvecoupon/"+ co_id).
+    AxiosConfig.get("admin/approvecoupon/"+ id).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 alert(succ.data.msg);

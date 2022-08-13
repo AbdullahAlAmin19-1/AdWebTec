@@ -55,7 +55,7 @@ const AdHeader = () => {
                             <Link className="nav-link" to="/admin/approvecoupon">Approve Coupon</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/admin/viewnotice">View Notice</Link>
+                            <Link className="nav-link" to="/admin/viewallnotice">View Notices</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/admin/sendnotice">Notice</Link>

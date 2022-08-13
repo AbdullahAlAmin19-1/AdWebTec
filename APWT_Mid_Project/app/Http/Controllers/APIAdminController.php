@@ -77,8 +77,32 @@ class APIAdminController extends Controller
     }
 
     function viewallnotice(){
+        // $notice = notice::with(['customer','vendor'])->all();
         $notice = notice::all();
         return response()->json($notice, 200);
+    }
+    function viewnotice($id){
+        $notice = notice::where('id', $id)->with(['customer','vendor'])->first();
+        return response()->json($notice, 200);
+    }
+    
+    function editnoticeupdate(Request $vali){
+        $validator = Validator::make($vali->all(),[
+            "subject"=>"required",
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors());
+        }
+        $mail= notice::find($vali->id);
+        $mail->subject =$vali->subject;
+        $mail->message =$vali->message;
+        $mail->update();
+
+        return response()->json(
+            [
+                "msg"=>"Notice updated Successfully"
+            ]
+        );
     }
     function sendnoticeupdate(Request $vali){
         if($vali->user_type=="Vendor")
@@ -93,7 +117,7 @@ class APIAdminController extends Controller
             
             $mail= new notice();
             $mail->email =$vali->email;
-            // $mail->a_id =$vali->a_id;
+            $mail->a_id =$vali->a_id;
             $mail->v_id =$u->id;
             $mail->user_type =$vali->user_type;
             $mail->subject =$vali->subject;
@@ -111,7 +135,7 @@ class APIAdminController extends Controller
             
             $mail= new notice();
             $mail->email =$vali->email;
-            // $mail->a_id =$vali->a_id;
+            $mail->a_id =$vali->a_id;
             $mail->c_id =$u->id;
             $mail->user_type =$vali->user_type;
             $mail->subject =$vali->subject;
@@ -177,6 +201,27 @@ class APIAdminController extends Controller
     function viewcoupon(){
         $c = coupon::all();
         return response()->json($c, 200);
+    }
+    function editcoupon($id){
+        $c = coupon::where('id','=',$id)->first();
+        return response()->json($c, 200);
+    }
+    function editcouponupdate(Request $vali){
+        $validator = Validator::make($vali->all(),[
+            "code"=>"required",
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors());
+        }
+        $c= coupon::find($vali->id);
+        $c->code=$vali->code;
+        $c->amount=$vali->amount;
+        $c->update();
+        return response()->json(
+            [
+                "msg"=>"Coupon updated Successfully"
+            ]
+        );
     }
     function removecoupon($id){
 

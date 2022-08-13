@@ -33,14 +33,14 @@ View Notice
                     <td>{{$n->id}}</td>
                     @if($n->c_id!=null)
                     <td>Customer</td>
-                    <td><a href="{{route('admin.aviewnotice',['id'=>$n->id])}}" style="font-size: 15px;">{{$n->customer->name}}</a></td>
+                    <td>{{$n->customer->name}}</td>
                     <td>{{$n->customer->email}}</td>
                     @elseif($n->v_id!=null)
                     <td>Vendor</td>
-                    <td><a href="{{route('admin.aviewnotice',['id'=>$n->id])}}" style="font-size: 15px;">{{$n->vendor->name}}</a></td>
+                    <td>{{$n->vendor->name}}</td>
                     <td>{{$n->vendor->email}}</td>
                     @endif
-                    <td>{{$n->subject}}</td>
+                    <td><a href="{{route('admin.aviewnotice',['id'=>$n->id])}}" style="font-size: 15px;">{{$n->subject}}</a></td>
                 </tr>
                 @endforeach
             </table>

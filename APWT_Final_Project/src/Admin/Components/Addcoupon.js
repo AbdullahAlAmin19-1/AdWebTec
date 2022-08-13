@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const Addcoupon = () => {
     const [codetype, setCodetype] = useState("");
@@ -10,7 +10,7 @@ const Addcoupon = () => {
         event.preventDefault();
         const data = {codetype: codetype, code: code, amount: amount};
         // alert(data.name);
-        axios.post("http://localhost:8000/api/admin/addcoupon",data).
+        AxiosConfig.post("admin/addcoupon",data).
         then((succ)=>{
             // debugger;
             // alert("Ok");
@@ -19,7 +19,15 @@ const Addcoupon = () => {
             // debugger;
         })
     }
-    
+    useEffect(() => {
+        document.title='Add Coupon';
+        AxiosConfig.post("admin/addcoupon").
+        then((succ)=>{
+            debugger;
+        },(err)=>{
+            debugger;
+        })
+      }, []);
     return (
         <>
             <section className="bg-dark">

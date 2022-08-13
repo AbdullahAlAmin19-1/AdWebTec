@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 import Table from 'react-bootstrap/Table';
-import { Button } from 'bootstrap';
-
+import { Link } from 'react-router-dom';
 
 const Viewcoupon = () => {
   const [allCoupons, setAllCouponss] = useState([]);
   
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/admin/viewcoupon").then((succ) => {
+    
+    document.title='View Coupon';
+    AxiosConfig.get("admin/viewcoupon").then((succ) => {
         setAllCouponss(succ.data);
         console.log(succ.data);
     }, (err) => {
@@ -20,23 +20,7 @@ const Viewcoupon = () => {
   }, []);
 
   const handleRemove = (id)=>{
-    // alert(id);
-    var co_id = id;
-    // const data = {co_id: id};
-        axios.get("http://localhost:8000/api/admin/removecoupon/"+ co_id).
-            then((succ) => {
-                //setMsg(succ.data.msg);
-                alert(succ.data.msg);
-                window.location.reload();
-
-            }, (err) => {
-                debugger;
-            })
- }
- const handleApprove = (id)=>{
-    // alert(id);
-    var co_id = id;
-        axios.get("http://localhost:8000/api/admin/approvecoupon/"+ co_id).
+    AxiosConfig.get("admin/removecoupon/"+ id).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 alert(succ.data.msg);
@@ -55,7 +39,7 @@ const Viewcoupon = () => {
         <th>Coupon Id</th>
         <th>Coupon Code</th>
         <th>Discount Amount</th>
-        <th colspan="2">Action</th>
+        <th colSpan="2">Action</th>
       </tr>
     </thead>
     {allCoupons.map((coupon) =>
@@ -65,7 +49,7 @@ const Viewcoupon = () => {
         <td>{coupon.code}</td>
         <td>{coupon.amount}</td>
         <td>
-            <button type="button" className="btn btn-primary mt-1" style={{ width: "100%" }} >Edit</button></td><td>
+            <Link to={`/admin/editcoupon/${coupon.id}`}><button type="button" className="btn btn-primary mt-1" style={{ width: "100%" }} >Edit</button></Link></td><td>
             <button type="button" className="btn btn-primary mt-1" style={{ width: "100%" }} onClick={()=>{handleRemove(coupon.id)}}>Delete</button>
         </td>
       </tr>

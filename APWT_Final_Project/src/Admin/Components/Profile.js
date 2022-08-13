@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const Profile = () => {
     const [admin, setAdmin] = useState({});
 
     useEffect(() => {
-
+        document.title='Profile';
         var a_id = 1; //Setting dummy value
 
-        axios.get("http://localhost:8000/api/admin/profile/" + a_id).then(
+        AxiosConfig.get("admin/profile/" + a_id).then(
             (res) => {
                 setAdmin(res.data);
                 // debugger;
@@ -40,10 +40,6 @@ const Profile = () => {
                                         <h5 className="my-3">{admin.username}</h5>
                                         <p className="text-muted mb-1">admin, Grocery OS</p>
                                         <p className="text-muted mb-4">{admin.address}</p>
-                                        <div className="d-flex justify-content-center mb-2">
-                                            <button type="button" className="btn btn-primary"><Link className='nav-link' to={`/admin/profile/edit/${admin.id}`}>Edit Profile</Link></button>
-                                            <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="#">Change Password</Link></button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -99,6 +95,15 @@ const Profile = () => {
                                                     <div className="col-12">
                                                         <label className="text-muted" htmlFor="Address">Address</label>
                                                         <input type="text" className="form-control" value={admin.address} disabled/>
+                                                        <br/>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-12">
+                                                        <div className="d-flex justify-content-center mb-2">
+                                                            <button type="button" className="btn btn-primary"><Link className='nav-link' to={`/admin/profile/edit/${admin.id}`}>Edit Profile</Link></button>
+                                                            <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="#">Change Password</Link></button>
+                                                        </div>
                                                     </div>
                                                 </div>
 

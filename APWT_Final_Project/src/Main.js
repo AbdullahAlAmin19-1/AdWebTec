@@ -39,10 +39,13 @@ import AdminDashboard from './Admin/Pages/AdminDashboard';
 import Aprofile from './Admin/Pages/Aprofile';
 import Aeditprofile from './Admin/Pages/Aeditprofile'
 import Asendnotice from './Admin/Pages/Asendnotice';
+import Aviewallnotice from './Admin/Pages/Aviewallnotice';
 import Aviewnotice from './Admin/Pages/Aviewnotice';
+import Aeditnotice from './Admin/Pages/Aeditnotice';
 import Aapprovecoupon from './Admin/Pages/Aapprovecoupon';
 import Aaddcoupon from './Admin/Pages/Aaddcoupon';
 import Aviewcoupon from './Admin/Pages/Aviewcoupon';
+import Aeditcoupon from './Admin/Pages/Aeditcoupon';
 
 
 const Main = () => {
@@ -87,7 +90,10 @@ const Main = () => {
           <Route path="/admin/profile" element={<Aprofile />} />
           <Route path="/admin/profile/edit/:id" element={<Aeditprofile />} />
           <Route path="/admin/sendnotice" element={<Asendnotice />} />
-          <Route path="/admin/viewnotice" element={<Aviewnotice />} />
+          <Route path="/admin/viewallnotice" element={<Aviewallnotice />} />
+          <Route path="/admin/viewnotice/:id" element={<Aviewnotice />} />
+          <Route path="/admin/editnotice/:id" element={<Aeditnotice />} />
+          <Route path="/admin/editcoupon/:id" element={<Aeditcoupon />} />
           <Route path="/admin/approvecoupon" element={<Aapprovecoupon />} />
           <Route path="/admin/addcoupon" element={<Aaddcoupon />} />
           <Route path="/admin/viewcoupon" element={<Aviewcoupon />} />
