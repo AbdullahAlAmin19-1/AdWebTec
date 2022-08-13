@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const EditProfileBody = ({ c_id }) => {
     const [customer, setCustomer] = useState({});
@@ -18,10 +18,10 @@ const EditProfileBody = ({ c_id }) => {
     const [propic, setProPic] = useState("");
 
     useEffect(() => {
-
+        document.title='Grocery OS - Edit Profile';
         var c_id = 1; //Setting dummy value
 
-        axios.get("http://localhost:8000/api/customer/profileinfo/" + c_id).then(
+        AxiosConfig.get("customer/profileinfo/" + c_id).then(
             (res) => {
                 setCustomer(res.data);
 
@@ -47,7 +47,7 @@ const EditProfileBody = ({ c_id }) => {
 
         const data = { id: id, name: name, username: username, email: email, phone: phone, gender: gender, dob: dob, address: address };
 
-        axios.post("http://localhost:8000/api/customer/updateprofile", data).
+        AxiosConfig.post("customer/updateprofile", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 alert(succ.data.msg);
@@ -65,7 +65,7 @@ const EditProfileBody = ({ c_id }) => {
         var data = new FormData();
         data.append("file", mydp, mydp.name);
 
-        axios.post("http://localhost:8000/api/customer/updatedp", data).
+        AxiosConfig.post("customer/updatedp", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 alert(succ.data.msg);
@@ -136,7 +136,7 @@ const EditProfileBody = ({ c_id }) => {
                                                     <div className="row">
                                                         <div className="col-6">
                                                             <label htmlFor="Email">Email</label>
-                                                            <input type="text" className="form-control" name='email' placeholder="Enter email" value={email} onChange={(e) => { setEmail(e.target.value) }} />
+                                                            <input type="text" className="form-control" name='email' placeholder="Enter email" value={email} onChange={(e) => { setEmail(e.target.value) }} disabled />
                                                         </div>
                                                         <div className="col-6">
                                                             <label htmlFor="Phone">Phone</label>

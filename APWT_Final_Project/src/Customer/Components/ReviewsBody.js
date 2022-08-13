@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 import { Link } from 'react-router-dom';
 
 const ReviewsBody = () => {
@@ -9,13 +9,14 @@ const ReviewsBody = () => {
     var c_id = 1; //Getting dummy value
 
     useEffect(() => {
+        document.title='Grocery OS - Reviews';
 
-        axios.get("http://localhost:8000/api/customer/reviews/" + c_id).then(
+        AxiosConfig.get("customer/reviews/" + c_id).then(
             (res) => {
                 setReviews(res.data.reviews);
                 setPReviews(res.data.previews)
                 // console.log(res.data.previews);
-                // debugger;
+			// debugger;
             },
             (error) => {
                 debugger;
@@ -27,7 +28,7 @@ const ReviewsBody = () => {
     const handleDelete = (id)=>{
         // alert(id);
         const data = {r_id: id};
-            axios.post("http://localhost:8000/api/customer/reviewdelete", data).
+        AxiosConfig.post("customer/reviewdelete", data).
                 then((succ) => {
                     //setMsg(succ.data.msg);
                     alert(succ.data.msg);
