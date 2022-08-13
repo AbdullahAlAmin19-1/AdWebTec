@@ -117,6 +117,7 @@ class APICustomersController extends Controller
         return response()->json(["msg" => "Product has been deleted successfully!"]);
 
 		// Check Comment
+		// Check Comment
 
     }
 
