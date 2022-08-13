@@ -115,6 +115,9 @@ class APICustomersController extends Controller
         $id = $req->cart_id;
         $carts = cart::where('id', $id)->delete();
         return response()->json(["msg" => "Product has been deleted successfully!"]);
+
+		// Check Comment
+
     }
 
     function reviews($id){
