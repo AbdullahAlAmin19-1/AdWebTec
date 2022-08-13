@@ -1,6 +1,26 @@
 import { Link } from 'react-router-dom';
+import { useEffect} from "react";
+import AxiosConfig from '../../Public/Services/AxiosConfig'
 
 const CusHeader = () => {
+
+    var c_id = 1; //Getting dummy value
+
+    // useEffect(() => {
+    //     // document.title='Grocery OS - Cart';
+    //     AxiosConfig.get("customer/viewcart/" + c_id).then(
+    //       (res) => {
+    //         // setCartproducts(res.data);
+    //         // console.log(res.data);
+    //         // debugger;
+    //       },
+    //       (error) => {
+    //         debugger;
+    //       }
+    
+    //     );
+    //   }, []);
+
     return (
         <>
             <div className="container-fluid">
@@ -14,7 +34,7 @@ const CusHeader = () => {
                                 <Link className="nav-link" to="/customer/dashboard">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/">Logout</Link>
+                                <Link className="nav-link" to="/logout">Logout</Link>
                             </li>
                         </ul>
                     </div>

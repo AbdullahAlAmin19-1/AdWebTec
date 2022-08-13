@@ -1,16 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const ProfileBody = () => {
     const [customer, setCustomer] = useState({});
 
     useEffect(() => {
-
+        document.title='Grocery OS - Profile';
         var c_id = 1; //Setting dummy value
-        
 
-        axios.get("http://localhost:8000/api/customer/profileinfo/" + c_id).then(
+        AxiosConfig.get("customer/profileinfo/" + c_id).then(
             (res) => {
                 setCustomer(res.data);
                 // debugger;

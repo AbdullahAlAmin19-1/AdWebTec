@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const CartBody = () => {
 
@@ -8,8 +8,9 @@ const CartBody = () => {
   var c_id = 1; //Getting dummy value
 
   useEffect(() => {
+    document.title='Grocery OS - Cart';
 
-    axios.get("http://localhost:8000/api/customer/viewcart/" + c_id).then(
+    AxiosConfig.get("customer/viewcart/" + c_id).then(
       (res) => {
         setCartproducts(res.data);
         console.log(res.data);
@@ -25,7 +26,7 @@ const CartBody = () => {
   const handleRemove = (id)=>{
     // alert(id);
     const data = {cart_id: id};
-        axios.post("http://localhost:8000/api/customer/cartproductremove", data).
+    AxiosConfig.post("customer/cartproductremove", data).
             then((succ) => {
                 //setMsg(succ.data.msg);
                 alert(succ.data.msg);
