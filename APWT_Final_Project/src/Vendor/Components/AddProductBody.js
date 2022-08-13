@@ -69,10 +69,10 @@ const AddProductBody = () => {
                                                         <label className="form-label" for="username">Category</label>
                                                     </div>
                                                 </div>
-                                                <div className="form-outline">
-                                                        <label className="form-label" for="email">Thumbnail</label>
+                                                {/* <div className="form-outline">
+                                                        <label className="form-label" for="thumbnail">Thumbnail</label>
                                                         <input type="file" name="thumbnail" className="form-control form-control-lg" value={thumbnail} onChange={(e) => { setThumbnail(e.target.value) }}/>
-                                                </div>
+                                                </div> */}
                                                 <div className="form-outline">
                                                         <label className="form-label" for="price">Price</label>
                                                         <input type="text" name="price" className="form-control form-control-lg" value={price} onChange={(e) => { setPrice(e.target.value) }}/>
