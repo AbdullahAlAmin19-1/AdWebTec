@@ -87,10 +87,15 @@ class APIVendorController extends Controller
 
         $thumbnail = null;
 
+        // if($req->thumbnail!=null){
+        //     $extension = $req->file('thumbnail')->getClientOriginalExtension();
+        //     $thumbnail = $req->name.time().".".$extension;
+        //     $req->file('thumbnail')->storeAs('public/product_images', $thumbnail);
+        // }
         if($req->thumbnail!=null){
-            $extension = $req->file('thumbnail')->getClientOriginalExtension();
-            $thumbnail = $req->name.time().".".$extension;
-            $req->file('thumbnail')->storeAs('public/product_images', $thumbnail);
+            $orgName = $req->file->getClientOriginalName();
+            $thumbnail = $req->name.time().$orgName;
+            $req->file->storeAs('public/product_images',$thumbnail);
         }
 
         $p=new product();

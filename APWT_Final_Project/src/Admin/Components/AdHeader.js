@@ -11,13 +11,13 @@ const AdHeader = () => {
                     <div className="col-3">
                         <ul className="nav">
                             <li className="nav-item">
-                                <Link className="nav-link" to="#">Home</Link>
+                                <Link className="nav-link" to="/admin/dashboard">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="#">Profile</Link>
+                                <Link className="nav-link" to="/admin/profile">Profile</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="#">Logout</Link>
+                                <Link className="nav-link" to="/">Logout</Link>
                             </li>
                         </ul>
                     </div>
@@ -32,7 +32,7 @@ const AdHeader = () => {
                     <div className="col-3">
                         <ul className="nav justify-content-end">
                             <li className="nav-item">
-                                <h6 className="text-white mt-2">Welcome! <span>Admin, <span style={{ color: "red" }}><Link style={{textDecoration: 'none'}} to="/customer/profileinfo">MdRasen</Link></span></span></h6>
+                                <h6 className="text-white mt-2">Welcome! <span>Admin, <span style={{ color: "red" }}><Link style={{textDecoration: 'none'}} to="/admin/profile">Admin</Link></span></span></h6>
                             </li>
                         </ul>
                     </div>
@@ -46,19 +46,19 @@ const AdHeader = () => {
                             <Link className="nav-link" to="#">User</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">Approve</Link>
+                            <Link className="nav-link" to="/admin/viewcoupon">View Coupon</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">Products</Link>
+                            <Link className="nav-link" to="/admin/addcoupon">Add Coupon</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">Coupons</Link>
+                            <Link className="nav-link" to="/admin/approvecoupon">Approve Coupon</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">Orders</Link>
+                            <Link className="nav-link" to="/admin/viewnotice">View Notice</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">Notice</Link>
+                            <Link className="nav-link" to="/admin/sendnotice">Notice</Link>
                         </li>
                     </ul>
             </div>
