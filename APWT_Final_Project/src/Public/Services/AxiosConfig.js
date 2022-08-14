@@ -15,7 +15,7 @@ instance.interceptors.response.use((rsp)=>{
     return rsp;
 },(err)=>{
     if(err.response.status == 401){
-        window.location.href="/";
+        window.location.href="/login";
     }
     return Promise.reject(err);
 });
