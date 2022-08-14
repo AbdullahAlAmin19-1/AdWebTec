@@ -7,7 +7,7 @@ const Logout = () => {
         AxiosConfig.post("users/logout",data).then(
             (succ) => {
                 // debugger;
-                alert("LogedOut");
+                alert("User has been logged out successfully!");
                 console.log(succ.data);
                 window.location.href="/";
             },

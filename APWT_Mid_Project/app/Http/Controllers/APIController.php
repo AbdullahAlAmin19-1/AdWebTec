@@ -18,11 +18,28 @@ class APIController extends Controller
 {
     function registration(Request $req){
         $validator = Validator::make($req->all(),[
-            "name"=>"required",
+            "user_type"=>"required",
+            "name"=>"required|regex:/^[A-Z a-z,.-]+$/i",
+            "username"=>"required|unique:vendors|unique:customers|unique:deliverymen",
+            "email"=>"required|email|unique:vendors|unique:customers|unique:deliverymen",
+            "phone"=>"required|numeric|digits:10",
+            "password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+            "conf_password"=>"required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:password",
+            "gender"=>"required",
+            "dob"=>"required|before:-10 years",
+            "address"=>"required"
+        ],
+        [
+            'name.regex' => 'Name cannot contain special characters or numbers.',
+            'password.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+            'conf_password.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+            'dob.before' => 'User must be 10 years or older.',
         ]);
+
         if($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(),422);
         }
+
         if($req->user_type=="Vendor"){$user = new vendor();}
         elseif($req->user_type=="Customer"){$user = new customer();}
         elseif($req->user_type=="Deliveryman"){$user = new req_deliveryman();}
@@ -45,10 +62,15 @@ class APIController extends Controller
 
     function login(Request $req){
         $validator = Validator::make($req->all(),[
-            "email"=>"required",
+            "user_type"=>"required",
+            "email"=>"required|email",
+            "password"=>"required|min:8"
+        ],
+        [
+            'password.regex' => 'Must contain special character, number, uppercase and lowercase letter.'
         ]);
         if($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(),422);
         }
         $user=null;
         if($req->user_type=="Admin"){$user=admin::where('email','=',$req->email)->where('password',$req->password)->first();}
@@ -65,7 +87,7 @@ class APIController extends Controller
             $token->save();
             return response()->json(
                 [
-                    "msg"=>"Login Successfully",
+                    "login_msg"=>"Login Successfull",
                     "user_type"=>$req->user_type, 
                     "user"=>$user, 
                     "token"=>$token      
@@ -75,7 +97,7 @@ class APIController extends Controller
         else{
             return response()->json(
                 [
-                    "msg"=>"Login Faild"
+                    "msg"=>"Username/Password is invalid"
                 ]
                 );
         }
