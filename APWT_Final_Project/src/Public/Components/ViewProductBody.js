@@ -7,7 +7,9 @@ const ViewProductBody = ({ value }) => {
     const [quantity, setQuantity] = useState("1");
 
     var p_id = value;
-    var c_id = 1; //Getting dummy value
+    // var c_id = 1; //Getting dummy value
+
+    var c_id = localStorage.getItem('user_id')
 
     useEffect(() => {
         AxiosConfig.get("products/item/" + p_id).then(

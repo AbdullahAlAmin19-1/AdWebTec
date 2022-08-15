@@ -19,7 +19,9 @@ const EditProfileBody = ({ c_id }) => {
 
     useEffect(() => {
         document.title='Grocery OS - Edit Profile';
-        var c_id = 1; //Setting dummy value
+        // var c_id = 1; //Setting dummy value
+
+        var c_id = localStorage.getItem('user_id');
 
         AxiosConfig.get("customer/profileinfo/" + c_id).then(
             (res) => {

@@ -5,7 +5,9 @@ import AxiosConfig from '../../Public/Services/AxiosConfig';
 const CartBody = () => {
 
   const [cartproducts, setCartproducts] = useState([]);
-  var c_id = 1; //Getting dummy value
+  // var c_id = 1; //Getting dummy value
+
+  var c_id = localStorage.getItem('user_id');
 
   useEffect(() => {
     document.title='Grocery OS - Cart';
@@ -15,6 +17,9 @@ const CartBody = () => {
         setCartproducts(res.data);
         console.log(res.data);
         // debugger;
+      //   if(res.data == null){
+      //     window.location.href = "/customer/profileinfo";
+      // }
       },
       (error) => {
         debugger;
@@ -36,6 +41,36 @@ const CartBody = () => {
                 debugger;
             })
 }
+
+const QuanDecrement = (id)=>{
+  // alert(id);
+  const data = {cart_id: id};
+  AxiosConfig.post("customer/cartquandecrement", data).
+          then((succ) => {
+              //setMsg(succ.data.msg);
+              alert(succ.data.msg);
+              window.location.reload();
+
+          }, (err) => {
+              debugger;
+          })
+}
+
+const QuanIncrement = (id)=>{
+  // alert(id);
+  const data = {cart_id: id};
+  AxiosConfig.post("customer/cartquanincrement", data).
+          then((succ) => {
+              //setMsg(succ.data.msg);
+              alert(succ.data.msg);
+              window.location.reload();
+
+          }, (err) => {
+              debugger;
+          })
+}
+
+
 
   return (
     <>
@@ -71,7 +106,12 @@ const CartBody = () => {
                         <td>{item.product.name}</td>
                         <td>{item.product.category}</td>
                         <td>{item.product.price}</td>
-                        <td>{item.quantity}</td>
+                        <td>
+                          <button type="button" onClick={()=>{QuanDecrement(item.id)}} className="btn btn-sm btn-light"> - </button>
+                          <button className="btn btn-sm">{item.quantity}</button>
+                          {/* <span className="px-1">{item.quantity}</span> */}
+                          <button type="button" onClick={()=>{QuanIncrement(item.id)}} className="btn btn-sm btn-light"> + </button>
+                          </td>
                         <td>{item.product.price * item.quantity}</td>
                         {/* <td><button type="button" className="btn btn-danger">
                           <Link className="nav-link" to="#">Remove Product</Link>

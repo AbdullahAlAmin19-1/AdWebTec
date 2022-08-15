@@ -10,11 +10,12 @@ use App\Models\review;
 
 class APICustomersController extends Controller
 {
-    function __construct(){
+    function __construct()
+    {
         $this->middleware("authUser");
         $this->middleware("customer");
     }
-    
+
     function profileinfo($id)
     {
         $customer = [];
@@ -94,7 +95,6 @@ class APICustomersController extends Controller
             $cart->update();
 
             return response()->json(["msg" => "Product has been added successfully!"]);
-
         } else {
             $cart = new cart();
             $cart->quantity = $req->quantity;
@@ -106,44 +106,63 @@ class APICustomersController extends Controller
         }
     }
 
-    function viewcart($id){
+    function viewcart($id)
+    {
         $carts = cart::where('c_id', $id)->get();
         return response()->json($carts);
     }
 
-    function cartproductremove(Request $req){
+    function cartproductremove(Request $req)
+    {
         $id = $req->cart_id;
         $carts = cart::where('id', $id)->delete();
         return response()->json(["msg" => "Product has been deleted successfully!"]);
-
-		// Check Comment
-		// Check Comment
-
     }
 
-    function reviews($id){
+    function cartquandecrement(Request $req)
+    {
+        $id = $req->cart_id;
+        $cart = cart::where('id', $id)->first();
+        $cart->quantity = $cart->quantity - 1;
+        $cart->update();
+
+        return response()->json(["msg" => "Product has been updated successfully!"]);
+    }
+
+    function cartquanincrement(Request $req)
+    {
+        $id = $req->cart_id;
+        $cart = cart::where('id', $id)->first();
+        $cart->quantity = $cart->quantity + 1;
+        $cart->update();
+
+        return response()->json(["msg" => "Product has been updated successfully!"]);
+    }
+
+    function reviews($id)
+    {
 
         $reviews = review::where('c_id', $id)->where('message', '=', null)->get();
         $previews = review::where('c_id', $id)->where('message', '!=', null)->get();
-        
-            if(count($reviews) !== 0 || count($previews) !== 0){
-                // return view("customer.cProductReview")->with('reviews', $reviews)->with('previews', $previews);
-                return response()->json(["reviews" => $reviews, "previews" => $previews]);
-            }
-    
-            else{
-                return response()->json(["msg" => "Your do not have any product for review!"]);
-            }
+
+        if (count($reviews) !== 0 || count($previews) !== 0) {
+            return response()->json(["reviews" => $reviews, "previews" => $previews]);
+        } else {
+            // return response()->json(["msg" => "Your do not have any product for review!"]);
+            return response()->json(["msg" => "NOreview!"]);
+        }
     }
 
-    function reviewview($id){
+    function reviewview($id)
+    {
         $review = review::where('id', $id)->first();
 
         return response()->json($review);
     }
 
-    function reviewupdate(Request $req){
-        
+    function reviewupdate(Request $req)
+    {
+
         $review = review::find($req->r_id);
 
         $review->message = $req->r_message;
@@ -152,8 +171,9 @@ class APICustomersController extends Controller
         return response()->json(["msg" => "Review has been updated!"]);
     }
 
-    function reviewdelete(Request $req){
-        
+    function reviewdelete(Request $req)
+    {
+
         $review = review::find($req->r_id);
 
         $review->message = null;
