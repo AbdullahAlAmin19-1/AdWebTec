@@ -4,16 +4,16 @@ import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const ProfileBody = () => {
     const [customer, setCustomer] = useState({});
-    const [propic, setPropic] = useState("abc");
 
     useEffect(() => {
         document.title='Grocery OS - Profile';
-        var c_id = 1; //Setting dummy value
+        // var c_id = 1; //Setting dummy value
+
+        var c_id = localStorage.getItem('user_id');
 
         AxiosConfig.get("customer/profileinfo/" + c_id).then(
             (res) => {
                 setCustomer(res.data);
-                setPropic(res.data.propic);
                 // debugger;
             },
             (error) => {
@@ -37,7 +37,7 @@ const ProfileBody = () => {
                             <div className="col-4">
                                 <div className="card mb-4 mt-1">
                                     <div className="card-body text-center">
-                                        <img src={`http://127.0.0.1:8000/storage/cprofile_images/${propic}`} alt="customer avatar"
+                                        <img src={`http://127.0.0.1:8000/storage/cprofile_images/${customer.propic}`} alt="customer avatar"
                                             className="rounded" style={{ width: "150px" }} />
                                         <h5 className="my-3">{customer.username}</h5>
                                         <p className="text-muted mb-1">Customer, Grocery OS</p>

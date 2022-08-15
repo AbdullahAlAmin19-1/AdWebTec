@@ -6,7 +6,9 @@ const ReviewsBody = () => {
 
     const [reviews, setReviews] = useState([]);
     const [previews, setPReviews] = useState([]);
-    var c_id = 1; //Getting dummy value
+    // var c_id = 1; //Getting dummy value
+
+    var c_id = localStorage.getItem('user_id');
 
     useEffect(() => {
         document.title='Grocery OS - Reviews';
@@ -16,7 +18,10 @@ const ReviewsBody = () => {
                 setReviews(res.data.reviews);
                 setPReviews(res.data.previews)
                 // console.log(res.data.previews);
-			// debugger;
+                if(res.data.msg == "NOreview!"){
+                    window.location.href = "/customer/profileinfo";
+                }
+			debugger;
             },
             (error) => {
                 debugger;
