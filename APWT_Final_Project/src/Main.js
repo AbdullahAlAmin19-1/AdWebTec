@@ -28,6 +28,8 @@ import EditProfile from './Customer/Pages/EditProfile'
 import Cart from './Customer/Pages/Cart';
 import Reviews from './Customer/Pages/Reviews';
 import ReviewUpdate from './Customer/Pages/ReviewUpdate';
+import Coupons from './Customer/Pages/Coupons';
+import Notices from './Customer/Pages/Notices';
 
 
 // Admin
@@ -77,6 +79,8 @@ const Main = () => {
           <Route path="/customer/cart" element={<Cart />} />
           <Route path="/customer/reviews" element={<Reviews />} />
           <Route path="/customer/reviewupdate/:id" element={<ReviewUpdate />} />
+          <Route path="/customer/coupons" element={<Coupons />} />
+          <Route path="/customer/notices" element={<Notices />} />
 
           {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />

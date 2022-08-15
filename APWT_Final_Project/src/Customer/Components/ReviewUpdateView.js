@@ -6,11 +6,12 @@ const ReviewUpdateView = ({ value }) => {
     const [review, setReview] = useState({});
     const [product, setProduct] = useState({});
     const [message, setMessage] = useState("");
+    const [msg, setMsg] = useState("");
 
     var r_id = value;
 
     useEffect(() => {
-        document.title='Grocery OS - Update Review';
+        document.title = 'Grocery OS - Update Review';
 
         AxiosConfig.get("reviewview/" + r_id).then(
             (res) => {
@@ -34,14 +35,17 @@ const ReviewUpdateView = ({ value }) => {
         console.log(data);
         AxiosConfig.post("customer/reviewupdate", data).
             then((succ) => {
-                //setMsg(succ.data.msg);
-                // alert(succ.data.msg);
-                window.location.href = "/customer/reviews";
+                setMsg(succ.data.msg);
 
             }, (err) => {
                 debugger;
             })
     }
+
+    const remove = () => {
+        setMsg("");
+        window.location.href = "/customer/reviews";
+      }
 
     return (
         <>
@@ -50,6 +54,18 @@ const ReviewUpdateView = ({ value }) => {
                     <div className="card-header">
                         <h3 className="text-center">Review Update</h3>
                     </div>
+
+                    {
+                        msg ?
+                            <div className="container mt-3 px-5">
+                                <div className="alert alert-primary alert-dismissible">
+                                    <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                                    <strong>Success!</strong> {msg}
+                                </div>
+                            </div>
+                            : ''
+                    }
+
                     <div className="card-body">
 
                         <div className="row justify-content-center">

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\customer;
 use App\Models\cart;
 use App\Models\review;
+use App\Models\customer_coupon;
+use App\Models\notice;
 
 class APICustomersController extends Controller
 {
@@ -48,27 +50,26 @@ class APICustomersController extends Controller
 
         return response()->json(
             [
-                "msg" => "Updated Successfully",
+                "msg" => "Profile information has been updated successfully!",
             ]
         );
     }
 
     function updatedp(Request $req)
     {
-        $no_id = 1;
-        $no_username = "MdRasen";
+        //Get user id and username here
+        $user = customer::where('id', session()->get('user_id'))->first();
 
-        if ($req->hasfile('file')) {
+        if($req->hasfile('file')){
             $orgName = $req->file->getClientOriginalName();
-            $ppName = $no_username . time() . $orgName;
-            $req->file->storeAs('public/cprofile_images', $ppName);
+            $ppName = $user->username.time().$orgName;
+            $req->file->storeAs('public/cprofile_images',$ppName);
 
-            $customer = customer::find($no_id);
-            $customer->propic = $ppName;
-            $customer->update();
-            return response()->json(["msg" => $ppName]);
+            $user->propic = $ppName;
+            $user->update();
+            return response()->json(["msg"=>"Profile photo has been updated successfully!"]);
         }
-        return response()->json(["msg" => "No file"]);
+        return response()->json(["msg"=>"No file has been selected!"]);
     }
 
     function addcart(Request $req)
@@ -116,17 +117,25 @@ class APICustomersController extends Controller
     {
         $id = $req->cart_id;
         $carts = cart::where('id', $id)->delete();
-        return response()->json(["msg" => "Product has been deleted successfully!"]);
+        return response()->json(["msg" => "Product has been removed successfully!"]);
     }
 
     function cartquandecrement(Request $req)
     {
         $id = $req->cart_id;
         $cart = cart::where('id', $id)->first();
+
+        if($cart->quantity > 1){
+
         $cart->quantity = $cart->quantity - 1;
         $cart->update();
 
         return response()->json(["msg" => "Product has been updated successfully!"]);
+        }
+
+        else{
+            return response()->json(["msg" => "Product quantity can't be less than 1!"]);
+        }
     }
 
     function cartquanincrement(Request $req)
@@ -141,7 +150,6 @@ class APICustomersController extends Controller
 
     function reviews($id)
     {
-
         $reviews = review::where('c_id', $id)->where('message', '=', null)->get();
         $previews = review::where('c_id', $id)->where('message', '!=', null)->get();
 
@@ -168,17 +176,40 @@ class APICustomersController extends Controller
         $review->message = $req->r_message;
         $review->update();
 
-        return response()->json(["msg" => "Review has been updated!"]);
+        return response()->json(["msg" => "Review has been updated successfully!"]);
     }
 
     function reviewdelete(Request $req)
     {
-
         $review = review::find($req->r_id);
 
         $review->message = null;
         $review->update();
 
-        return response()->json(["msg" => "Review has been deleted!"]);
+        return response()->json(["msg" => "Review has been deleted successfully!"]);
+    }
+
+    function coupons($id)
+    {
+        $coupons = customer_coupon::where('c_id', $id)->get();
+
+        if (count($coupons) !== 0) {
+            return response()->json($coupons);
+        } else {
+            // return response()->json(["msg" => "Your do not have any coupon!"]);
+            return response()->json(["msg" => "NOcoupon!"]);
+        }
+    }
+
+    function notices($id)
+    {
+        $notices = notice::where('c_id', $id)->get();
+
+        if (count($notices) !== 0) {
+            return response()->json($notices);
+        } else {
+            // return response()->json(["msg" => "Your do not have any notice!"]);
+            return response()->json(["msg" => "NOnotice!"]);
+        }
     }
 }

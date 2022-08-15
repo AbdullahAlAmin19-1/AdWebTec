@@ -9,6 +9,7 @@ class customer_coupon extends Model
 {
     use HasFactory;
 
+    protected $with = ['coupon'];
     public function coupon()
     {
         return $this->belongsTo(coupon::class, 'co_id');

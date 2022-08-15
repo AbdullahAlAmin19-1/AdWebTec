@@ -5,21 +5,22 @@ import AxiosConfig from '../../Public/Services/AxiosConfig';
 const CartBody = () => {
 
   const [cartproducts, setCartproducts] = useState([]);
+  const [msg, setMsg] = useState("");
   // var c_id = 1; //Getting dummy value
 
   var c_id = localStorage.getItem('user_id');
 
   useEffect(() => {
-    document.title='Grocery OS - Cart';
+    document.title = 'Grocery OS - Cart';
 
     AxiosConfig.get("customer/viewcart/" + c_id).then(
       (res) => {
         setCartproducts(res.data);
         console.log(res.data);
         // debugger;
-      //   if(res.data == null){
-      //     window.location.href = "/customer/profileinfo";
-      // }
+        //   if(res.data == null){
+        //     window.location.href = "/customer/profileinfo";
+        // }
       },
       (error) => {
         debugger;
@@ -28,52 +29,63 @@ const CartBody = () => {
     );
   }, []);
 
-  const handleRemove = (id)=>{
+  const handleRemove = (id) => {
     // alert(id);
-    const data = {cart_id: id};
+    const data = { cart_id: id };
     AxiosConfig.post("customer/cartproductremove", data).
-            then((succ) => {
-                //setMsg(succ.data.msg);
-                alert(succ.data.msg);
-                window.location.reload();
+      then((succ) => {
+        setMsg(succ.data.msg);
+        // alert(succ.data.msg);
+        // window.location.reload();
 
-            }, (err) => {
-                debugger;
-            })
-}
+      }, (err) => {
+        debugger;
+      })
+  }
 
-const QuanDecrement = (id)=>{
-  // alert(id);
-  const data = {cart_id: id};
-  AxiosConfig.post("customer/cartquandecrement", data).
-          then((succ) => {
-              //setMsg(succ.data.msg);
-              alert(succ.data.msg);
-              window.location.reload();
+  const QuanDecrement = (id) => {
+    // alert(id);
+    const data = { cart_id: id };
+    AxiosConfig.post("customer/cartquandecrement", data).
+      then((succ) => {
+        setMsg(succ.data.msg);
 
-          }, (err) => {
-              debugger;
-          })
-}
+      }, (err) => {
+        debugger;
+      })
+  }
 
-const QuanIncrement = (id)=>{
-  // alert(id);
-  const data = {cart_id: id};
-  AxiosConfig.post("customer/cartquanincrement", data).
-          then((succ) => {
-              //setMsg(succ.data.msg);
-              alert(succ.data.msg);
-              window.location.reload();
+  const QuanIncrement = (id) => {
+    // alert(id);
+    const data = { cart_id: id };
+    AxiosConfig.post("customer/cartquanincrement", data).
+      then((succ) => {
+        setMsg(succ.data.msg);
 
-          }, (err) => {
-              debugger;
-          })
-}
+      }, (err) => {
+        debugger;
+      })
+  }
 
-
+  const remove = () => {
+    setMsg("");
+    window.location.reload();
+  }
 
   return (
     <>
+
+      {
+        msg ?
+          <div className="container mt-3">
+            <div className="alert alert-primary alert-dismissible">
+              <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+              <strong>Success!</strong> {msg}
+            </div>
+          </div>
+          : ''
+      }
+
       <div className="container-fluid p-4">
         <div className="card">
           <div className="card-header">
@@ -107,16 +119,16 @@ const QuanIncrement = (id)=>{
                         <td>{item.product.category}</td>
                         <td>{item.product.price}</td>
                         <td>
-                          <button type="button" onClick={()=>{QuanDecrement(item.id)}} className="btn btn-sm btn-light"> - </button>
+                          <button type="button" onClick={() => { QuanDecrement(item.id) }} className="btn btn-sm btn-light"> - </button>
                           <button className="btn btn-sm">{item.quantity}</button>
                           {/* <span className="px-1">{item.quantity}</span> */}
-                          <button type="button" onClick={()=>{QuanIncrement(item.id)}} className="btn btn-sm btn-light"> + </button>
-                          </td>
+                          <button type="button" onClick={() => { QuanIncrement(item.id) }} className="btn btn-sm btn-light"> + </button>
+                        </td>
                         <td>{item.product.price * item.quantity}</td>
                         {/* <td><button type="button" className="btn btn-danger">
                           <Link className="nav-link" to="#">Remove Product</Link>
                         </button></td> */}
-                        <td><button type="button" className="btn btn-danger" onClick={()=>{handleRemove(item.id)}}>Remove</button></td>
+                        <td><button type="button" className="btn btn-danger" onClick={() => { handleRemove(item.id) }}>Remove</button></td>
                       </tr>
 
                     </>

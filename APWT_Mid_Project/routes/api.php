@@ -52,6 +52,7 @@ Route::post('/admin/addcoupon',[APIAdminController::class,'addcoupon']);
 Route::get('/admin/editcoupon/{id}',[APIAdminController::class,'editcoupon']);
 Route::post('/admin/editcouponupdate',[APIAdminController::class,'editcouponupdate']);
 Route::get('/admin/removecoupon/{id}',[APIAdminController::class,'removecoupon']);
+
 //Vendor
 Route::get('/vendor/profile/{id}',[APIVendorController::class,'profile']);
 Route::post('/vendor/updateprofile',[APIVendorController::class,'updateprofile']);
@@ -81,5 +82,7 @@ Route::get('/customer/reviews/{id}',[APICustomersController::class,'reviews']);
 Route::get('reviewview/{id}',[APICustomersController::class,'reviewview']);
 Route::post('/customer/reviewupdate',[APICustomersController::class,'reviewupdate']);
 Route::post('/customer/reviewdelete',[APICustomersController::class,'reviewdelete']);
+Route::get('/customer/coupons/{id}',[APICustomersController::class,'coupons']);
+Route::get('/customer/notices/{id}',[APICustomersController::class,'notices']);
 
 
