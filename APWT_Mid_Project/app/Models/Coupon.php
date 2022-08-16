@@ -14,6 +14,7 @@ class coupon extends Model
     use HasFactory;
     protected $guarded = [];
 
+    protected $with = ['customers'];
     public function customers()
     {
         return $this->belongsToMany(Customer::class,'customer_coupons','co_id','c_id');

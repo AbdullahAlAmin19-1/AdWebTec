@@ -6,22 +6,22 @@ const ReviewsBody = () => {
 
     const [reviews, setReviews] = useState([]);
     const [previews, setPReviews] = useState([]);
-    // var c_id = 1; //Getting dummy value
+    const [msg, setMsg] = useState("");
 
     var c_id = localStorage.getItem('user_id');
 
     useEffect(() => {
-        document.title='Grocery OS - Reviews';
+        document.title = 'Grocery OS - Reviews';
 
         AxiosConfig.get("customer/reviews/" + c_id).then(
             (res) => {
                 setReviews(res.data.reviews);
-                setPReviews(res.data.previews)
+                setPReviews(res.data.previews);
                 // console.log(res.data.previews);
-                if(res.data.msg == "NOreview!"){
+                if (res.data.msg == "NOreview!") {
                     window.location.href = "/customer/profileinfo";
                 }
-			debugger;
+                debugger;
             },
             (error) => {
                 debugger;
@@ -30,18 +30,22 @@ const ReviewsBody = () => {
         );
     }, []);
 
-    const handleDelete = (id)=>{
+    const handleDelete = (id) => {
         // alert(id);
-        const data = {r_id: id};
+        const data = { r_id: id };
         AxiosConfig.post("customer/reviewdelete", data).
-                then((succ) => {
-                    //setMsg(succ.data.msg);
-                    alert(succ.data.msg);
-                    window.location.reload();
-    
-                }, (err) => {
-                    debugger;
-                })
+            then((succ) => {
+                //setMsg(succ.data.msg);
+                setMsg(succ.data.msg);
+
+            }, (err) => {
+                debugger;
+            })
+    }
+
+    const remove = () => {
+        setMsg("");
+        window.location.reload();
     }
 
     return (
@@ -101,6 +105,16 @@ const ReviewsBody = () => {
                         <div className="row justify-content-center">
                             <h4 className="text-center">-- Previous Reviews --</h4>
 
+                            {
+                                msg ?
+                                    <div className="container mt-3 px-5">
+                                        <div className="alert alert-primary alert-dismissible">
+                                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                                            <strong>Success!</strong> {msg}
+                                        </div>
+                                    </div>
+                                    : ''
+                            }
 
                             {
                                 previews.map((item) =>
@@ -128,7 +142,7 @@ const ReviewsBody = () => {
                                                             <tr>
                                                                 <td colSpan="2" className="text-center">
                                                                     <button type="submit" className="btn btn-primary mx-1" style={{ width: "45%" }}> <Link to={`/customer/reviewupdate/${item.id}`} className="nav-link" >Update Review</Link> </button>
-                                                                    <button type="button" className="btn btn-danger" onClick={()=>{handleDelete(item.id)}} >Delete Review</button>
+                                                                    <button type="button" className="btn btn-danger" onClick={() => { handleDelete(item.id) }} >Delete Review</button>
                                                                 </td>
                                                             </tr>
 
@@ -142,9 +156,6 @@ const ReviewsBody = () => {
                                     </>
                                 )
                             }
-
-
-
 
                         </div>
 

@@ -12,6 +12,7 @@ use App\Models\customer;
 use App\Models\admin;
 use App\Models\req_deliveryman;
 use App\Models\Product;
+use App\Models\review;
 use App\Models\token;
 
 class APIController extends Controller
@@ -130,6 +131,21 @@ class APIController extends Controller
 
     function viewproduct($id){
         $products =Product::where('id', '=', $id)->first();
+        return response()->json($products);
+    }
+
+    function productreviews($id){
+        $reviews =review::where('p_id', '=', $id)->where('message', '!=', null)->get();
+        return response()->json($reviews);
+    }
+
+    function categoryproducts($category){
+        $products =Product::where('category', '=', "$category")->get();
+        return response()->json($products);
+    }
+
+    function searchproducts($keyword){
+        $products =product::where('name', 'like', '%'.$keyword.'%')->get();
         return response()->json($products);
     }
 

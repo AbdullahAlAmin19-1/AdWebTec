@@ -17,8 +17,10 @@ const EditProfileBody = ({ c_id }) => {
     const [address, setAddress] = useState("");
     const [propic, setProPic] = useState("");
 
+    const [msg, setMsg] = useState("");
+
     useEffect(() => {
-        document.title='Grocery OS - Edit Profile';
+        document.title = 'Grocery OS - Edit Profile';
         // var c_id = 1; //Setting dummy value
 
         var c_id = localStorage.getItem('user_id');
@@ -51,9 +53,8 @@ const EditProfileBody = ({ c_id }) => {
 
         AxiosConfig.post("customer/updateprofile", data).
             then((succ) => {
-                //setMsg(succ.data.msg);
-                alert(succ.data.msg);
-                window.location.href = "/customer/profileinfo";
+                setMsg(succ.data.msg);
+
                 // debugger;
             }, (err) => {
                 debugger;
@@ -69,14 +70,17 @@ const EditProfileBody = ({ c_id }) => {
 
         AxiosConfig.post("customer/updatedp", data).
             then((succ) => {
-                //setMsg(succ.data.msg);
-                alert(succ.data.msg);
-                window.location.href = "/customer/profileinfo";
+                setMsg(succ.data.msg);
                 // debugger;
             }, (err) => {
                 debugger;
                 // setErrs(err.response.data);
             })
+    }
+
+    const remove = () => {
+        setMsg("");
+        window.location.href = "/customer/profileinfo";
     }
 
     return (
@@ -86,6 +90,18 @@ const EditProfileBody = ({ c_id }) => {
                     <div className="card-header">
                         <h3 className="text-center">Customer Profile Edit</h3>
                     </div>
+
+                    {
+                        msg ?
+                            <div className="container mt-3">
+                                <div className="alert alert-primary alert-dismissible">
+                                    <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                                    <strong>Success!</strong> {msg}
+                                </div>
+                            </div>
+                            : ''
+                    }
+
                     <div className="card-body">
 
                         <div className="row">

@@ -27,9 +27,11 @@ Route::post('/users/registration',[APIController::class,'registration']);
 Route::post('/users/login',[APIController::class,'login']);
 Route::post('/users/logout',[APIController::class,'logout']);
 Route::get('/public/products',[APIController::class,'products']);
-// Route::get('/products/item',[APIController::class,'viewproduct']);
-
 Route::get('/products/item/{id}',[APIController::class,'viewproduct']);
+Route::get('/products/reviews/{id}',[APIController::class,'productreviews']);
+Route::get('/public/category/products/{category}',[APIController::class,'categoryproducts']);
+Route::get('/public/products/search/{keyword}',[APIController::class,'searchproducts']);
+
 
 
 Route::get('/users/user',[APIController::class,'user']);
@@ -52,6 +54,7 @@ Route::post('/admin/addcoupon',[APIAdminController::class,'addcoupon']);
 Route::get('/admin/editcoupon/{id}',[APIAdminController::class,'editcoupon']);
 Route::post('/admin/editcouponupdate',[APIAdminController::class,'editcouponupdate']);
 Route::get('/admin/removecoupon/{id}',[APIAdminController::class,'removecoupon']);
+
 //Vendor
 Route::get('/vendor/profile/{id}',[APIVendorController::class,'profile']);
 Route::post('/vendor/updateprofile',[APIVendorController::class,'updateprofile']);
@@ -81,5 +84,7 @@ Route::get('/customer/reviews/{id}',[APICustomersController::class,'reviews']);
 Route::get('reviewview/{id}',[APICustomersController::class,'reviewview']);
 Route::post('/customer/reviewupdate',[APICustomersController::class,'reviewupdate']);
 Route::post('/customer/reviewdelete',[APICustomersController::class,'reviewdelete']);
+Route::get('/customer/coupons/{id}',[APICustomersController::class,'coupons']);
+Route::get('/customer/notices/{id}',[APICustomersController::class,'notices']);
 
 

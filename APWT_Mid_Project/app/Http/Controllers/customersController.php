@@ -20,7 +20,7 @@ class customersController extends Controller
 {
     function __construct(){
         $this->middleware("logged");
-        $this->middleware("customer");
+        // $this->middleware("customer");
     }
     
     function cdashboard(){

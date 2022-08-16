@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
-  const [name, setName] = useState("");
+  const [keyword, setKeyword] = useState("");
 
   const handleForm = (event) => {
-    // event.PreventDefault();
-    alert(name);
+    event.preventDefault();
+    if(keyword){
+      window.location.href=`/searchproduct/${keyword}`;
+    }
   }
 
   return (
@@ -28,9 +30,9 @@ const Header = () => {
             </ul>
           </div>
           <form className="d-flex" onSubmit={handleForm}>
-              <input className="form-control me-2" type="text" value={name} placeholder="Search" onChange={(e) => { setName(e.target.value) }} />
+              <input className="form-control me-2" type="text" value={keyword} placeholder="Search" onChange={(e) => { setKeyword(e.target.value) }} />
               <button className="btn btn-primary" type="submit">Search</button>
-            </form>
+          </form>
         </div>
       </nav>
     </>
