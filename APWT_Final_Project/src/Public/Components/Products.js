@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Products = () => {
   const [allproducts, setAllproducts] = useState([]);
-  const [quantity, setQuantity] = useState("1");
-  const [p_id, setP_id] = useState("");
-
+  
   useEffect(() => {
     AxiosConfig.get("public/products").then((rsp) => {
       setAllproducts(rsp.data);
@@ -16,22 +14,8 @@ const Products = () => {
     })
   }, []);
 
-  // const addcartHandle = (event) => {
-  //   event.preventDefault();
-
-  //   alert(quantity);
-  //   alert(p_id);
-  // }
-
   return (
     <>
-      {/* {
-        allproducts.map((st) =>
-          <>
-            <li>{st.name}</li>
-          </>
-        )
-      } */}
 
       <div className="container-fluid p-5 bg-light">
         <h3 className="text-center">Selling Products</h3>
@@ -61,24 +45,7 @@ const Products = () => {
                     <div className="card-body">
                       <div className="d-flex justify-content-between align-items-center">
 
-                        {/* Getting error while getting the p_id */}
-
-                        {/* <form onSubmit={addcartHandle}>
-                    <input type="text" name="p_id" value={item.id} style={{ width: "100%" }} onLoadStart={(e) => { setP_id(e.target.value) }} />
-
-
-                    <label htmlFor="quantity">Quantity</label>
-                    <input type="number" name="quantity" min="1" value={quantity} style={{ width: "100%" }} onChange={(e) => { setQuantity(e.target.value) }} />
-
-                    <button type="submit" className="btn btn-primary mt-1" style={{ width: "100%" }} >Add to
-                      cart</button>
-
-                  </form> */}
-
-
-                        {/* Second solution */}
                         <button type="button" className="btn btn-primary mt-1" style={{ width: "100%" }} ><Link className="nav-link" to={`/products/item/${item.id}`} >View Product</Link></button>
-
 
                       </div>
                     </div>

@@ -8,6 +8,7 @@ import LoginPage from './Public/Pages/LoginPage';
 import Logout from './Public/Components/Logout';
 import ProductByCategory from './Public/Pages/ProductByCategory';
 import ViewProduct from './Public/Pages/ViewProduct';
+import SearchProduct from './Public/Pages/SearchProduct';
 
 // Vendor
 import VAllProducts from './Vendor/Pages/AllProducts';
@@ -59,6 +60,7 @@ const Main = () => {
           <Route path="/logout" element={<Logout />} />
           <Route path="/categories/:category" element={<ProductByCategory />} />
           <Route path="/products/item/:id" element={<ViewProduct />} />
+          <Route path="/searchproduct/:keyword" element={<SearchProduct />} />
 
           {/* Vendor Routes */}
           <Route path="/vendor/allProducts" element={<VAllProducts />} />

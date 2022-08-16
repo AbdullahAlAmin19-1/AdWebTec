@@ -27,9 +27,11 @@ Route::post('/users/registration',[APIController::class,'registration']);
 Route::post('/users/login',[APIController::class,'login']);
 Route::post('/users/logout',[APIController::class,'logout']);
 Route::get('/public/products',[APIController::class,'products']);
-// Route::get('/products/item',[APIController::class,'viewproduct']);
-
 Route::get('/products/item/{id}',[APIController::class,'viewproduct']);
+Route::get('/products/reviews/{id}',[APIController::class,'productreviews']);
+Route::get('/public/category/products/{category}',[APIController::class,'categoryproducts']);
+Route::get('/public/products/search/{keyword}',[APIController::class,'searchproducts']);
+
 
 
 Route::get('/users/user',[APIController::class,'user']);
