@@ -6,17 +6,24 @@ const AddCouponBody = () => {
     const [code, setCode] = useState("");
     const [amount, setAmount] = useState("");
 
+    const [msg, setMsg] = useState("");
+    const [errors, setErrors] = useState([]);
+
     const handleForm = (event) => {
         event.preventDefault();
         const data = {codetype: codetype, code: code, amount: amount};
         // alert(data.name);
         AxiosConfig.post("vendor/addCoupon",data).
         then((succ)=>{
-            // debugger;
-            alert("Coupon Created");
-            window.location.href="/vendor/allCoupons";
+            setErrors('');
+            setMsg(succ.data.msg);
+            debugger;
+            // alert("Coupon Created");
+            // window.location.href="/vendor/allCoupons";
         },(err)=>{
-            // debugger;
+            debugger;
+            setMsg('');
+            setErrors(err.response.data);
         })
     }
     useEffect(() => {
@@ -28,8 +35,25 @@ const AddCouponBody = () => {
             debugger;
         })
       }, []);
+
+
+    const remove = () => {
+        setMsg("");
+        window.location.href = "/vendor/allCoupons";
+    }
+
     return (
         <>
+            {
+                msg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-primary alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                            <strong>Success!</strong> {msg}
+                        </div>
+                    </div>
+                    : ''
+            }
             <section className="bg-dark">
                 <div className="container py-1">
                     <div className="row d-flex justify-content-center align-items-center">
@@ -52,24 +76,27 @@ const AddCouponBody = () => {
                                             <h6 className="mb-0 me-4">Code Generate: </h6>
 
                                             <div className="form-check form-check-inline mb-0">
-                                                <input className="form-check-input" type="radio" name="user_type"
+                                                <input className="form-check-input" type="radio" name="codetype"
                                                     id="auto" value="auto" onClick={(e) => { setCodetype(e.target.value) }}/>
                                                 <label className="form-check-label" for="auto">Auto</label>
                                             </div>
 
                                             <div className="form-check form-check-inline mb-0">
-                                                <input className="form-check-input" type="radio" name="user_type"
+                                                <input className="form-check-input" type="radio" name="codetype"
                                                     id="manual" value="manual" onClick={(e) => { setCodetype(e.target.value) }}/>
                                                 <label className="form-check-label" for="manual">Manual</label>
                                             </div>
+                                            <span className="text-danger">{errors.codetype ? errors.codetype[0] : ''}</span>
                                             </div>
                                                 <div className="form-outline">
-                                                        <label className="form-label" for="code">Code Digit(Auto) / Code(Manual)</label>
-                                                        <input type="text" name="code" className="form-control form-control-lg" value={code} onChange={(e) => { setCode(e.target.value) }}/>
+                                                    <label className="form-label" for="code">Code Digit(Auto) / Code(Manual)</label>
+                                                    <input type="text" name="code" className="form-control form-control-lg" value={code} onChange={(e) => { setCode(e.target.value) }}/>
+                                                    <span className="text-danger">{errors.code ? errors.code[0] : ''}</span>
                                                 </div>
                                                 <div className="form-outline">
-                                                        <label className="form-label" for="amount">Amount</label>
-                                                        <input type="text" name="price" className="form-control form-control-lg" value={amount} onChange={(e) => { setAmount(e.target.value) }}/>
+                                                    <label className="form-label" for="amount">Amount</label>
+                                                    <input type="number" name="amount" className="form-control form-control-lg" value={amount} onChange={(e) => { setAmount(e.target.value) }}/>
+                                                    <span className="text-danger">{errors.amount ? errors.amount[0] : ''}</span>
                                                 </div>
                                             </div>
                                             <div className="d-flex justify-content-end pt-1">

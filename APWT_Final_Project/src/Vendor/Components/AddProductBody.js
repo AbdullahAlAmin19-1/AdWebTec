@@ -10,17 +10,21 @@ const AddProductBody = () => {
     const [size, setSize] = useState("");
     const [description, setDescription] = useState("");
 
+    const [msg, setMsg] = useState("");
+    const [errors, setErrors] = useState([]);
+
     const handleForm = (event) => {
         event.preventDefault();
         const data = {name: name, category: category, thumbnail: thumbnail, price: price, stock: stock, size: size, description: description };
         // alert(data.name);
         AxiosConfig.post("vendor/addProduct",data).
         then((succ)=>{
-            //setMsg(succ.data.msg);
-            alert("Ok");
-            window.location.href="/vendor/allProducts";
+            setMsg(succ.data.msg);
+            // alert("Ok");
+            // window.location.href="/vendor/allProducts";
         },(err)=>{
             debugger;
+            setErrors(err.response.data);
         })
     }
 
@@ -34,8 +38,22 @@ const AddProductBody = () => {
         })
     }, []);
 
+    const remove = () => {
+        setMsg("");
+        window.location.href = "/vendor/allProducts";
+    }
     return (
         <>
+            {
+                msg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-primary alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                            <strong>Success!</strong> {msg}
+                        </div>
+                    </div>
+                    : ''
+            }
             <section className="bg-dark">
                 <div className="container py-1">
                     <div className="row d-flex justify-content-center align-items-center">
@@ -60,13 +78,14 @@ const AddProductBody = () => {
                                                     <div className="form-outline">                                                        
                                                         <label className="form-label" for="name">Name</label>
                                                         <input type="text" name="name" className="form-control form-control-lg" value={name} onChange={(e) => { setName(e.target.value) }} />
+                                                        <span className="text-danger">{errors.name ? errors.name[0] : ''}</span>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-outline">
                                                         <label className="form-label" for="username">Category</label>
                                                         <input type="text" name="category" className="form-control form-control-lg" value={category} onChange={(e) => { setCategory(e.target.value) }}/>
-                                                        <label className="form-label" for="username">Category</label>
+                                                        <span className="text-danger">{errors.category ? errors.category[0] : ''}</span>
                                                     </div>
                                                 </div>
                                                 {/* <div className="form-outline">
@@ -75,15 +94,17 @@ const AddProductBody = () => {
                                                 </div> */}
                                                 <div className="form-outline">
                                                         <label className="form-label" for="price">Price</label>
-                                                        <input type="text" name="price" className="form-control form-control-lg" value={price} onChange={(e) => { setPrice(e.target.value) }}/>
+                                                        <input type="number" name="price" className="form-control form-control-lg" value={price} onChange={(e) => { setPrice(e.target.value) }}/>
+                                                        <span className="text-danger">{errors.price ? errors.price[0] : ''}</span>
                                                 </div>
                                                 <div className="form-outline">
                                                         <label className="form-label" for="stock">Stock</label>
-                                                        <input type="text" name="stock" className="form-control form-control-lg" value={stock} onChange={(e) => { setStock(e.target.value) }}/>
+                                                        <input type="number" name="stock" className="form-control form-control-lg" value={stock} onChange={(e) => { setStock(e.target.value) }}/>
+                                                        <span className="text-danger">{errors.stock ? errors.stock[0] : ''}</span>
                                                 </div>
                                                 <div className="form-outline">
                                                         <label className="form-label" for="size">Size</label>
-                                                        <input type="text" name="size" className="form-control form-control-lg" value={size} onChange={(e) => { setSize(e.target.value) }}/>
+                                                        <input type="number" name="size" className="form-control form-control-lg" value={size} onChange={(e) => { setSize(e.target.value) }}/>
                                                 </div>
                                                 <div className="form-outline">
                                                         <label className="form-label" for="description">Description</label>

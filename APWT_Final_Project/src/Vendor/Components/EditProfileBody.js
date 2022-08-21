@@ -17,6 +17,9 @@ const EditProfileBody = ({ v_id }) => {
     const [address, setAddress] = useState("");
     const [propic, setProPic] = useState("");
 
+    const [msg, setMsg] = useState("");
+    const [errors, setErrors] = useState([]);
+
     useEffect(() => {
         document.title='Edit Profile';
         AxiosConfig.get("vendor/profile/"+v_id).then(
@@ -46,14 +49,14 @@ const EditProfileBody = ({ v_id }) => {
 
         AxiosConfig.post("vendor/updateprofile", data).
             then((succ) => {
-                //setMsg(succ.data.msg);
-                alert(succ.data.msg);
+                setMsg(succ.data.msg);
                 localStorage.setItem('username',succ.data.user.username);
-                window.location.href="/vendor/profile";
+                // alert(succ.data.msg);
+                // window.location.href="/vendor/profile";
                 // debugger;
             }, (err) => {
-                debugger;
-                // setErrs(err.response.data);
+                // debugger;
+                setErrors(err.response.data);
             })
     }
 
@@ -65,18 +68,33 @@ const EditProfileBody = ({ v_id }) => {
 
         AxiosConfig.post("vendor/updatedp", data).
             then((succ) => {
-                //setMsg(succ.data.msg);
-                alert(succ.data.msg);
-                window.location.href="/vendor/profile";
-                // debugger;
+                setMsg(succ.data.msg);
+                // alert(succ.data.msg);
+                // window.location.href="/vendor/profile";
+                debugger;
             }, (err) => {
                 debugger;
-                // setErrs(err.response.data);
+                setErrors(err.response.data);
             })
+    }
+
+    const remove = () => {
+        setMsg("");
+        window.location.href = "/vendor/profile";
     }
 
     return (
         <>
+            {
+                msg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-primary alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                            <strong>Success!</strong> {msg}
+                        </div>
+                    </div>
+                    : ''
+            }
             <div className="container-fluid">
                 <div className="row m-4">
                     <div className="col-4 mt-5">
@@ -112,43 +130,49 @@ const EditProfileBody = ({ v_id }) => {
                                             <div className="row">
                                                 <div className="col-12">
                                                     <label htmlFor="id">User ID</label>
-                                                    <input type="text" className="form-control" name='id' placeholder="Enter your id" value={id} onChange={(e) => { setId(e.target.value) }} disabled />
+                                                    <input type="text" className="form-control" name='id' value={id} onChange={(e) => { setId(e.target.value) }} disabled />
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-6">
                                                     <label htmlFor="userame">Username</label>
                                                     <input type="text" className="form-control" name='username' placeholder="Enter username" value={username} onChange={(e) => { setUsername(e.target.value) }}/>
+                                                    <span className="text-danger">{errors.username ? errors.username[0] : ''}</span>
                                                 </div>
                                                 <div className="col-6">
                                                     <label htmlFor="Name">Name</label>
                                                     <input type="text" className="form-control" name='name' placeholder="Enter name" value={name} onChange={(e) => { setName(e.target.value) }} />
+                                                    <span className="text-danger">{errors.name ? errors.name[0] : ''}</span>
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-6">
                                                     <label htmlFor="Email">Email</label>
-                                                    <input type="text" className="form-control" name='email' placeholder="Enter email" value={email} onChange={(e) => { setEmail(e.target.value) }} disabled/>
+                                                    <input type="text" className="form-control" name='email' value={email} onChange={(e) => { setEmail(e.target.value) }} disabled/>
                                                 </div>
                                                 <div className="col-6">
                                                     <label htmlFor="Phone">Phone</label>
                                                     <input type="text" className="form-control" name='phone' placeholder="Enter phone" value={phone} onChange={(e) => { setPhone(e.target.value) }} />
+                                                    <span className="text-danger">{errors.phone ? errors.phone[0] : ''}</span>
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-6">
                                                     <label htmlFor="Gender">Gender</label>
                                                     <input type="text" className="form-control" name='gender' placeholder="Enter gender" value={gender} onChange={(e) => { setGender(e.target.value) }} />
+                                                    <span className="text-danger">{errors.gender ? errors.gender[0] : ''}</span>
                                                 </div>
                                                 <div className="col-6">
                                                     <label htmlFor="Dob">Date Of Birth</label>
                                                     <input type="date" className="form-control" name='dob' placeholder="Enter date of birth" value={dob} onChange={(e) => { setDob(e.target.value) }} />
+                                                    <span className="text-danger">{errors.dob ? errors.dob[0] : ''}</span>
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-12">
                                                     <label htmlFor="Address">Address</label>
                                                     <input type="text" className="form-control" name='address' placeholder="Enter address" value={address} onChange={(e) => { setAddress(e.target.value) }} />
+                                                    <span className="text-danger">{errors.address ? errors.address[0] : ''}</span>
                                                 </div>
                                             </div>
                                             <div className="row pt-2">

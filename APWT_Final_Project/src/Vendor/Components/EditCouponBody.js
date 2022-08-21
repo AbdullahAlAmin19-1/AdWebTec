@@ -8,19 +8,20 @@ const EditCouponBody = ({ co_id }) => {
     const [code, setCode] = useState("");
     const [amount, setAmount] = useState("");
 
+    const [msg, setMsg] = useState("");
+    const [errors, setErrors] = useState([]);
+
   useEffect(() => {
     document.title='Edit Coupon';
     AxiosConfig.get("vendor/editCoupon/" +co_id).then((succ) => {
         setCoupons(succ.data);
-
-        
         setId(succ.data.id);
         setCode(succ.data.code);
         setAmount(succ.data.amount);
         debugger;
     }, (err) => {
-      alert("Not working");
-      debugger;
+        setErrors(err.response.data);
+        debugger;
     })
   }, []);
 
@@ -31,16 +32,35 @@ const EditCouponBody = ({ co_id }) => {
         // alert(data.name);
         AxiosConfig.post("vendor/updateCoupon",data).
         then((succ)=>{
+            setErrors('');
+            setMsg(succ.data.msg);
             // debugger;
             // alert("Ok");
-            window.location.href="/vendor/allCoupons";
+            // window.location.href="/vendor/allCoupons";
         },(err)=>{
             // debugger;
+            setMsg('');
+            setErrors(err.response.data);
         })
+    }
+
+    const remove = () => {
+        setMsg("");
+        window.location.href = "/vendor/allCoupons";
     }
     
     return (
         <>
+            {
+                msg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-primary alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                            <strong>Success!</strong> {msg}
+                        </div>
+                    </div>
+                    : ''
+            }
             <section className="bg-dark">
                 <div className="container py-1">
                     <div className="row d-flex justify-content-center align-items-center">
@@ -65,12 +85,14 @@ const EditCouponBody = ({ co_id }) => {
                                                         <input type="text" name="id" className="form-control form-control-lg" value={id} disabled/>
                                                 </div>
                                                 <div className="form-outline">
-                                                        <label className="form-label" for="code">Code</label>
-                                                        <input type="text" name="code" className="form-control form-control-lg" placeholder="Enter name" value={code} onChange={(e) => { setCode(e.target.value) }}/>
+                                                    <label className="form-label" for="code">Code</label>
+                                                    <input type="text" name="code" className="form-control form-control-lg" placeholder="Enter name" value={code} onChange={(e) => { setCode(e.target.value) }}/>
+                                                    <span className="text-danger">{errors.code ? errors.code[0] : ''}</span>
                                                 </div>
                                                 <div className="form-outline">
-                                                        <label className="form-label" for="amount">Amount</label>
-                                                        <input type="text" name="price" className="form-control form-control-lg" value={amount} onChange={(e) => { setAmount(e.target.value) }}/>
+                                                    <label className="form-label" for="amount">Amount</label>
+                                                    <input type="text" name="amount" className="form-control form-control-lg" value={amount} onChange={(e) => { setAmount(e.target.value) }}/>
+                                                    <span className="text-danger">{errors.amount ? errors.amount[0] : ''}</span>
                                                 </div>
                                             </div>
                                             <div className="d-flex justify-content-end pt-1">
