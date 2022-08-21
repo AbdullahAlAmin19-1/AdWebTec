@@ -13,28 +13,17 @@ const LoginBody = () => {
     const handleForm = (event) => {
         event.preventDefault();
         const data = { user_type: user, email: email, password: password, };
-        console.log(data);
-        // alert(data.name);
         AxiosConfig.post("users/login", data).
             then((succ) => {
                 debugger;
-                //setTokens
+                setMsg(succ.data.msg)
 
-                setMsg(succ.data.login_msg)
+                if (succ.data.user) {
 
-                if (msg == "Login Successfull") {
-
-                    localStorage.setItem('_authToken', succ.data.token.token_key);
                     localStorage.setItem('user_type', succ.data.user_type);
                     localStorage.setItem('user_id', succ.data.user.id);
                     localStorage.setItem('username', succ.data.user.username);
-
-                    console.log(localStorage.getItem('user_type'));
-                    console.log(localStorage.getItem('user_id'));
-                    console.log(localStorage.getItem('username'));
-
-
-                    // alert("Login Completed");
+                    localStorage.setItem('_authToken', succ.data.token.token_key);
 
                     if (succ.data.user_type == 'Admin') { window.location.href = "/admin/dashboard"; }
                     if (succ.data.user_type == 'Vendor') { window.location.href = "/vendor/profile"; }
@@ -42,7 +31,6 @@ const LoginBody = () => {
                     if (succ.data.user_type == 'Deliveryman') { window.location.href = "/customer/profileinfo"; }
 
                 }
-
                 else {
                     alert(msg)
                 }

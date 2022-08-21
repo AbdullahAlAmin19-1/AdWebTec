@@ -6,14 +6,13 @@ const Logout = () => {
         const data={key:localStorage.getItem('_authToken')};
         AxiosConfig.post("users/logout",data).then(
             (succ) => {
-                // debugger;
+                debugger;
                 localStorage.setItem('_authToken', '');
                 localStorage.setItem('user_type', '');
                 localStorage.setItem('user_id', '');
                 localStorage.setItem('username', '');
                 localStorage.setItem('product_id', '');
-                alert("User has been logged out successfully!");
-                console.log(succ.data);
+                // alert("User has been logged out successfully!");
                 window.location.href="/";
             },
             (err) => {

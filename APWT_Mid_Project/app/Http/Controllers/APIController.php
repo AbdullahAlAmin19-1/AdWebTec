@@ -88,7 +88,7 @@ class APIController extends Controller
             $token->save();
             return response()->json(
                 [
-                    "login_msg"=>"Login Successfull",
+                    "msg"=>"Login Successfull",
                     "user_type"=>$req->user_type, 
                     "user"=>$user, 
                     "token"=>$token      
