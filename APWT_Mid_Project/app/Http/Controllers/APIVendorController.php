@@ -10,6 +10,8 @@ use App\Models\vendor;
 use App\Models\product;
 use App\Models\requested_coupon;
 use App\Models\coupon;
+use App\Models\notice;
+use App\Models\review;
 
 class APIVendorController extends Controller
 {
@@ -69,6 +71,41 @@ class APIVendorController extends Controller
             return response()->json(["msg"=>$ppName]);
         }
         return response()->json(["msg"=>"No file"]);
+    }
+
+    function changepass(Request $req)
+    {
+        $validator = Validator::make(
+            $req->all(),
+            [
+                "current_pass" => "required",
+                "new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+                "confirm_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
+
+            ],
+
+            [
+                'new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+                'confirm_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        $vendor = vendor::where('id', session()->get('user_id'))->first();
+
+        if ($vendor->password == $req->current_pass) {
+            $vendor->password = $req->new_pass;
+            $vendor->update();
+
+            return response()->json(["msg" => "Vendor password has been successfully updated!"]);
+        } else {
+            return response()->json(
+                [
+                    "msg" => "Vendor current password does not match!",
+                ]
+            );
+        }
     }
 
     function products()
@@ -213,6 +250,35 @@ class APIVendorController extends Controller
                 "msg" => "Coupon Deleted",
             ]
         );
+    }
+
+    function notices($id)
+    {
+        $notices = notice::where('v_id', $id)->get();
+
+        if (count($notices) !== 0) {
+            return response()->json($notices);
+        } else {
+            // return response()->json(["msg" => "Your do not have any notice!"]);
+            return response()->json(["msg" => "NO Notice Available"]);
+        }
+    }
+
+    function reviews()
+    {
+        $reviews = review::all();
+
+        if (count($reviews)) {
+            return response()->json(["reviews" => $reviews]);
+        } else {
+            return response()->json(["msg" => "NO Review Available"]);
+        }
+    }
+    function reviewview($id)
+    {
+        $review = review::where('id', $id)->first();
+
+        return response()->json($review);
     }
 
 }

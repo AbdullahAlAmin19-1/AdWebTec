@@ -38,7 +38,7 @@ const ProfileBody = () => {
                                 <p className="text-muted mb-4">{vendor.address}</p>
                                 <div className="d-flex justify-content-center mb-2">
                                     <button type="button" className="btn btn-primary"><Link className='nav-link' to={`/vendor/editProfile/${vendor.id}`}>Edit Profile</Link></button>
-                                    <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="#">Change Password</Link></button>
+                                    <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="/vendor/changePass">Change Password</Link></button>
                                 </div>
                             </div>
                         </div>

@@ -17,12 +17,12 @@ const LoginBody = () => {
         // alert(data.name);
         AxiosConfig.post("users/login", data).
             then((succ) => {
-                // debugger;
+                debugger;
                 //setTokens
 
-                setMsg(succ.data.msg)
+                setMsg(succ.data.login_msg)
 
-                if (msg == null) {
+                if (msg == "Login Successfull") {
 
                     localStorage.setItem('_authToken', succ.data.token.token_key);
                     localStorage.setItem('user_type', succ.data.user_type);

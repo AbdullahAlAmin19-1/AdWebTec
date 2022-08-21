@@ -21,6 +21,9 @@ import VAllCoupons from './Vendor/Pages/AllCoupons';
 import VAddCoupon from './Vendor/Pages/AddCoupon';
 import VEditCoupon from './Vendor/Pages/EditCoupon';
 import VDeleteCoupon from './Vendor/Components/DeleteCoupon';
+import Notice from './Vendor/Pages/Notice'
+import VReviews from './Vendor/Pages/Reviews';
+import VChangePass from './Vendor/Pages/ChangePass';
 
 // Customer
 import Dashboard from './Customer/Pages/Dashboard';
@@ -74,6 +77,9 @@ const Main = () => {
           <Route path="/vendor/addCoupon" element={<VAddCoupon />} />
           <Route path="/vendor/editCoupon/:id" element={<VEditCoupon />} />
           <Route path="/vendor/deleteCoupon/:id" element={<VDeleteCoupon />} />
+          <Route path="/vendor/notices" element={<Notice />} />
+          <Route path="/vendor/reviews" element={<VReviews />} />
+          <Route path="/vendor/changePass" element={<VChangePass />} />
 
           {/* Customer Routes */}
           <Route path="/customer/dashboard" element={<Dashboard />} />
