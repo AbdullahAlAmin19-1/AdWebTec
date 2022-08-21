@@ -55,6 +55,18 @@ const ReviewsBody = () => {
                     <div className="card-header">
                         <h3 className="text-center">Customer Reviews</h3>
                     </div>
+
+                    {
+                        msg ?
+                            <div className="container mt-3 px-5">
+                                <div className="alert alert-primary alert-dismissible">
+                                    <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                                    <strong>Success!</strong> {msg}
+                                </div>
+                            </div>
+                            : ''
+                    }
+
                     <div className="card-body">
 
                         <div className="row justify-content-center">
@@ -104,17 +116,6 @@ const ReviewsBody = () => {
 
                         <div className="row justify-content-center">
                             <h4 className="text-center">-- Previous Reviews --</h4>
-
-                            {
-                                msg ?
-                                    <div className="container mt-3 px-5">
-                                        <div className="alert alert-primary alert-dismissible">
-                                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
-                                            <strong>Success!</strong> {msg}
-                                        </div>
-                                    </div>
-                                    : ''
-                            }
 
                             {
                                 previews.map((item) =>
