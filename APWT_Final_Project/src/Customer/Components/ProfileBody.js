@@ -7,7 +7,6 @@ const ProfileBody = () => {
 
     useEffect(() => {
         document.title='Grocery OS - Profile';
-        // var c_id = 1; //Setting dummy value
 
         var c_id = localStorage.getItem('user_id');
 
@@ -44,14 +43,14 @@ const ProfileBody = () => {
                                         <p className="text-muted mb-4">{customer.address}</p>
                                         <div className="d-flex justify-content-center mb-2">
                                             <button type="button" className="btn btn-primary"><Link className='nav-link' to={`/customer/profileinfo/edit/${customer.id}`}>Edit Profile</Link></button>
-                                            <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="#">Change Password</Link></button>
+                                            <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="/customer/changepass">Change Password</Link></button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
 
-                            <div className="col-8">
+                            <div className="col-8 mt-3">
                                 <div className="card">
                                     <div className="card-body">
                                         <div className="user-details">

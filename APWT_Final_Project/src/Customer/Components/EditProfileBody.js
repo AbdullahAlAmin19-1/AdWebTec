@@ -21,7 +21,6 @@ const EditProfileBody = ({ c_id }) => {
 
     useEffect(() => {
         document.title = 'Grocery OS - Edit Profile';
-        // var c_id = 1; //Setting dummy value
 
         var c_id = localStorage.getItem('user_id');
 
@@ -85,27 +84,28 @@ const EditProfileBody = ({ c_id }) => {
 
     return (
         <>
+
+            {
+                msg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-primary alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                            <strong>Success!</strong> {msg}
+                        </div>
+                    </div>
+                    : ''
+            }
+
             <div className="container-fluid p-4">
                 <div className="card">
                     <div className="card-header">
                         <h3 className="text-center">Customer Profile Edit</h3>
                     </div>
 
-                    {
-                        msg ?
-                            <div className="container mt-3">
-                                <div className="alert alert-primary alert-dismissible">
-                                    <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
-                                    <strong>Success!</strong> {msg}
-                                </div>
-                            </div>
-                            : ''
-                    }
-
                     <div className="card-body">
 
                         <div className="row">
-                            <div className="col-4 mt-5">
+                            <div className="col-4 mt-3">
                                 <div className="card">
                                     <div className="card-body">
                                         <div className="user-profile">

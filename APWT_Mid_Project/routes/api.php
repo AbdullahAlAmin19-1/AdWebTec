@@ -33,9 +33,6 @@ Route::get('/public/category/products/{category}',[APIController::class,'categor
 Route::get('/public/products/search/{keyword}',[APIController::class,'searchproducts']);
 
 
-
-Route::get('/users/user',[APIController::class,'user']);
-
 //Admin
 Route::get('/admin/profile/{id}',[APIAdminController::class,'profile']);
 Route::get('/admin/editprofile/{id}',[APIAdminController::class,'profile']);
@@ -74,6 +71,7 @@ Route::get('/vendor/deleteCoupon/{id}',[APIVendorController::class,'deleteCoupon
 //Customer
 Route::get('/customer/profileinfo/{id}',[APICustomersController::class,'profileinfo']);
 Route::post('/customer/updateprofile',[APICustomersController::class,'updateprofile']);
+Route::post('/customer/changepass',[APICustomersController::class,'changepass']);
 Route::post('/customer/updatedp',[APICustomersController::class,'updatedp']);
 Route::post('/customer/addcart',[APICustomersController::class,'addcart']);
 Route::get('/customer/viewcart/{id}',[APICustomersController::class,'viewcart']);

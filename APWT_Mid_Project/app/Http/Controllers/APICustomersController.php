@@ -50,26 +50,60 @@ class APICustomersController extends Controller
 
         return response()->json(
             [
-                "msg" => "Profile information has been updated successfully!",
+                "msg" => "Profile informations has been updated successfully!",
             ]
         );
     }
 
+    function changepass(Request $req)
+    {
+        $validator = Validator::make(
+            $req->all(),
+            [
+                "current_pass" => "required",
+                "new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+                "confirm_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
+
+            ],
+
+            [
+                'new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+                'confirm_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        $customer = customer::where('id', session()->get('user_id'))->first();
+
+        if ($customer->password == $req->current_pass) {
+            $customer->password = $req->new_pass;
+            $customer->update();
+
+            return response()->json(["msg" => "Customer password has been successfully updated!"]);
+        } else {
+            return response()->json(
+                [
+                    "msg" => "Customer current password does not match!",
+                ]
+            );
+        }
+    }
+
     function updatedp(Request $req)
     {
-        //Get user id and username here
         $user = customer::where('id', session()->get('user_id'))->first();
 
-        if($req->hasfile('file')){
+        if ($req->hasfile('file')) {
             $orgName = $req->file->getClientOriginalName();
-            $ppName = $user->username.time().$orgName;
-            $req->file->storeAs('public/cprofile_images',$ppName);
+            $ppName = $user->username . time() . $orgName;
+            $req->file->storeAs('public/cprofile_images', $ppName);
 
             $user->propic = $ppName;
             $user->update();
-            return response()->json(["msg"=>"Profile photo has been updated successfully!"]);
+            return response()->json(["msg" => "Profile photo has been updated successfully!"]);
         }
-        return response()->json(["msg"=>"No file has been selected!"]);
+        return response()->json(["msg" => "No file has been selected!"]);
     }
 
     function addcart(Request $req)
@@ -125,15 +159,13 @@ class APICustomersController extends Controller
         $id = $req->cart_id;
         $cart = cart::where('id', $id)->first();
 
-        if($cart->quantity > 1){
+        if ($cart->quantity > 1) {
 
-        $cart->quantity = $cart->quantity - 1;
-        $cart->update();
+            $cart->quantity = $cart->quantity - 1;
+            $cart->update();
 
-        return response()->json(["msg" => "Product has been updated successfully!"]);
-        }
-
-        else{
+            return response()->json(["msg" => "Product has been updated successfully!"]);
+        } else {
             return response()->json(["msg" => "Product quantity can't be less than 1!"]);
         }
     }

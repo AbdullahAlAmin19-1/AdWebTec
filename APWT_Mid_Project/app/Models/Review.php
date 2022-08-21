@@ -14,13 +14,12 @@ class review extends Model
 
     protected $guarded = [];
 
-    protected $with = ['customer'];
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'c_id');
     }
 
-    // protected $with = ['product'];
+    protected $with = ['product'];
     public function product()
     {
         return $this->belongsTo(Product::class, 'p_id');

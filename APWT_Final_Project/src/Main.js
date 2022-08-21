@@ -26,6 +26,7 @@ import VDeleteCoupon from './Vendor/Components/DeleteCoupon';
 import Dashboard from './Customer/Pages/Dashboard';
 import ProfileInfo from './Customer/Pages/ProfileInfo';
 import EditProfile from './Customer/Pages/EditProfile'
+import ChangePass from './Customer/Pages/ChangePass';
 import Cart from './Customer/Pages/Cart';
 import Reviews from './Customer/Pages/Reviews';
 import ReviewUpdate from './Customer/Pages/ReviewUpdate';
@@ -83,6 +84,7 @@ const Main = () => {
           <Route path="/customer/reviewupdate/:id" element={<ReviewUpdate />} />
           <Route path="/customer/coupons" element={<Coupons />} />
           <Route path="/customer/notices" element={<Notices />} />
+          <Route path="/customer/changepass" element={<ChangePass />} />
 
           {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
