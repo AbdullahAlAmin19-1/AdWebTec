@@ -28,13 +28,22 @@ class APIVendorController extends Controller
 
     function updateprofile(Request $req)
     {
-        $validator = Validator::make($req->all(), [
-            "name" => "required",
-            //Others validation here
-
+        $validator = Validator::make($req->all(),[
+            "name"=>"required|regex:/^[A-Z a-z,.-]+$/i",
+            "username"=>"required",
+            "email"=>"required",
+            "phone"=>"required|numeric|digits:10",
+            "gender"=>"required",
+            "dob"=>"required|before:-18 years",
+            "address"=>"required"
+        ],
+        [
+            'name.regex' => 'Name cannot contain special characters or numbers.',
+            'dob.before' => 'User must be 18 years or older.',
         ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
+
+        if($validator->fails()){
+            return response()->json($validator->errors(),422);
         }
 
         $user = vendor::find($req->id);
@@ -117,9 +126,12 @@ class APIVendorController extends Controller
     function addProduct(Request $req){
         $validator = Validator::make($req->all(),[
             "name"=>"required",
+            "category"=>"required",
+            "price"=>"required",
+            "stock"=>"required"
         ]);
         if($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(),422);
         }
 
         $thumbnail = null;
@@ -157,13 +169,14 @@ class APIVendorController extends Controller
 
     function updateProduct(Request $req)
     {
-        $validator = Validator::make($req->all(), [
-            "name" => "required",
-            //Others validation here
-
+        $validator = Validator::make($req->all(),[
+            "name"=>"required",
+            "category"=>"required",
+            "price"=>"required",
+            "stock"=>"required"
         ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
+        if($validator->fails()){
+            return response()->json($validator->errors(),422);
         }
 
         $p= product::where('id', '=', $req->id)->first();
@@ -185,6 +198,13 @@ class APIVendorController extends Controller
 
     function updateThumbnail(Request $req)
     {
+        $validator = Validator::make($req->all(),[
+            "file"=>"required"
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors(),422);
+        }
+
         $product = product::where('id', session()->get('product_id'))->first();
 
         if($req->hasfile('file')){
@@ -215,6 +235,15 @@ class APIVendorController extends Controller
 
     function addCoupon(Request $value){
     
+        $validator = Validator::make($value->all(),[
+            "codetype"=>"required",
+            "code"=>"required|unique:requested_coupons|unique:coupons",
+            "amount"=>"required"
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors(),422);
+        }
+
         $c=new requested_coupon();
         if($value->codetype=='auto'){
             if(is_numeric($value->code)){
@@ -226,7 +255,12 @@ class APIVendorController extends Controller
         }
         $c->amount=$value->amount;
         $c->save();
-        return response()->json($c, 200);
+        return response()->json(
+        [
+            "msg" => "Coupon Added",
+            "Coupon" => $c
+        ]
+    );
     }
 
     function editCoupon($id){
@@ -236,11 +270,25 @@ class APIVendorController extends Controller
 
     
     function updateCoupon(Request $value){
+        
+        $validator = Validator::make($value->all(),[
+            "code"=>"required",
+            "amount"=>"required"
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors(),422);
+        }
+        
         $c = coupon::where('id','=',$value->id)->first();
         $c->code=$value->code;
         $c->amount=$value->amount;
         $c->save();
-        return response()->json($c, 200);
+        return response()->json(
+            [
+                "msg" => "Coupon Updated",
+                "Coupon" => $c
+            ]
+        );
     }
 
     function deleteCoupon($id){

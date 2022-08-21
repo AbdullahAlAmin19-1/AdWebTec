@@ -15,6 +15,9 @@ const EditProductBody = ({p_id}) => {
     const [stock, setStock] = useState("");
     const [size, setSize] = useState("");
     const [description, setDescription] = useState("");
+
+    const [msg, setMsg] = useState("");
+    const [errors, setErrors] = useState([]);
     // alert(id);
     useEffect(() => {
     document.title='Edit Product';
@@ -44,13 +47,13 @@ const EditProductBody = ({p_id}) => {
 
         AxiosConfig.post("vendor/updateProduct", data).
             then((succ) => {
-                //setMsg(succ.data.msg);
-                alert(succ.data.msg);
-                window.location.href="/vendor/allProducts";
+                setMsg(succ.data.msg);
+                // alert(succ.data.msg);
+                // window.location.href="/vendor/allProducts";
                 debugger;
             }, (err) => {
                 debugger;
-                // setErrs(err.response.data);
+                setErrors(err.response.data);
             })
     }
 
@@ -59,23 +62,53 @@ const EditProductBody = ({p_id}) => {
 
         var data = new FormData();
         data.append("file",pic,pic.name);
-
+        debugger;
         localStorage.setItem('product_id',id);
 
         AxiosConfig.post("vendor/updateThumbnail", data).
             then((succ) => {
-                //setMsg(succ.data.msg);
-                alert(succ.data.msg);
-                window.location.href="/vendor/allProducts";
+                setMsg(succ.data.msg);
+                // alert(succ.data.msg);
+                // window.location.href="/vendor/allProducts";
                 // debugger;
             }, (err) => {
                 debugger;
-                // setErrs(err.response.data);
+                setErrors(err.response.data);
             })
+    }
+
+    const remove_product = () => {
+        AxiosConfig.get("vendor/deleteProduct/"+id).then(
+            (succ) => {
+                setMsg(succ.data.msg);
+                // alert(succ.data.msg);
+                // window.location.href="/vendor/allProducts";
+                // debugger;
+            },
+            (err) => {
+                debugger;
+                setErrors(err.response.data);
+            }
+        );
+    }
+
+    const remove_msg = () => {
+        setMsg("");
+        window.location.href="/vendor/allProducts";
     }
 
     return (
         <>
+            {
+                msg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-primary alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove_msg}></button>
+                            <strong>Success!</strong> {msg}
+                        </div>
+                    </div>
+                    : ''
+            }
             <div className="container-fluid">
                 <div className="row m-4">
                     <div className="col-4 mt-5">
@@ -112,20 +145,24 @@ const EditProductBody = ({p_id}) => {
                                                 <div className="col-6">
                                                     <label htmlFor="Name">Name</label>
                                                     <input type="text" className="form-control" name='name' placeholder="Enter name" value={name} onChange={(e) => { setName(e.target.value) }} />
+                                                    <span className="text-danger">{errors.name ? errors.name[0] : ''}</span>
                                                 </div>
                                                 <div className="col-6">
                                                     <label htmlFor="userame">Category</label>
                                                     <input type="text" className="form-control" name='category' placeholder="Enter category" value={category} onChange={(e) => { setCategory(e.target.value) }} />
+                                                    <span className="text-danger">{errors.category ? errors.category[0] : ''}</span>
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-6">
                                                     <label htmlFor="stock">Stock</label>
                                                     <input type="text" className="form-control" name='stock' placeholder="Enter stock" value={stock} onChange={(e) => { setStock(e.target.value) }} />
+                                                    <span className="text-danger">{errors.stock ? errors.stock[0] : ''}</span>
                                                 </div>
                                                 <div className="col-6">
                                                     <label htmlFor="price">Price</label>
                                                     <input type="text" className="form-control" name='price' placeholder="Enter price" value={price} onChange={(e) => { setPrice(e.target.value) }} />
+                                                    <span className="text-danger">{errors.price ? errors.price[0] : ''}</span>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -141,7 +178,7 @@ const EditProductBody = ({p_id}) => {
                                             <div className="row pt-2">
                                                 <div className="d-flex mb-2">
                                                     <button type="submit" className="btn btn-primary">Update</button>
-                                                    <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to={`/vendor/deleteProduct/${id}`}>Delete</Link></button>
+                                                    <button type="button" className="btn btn-primary ms-1" onClick={remove_product}> Delete</button>
                                                     <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="/vendor/allProducts">Cancel</Link></button>
                                                 </div>
                                             </div>

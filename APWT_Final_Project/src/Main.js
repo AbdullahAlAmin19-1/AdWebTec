@@ -14,7 +14,6 @@ import SearchProduct from './Public/Pages/SearchProduct';
 import VAllProducts from './Vendor/Pages/AllProducts';
 import VAddProduct from './Vendor/Pages/AddProduct';
 import VEditProduct from './Vendor/Pages/EditProduct';
-import VDeleteProduct from './Vendor/Components/DeleteProduct';
 import VProfile from './Vendor/Pages/Profile';
 import VEditProfile from './Vendor/Pages/EditProfile';
 import VAllCoupons from './Vendor/Pages/AllCoupons';
@@ -70,7 +69,6 @@ const Main = () => {
           <Route path="/vendor/allProducts" element={<VAllProducts />} />
           <Route path="/vendor/addProduct" element={<VAddProduct />} />
           <Route path="/vendor/editProduct/:id" element={<VEditProduct />} />
-          <Route path="/vendor/deleteProduct/:id" element={<VDeleteProduct />} />
           <Route path="/vendor/profile" element={<VProfile />} />
           <Route path="/vendor/editProfile/:id" element={<VEditProfile />} />
           <Route path="/vendor/allCoupons" element={<VAllCoupons />} />
