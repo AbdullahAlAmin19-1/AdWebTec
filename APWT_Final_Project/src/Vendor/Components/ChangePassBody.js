@@ -34,8 +34,6 @@ const ChangePassBody = () => {
             then((succ) => {
                 setMsg(succ.data.msg);
                 debugger;
-                alert(succ.data.msg);
-                window.location.href = "/vendor/profile";
             }, (err) => {
                 debugger;
                 setErrors(err.response.data);
@@ -43,14 +41,14 @@ const ChangePassBody = () => {
             })
     }
 
-    // const remove = () => {
-    //     setMsg("");
-    //     window.location.href = "/customer/profileinfo";
-    // }
+    const remove = () => {
+        setMsg("");
+        window.location.href = "/vendor/profile";
+    }
 
     return (
         <>
-            {/* {
+            {
                 msg ?
                     <div className="container mt-3">
                         <div className="alert alert-primary alert-dismissible">
@@ -59,7 +57,7 @@ const ChangePassBody = () => {
                         </div>
                     </div>
                     : ''
-            } */}
+            }
             <div className="container-fluid p-4">
                 <div className="card">
                     <div className="card-header">
