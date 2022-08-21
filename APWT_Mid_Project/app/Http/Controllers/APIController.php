@@ -109,6 +109,7 @@ class APIController extends Controller
         $token = token::where('token_key',$key)->first();
         $token->expired_at = new Datetime();
         $token->save();
+        session()->flush();
         return response()->json(["msg"=>"Logged out"]);
     }
 

@@ -56,6 +56,7 @@ Route::get('/admin/removecoupon/{id}',[APIAdminController::class,'removecoupon']
 Route::get('/vendor/profile/{id}',[APIVendorController::class,'profile']);
 Route::post('/vendor/updateprofile',[APIVendorController::class,'updateprofile']);
 Route::post('/vendor/updatedp',[APIVendorController::class,'updatedp']);
+Route::post('/vendor/changePass',[APIVendorController::class,'changePass']);
 Route::get('/vendor/products',[APIVendorController::class,'products']);
 Route::post('/vendor/addProduct',[APIVendorController::class,'addProduct']);
 Route::get('/vendor/editProduct/{id}',[APIVendorController::class,'editProduct']);
@@ -67,6 +68,9 @@ Route::post('/vendor/addCoupon',[APIVendorController::class,'addCoupon']);
 Route::get('/vendor/editCoupon/{id}',[APIVendorController::class,'editCoupon']);
 Route::post('/vendor/updateCoupon',[APIVendorController::class,'updateCoupon']);
 Route::get('/vendor/deleteCoupon/{id}',[APIVendorController::class,'deleteCoupon']);
+Route::get('/vendor/notices/{id}',[APIVendorController::class,'notices']);
+Route::get('/vendor/reviews',[APIVendorController::class,'reviews']);
+
 
 //Customer
 Route::get('/customer/profileinfo/{id}',[APICustomersController::class,'profileinfo']);
