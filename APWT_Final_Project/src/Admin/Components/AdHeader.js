@@ -1,6 +1,15 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const AdHeader = () => {
+    const [keyword, setKeyword] = useState("");
+
+  const handleForm = (event) => {
+    event.preventDefault();
+    if(keyword){
+      window.location.href=`/searchproduct/${keyword}`;
+    }
+  }
     return (
         <>
             <div className="container-fluid">
@@ -17,15 +26,15 @@ const AdHeader = () => {
                                 <Link className="nav-link" to="/admin/profile">Profile</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/">Logout</Link>
+                                <Link className="nav-link" to="/logout">Logout</Link>
                             </li>
                         </ul>
                     </div>
 
                     <div className="col-4">
                         <form className="d-flex">
-                            <input className="form-control me-2" type="text" placeholder='Search Product' />
-                            <button className="btn btn-primary" type="submit">Search</button>
+                        <input className="form-control me-2" type="text" value={keyword} placeholder="Search" onChange={(e) => { setKeyword(e.target.value) }} />
+                        <button className="btn btn-primary" type="submit">Search</button>
                         </form>
                     </div>
 

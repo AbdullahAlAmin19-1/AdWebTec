@@ -17,8 +17,26 @@ import others from '../../Images/Categories/others.webp'
 
 
 const ProductCategories = () => {
+
+  const remove = () => {
+    localStorage.removeItem("loggedout");
+    window.location.href = "/";
+  }
+
   return (
     <>
+
+      {
+        localStorage.getItem('loggedout') ?
+          <div className="container">
+            <div className="alert alert-primary alert-dismissible mt-4 mx-5">
+              <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+              <strong>Success!</strong> User has been logged out successfully!
+            </div>
+          </div>
+          : ''
+      }
+
       <div className="container-fluid py-4 text-center">
         <div className="row">
           <h3 className='text-center'>Product By Categories</h3>

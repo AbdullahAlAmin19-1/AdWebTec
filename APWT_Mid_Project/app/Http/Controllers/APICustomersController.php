@@ -27,13 +27,25 @@ class APICustomersController extends Controller
 
     function updateprofile(Request $req)
     {
-        $validator = Validator::make($req->all(), [
-            "name" => "required",
-            //Others validation here
+        $id = session()->get('user_id');
 
+        $validator = Validator::make($req->all(), [
+            "username" => "required|unique:customers,username,$id",
+            "name" => "required|regex:/^[a-z ,.'-]+$/i",
+            "email" => "required|email|unique:customers,email,$id",
+            "phone"=>"required|numeric|digits:10",
+            "gender" => "required",
+            "dob" => "required|before:-10 years",
+            "address" => "required"
+
+        ],
+        [
+            'name.regex' => 'Name cannot contain special characters or numbers.',
+            'dob.before' => 'User must be 10 years or older.',
         ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
+        
+        if($validator->fails()){
+            return response()->json($validator->errors(),422);
         }
 
         $c_id = $req->id;

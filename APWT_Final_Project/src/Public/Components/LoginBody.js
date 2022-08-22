@@ -35,20 +35,25 @@ const LoginBody = () => {
                     if (succ.data.user_type == 'Deliveryman') { window.location.href = "/customer/profileinfo"; }
 
                 }
+
                 else {
-                    alert(msg)
+                    // alert(msg)
                 }
 
             }, (err) => {
                 debugger;
                 setErrors(err.response.data);
-                // console.log(errors.email[0]);
             })
     }
     const remove = () => {
         localStorage.setItem('msg', '');
         localStorage.setItem('errmsg', '');
         setMsg("");
+    }
+
+    const remove = () => {
+        setMsg("");
+        window.location.href = "/login";
     }
 
     return (
@@ -87,35 +92,35 @@ const LoginBody = () => {
                                             <div className="form-check form-check-inline mb-0">
                                                 <input className="form-check-input" type="radio" name="user"
                                                     id="admin" value="Admin" onClick={(e) => { setUser(e.target.value) }} />
-                                                <label className="form-check-label" for="admin">Admin</label>
+                                                <label className="form-check-label" htmlFor="admin">Admin</label>
                                             </div>
 
                                             <div className="form-check form-check-inline mb-0">
                                                 <input className="form-check-input" type="radio" name="user"
                                                     id="vendor" value="Vendor" onClick={(e) => { setUser(e.target.value) }} />
-                                                <label className="form-check-label" for="vendor">Vendor</label>
+                                                <label className="form-check-label" htmlFor="vendor">Vendor</label>
                                             </div>
 
                                             <div className="form-check form-check-inline mb-0">
                                                 <input className="form-check-input" type="radio" name="user"
                                                     id="customer" value="Customer" onClick={(e) => { setUser(e.target.value) }} />
-                                                <label className="form-check-label" for="customer">Customer</label>
+                                                <label className="form-check-label" htmlFor="customer">Customer</label>
                                             </div>
 
                                             <div className="form-check form-check-inline mb-0">
                                                 <input className="form-check-input" type="radio" name="user"
                                                     id="deliveryman" value="Deliveryman" onClick={(e) => { setUser(e.target.value) }} />
-                                                <label className="form-check-label" for="deliveryman">Deliveryman</label>
+                                                <label className="form-check-label" htmlFor="deliveryman">Deliveryman</label>
                                             </div>
 
                                         </div>
                                         <div className="form-outline">
-                                            <label className="form-label" for="email">Email</label>
+                                            <label className="form-label" htmlFor="email">Email</label>
                                             <input type="email" name="email" className="form-control form-control-lg" value={email} onChange={(e) => { setEmail(e.target.value) }} />
                                             <span className="text-danger">{errors.email ? errors.email[0] : ''}</span>
                                         </div>
                                         <div className="form-outline">
-                                            <label className="form-label" for="password">Password</label>
+                                            <label className="form-label" htmlFor="password">Password</label>
                                             <input type="password" name="password" className="form-control form-control-lg" value={password} onChange={(e) => { setPassword(e.target.value) }} />
                                             <span className="text-danger">{errors.password ? errors.password[0] : ''}</span>
                                         </div>
@@ -126,9 +131,25 @@ const LoginBody = () => {
                                         </button>
                                         <button type="submit" className="btn btn-warning btn-lg ms-2">Login</button>
                                     </div>
+
                                     <button type="button" className="btn btn-light btn-lg">
                                             <Link className="nav-link" to="/forgotPass">Forgot Password?</Link>
                                     </button>
+
+
+
+                                    {
+                                        msg ?
+                                            <div className="container mt-3">
+                                                <div className="alert alert-danger alert-dismissible">
+                                                    <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                                                    <strong>Warning!</strong> {msg}
+                                                </div>
+                                            </div>
+                                            : ''
+                                    }
+
+
                                 </div>
                             </form>
                         </div>
@@ -165,34 +186,34 @@ const LoginBody = () => {
                                                         <div className="form-check form-check-inline mb-0">
                                                             <input className="form-check-input" type="radio" name="user"
                                                                 id="admin" value="Admin" onClick={(e) => { setUser(e.target.value) }} />
-                                                            <label className="form-check-label" for="admin">Admin</label>
+                                                            <label className="form-check-label" htmlFor="admin">Admin</label>
                                                         </div>
 
                                                         <div className="form-check form-check-inline mb-0">
                                                             <input className="form-check-input" type="radio" name="user"
                                                                 id="vendor" value="Vendor" onClick={(e) => { setUser(e.target.value) }} />
-                                                            <label className="form-check-label" for="vendor">Vendor</label>
+                                                            <label className="form-check-label" htmlFor="vendor">Vendor</label>
                                                         </div>
 
                                                         <div className="form-check form-check-inline mb-0">
                                                             <input className="form-check-input" type="radio" name="user"
                                                                 id="customer" value="Customer" onClick={(e) => { setUser(e.target.value) }} />
-                                                            <label className="form-check-label" for="customer">Customer</label>
+                                                            <label className="form-check-label" htmlFor="customer">Customer</label>
                                                         </div>
 
                                                         <div className="form-check form-check-inline mb-0">
                                                             <input className="form-check-input" type="radio" name="user"
                                                                 id="deliveryman" value="Deliveryman" onClick={(e) => { setUser(e.target.value) }} />
-                                                            <label className="form-check-label" for="deliveryman">Deliveryman</label>
+                                                            <label className="form-check-label" htmlFor="deliveryman">Deliveryman</label>
                                                         </div>
 
                                                     </div>
                                                     <div className="form-outline">
-                                                        <label className="form-label" for="email">Email</label>
+                                                        <label className="form-label" htmlFor="email">Email</label>
                                                         <input type="email" name="email" className="form-control form-control-lg" value={email} onChange={(e) => { setEmail(e.target.value) }} />
                                                     </div>
                                                     <div className="form-outline">
-                                                        <label className="form-label" for="password">Password</label>
+                                                        <label className="form-label" htmlFor="password">Password</label>
                                                         <input type="password" name="password" className="form-control form-control-lg" value={password} onChange={(e) => { setPassword(e.target.value) }} />
                                                     </div>
                                                 </div>

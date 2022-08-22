@@ -6,10 +6,9 @@ const Profile = () => {
     const [admin, setAdmin] = useState({});
 
     useEffect(() => {
-        document.title='Profile';
-        var a_id = 1; //Setting dummy value
+        document.title='Profile'; //Setting dummy value
 
-        AxiosConfig.get("admin/profile/" + a_id).then(
+        AxiosConfig.get("admin/profile/"+localStorage.getItem('user_id')).then(
             (res) => {
                 setAdmin(res.data);
                 // debugger;
