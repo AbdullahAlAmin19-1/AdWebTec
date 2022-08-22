@@ -18,6 +18,7 @@ const EditProfileBody = ({ c_id }) => {
     const [propic, setProPic] = useState("");
 
     const [msg, setMsg] = useState("");
+    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
         document.title = 'Grocery OS - Edit Profile';
@@ -57,7 +58,8 @@ const EditProfileBody = ({ c_id }) => {
                 // debugger;
             }, (err) => {
                 debugger;
-                // setErrs(err.response.data);
+                setErrors(err.response.data);
+                console.log(err.response.data);
             })
     }
 
@@ -145,36 +147,43 @@ const EditProfileBody = ({ c_id }) => {
                                                         <div className="col-6">
                                                             <label htmlFor="userame">Username</label>
                                                             <input type="text" className="form-control" name='username' placeholder="Enter username" value={username} onChange={(e) => { setUsername(e.target.value) }} />
+                                                            <span className="text-danger">{errors.username ? errors.username[0] : ''}</span>
                                                         </div>
                                                         <div className="col-6">
                                                             <label htmlFor="Name">Name</label>
                                                             <input type="text" className="form-control" name='name' placeholder="Enter name" value={name} onChange={(e) => { setName(e.target.value) }} />
+                                                            <span className="text-danger">{errors.name ? errors.name[0] : ''}</span>
                                                         </div>
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-6">
                                                             <label htmlFor="Email">Email</label>
                                                             <input type="text" className="form-control" name='email' placeholder="Enter email" value={email} onChange={(e) => { setEmail(e.target.value) }} disabled />
+                                                            <span className="text-danger">{errors.email ? errors.email[0] : ''}</span>
                                                         </div>
                                                         <div className="col-6">
                                                             <label htmlFor="Phone">Phone</label>
                                                             <input type="text" className="form-control" name='phone' placeholder="Enter phone" value={phone} onChange={(e) => { setPhone(e.target.value) }} />
+                                                            <span className="text-danger">{errors.phone ? errors.phone[0] : ''}</span>
                                                         </div>
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-6">
                                                             <label htmlFor="Gender">Gender</label>
                                                             <input type="text" className="form-control" name='gender' placeholder="Enter gender" value={gender} onChange={(e) => { setGender(e.target.value) }} />
+                                                            <span className="text-danger">{errors.gender ? errors.gender[0] : ''}</span>
                                                         </div>
                                                         <div className="col-6">
                                                             <label htmlFor="Dob">Date Of Birth</label>
                                                             <input type="date" className="form-control" name='dob' placeholder="Enter date of birth" value={dob} onChange={(e) => { setDob(e.target.value) }} />
+                                                            <span className="text-danger">{errors.dob ? errors.dob[0] : ''}</span>
                                                         </div>
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-12">
                                                             <label htmlFor="Address">Address</label>
                                                             <input type="text" className="form-control" name='address' placeholder="Enter address" value={address} onChange={(e) => { setAddress(e.target.value) }} />
+                                                            <span className="text-danger">{errors.address ? errors.address[0] : ''}</span>
                                                         </div>
                                                     </div>
                                                     <div className="row pt-2">

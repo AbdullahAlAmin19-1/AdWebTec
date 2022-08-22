@@ -6,7 +6,7 @@ const CusHeader = () => {
     const [keyword, setKeyword] = useState("");
 
     useEffect(() => {
-        // document.title='Grocery OS - Dashboard';
+        document.title='Grocery OS - Dashboard';
         AxiosConfig.get("customer/viewcart/" + localStorage.getItem('user_id')).then(
             (res) => {
                 // Do nothing
