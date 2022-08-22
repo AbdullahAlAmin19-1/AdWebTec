@@ -145,7 +145,8 @@ const ViewProductBody = ({ value }) => {
                                         <div className="col-6 py-2">
                                             <div className="card">
                                                 <div className="card-header bg-primary text-white">
-                                                    Review By: {item.customer.username}
+                                                    Review - {item.id}
+                                                    {/* Review By: {item.customer.username} */}
                                                 </div>
                                                 <div className="card-body">
                                                     <h5 className="card-title p-3">{item.message}</h5>

@@ -13,12 +13,12 @@ const AllCouponsBody = () => {
   useEffect(() => {
     document.title='All Coupons';
     AxiosConfig.get("vendor/allCoupons").then((succ) => {
-        setAllCouponss(succ.data);
-        console.log(succ.data);
-        //   debugger;
+      setAllCouponss(succ.data);
+      console.log(succ.data);
+      debugger;
     }, (err) => {
       alert("Not working");
-    //   debugger;
+      debugger;
     })
   }, []);
 
@@ -34,9 +34,20 @@ const AllCouponsBody = () => {
       }
   );
 }
-
   return (
     <>
+      <>
+      {
+                msg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-primary alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                            <strong>Success!</strong> {msg}
+                        </div>
+                    </div>
+                    : ''
+               }
+      </>  
     <Table striped bordered hover>
     <thead>
       <tr>
@@ -55,7 +66,7 @@ const AllCouponsBody = () => {
         <td>{coupon.amount}</td>
         <td>
             <button type="button" className="btn btn-primary mt-1" style={{ width: "100%" }} ><Link className="nav-link" to={`/vendor/editCoupon/${coupon.id}`} >Edit</Link></button>
-            <button type="button" className="btn btn-primary mt-1" style={{ width: "100%" }} ><Link className="nav-link" to={`/vendor/deleteCoupon/${coupon.id}`} >Delete</Link></button>
+            <button type="button" className="btn btn-primary mt-1" style={{ width: "100%" }} ><Link className="nav-link" onClick={() => { remove(coupon.id) }} >Delete</Link></button>
             </td>
         <td><input type="text" name="c_id" className="form-control" /><button type="submit" className="btn btn-warning btn ms-2">Assign</button></td>
       </tr>
