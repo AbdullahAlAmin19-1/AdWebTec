@@ -12,6 +12,9 @@ const Logout = () => {
                 localStorage.setItem('user_id', '');
                 localStorage.setItem('username', '');
                 localStorage.setItem('product_id', '');
+                localStorage.setItem('email', '');
+                localStorage.setItem('msg', '');
+                localStorage.setItem('errmsg', '');
                 // alert("User has been logged out successfully!");
                 window.location.href="/";
             },

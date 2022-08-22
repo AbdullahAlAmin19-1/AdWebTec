@@ -10,6 +10,7 @@ const ChangePassBody = () => {
     const [confirm_pass, setConfirm_pass] = useState("");
 
     const [msg, setMsg] = useState("");
+    const [errmsg, setErrMsg] = useState("");
     const [errors, setErrors] = useState([]);
     
     useEffect(() => {
@@ -32,9 +33,13 @@ const ChangePassBody = () => {
         // console.log(data);
         AxiosConfig.post("vendor/changePass", data).
             then((succ) => {
+                setErrors("");
                 setMsg(succ.data.msg);
+                setErrMsg(succ.data.errmsg);
                 debugger;
             }, (err) => {
+                setMsg("");
+                setErrMsg("");
                 debugger;
                 setErrors(err.response.data);
                 // console.log(err.response.data);
@@ -42,7 +47,10 @@ const ChangePassBody = () => {
     }
 
     const remove = () => {
+        localStorage.setItem('msg', '');
+        localStorage.setItem('errmsg', '');
         setMsg("");
+        setErrMsg("");
         window.location.href = "/vendor/profile";
     }
 
@@ -51,9 +59,19 @@ const ChangePassBody = () => {
             {
                 msg ?
                     <div className="container mt-3">
-                        <div className="alert alert-primary alert-dismissible">
+                        <div className="alert alert-success alert-dismissible">
                             <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
                             <strong>Success!</strong> {msg}
+                        </div>
+                    </div>
+                    : ''
+            }
+            {
+                errmsg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-danger alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                            <strong>Failed!</strong> {errmsg}
                         </div>
                     </div>
                     : ''
@@ -103,13 +121,13 @@ const ChangePassBody = () => {
 
                                                     <div className="row py-1">
                                                         <div className="col-6">
-                                                            <label htmlFor="userame">New Password</label>
+                                                            <label html For="password">New Password</label>
                                                             <input type="password" className="form-control" name='new_pass' placeholder="Enter new password" value={new_pass} onChange={(e) => { setNew_pass(e.target.value) }} />
                                                             <span className="text-danger">{errors.new_pass ? errors.new_pass[0] : ''}</span>
                                                         </div>
 
                                                         <div className="col-6">
-                                                            <label htmlFor="Name">Confirm New Password</label>
+                                                            <label html For="Name">Confirm New Password</label>
                                                             <input type="password" className="form-control" name='confirm_pass' placeholder="Retype new password"
                                                                 value={confirm_pass} onChange={(e) => { setConfirm_pass(e.target.value) }} />
                                                             <span className="text-danger">{errors.confirm_pass ? errors.confirm_pass[0] : ''}</span>
@@ -120,7 +138,7 @@ const ChangePassBody = () => {
                                                     <div className="row pt-2">
                                                         <div className="d-flex mb-2">
                                                             <button type="submit" className="btn btn-primary">Update</button>
-                                                            <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="#">Forgot Password</Link></button>
+                                                            <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="/vendor/forgotPass#">Forgot Password</Link></button>
                                                         </div>
                                                     </div>
                                                 </form>

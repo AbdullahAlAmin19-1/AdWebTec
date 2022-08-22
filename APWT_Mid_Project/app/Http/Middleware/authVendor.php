@@ -24,6 +24,7 @@ class authVendor
             session()->put('user_id',$request->header("user_id"));
             session()->put('product_id',$request->header("product_id"));
             session()->put('user_type',$request->header("user_type"));
+            // session()->put('otp',$request->header("otp"));
             return $next($request);
         }
         return response()->json(["msg"=>"User Type not valid"],401);

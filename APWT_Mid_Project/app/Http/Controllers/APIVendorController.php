@@ -12,6 +12,14 @@ use App\Models\requested_coupon;
 use App\Models\coupon;
 use App\Models\notice;
 use App\Models\review;
+use App\Models\customer;
+use App\Models\order;
+use App\Models\customer_coupon;
+use App\Models\cart;
+use App\Models\customer_product;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\sendOTP;
+use App\Mail\elogin;
 
 class APIVendorController extends Controller
 {
@@ -111,10 +119,94 @@ class APIVendorController extends Controller
         } else {
             return response()->json(
                 [
-                    "msg" => "Vendor current password does not match!",
+                    "errmsg" => "Vendor current password does not match!",
                 ]
             );
         }
+    }
+
+    function forgotPass(Request $vali){
+        $validator = Validator::make($vali->all(),
+            [
+                "email" => "required"
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        if($vali->user_type=="Admin"){$user=admin::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Vendor"){$user=vendor::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Customer"){$user=customer::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Deliveryman"){$user=deliveryman::where('email','=',$vali->email)->first();}
+       
+        if($user){
+            session()->put('resetpass','yes');
+            $otp = random_int(100000, 999999);
+            Mail::to([$user->email])->send(new sendOTP("Access OTP",$vali->user_type,$user->username,$user->email,$otp));
+            return response()->json(
+                [
+                    "msg"=>"Check Email For OTP",
+                    "otp"=>$otp
+                ]
+            );
+        }
+        else {
+            return response()->json(
+                [
+                    "errmsg"=>"Enter Correct Email"
+                ]
+            );
+        }
+    }
+
+    function enterOTP(Request $vali){
+        if(Session()->get('otp')==$vali->otp){
+            return response()->json(
+                [
+                    "msg"=>"Create New Password"
+                ]
+            );
+        }
+        else {
+            return response()->json(
+                [
+                    "errmsg"=>"OTP Not Valid"
+                ]
+            );
+        }
+    }
+
+    function createNewPass(Request $vali){
+        $validator = Validator::make(
+            $vali->all(),
+            [
+                "new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+                "conf_new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
+
+            ],
+
+            [
+                'new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+                'conf_new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        if($vali->user_type=="Admin"){$user=admin::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Vendor"){$user=vendor::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Customer"){$user=customer::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Deliveryman"){$user=deliveryman::where('email','=',$vali->email)->first();}
+       
+        
+        $user->password = $vali->new_pass;
+        $user->update();
+        return response()->json(
+            [
+                "msg"=>"Password Change Completed"
+            ]
+        );
     }
 
     function products()
@@ -220,10 +312,36 @@ class APIVendorController extends Controller
     }
 
     function deleteProduct($id){
+        $cart = cart::where('p_id','=',$id)->first();
+        if($cart){
+            return response()->json(
+                [
+                    "errmsg" => "Product Id $id is in cart, remove it from cart before Deleting the Product",
+                ]
+            );
+        }
+        $o = order::where('p_id','=',$id)->first();
+        if($o){
+            if($o->status!='Delivered'){
+                return response()->json(
+                    [
+                        "errmsg" => "Product Id $id can not be deleted",
+                    ]
+                );
+            }
+        }
+        $cp = customer_product::where('p_id','=',$id)->first();
+        if($cp){
+            return response()->json(
+                [
+                    "errmsg" => "Product Id $id can not be deleted",
+                ]
+            );
+        }
         DB::delete('delete from products where id = ?',[$id]);
         return response()->json(
             [
-                "msg" => "Product Deleted",
+                "msg" => "Product Id $id Deletion Successful",
             ]
         );
     }
@@ -267,7 +385,6 @@ class APIVendorController extends Controller
         $c = coupon::where('id','=',$id)->first();
         return response()->json($c, 200);
     }
-
     
     function updateCoupon(Request $value){
         
@@ -292,23 +409,75 @@ class APIVendorController extends Controller
     }
 
     function deleteCoupon($id){
+        $cco = customer_coupon::where('co_id','=',$id)->first();
+        if($cco){
+            return response()->json(
+                [
+                    "errmsg" => "Coupon Id $id belongs to customer, remove or wait for the customer to use it before Deleting the Coupon",
+                ]
+            );
+        }
         DB::delete('delete from coupons where id = ?',[$id]);
         return response()->json(
             [
-                "msg" => "Coupon Deleted",
+                "msg" => "Coupon Id $id Deletion Successful",
             ]
         );
+    }
+
+    function assigncoupon(Request $req){
+        
+    $validator = Validator::make($req->all(),[
+        "c_id" => "required",
+    ]);
+    if($validator->fails()){
+        return response()->json($validator->errors(),422);
+    }
+
+    $c = customer::where('id','=',$req->c_id)->first();
+    if(!$c){
+        return response()->json(
+            [
+                "errmsg" => "Invalid Customer Id, Enter a vaild Id",
+            ]
+        );
+    }
+    $o = order::where('c_id','=',$req->c_id)->where('co_id','=',$req->co_id)->first();
+    if($o){
+        return response()->json(
+            [
+                "errmsg" => "Coupon Id $req->co_id has already been used by Custimer Id $req->c_id",
+            ]
+        );
+    }
+    $cco = customer_coupon::where('c_id','=',$req->c_id)->where('co_id','=',$req->co_id)->first();
+    if($cco){
+        return response()->json(
+            [
+                "errmsg" => "Coupon Id $req->co_id has already been assign to Custimer Id $req->c_id",
+            ]
+        );
+    }
+    $assign = new customer_coupon();
+    $assign->c_id=$req->c_id;
+    $assign->co_id=$req->co_id;
+    $assign->save();
+    return response()->json(
+        [
+            "msg" => "Coupon Id $req->co_id has been assigned to Custimer Id $req->c_id",
+        ]
+    );
     }
 
     function notices($id)
     {
         $notices = notice::where('v_id', $id)->get();
 
-        if (count($notices) !== 0) {
+        if (count($notices)) {
             return response()->json($notices);
         } else {
             // return response()->json(["msg" => "Your do not have any notice!"]);
-            return response()->json(["msg" => "NO Notice Available"]);
+            return response()->json(["errmsg" => "No Notice Available"]);
         }
     }
 
@@ -319,14 +488,8 @@ class APIVendorController extends Controller
         if (count($reviews)) {
             return response()->json(["reviews" => $reviews]);
         } else {
-            return response()->json(["msg" => "NO Review Available"]);
+            return response()->json(["errmsg" => "No Review Available"]);
         }
-    }
-    function reviewview($id)
-    {
-        $review = review::where('id', $id)->first();
-
-        return response()->json($review);
     }
 
 }

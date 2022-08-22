@@ -13,8 +13,10 @@ const ReviewsBody = () => {
             (succ) => {
                 debugger;
                 setReviews(succ.data.reviews);
-                if (succ.data.msg == "NO Review Available") {
-                    alert(succ.data.msg);
+
+                if (succ.data.errmsg) 
+                {
+                    localStorage.setItem('errmsg', succ.data.errmsg);
                     window.location.href = "/vendor/profile";
                 }
             },
@@ -31,17 +33,6 @@ const ReviewsBody = () => {
                     <div className="card-header">
                         <h3 className="text-center">Product Reviews</h3>
                     </div>
-
-                    {/* {
-                        msg ?
-                            <div className="container mt-3 px-5">
-                                <div className="alert alert-primary alert-dismissible">
-                                    <button type="button" className="btn-close" data-bs-dismiss="alert"></button>
-                                    <strong>Success!</strong> {msg}
-                                </div>
-                            </div>
-                            : ''
-                    } */}
 
                     <div className="card-body">
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AxiosConfig from '../Services/AxiosConfig';
 import { Link } from "react-router-dom";
 
@@ -7,9 +7,11 @@ const LoginBody = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [msg, setMsg] = useState("");
+    const [msg, setMsg] = useState(localStorage.getItem('msg'));
     const [errors, setErrors] = useState([]);
-
+    useEffect(() => {
+        document.title='Login';
+      }, []);
     const handleForm = (event) => {
         event.preventDefault();
         const data = { user_type: user, email: email, password: password, };
@@ -24,6 +26,8 @@ const LoginBody = () => {
                     localStorage.setItem('user_id', succ.data.user.id);
                     localStorage.setItem('username', succ.data.user.username);
                     localStorage.setItem('_authToken', succ.data.token.token_key);
+                    localStorage.setItem('msg', '');
+                    localStorage.setItem('errmsg', '');
 
                     if (succ.data.user_type == 'Admin') { window.location.href = "/admin/dashboard"; }
                     if (succ.data.user_type == 'Vendor') { window.location.href = "/vendor/profile"; }
@@ -41,10 +45,24 @@ const LoginBody = () => {
                 // console.log(errors.email[0]);
             })
     }
+    const remove = () => {
+        localStorage.setItem('msg', '');
+        localStorage.setItem('errmsg', '');
+        setMsg("");
+    }
 
     return (
         <>
-
+{
+                msg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-success alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                            <strong>Success!</strong> {msg}
+                        </div>
+                    </div>
+                    : ''
+            }
             <section className="bg-dark">
                 <div className="container-fluid">
                     <div className="row px-5 py-4">
@@ -108,7 +126,9 @@ const LoginBody = () => {
                                         </button>
                                         <button type="submit" className="btn btn-warning btn-lg ms-2">Login</button>
                                     </div>
-
+                                    <button type="button" className="btn btn-light btn-lg">
+                                            <Link className="nav-link" to="/forgotPass">Forgot Password?</Link>
+                                    </button>
                                 </div>
                             </form>
                         </div>

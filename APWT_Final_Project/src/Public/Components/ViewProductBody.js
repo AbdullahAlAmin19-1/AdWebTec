@@ -11,6 +11,7 @@ const ViewProductBody = ({ value }) => {
     var c_id = localStorage.getItem('user_id')
 
     useEffect(() => {
+        document.title='Product';
         AxiosConfig.get("products/item/" + p_id).then(
             (res) => {
                 setProduct(res.data);

@@ -5,10 +5,14 @@ import AxiosConfig from '../../Public/Services/AxiosConfig';
 const ProfileBody = () => {
     const [vendor, setVendor] = useState({});
     
+    const [msg, setMsg] = useState(localStorage.getItem('msg'));
+    const [errmsg, setErrMsg] = useState(localStorage.getItem('errmsg'));
+    
     useEffect(() => {
         document.title='Profile';
         AxiosConfig.get("vendor/profile/"+localStorage.getItem('user_id')).then(
             (succ) => {
+                localStorage.setItem('otp', null);
                 setVendor(succ.data);
                 // debugger;
             },
@@ -18,9 +22,36 @@ const ProfileBody = () => {
 
         );
     }, []);
-
+    const remove = () => {
+        localStorage.setItem('msg', '');
+        setMsg("");
+        setErrMsg("");
+        localStorage.setItem('errmsg','');
+        window.location.href = "/vendor/profile";
+    }
+    
     return (
         <>
+        {
+                msg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-success alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                            <strong>Success!</strong> {msg}
+                        </div>
+                    </div>
+                    : ''
+            }
+            {
+                errmsg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-danger alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                            <strong>Failed!</strong> {errmsg}
+                        </div>
+                    </div>
+                    : ''
+            }
             <div className="container-fluid">
                 <div className="row">
                     <div className="col bg-light p-2">

@@ -27,6 +27,6 @@ class logged
             }
             return response()->json(["msg"=>"Supplied Token is invalid or expired"],401);
         }
-        return response()->json(["msg"=>"Not token supplied"],401);
+        return response()->json(["msg"=>"No token supplied"],401);
     }
 }

@@ -39,6 +39,8 @@ const AddProductBody = () => {
     }, []);
 
     const remove = () => {
+        localStorage.setItem('msg', '');
+        localStorage.setItem('errmsg', '');
         setMsg("");
         window.location.href = "/vendor/allProducts";
     }
@@ -47,7 +49,7 @@ const AddProductBody = () => {
             {
                 msg ?
                     <div className="container mt-3">
-                        <div className="alert alert-primary alert-dismissible">
+                        <div className="alert alert-success alert-dismissible">
                             <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
                             <strong>Success!</strong> {msg}
                         </div>
@@ -69,12 +71,10 @@ const AddProductBody = () => {
                                         <form action="" onSubmit={handleForm}>
                                         <div className="card-body p-md-5 text-black">
                                             <h3 className="mb-5 text-uppercase">Add Product</h3>
-
                                             <div className="row">
                                             <div className="d-md-flex justify-content-start align-items-center mb-4 py-2">
-
                                             </div>
-                                                <div className="col-md-6">
+                                                <div className="form-outline">
                                                     <div className="form-outline">                                                        
                                                         <label className="form-label" for="name">Name</label>
                                                         <input type="text" name="name" className="form-control form-control-lg" value={name} onChange={(e) => { setName(e.target.value) }} />
@@ -92,17 +92,17 @@ const AddProductBody = () => {
                                                         <label className="form-label" for="thumbnail">Thumbnail</label>
                                                         <input type="file" name="thumbnail" className="form-control form-control-lg" value={thumbnail} onChange={(e) => { setThumbnail(e.target.value) }}/>
                                                 </div> */}
-                                                <div className="form-outline">
+                                                <div className="col-md-6">
                                                         <label className="form-label" for="price">Price</label>
                                                         <input type="number" name="price" className="form-control form-control-lg" value={price} onChange={(e) => { setPrice(e.target.value) }}/>
                                                         <span className="text-danger">{errors.price ? errors.price[0] : ''}</span>
                                                 </div>
-                                                <div className="form-outline">
+                                                <div className="col-md-6">
                                                         <label className="form-label" for="stock">Stock</label>
                                                         <input type="number" name="stock" className="form-control form-control-lg" value={stock} onChange={(e) => { setStock(e.target.value) }}/>
                                                         <span className="text-danger">{errors.stock ? errors.stock[0] : ''}</span>
                                                 </div>
-                                                <div className="form-outline">
+                                                <div className="col-md-6">
                                                         <label className="form-label" for="size">Size</label>
                                                         <input type="number" name="size" className="form-control form-control-lg" value={size} onChange={(e) => { setSize(e.target.value) }}/>
                                                 </div>

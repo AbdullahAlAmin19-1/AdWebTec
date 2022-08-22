@@ -17,6 +17,7 @@ const EditProductBody = ({p_id}) => {
     const [description, setDescription] = useState("");
 
     const [msg, setMsg] = useState("");
+    const [errmsg, setErrMsg] = useState("");
     const [errors, setErrors] = useState([]);
     // alert(id);
     useEffect(() => {
@@ -47,11 +48,15 @@ const EditProductBody = ({p_id}) => {
 
         AxiosConfig.post("vendor/updateProduct", data).
             then((succ) => {
+                setErrors("");
                 setMsg(succ.data.msg);
+                setErrMsg(succ.data.errmsg);
                 // alert(succ.data.msg);
                 // window.location.href="/vendor/allProducts";
                 debugger;
             }, (err) => {
+                setMsg("");
+                setErrMsg("");
                 debugger;
                 setErrors(err.response.data);
             })
@@ -80,12 +85,16 @@ const EditProductBody = ({p_id}) => {
     const remove_product = () => {
         AxiosConfig.get("vendor/deleteProduct/"+id).then(
             (succ) => {
+                setErrors("");
                 setMsg(succ.data.msg);
+                setErrMsg(succ.data.errmsg);
                 // alert(succ.data.msg);
                 // window.location.href="/vendor/allProducts";
                 // debugger;
             },
             (err) => {
+                setMsg("");
+                setErrMsg("");
                 debugger;
                 setErrors(err.response.data);
             }
@@ -93,7 +102,10 @@ const EditProductBody = ({p_id}) => {
     }
 
     const remove_msg = () => {
+        localStorage.setItem('msg', '');
+        localStorage.setItem('errmsg', '');
         setMsg("");
+        setErrMsg("");
         window.location.href="/vendor/allProducts";
     }
 
@@ -102,9 +114,19 @@ const EditProductBody = ({p_id}) => {
             {
                 msg ?
                     <div className="container mt-3">
-                        <div className="alert alert-primary alert-dismissible">
+                        <div className="alert alert-success alert-dismissible">
                             <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove_msg}></button>
                             <strong>Success!</strong> {msg}
+                        </div>
+                    </div>
+                    : ''
+            }
+            {
+                errmsg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-danger alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove_msg}></button>
+                            <strong>Failed!</strong> {errmsg}
                         </div>
                     </div>
                     : ''
