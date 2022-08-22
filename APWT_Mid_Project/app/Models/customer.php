@@ -23,6 +23,7 @@ class customer extends Model
         return $this->hasMany(Cart::class, 'c_id');
     }
 
+    protected $with = ['reviews'];
     public function reviews()
     {
         return $this->hasMany(Review::class, 'c_id');
