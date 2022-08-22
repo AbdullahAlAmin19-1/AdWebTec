@@ -21,17 +21,27 @@ use Datetime;
 
 class APIAdminController extends Controller
 {
-    function profile()
+    function __construct(){
+        $this->middleware("authUser");
+        $this->middleware("admin");
+    }
+    function profile($id)
     {
-        $admin = admin::where('id', '=', 1)->first();
+        $admin = admin::where('id', '=', $id)->first();
         return response()->json($admin, 200);
     }
     function updateprofile(Request $req)
     {
-        $validator = Validator::make($req->all(), [
-            "name" => "required",
-            //Others validation here
-
+        $validator = Validator::make($req->all(),[
+            "name"=>"required|regex:/^[A-Z a-z,.-]+$/i",
+            "phone"=>"required|numeric|digits:10",
+            "gender"=>"required",
+            "dob"=>"required|before:-10 years",
+            "address"=>"required"
+        ],
+        [
+            'name.regex' => 'Name cannot contain special characters or numbers.',
+            'dob.before' => 'User must be 10 years or older.',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors());
@@ -52,6 +62,7 @@ class APIAdminController extends Controller
         return response()->json(
             [
                 "msg" => "Updated Successfully",
+                "data"=>$admin        
             ]
         );
     }

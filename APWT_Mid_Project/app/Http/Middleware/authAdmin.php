@@ -21,6 +21,8 @@ class authAdmin
         // }
         // return redirect()->route('public.products');
         if($request->header("user_type")=='Admin'){
+            session()->put('user_id',$request->header("user_id"));
+            session()->put('user_type',$request->header("user_type"));
             return $next($request);
         }
         return response()->json(["msg"=>"User Type not valid"],401);
