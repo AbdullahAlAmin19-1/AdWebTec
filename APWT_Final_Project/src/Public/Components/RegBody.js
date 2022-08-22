@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AxiosConfig from '../Services/AxiosConfig';
 import { Link } from 'react-router-dom';
 
@@ -15,6 +15,10 @@ const RegBody = () => {
     const [address, setAddress] = useState("");
 
     const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+        document.title='Registration';
+      }, []);
 
     const handleForm = (event) => {
         event.preventDefault();

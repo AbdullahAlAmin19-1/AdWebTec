@@ -14,6 +14,8 @@ import snacks from '../../Images/Categories/snacks.webp'
 import beverages from '../../Images/Categories/beverages.webp'
 import others from '../../Images/Categories/others.webp'
 
+
+
 const ProductCategories = () => {
 
   const remove = () => {

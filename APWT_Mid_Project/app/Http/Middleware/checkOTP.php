@@ -16,9 +16,14 @@ class checkOTP
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session()->has('checkotp')){
+        // if(session()->has('checkotp')){
+        //     return $next($request);
+        // }
+        // return redirect()->route('public.forgotpassword');
+        if($request->header("otp")!=null){
+            session()->put('otp',$request->header("otp"));
             return $next($request);
         }
-        return redirect()->route('public.forgotpassword');
+        return response()->json(["msg"=>"User Not Valid"],400);
     }
 }

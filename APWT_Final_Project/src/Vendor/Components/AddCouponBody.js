@@ -38,6 +38,8 @@ const AddCouponBody = () => {
 
 
     const remove = () => {
+        localStorage.setItem('msg', '');
+        localStorage.setItem('errmsg', '');
         setMsg("");
         window.location.href = "/vendor/allCoupons";
     }
@@ -47,7 +49,7 @@ const AddCouponBody = () => {
             {
                 msg ?
                     <div className="container mt-3">
-                        <div className="alert alert-primary alert-dismissible">
+                        <div className="alert alert-success alert-dismissible">
                             <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
                             <strong>Success!</strong> {msg}
                         </div>

@@ -16,9 +16,10 @@ class resetpass
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session()->has('resetpass')){
+        if(session()->get('resetpass')){
             return $next($request);
         }
-        return redirect()->route('public.forgotpassword');
+        // return redirect()->route('public.forgotpassword');
+        return response()->json(["msg"=>"User Not Valid"],400);
     }
 }

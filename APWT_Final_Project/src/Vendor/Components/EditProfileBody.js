@@ -49,6 +49,7 @@ const EditProfileBody = ({ v_id }) => {
 
         AxiosConfig.post("vendor/updateprofile", data).
             then((succ) => {
+                setErrors('');
                 setMsg(succ.data.msg);
                 localStorage.setItem('username',succ.data.user.username);
                 // alert(succ.data.msg);
@@ -56,6 +57,7 @@ const EditProfileBody = ({ v_id }) => {
                 // debugger;
             }, (err) => {
                 // debugger;
+                setMsg('');
                 setErrors(err.response.data);
             })
     }
@@ -79,6 +81,8 @@ const EditProfileBody = ({ v_id }) => {
     }
 
     const remove = () => {
+        localStorage.setItem('msg', '');
+        localStorage.setItem('errmsg', '');
         setMsg("");
         window.location.href = "/vendor/profile";
     }
@@ -88,7 +92,7 @@ const EditProfileBody = ({ v_id }) => {
             {
                 msg ?
                     <div className="container mt-3">
-                        <div className="alert alert-primary alert-dismissible">
+                        <div className="alert alert-success alert-dismissible">
                             <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
                             <strong>Success!</strong> {msg}
                         </div>

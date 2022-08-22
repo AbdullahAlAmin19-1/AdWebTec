@@ -14,6 +14,9 @@ use App\Models\req_deliveryman;
 use App\Models\Product;
 use App\Models\review;
 use App\Models\token;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\sendOTP;
+use App\Mail\elogin;
 
 class APIController extends Controller
 {
@@ -111,6 +114,94 @@ class APIController extends Controller
         $token->save();
         session()->flush();
         return response()->json(["msg"=>"Logged out"]);
+    }
+
+    
+    function forgotPass(Request $vali){
+        $validator = Validator::make($vali->all(),
+            [
+                "email" => "required"
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        if($vali->user_type=="Admin"){$user=admin::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Vendor"){$user=vendor::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Customer"){$user=customer::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Deliveryman"){$user=deliveryman::where('email','=',$vali->email)->first();}
+       
+        if($user){
+            session()->put('resetpass','yes');
+            $otp = random_int(100000, 999999);
+            // Mail::to([$user->email])->send(new sendOTP("Access OTP",$vali->user_type,$user->username,$user->email,$otp));
+            return response()->json(
+                [
+                    "msg"=>"Check Email For OTP",
+                    "otp"=>$otp,
+                    "username"=>$user->username,
+                    "user_type"=>$vali->user_type
+                ]
+            );
+        }
+        else {
+            return response()->json(
+                [
+                    "errmsg"=>"Enter Correct Email"
+                ]
+            );
+        }
+    }
+
+    function enterOTP(Request $vali){
+        if(Session()->get('otp')==$vali->otp){
+            return response()->json(
+                [
+                    "msg"=>"Create New Password",
+                    $vali->otp
+                ]
+            );
+        }
+        else {
+            return response()->json(
+                [
+                    "errmsg"=>"OTP Not Valid"
+                ]
+            );
+        }
+    }
+
+    function createNewPass(Request $vali){
+        $validator = Validator::make(
+            $vali->all(),
+            [
+                "new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+                "conf_new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
+
+            ],
+
+            [
+                'new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+                'conf_new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        if($vali->user_type=="Admin"){$user=admin::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Vendor"){$user=vendor::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Customer"){$user=customer::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Deliveryman"){$user=deliveryman::where('email','=',$vali->email)->first();}
+       
+        
+        $user->password = $vali->new_pass;
+        $user->update();
+        return response()->json(
+            [
+                "msg"=>"Password Change Completed"
+            ]
+        );
     }
 
     //

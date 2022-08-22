@@ -4,6 +4,7 @@ import AxiosConfig from '../../Public/Services/AxiosConfig';
 const NoticesBody = () => {
 
     const [notices, setNotices] = useState([]);
+    const [errmsg, setErrMsg] = useState("");
 
     useEffect(() => {
         document.title = 'Grocery OS - Notices';
@@ -12,12 +13,13 @@ const NoticesBody = () => {
             (succ) => {
                 setNotices(succ.data);
                 // console.log(succ.data);
+                // debugger;
 
-                if (succ.data.msg == "NO Notice Available") {
-                    alert(succ.data.msg);
+                if (succ.data.errmsg) 
+                {
+                    localStorage.setItem('errmsg', succ.data.errmsg);
                     window.location.href = "/vendor/profile";
                 }
-                // debugger;
             },
             (err) => {
                 debugger;

@@ -9,6 +9,9 @@ import Logout from './Public/Components/Logout';
 import ProductByCategory from './Public/Pages/ProductByCategory';
 import ViewProduct from './Public/Pages/ViewProduct';
 import SearchProduct from './Public/Pages/SearchProduct';
+import ForgotPass from './Public/Pages/ForgotPass';
+import EnterOTP from './Public/Pages/EnterOTP';
+import CreateNewPass from './Public/Pages/CreateNewPass';
 
 // Vendor
 import VAllProducts from './Vendor/Pages/AllProducts';
@@ -16,11 +19,13 @@ import VAddProduct from './Vendor/Pages/AddProduct';
 import VEditProduct from './Vendor/Pages/EditProduct';
 import VProfile from './Vendor/Pages/Profile';
 import VEditProfile from './Vendor/Pages/EditProfile';
+import VForgotPass from './Vendor/Pages/ForgotPass';
+import VEnterOTP from './Vendor/Pages/EnterOTP';
+import VCreateNewPass from './Vendor/Pages/CreateNewPass';
 import VAllCoupons from './Vendor/Pages/AllCoupons';
 import VAddCoupon from './Vendor/Pages/AddCoupon';
 import VEditCoupon from './Vendor/Pages/EditCoupon';
-import VDeleteCoupon from './Vendor/Components/DeleteCoupon';
-import Notice from './Vendor/Pages/Notice'
+import VNotice from './Vendor/Pages/Notice'
 import VReviews from './Vendor/Pages/Reviews';
 import VChangePass from './Vendor/Pages/ChangePass';
 
@@ -61,6 +66,9 @@ const Main = () => {
           <Route path="/registration" element={<RegPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/forgotPass" element={<ForgotPass />} />
+          <Route path="/enterOTP" element={<EnterOTP />} />
+          <Route path="/createNewPass" element={<CreateNewPass />} />
           <Route path="/categories/:category" element={<ProductByCategory />} />
           <Route path="/products/item/:id" element={<ViewProduct />} />
           <Route path="/searchproduct/:keyword" element={<SearchProduct />} />
@@ -71,11 +79,13 @@ const Main = () => {
           <Route path="/vendor/editProduct/:id" element={<VEditProduct />} />
           <Route path="/vendor/profile" element={<VProfile />} />
           <Route path="/vendor/editProfile/:id" element={<VEditProfile />} />
+          <Route path="/vendor/forgotPass" element={<VForgotPass />} />
+          <Route path="/vendor/enterOTP" element={<VEnterOTP />} />
+          <Route path="/vendor/createNewPass" element={<VCreateNewPass />} />
           <Route path="/vendor/allCoupons" element={<VAllCoupons />} />
           <Route path="/vendor/addCoupon" element={<VAddCoupon />} />
           <Route path="/vendor/editCoupon/:id" element={<VEditCoupon />} />
-          <Route path="/vendor/deleteCoupon/:id" element={<VDeleteCoupon />} />
-          <Route path="/vendor/notices" element={<Notice />} />
+          <Route path="/vendor/notices" element={<VNotice />} />
           <Route path="/vendor/reviews" element={<VReviews />} />
           <Route path="/vendor/changePass" element={<VChangePass />} />
 

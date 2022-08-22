@@ -8,6 +8,7 @@ const SearchProductBody = ({ keyword }) => {
 
     useEffect(() => {
 
+        document.title='Search';
         AxiosConfig.get("public/products/search/" + keyword).then((rsp) => {
             setProducts(rsp.data);
             console.log(rsp.data);
