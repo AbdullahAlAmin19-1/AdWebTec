@@ -11,7 +11,7 @@ const LoginBody = () => {
     const [errmsg, setErrMsg] = useState(localStorage.getItem('errmsg'));
     const [errors, setErrors] = useState([]);
     useEffect(() => {
-        document.title = 'Login';
+        document.title = 'Grocery OS - Login';
     }, []);
     const handleForm = (event) => {
         event.preventDefault();
