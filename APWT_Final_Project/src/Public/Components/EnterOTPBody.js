@@ -7,27 +7,26 @@ const EnterOTPBody = () => {
     const [username, setUserName] = useState(localStorage.getItem('username'));
     const [email, setEmail] = useState(localStorage.getItem('email'));
     const [otp, setOTP] = useState("");
-    
+
     const [msg, setMsg] = useState(localStorage.getItem('msg'));
     const [errmsg, setErrMsg] = useState("");
 
     useEffect(() => {
-        document.title='Enter OTP';
-      }, []);
-      
+        document.title = 'Enter OTP';
+    }, []);
+
     const handleForm = (event) => {
         event.preventDefault();
-        const data = { user_type: user, email: email, otp:otp};
+        const data = { user_type: user, email: email, otp: otp };
         AxiosConfig.post("users/enterOTP", data).
             then((succ) => {
                 debugger;
                 // setMsg(succ.data.msg)
-                if (succ.data.errmsg) 
-                {
+                if (succ.data.errmsg) {
                     setMsg('')
                     setErrMsg(succ.data.errmsg);
                 }
-                else{
+                else {
                     localStorage.setItem('msg', succ.data.msg);
                     window.location.href = "/createNewPass";
                 }
@@ -45,26 +44,6 @@ const EnterOTPBody = () => {
     }
     return (
         <>
-            {
-                msg ?
-                    <div className="container mt-3">
-                        <div className="alert alert-success alert-dismissible">
-                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
-                            <strong>Success!</strong> {msg}
-                        </div>
-                    </div>
-                    : ''
-            }
-            {
-                errmsg ?
-                    <div className="container mt-3">
-                        <div className="alert alert-danger alert-dismissible">
-                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
-                            <strong>Failed!</strong> {errmsg}
-                        </div>
-                    </div>
-                    : ''
-            }
             <section className="bg-dark">
                 <div className="container-fluid">
                     <div className="row px-5 py-4">
@@ -79,22 +58,44 @@ const EnterOTPBody = () => {
 
                                     <div className="row">
                                         <div className="form-outline">
-                                            <label className="form-label" for="username">User Name</label>
-                                            <input type="text" name="username" className="form-control form-control-lg" value={username} disabled/>
+                                            <label className="form-label" htmlFor="username">User Name</label>
+                                            <input type="text" name="username" className="form-control form-control-lg" value={username} disabled />
                                         </div>
                                         <div className="form-outline">
-                                            <label className="form-label" for="email">Email</label>
-                                            <input type="email" name="email" className="form-control form-control-lg" value={email} disabled/>
+                                            <label className="form-label" htmlFor="email">Email</label>
+                                            <input type="email" name="email" className="form-control form-control-lg" value={email} disabled />
                                         </div>
                                         <div className="form-outline">
-                                            <label className="form-label" for="otp">OTP</label>
+                                            <label className="form-label" htmlFor="otp">OTP</label>
                                             <input type="text" name="otp" className="form-control form-control-lg" value={otp} onChange={(e) => { setOTP(e.target.value) }} />
                                         </div>
-                                        
+
                                     </div>
                                     <div className="d-flex justify-content-end pt-1">
-                                        
                                         <button type="submit" className="btn btn-warning btn-lg ms-2">Submit</button>
+                                    </div>
+
+                                    <div>
+                                        {
+                                            msg ?
+                                                <div className="container mt-3">
+                                                    <div className="alert alert-success alert-dismissible">
+                                                        <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                                                        <strong>Success!</strong> {msg}
+                                                    </div>
+                                                </div>
+                                                : ''
+                                        }
+                                        {
+                                            errmsg ?
+                                                <div className="container mt-3">
+                                                    <div className="alert alert-danger alert-dismissible">
+                                                        <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                                                        <strong>Failed!</strong> {errmsg}
+                                                    </div>
+                                                </div>
+                                                : ''
+                                        }
                                     </div>
 
                                 </div>

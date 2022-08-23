@@ -48,7 +48,8 @@ const CartBody = () => {
     const data = { cart_id: id };
     AxiosConfig.post("customer/cartquandecrement", data).
       then((succ) => {
-        setMsg(succ.data.msg);
+        // setMsg(succ.data.msg);
+        window.location.reload();
 
       }, (err) => {
         debugger;
@@ -60,7 +61,8 @@ const CartBody = () => {
     const data = { cart_id: id };
     AxiosConfig.post("customer/cartquanincrement", data).
       then((succ) => {
-        setMsg(succ.data.msg);
+        // setMsg(succ.data.msg);
+        window.location.reload();
 
       }, (err) => {
         debugger;
@@ -121,13 +123,9 @@ const CartBody = () => {
                         <td>
                           <button type="button" onClick={() => { QuanDecrement(item.id) }} className="btn btn-sm btn-light"> - </button>
                           <button className="btn btn-sm">{item.quantity}</button>
-                          {/* <span className="px-1">{item.quantity}</span> */}
                           <button type="button" onClick={() => { QuanIncrement(item.id) }} className="btn btn-sm btn-light"> + </button>
                         </td>
                         <td>{item.product.price * item.quantity}</td>
-                        {/* <td><button type="button" className="btn btn-danger">
-                          <Link className="nav-link" to="#">Remove Product</Link>
-                        </button></td> */}
                         <td><button type="button" className="btn btn-danger" onClick={() => { handleRemove(item.id) }}>Remove</button></td>
                       </tr>
 
@@ -140,7 +138,7 @@ const CartBody = () => {
 
             <div className="text-center">
               <button type="button" className="btn btn-outline-primary m-1"><Link className="nav-link" to="/">Back to shopping</Link></button>
-              <button type="button" className="btn btn-primary m-1">Continue To Order</button>
+              <button type="button" className="btn btn-primary m-1"><Link className="nav-link" to="/customer/order">Continue To Order</Link></button>
             </div>
 
           </div>
