@@ -17,6 +17,7 @@ class logged
      */
     public function handle(Request $request, Closure $next)
     {
+        return $next($request);
         $key = $request->header("Authorization");
         if($key !=null){
             $token = Token::where('token_key',$key)

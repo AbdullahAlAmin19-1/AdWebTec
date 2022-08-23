@@ -84,6 +84,7 @@ Route::post('/vendor/deleteCoupon/{id}',[APIVendorController::class,'deleteCoupo
 Route::post('/vendor/assignCoupon',[APIVendorController::class,'assigncoupon']);
 Route::get('/vendor/notices/{id}',[APIVendorController::class,'notices']);
 Route::get('/vendor/reviews',[APIVendorController::class,'reviews']);
+Route::get('/vendor/productChartData',[APIVendorController::class,'ProductChartData']);
 
 
 //Customer
