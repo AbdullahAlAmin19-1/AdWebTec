@@ -8,6 +8,7 @@ const LoginBody = () => {
     const [password, setPassword] = useState("");
 
     const [msg, setMsg] = useState(localStorage.getItem('msg'));
+    const [errmsg, setErrMsg] = useState(localStorage.getItem('errmsg'));
     const [errors, setErrors] = useState([]);
     useEffect(() => {
         document.title='Login';
@@ -19,6 +20,7 @@ const LoginBody = () => {
             then((succ) => {
                 debugger;
                 setMsg(succ.data.msg)
+                setErrMsg(succ.data.errmsg)
 
                 if (succ.data.user) {
 
@@ -48,7 +50,7 @@ const LoginBody = () => {
     
     const remove = () => {
         localStorage.setItem('msg', '');
-    localStorage.setItem('errmsg', '');
+        localStorage.setItem('errmsg', '');
         setMsg("");
         window.location.href = "/login";
     }
@@ -139,11 +141,11 @@ const LoginBody = () => {
 
 
                                     {
-                                        msg ?
+                                        errmsg ?
                                             <div className="container mt-3">
                                                 <div className="alert alert-danger alert-dismissible">
                                                     <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
-                                                    <strong>Warning!</strong> {msg}
+                                                    <strong>Warning!</strong> {errmsg}
                                                 </div>
                                             </div>
                                             : ''

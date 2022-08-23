@@ -101,7 +101,7 @@ class APIController extends Controller
         else{
             return response()->json(
                 [
-                    "msg"=>"Username/Password is invalid"
+                    "errmsg"=>"Username/Password is invalid"
                 ]
                 );
         }
