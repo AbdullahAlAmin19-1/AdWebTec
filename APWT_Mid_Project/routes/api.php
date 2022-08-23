@@ -61,6 +61,11 @@ Route::get('/admin/products/search/{keyword}',[APIAdminController::class,'search
 Route::get('/admin/viewreqdeliveryman',[APIAdminController::class,'viewreqdeliveryman']);
 Route::get('/admin/canceldeliveryman/{id}',[APIAdminController::class,'canceldeliveryman']);
 Route::get('/admin/approvedeliveryman/{id}',[APIAdminController::class,'approvedeliveryman']);
+Route::get('/admin/viewvendor/{id}',[APIAdminController::class,'viewvendor']);
+Route::get('/admin/viewcustomer',[APIAdminController::class,'viewcustomer']);
+Route::get('/admin/removecustomer/{id}',[APIAdminController::class,'removecustomer']);
+Route::get('/admin/viewdeliveryman',[APIAdminController::class,'viewdeliveryman']);
+Route::get('/admin/removedeliveryman/{id}',[APIAdminController::class,'removedeliveryman']);
 
 //Vendor
 Route::get('/vendor/profile/{id}',[APIVendorController::class,'profile']);
