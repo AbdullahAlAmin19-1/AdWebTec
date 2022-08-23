@@ -16,7 +16,7 @@ const EditProductBody = ({p_id}) => {
     const [size, setSize] = useState("");
     const [description, setDescription] = useState("");
 
-    const [msg, setMsg] = useState("");
+    const [msg, setMsg] = useState(localStorage.getItem('msg'));
     const [errmsg, setErrMsg] = useState("");
     const [errors, setErrors] = useState([]);
     // alert(id);
@@ -52,7 +52,9 @@ const EditProductBody = ({p_id}) => {
                 setMsg(succ.data.msg);
                 setErrMsg(succ.data.errmsg);
                 // alert(succ.data.msg);
-                // window.location.href="/vendor/allProducts";
+                localStorage.setItem('msg', succ.data.msg);
+                localStorage.setItem('errmsg', succ.data.errmsg);
+                window.location.href="/vendor/editProduct/"+id;
                 debugger;
             }, (err) => {
                 setMsg("");
@@ -74,7 +76,8 @@ const EditProductBody = ({p_id}) => {
             then((succ) => {
                 setMsg(succ.data.msg);
                 // alert(succ.data.msg);
-                // window.location.href="/vendor/allProducts";
+                localStorage.setItem('msg', succ.data.msg);
+                window.location.href="/vendor/editProduct/"+id;
                 // debugger;
             }, (err) => {
                 debugger;
@@ -88,8 +91,10 @@ const EditProductBody = ({p_id}) => {
                 setErrors("");
                 setMsg(succ.data.msg);
                 setErrMsg(succ.data.errmsg);
+                // localStorage.setItem('msg', msg);
+                // localStorage.setItem('errmsg', errmsg);
                 // alert(succ.data.msg);
-                // window.location.href="/vendor/allProducts";
+                // window.location.href="/vendor/editProduct";
                 // debugger;
             },
             (err) => {
@@ -131,6 +136,7 @@ const EditProductBody = ({p_id}) => {
                     </div>
                     : ''
             }
+            
             <div className="container-fluid">
                 <div className="row m-4">
                     <div className="col-4 mt-5">

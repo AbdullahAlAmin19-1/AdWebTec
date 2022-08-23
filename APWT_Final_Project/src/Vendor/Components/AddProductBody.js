@@ -21,7 +21,8 @@ const AddProductBody = () => {
         then((succ)=>{
             setMsg(succ.data.msg);
             // alert("Ok");
-            // window.location.href="/vendor/allProducts";
+            localStorage.setItem('msg', succ.data.msg);
+            window.location.href="/vendor/allProducts";
         },(err)=>{
             debugger;
             setErrors(err.response.data);
@@ -30,7 +31,7 @@ const AddProductBody = () => {
 
     useEffect(() => {
         document.title='Add Product';
-        AxiosConfig.post("vendor/addCoupon").
+        AxiosConfig.post("vendor/addProduct").
         then((succ)=>{
             debugger;
         },(err)=>{
@@ -38,24 +39,8 @@ const AddProductBody = () => {
         })
     }, []);
 
-    const remove = () => {
-        localStorage.setItem('msg', '');
-        localStorage.setItem('errmsg', '');
-        setMsg("");
-        window.location.href = "/vendor/allProducts";
-    }
     return (
         <>
-            {
-                msg ?
-                    <div className="container mt-3">
-                        <div className="alert alert-success alert-dismissible">
-                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
-                            <strong>Success!</strong> {msg}
-                        </div>
-                    </div>
-                    : ''
-            }
             <section className="bg-dark">
                 <div className="container py-1">
                     <div className="row d-flex justify-content-center align-items-center">

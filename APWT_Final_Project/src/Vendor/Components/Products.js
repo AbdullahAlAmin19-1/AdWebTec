@@ -10,14 +10,13 @@ const Products = () => {
 
   useEffect(() => {
     document.title='All Products';
-    AxiosConfig.get("vendor/products").then((rsp) => {
-      setAllproducts(rsp.data);
-      console.log(rsp.data);
+    AxiosConfig.get("vendor/products").then((succ) => {
+      setAllproducts(succ.data);
+      console.log(succ.data);
     }, (er) => {
       alert("Not working");
     })
   }, []);
-
   return (
     <>
       <div className="container-fluid p-5 bg-light">

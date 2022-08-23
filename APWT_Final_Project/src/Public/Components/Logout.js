@@ -8,20 +8,14 @@ const Logout = () => {
             (succ) => {
                 debugger;
 
-                localStorage.setItem('_authToken', '');
-                localStorage.setItem('user_type', '');
-                localStorage.setItem('user_id', '');
-                localStorage.setItem('username', '');
-                localStorage.setItem('product_id', '');
-                localStorage.setItem('email', '');
-                localStorage.setItem('msg', '');
-                localStorage.setItem('errmsg', '');
-
-                localStorage.removeItem("_authToken");
-                localStorage.removeItem("user_type");
-                localStorage.removeItem("user_id");
-                localStorage.removeItem("username");
-                localStorage.removeItem("product_id");
+                localStorage.removeItem('_authToken', '');
+                localStorage.removeItem('user_type', '');
+                localStorage.removeItem('user_id', '');
+                localStorage.removeItem('username', '');
+                localStorage.removeItem('product_id', '');
+                localStorage.removeItem('email', '');
+                localStorage.removeItem('msg', '');
+                localStorage.removeItem('errmsg', '');
 
                 localStorage.setItem('loggedout', true);
 
