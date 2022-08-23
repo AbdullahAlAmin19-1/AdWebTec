@@ -13,6 +13,9 @@ use App\Models\coupon;
 use App\Models\order;
 use App\Models\product_order;
 use App\Models\customer_product;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\placeOrder;
+use Illuminate\Support\Facades\DB;
 
 class APICustomersController extends Controller
 {
@@ -221,7 +224,6 @@ class APICustomersController extends Controller
 
     function reviewupdate(Request $req)
     {
-
         $review = review::find($req->r_id);
 
         $review->message = $req->r_message;
@@ -277,10 +279,6 @@ class APICustomersController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-
-        //
-
-
         if (isset($req->coupon)) {
 
             $coupon = customer_coupon::where('c_id', $c_id)->first();
@@ -288,11 +286,9 @@ class APICustomersController extends Controller
                 $checkcoupon = coupon::where('id', $coupon->co_id)->where('code', $req->coupon)->first();
 
                 if ($checkcoupon  != null) {
-
                     $carts = cart::where('c_id', $c_id)->get();
 
                     foreach ($carts as $item) {
-
                         $order = new order();
                         $order->p_id = $item->p_id;
                         $order->quantity = $item->quantity;
@@ -304,7 +300,6 @@ class APICustomersController extends Controller
                         $order->co_id = $checkcoupon->id;
                         $order->save();
 
-                        //
                         $o = order::where('p_id', '=', $item->p_id)->where('c_id', '=', $item->c_id)->where('quantity', '=', $item->quantity)->first();
                         $po = new product_order();
                         $po->p_id = $item->p_id;
@@ -315,12 +310,21 @@ class APICustomersController extends Controller
                         $cp->p_id = $item->p_id;
                         $cp->c_id = $item->c_id;
                         $cp->save();
-                        //
 
                         cart::where('c_id', $c_id)->delete();
                     }
 
                     // return redirect()->route('customer.placeOrder');
+
+                    $customer = customer::find($c_id);
+                    $orders = order::where('c_id', $c_id)->get();
+
+                    $coupon = DB::table('orders')
+                        ->join('coupons', 'coupons.id', '=', 'orders.co_id')
+                        ->first();
+
+                    // Mail::to([$customer->email])->send(new placeOrder("Your Order has been placed!", Session()->get('user_type'), Session()->get('username'), $orders, $coupon));
+
                     return response()->json(["confirmed" => "Your order has been placed!"]);
                 } else {
                     // session()->flash('Msg', "Invalid Coupon Code!");
@@ -362,7 +366,54 @@ class APICustomersController extends Controller
                 cart::where('c_id', $c_id)->delete();
             }
             // return redirect()->route('customer.placeOrder');
+
+            $customer = customer::find($c_id);
+            $orders = order::where('c_id', $c_id)->get();
+
+            $coupon = DB::table('orders')
+                ->join('coupons', 'coupons.id', '=', 'orders.co_id')
+                ->first();
+
+            // Mail::to([$customer->email])->send(new placeOrder("Your Order has been placed!", Session()->get('user_type'), Session()->get('username'), $orders, $coupon));
+
             return response()->json(["confirmed" => "Your order has been placed!"]);
+        }
+    }
+
+    function vieworder()
+    {
+
+        $c_id = session()->get('user_id');
+
+        $orders = order::where('c_id', $c_id)->where('status', '!=', "Delivered")->get();
+        $dorders = order::where('c_id', $c_id)->where('status', '=', "Delivered")->get();
+
+        $coupon = DB::table('orders')
+            ->join('coupons', 'coupons.id', '=', 'orders.co_id')
+            ->first();
+
+        if (count($orders) != 0 || count($dorders) != 0) {
+            // return view("customer.cvieworder")->with('orders', $orders)->with('dorders', $dorders)->with('coupon', $coupon);
+
+            $total_price = 0;
+            $discount_amount = 0;
+
+            foreach ($orders as $item) {
+                $total_price = $total_price + ($item->quantity * $item->product->price);
+            }
+            if ($coupon != null) {
+                $discount_amount = $coupon->amount;
+            }
+            $pay_money = $total_price + 60 - $discount_amount;
+
+            $coupon_dis = $coupon->amount;
+
+            return response()->json(["orders" => $orders, "dorders" => $dorders, "pay_money" => $pay_money, "coupon_dis" => $coupon_dis]);
+        } else {
+            // session()->flash('Msg', 'You do not have any order, Order first!');
+            // return redirect()->route('customer.ccart');
+
+            return response()->json(["msg" => "NOorder!"]);
         }
     }
 }

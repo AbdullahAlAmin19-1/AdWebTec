@@ -109,6 +109,10 @@ const OrderBody = () => {
         window.location.href = "/customer/dashboard";
     }
 
+    const emptyremove = () => {
+        window.location.href = "/customer/cart";
+    }
+
     return (
         <>
             {
@@ -147,105 +151,118 @@ const OrderBody = () => {
 
             }
 
-            <div className="container-fluid p-4">
-                <div className="card">
-                    <div className="card-header">
-                        <h3 className="text-center">Customer Order</h3>
+
+            {
+                cartproducts == "" ?
+
+                <div className="container p-3">
+                        <div className="alert alert-danger alert-dismissible text-center">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={emptyremove}></button>
+                            <strong>Alert!</strong> Your cart table is empty!
+                        </div>
                     </div>
-                    <div className="card-body">
-                        <table className="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th className="text-center">Product</th>
-                                    <th className="text-center">Product Name</th>
-                                    <th className="text-center">Product Category</th>
-                                    <th className="text-right">Price (Tk)</th>
-                                    <th className="text-center">Quantity</th>
-                                    <th className="text-center">Total Price (Tk)</th>
-                                    <th className="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                    
+                    :
 
-                                {
-                                    cartproducts.map((item) =>
-                                        <>
-
-                                            <tr className="text-center">
-                                                <td className="p-1">
-                                                    <img src={`http://127.0.0.1:8000/storage/product_images/${item.product.thumbnail}`} alt="Product Image"
-                                                        style={{ width: "50px" }} />
-                                                </td>
-                                                <td>{item.product.name}</td>
-                                                <td>{item.product.category}</td>
-                                                <td>{item.product.price}</td>
-                                                <td>
-                                                    <button type="button" onClick={() => { QuanDecrement(item.id) }} className="btn btn-sm btn-light"> - </button>
-                                                    <button className="btn btn-sm">{item.quantity}</button>
-                                                    <button type="button" onClick={() => { QuanIncrement(item.id) }} className="btn btn-sm btn-light"> + </button>
-                                                </td>
-                                                <td>{item.product.price * item.quantity}</td>
-                                                <td><button type="button" className="btn btn-danger" onClick={() => { handleRemove(item.id) }}>Remove</button></td>
-                                            </tr>
-
-                                        </>
-                                    )
-                                }
-
-                                {/* <tr className="text-center">
-                                    <th colSpan="4">Total Pay Amount (Tk): </th>
-                                    <td colSpan="3">280</td>
-                                </tr> */}
-
-                                <tr className="text-end">
-                                    <th colSpan="5">+Delivery Charge (Tk): </th>
-                                    <td colSpan="2" className="text-center">80</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <form className="form" onSubmit={handleForm}>
+                    <div className="container-fluid p-4">
+                    <div className="card">
+                        <div className="card-header">
+                            <h3 className="text-center">Customer Order</h3>
+                        </div>
+                        <div className="card-body">
                             <table className="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th className="text-center">Product</th>
+                                        <th className="text-center">Product Name</th>
+                                        <th className="text-center">Product Category</th>
+                                        <th className="text-right">Price (Tk)</th>
+                                        <th className="text-center">Quantity</th>
+                                        <th className="text-center">Total Price (Tk)</th>
+                                        <th className="text-center">Action</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
+
+                                    {
+                                        cartproducts.map((item) =>
+                                            <>
+
+                                                <tr className="text-center">
+                                                    <td className="p-1">
+                                                        <img src={`http://127.0.0.1:8000/storage/product_images/${item.product.thumbnail}`} alt="Product Image"
+                                                            style={{ width: "50px" }} />
+                                                    </td>
+                                                    <td>{item.product.name}</td>
+                                                    <td>{item.product.category}</td>
+                                                    <td>{item.product.price}</td>
+                                                    <td>
+                                                        <button type="button" onClick={() => { QuanDecrement(item.id) }} className="btn btn-sm btn-light"> - </button>
+                                                        <button className="btn btn-sm">{item.quantity}</button>
+                                                        <button type="button" onClick={() => { QuanIncrement(item.id) }} className="btn btn-sm btn-light"> + </button>
+                                                    </td>
+                                                    <td>{item.product.price * item.quantity}</td>
+                                                    <td><button type="button" className="btn btn-danger" onClick={() => { handleRemove(item.id) }}>Remove</button></td>
+                                                </tr>
+
+                                            </>
+                                        )
+                                    }
+
                                     <tr className="text-end">
-                                        <th className="pt-3" style={{ width: "50%" }}>Coupon: </th>
-                                        <td className="text-center" style={{ width: "40%" }}>
-                                            <input type="text" className="form-control" name="coupon" placeholder="Enter coupon code" value={coupon} onChange={(e) => { setCoupon(e.target.value) }} />
-                                        </td>
-
-                                    </tr>
-                                    <tr className="text-end">
-                                        <th className="pt-3" style={{ width: "50%" }}>Payment Option: </th>
-                                        <td className="text-center" style={{ width: "30%" }}>
-                                            <select className="form-control" name="payment" value={payment} onChange={(e) => { setPayment(e.target.value) }} >
-                                                <option value="Cash On Delivery">Cash On Delivery</option>
-                                                <option value="Bkash/Nagad">Bkash/Nagad</option>
-                                            </select>
-                                        </td>
-
-                                    </tr>
-                                    <tr className="text-end">
-                                        <th className="pt-3" style={{ width: "50%" }}>Delivery Address: </th>
-                                        <td className="text-center" style={{ width: "50%" }}>
-                                            <input type="text" name="address" className="form-control form-control-md" value={address} onChange={(e) => { setAddress(e.target.value) }} />
-
-                                            <span className="text-danger">{errors.delivery_address ? errors.delivery_address[0] : ''}</span>
-
-                                        </td>
+                                        <th colSpan="5">+Delivery Charge (Tk): </th>
+                                        <td colSpan="2" className="text-center">60</td>
                                     </tr>
                                 </tbody>
                             </table>
 
-                            <div className="text-center">
-                                <button type="button" className="btn btn-outline-primary m-1"><Link className="nav-link" to="/customer/cart">Go Back To Cart</Link></button>
-                                <button type="submit" className="btn btn-primary">Place Order</button>
-                            </div>
+                            <form className="form" onSubmit={handleForm}>
+                                <table className="table table-bordered">
+                                    <tbody>
+                                        <tr className="text-end">
+                                            <th className="pt-3" style={{ width: "50%" }}>Coupon: </th>
+                                            <td className="text-center" style={{ width: "40%" }}>
+                                                <input type="text" className="form-control" name="coupon" placeholder="Enter coupon code" value={coupon} onChange={(e) => { setCoupon(e.target.value) }} />
+                                            </td>
 
-                        </form>
+                                        </tr>
+                                        <tr className="text-end">
+                                            <th className="pt-3" style={{ width: "50%" }}>Payment Option: </th>
+                                            <td className="text-center" style={{ width: "30%" }}>
+                                                <select className="form-control" name="payment" value={payment} onChange={(e) => { setPayment(e.target.value) }} >
+                                                    <option value="Cash On Delivery">Cash On Delivery</option>
+                                                    <option value="Bkash/Nagad">Bkash/Nagad</option>
+                                                </select>
+                                            </td>
 
+                                        </tr>
+                                        <tr className="text-end">
+                                            <th className="pt-3" style={{ width: "50%" }}>Delivery Address: </th>
+                                            <td className="text-center" style={{ width: "50%" }}>
+                                                <input type="text" name="address" className="form-control form-control-md" value={address} onChange={(e) => { setAddress(e.target.value) }} />
+
+                                                <span className="text-danger">{errors.delivery_address ? errors.delivery_address[0] : ''}</span>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div className="text-center">
+                                    <button type="button" className="btn btn-outline-primary m-1"><Link className="nav-link" to="/customer/cart">Go Back To Cart</Link></button>
+                                    <button type="submit" className="btn btn-primary">Place Order</button>
+                                </div>
+
+                            </form>
+
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                    
+
+            }
+
         </>
     )
 }

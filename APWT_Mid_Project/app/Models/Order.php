@@ -21,6 +21,7 @@ class order extends Model
     {
         return $this->belongsToMany(Product::class,'product_orders','o_id','p_id');
     }
+    protected $with = ['product'];
     public function product()
     {
         return $this->belongsTo(Product::class,'p_id');

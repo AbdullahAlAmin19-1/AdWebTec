@@ -150,13 +150,13 @@ class APIController extends Controller
             $token = new token();
             $token->token_key = $key;
             $token->user_id = $user->id;
-            $token->user_type = $req->user_type;
+            $token->user_type = $user_type;
             $token->created_at = new Datetime();
             $token->save();
             return response()->json(
                 [
                     "msg"=>"Login Successfull",
-                    "user_type"=>$req->user_type, 
+                    "user_type"=>$user_type, 
                     "user"=>$user, 
                     "token"=>$token      
                 ]

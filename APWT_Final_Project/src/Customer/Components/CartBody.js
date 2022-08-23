@@ -6,9 +6,9 @@ const CartBody = () => {
 
   const [cartproducts, setCartproducts] = useState([]);
   const [msg, setMsg] = useState("");
-  // var c_id = 1; //Getting dummy value
 
   var c_id = localStorage.getItem('user_id');
+  var noorder_msg = localStorage.getItem('noorder_msg');
 
   useEffect(() => {
     document.title = 'Grocery OS - Cart';
@@ -17,10 +17,6 @@ const CartBody = () => {
       (res) => {
         setCartproducts(res.data);
         console.log(res.data);
-        // debugger;
-        //   if(res.data == null){
-        //     window.location.href = "/customer/profileinfo";
-        // }
       },
       (error) => {
         debugger;
@@ -74,6 +70,11 @@ const CartBody = () => {
     window.location.reload();
   }
 
+  const emptyremove = () => {
+    localStorage.removeItem('noorder_msg', '');
+    window.location.reload();
+  }
+
   return (
     <>
 
@@ -83,6 +84,17 @@ const CartBody = () => {
             <div className="alert alert-primary alert-dismissible">
               <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
               <strong>Success!</strong> {msg}
+            </div>
+          </div>
+          : ''
+      }
+
+      {
+        noorder_msg ?
+          <div className="container mt-3">
+            <div className="alert alert-danger alert-dismissible">
+              <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={emptyremove}></button>
+              <strong>Alert!</strong> {noorder_msg}
             </div>
           </div>
           : ''
