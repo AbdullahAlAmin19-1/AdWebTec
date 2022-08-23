@@ -56,6 +56,9 @@ import Aviewcoupon from './Admin/Pages/Aviewcoupon';
 import Aeditcoupon from './Admin/Pages/Aeditcoupon';
 import AsearchProduct from './Admin/Pages/AsearchProduct'
 import Aapprovedeliveryman from './Admin/Pages/Aapprovedeliveryman';
+import Aviewvendor from './Admin/Pages/Aviewvendor';
+import Aviewcustomer from './Admin/Pages/Aviewcustormer';
+import Aviewdeliveryman from './Admin/Pages/Aviewdeliveryman';
 
 
 const Main = () => {
@@ -118,6 +121,9 @@ const Main = () => {
           <Route path="/admin/viewcoupon" element={<Aviewcoupon />} />
           <Route path="/admin/searchproduct/:keyword" element={<AsearchProduct />} />
           <Route path="/admin/approvedeliveryman" element={<Aapprovedeliveryman />} />
+          <Route path="/admin/viewvendor" element={<Aviewvendor />} />
+          <Route path="/admin/viewcustomer" element={<Aviewcustomer />} />
+          <Route path="/admin/viewdeliveryman" element={<Aviewdeliveryman />} />
         </Routes>
       </BrowserRouter>
     </div>

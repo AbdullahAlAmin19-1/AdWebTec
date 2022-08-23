@@ -8,6 +8,7 @@ const LoginBody = () => {
     const [password, setPassword] = useState("");
 
     const [msg, setMsg] = useState(localStorage.getItem('msg'));
+    const [errmsg, setErrMsg] = useState(localStorage.getItem('errmsg'));
     const [errors, setErrors] = useState([]);
     useEffect(() => {
         document.title='Login';
@@ -19,6 +20,7 @@ const LoginBody = () => {
             then((succ) => {
                 debugger;
                 setMsg(succ.data.msg)
+                setErrMsg(succ.data.errmsg)
 
                 if (succ.data.user) {
 
@@ -45,13 +47,10 @@ const LoginBody = () => {
                 setErrors(err.response.data);
             })
     }
+    
     const remove = () => {
         localStorage.setItem('msg', '');
         localStorage.setItem('errmsg', '');
-        setMsg("");
-    }
-
-    const remove = () => {
         setMsg("");
         window.location.href = "/login";
     }
@@ -131,19 +130,22 @@ const LoginBody = () => {
                                         </button>
                                         <button type="submit" className="btn btn-warning btn-lg ms-2">Login</button>
                                     </div>
-
+<br/>
                                     <button type="button" className="btn btn-light btn-lg">
                                             <Link className="nav-link" to="/forgotPass">Forgot Password?</Link>
                                     </button>
 
+                                    <button type="button" className="btn btn-warning btn-lg ms-2">
+                                            <Link className="nav-link" to="/emailLogin">Login Using only Email</Link>
+                                    </button>
 
 
                                     {
-                                        msg ?
+                                        errmsg ?
                                             <div className="container mt-3">
                                                 <div className="alert alert-danger alert-dismissible">
                                                     <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
-                                                    <strong>Warning!</strong> {msg}
+                                                    <strong>Warning!</strong> {errmsg}
                                                 </div>
                                             </div>
                                             : ''
@@ -177,36 +179,29 @@ const LoginBody = () => {
                                         <form action="" onSubmit={handleForm}>
                                             <div className="card-body p-md-5 text-black">
                                                 <h3 className="mb-5 text-uppercase">Login form</h3>
-
                                                 <div className="row">
                                                     <div className="d-md-flex justify-content-start align-items-center mb-4 py-2">
-
                                                         <h6 className="mb-1 p-1">Login as:  </h6>
-
                                                         <div className="form-check form-check-inline mb-0">
                                                             <input className="form-check-input" type="radio" name="user"
                                                                 id="admin" value="Admin" onClick={(e) => { setUser(e.target.value) }} />
                                                             <label className="form-check-label" htmlFor="admin">Admin</label>
                                                         </div>
-
                                                         <div className="form-check form-check-inline mb-0">
                                                             <input className="form-check-input" type="radio" name="user"
                                                                 id="vendor" value="Vendor" onClick={(e) => { setUser(e.target.value) }} />
                                                             <label className="form-check-label" htmlFor="vendor">Vendor</label>
                                                         </div>
-
                                                         <div className="form-check form-check-inline mb-0">
                                                             <input className="form-check-input" type="radio" name="user"
                                                                 id="customer" value="Customer" onClick={(e) => { setUser(e.target.value) }} />
                                                             <label className="form-check-label" htmlFor="customer">Customer</label>
                                                         </div>
-
                                                         <div className="form-check form-check-inline mb-0">
                                                             <input className="form-check-input" type="radio" name="user"
                                                                 id="deliveryman" value="Deliveryman" onClick={(e) => { setUser(e.target.value) }} />
                                                             <label className="form-check-label" htmlFor="deliveryman">Deliveryman</label>
                                                         </div>
-
                                                     </div>
                                                     <div className="form-outline">
                                                         <label className="form-label" htmlFor="email">Email</label>
@@ -223,7 +218,6 @@ const LoginBody = () => {
                                                     </button>
                                                     <button type="submit" className="btn btn-warning btn-lg ms-2">Login</button>
                                                 </div>
-
                                             </div>
                                         </form>
                                     </div>
