@@ -36,7 +36,8 @@ const EditCouponBody = ({ co_id }) => {
             setMsg(succ.data.msg);
             // debugger;
             // alert("Ok");
-            // window.location.href="/vendor/allCoupons";
+            localStorage.setItem('msg', succ.data.msg);
+            window.location.href="/vendor/allCoupons";
         },(err)=>{
             // debugger;
             setMsg('');

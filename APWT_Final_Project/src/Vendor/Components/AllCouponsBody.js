@@ -12,7 +12,7 @@ const AllCouponsBody = () => {
   
   const [c_id, setC_id] = useState("");
 
-  const [msg, setMsg] = useState("");
+  const [msg, setMsg] = useState(localStorage.getItem('msg'));
   const [errmsg, setErrMsg] = useState("");
   const [errors, setErrors] = useState([]);
 

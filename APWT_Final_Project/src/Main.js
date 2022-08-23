@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './Public/Pages/LandingPage';
 import RegPage from './Public/Pages/RegPage';
 import LoginPage from './Public/Pages/LoginPage';
+import EmailLogin from './Public/Pages/EmailLogin';
+import ELogin from './Public/Components/ELogin';
 import Logout from './Public/Components/Logout';
 import ProductByCategory from './Public/Pages/ProductByCategory';
 import ViewProduct from './Public/Pages/ViewProduct';
@@ -68,6 +70,8 @@ const Main = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/registration" element={<RegPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/eLogin/:user_type/:username/:id" element={<ELogin />} />
+          <Route path="/emailLogin" element={<EmailLogin />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/forgotPass" element={<ForgotPass />} />
           <Route path="/enterOTP" element={<EnterOTP />} />

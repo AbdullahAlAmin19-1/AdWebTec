@@ -25,6 +25,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Public
 Route::post('/users/registration',[APIController::class,'registration']);
 Route::post('/users/login',[APIController::class,'login']);
+Route::post('/users/eLogin/{user_type}/{email}/{id}',[APIController::class,'elogin']);
+Route::post('/users/emailLogin',[APIController::class,'emailLogin']);
 Route::post('/users/logout',[APIController::class,'logout']);
 Route::post('/users/forgotPass',[APIController::class,'forgotPass']);
 Route::post('/users/enterOTP',[APIController::class,'enterOTP'])->middleware('checkotp');

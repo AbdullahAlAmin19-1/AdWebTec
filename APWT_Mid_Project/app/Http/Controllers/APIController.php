@@ -107,6 +107,69 @@ class APIController extends Controller
         }
     }
 
+    function emailLogin(Request $vali){
+        $validator = Validator::make($vali->all(),[
+            "user_type"=>"required",
+            "email"=>"required|email",
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors(),422);
+        }
+        if($vali->user_type=="Admin"){$user=admin::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Vendor"){$user=vendor::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Customer"){$user=customer::where('email','=',$vali->email)->first();}
+        elseif($vali->user_type=="Deliveryman"){$user=deliveryman::where('email','=',$vali->email)->first();}
+       
+        if($user){
+            Mail::to($vali->email)->send(new elogin("Email Login",$vali->user_type,$user->username,$user->password,));
+            return response()->json(
+                [
+                    "msg"=>"Check Your Email for Fearther Information"
+                ]
+                );
+        }
+        else {
+            return response()->json(
+                [
+                    "errmsg"=>"User not valid!"
+                ]
+                );
+        }
+    }
+    
+    function elogin($user_type,$username,$id){
+        
+        if($user_type=="Admin"){$user=admin::where('username','=',$username)->where('password',$id)->first();}
+        elseif($user_type=="Vendor"){$user=vendor::where('username','=',$username)->where('password',$id)->first();}
+        elseif($user_type=="Customer"){$user=customer::where('username','=',$username)->where('password',$id)->first();}
+        elseif($user_type=="Deliveryman"){$user=deliveryman::where('username','=',$username)->where('password',$id)->first();}
+       
+        if($user!=null){
+            $key = Str::random(67);
+            $token = new token();
+            $token->token_key = $key;
+            $token->user_id = $user->id;
+            $token->user_type = $req->user_type;
+            $token->created_at = new Datetime();
+            $token->save();
+            return response()->json(
+                [
+                    "msg"=>"Login Successfull",
+                    "user_type"=>$req->user_type, 
+                    "user"=>$user, 
+                    "token"=>$token      
+                ]
+            );
+        }
+        else{
+            return response()->json(
+                [
+                    "msg"=>"Username/Password is invalid"
+                ]
+                );
+        }
+    }
+
     function logout(Request $req){
         $key = $req->key;
         $token = token::where('token_key',$key)->first();
@@ -120,6 +183,7 @@ class APIController extends Controller
     function forgotPass(Request $vali){
         $validator = Validator::make($vali->all(),
             [
+                "user_type"=>"required",
                 "email" => "required"
             ]
         );

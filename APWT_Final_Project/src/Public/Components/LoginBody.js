@@ -45,13 +45,10 @@ const LoginBody = () => {
                 setErrors(err.response.data);
             })
     }
+    
     const remove = () => {
         localStorage.setItem('msg', '');
-        localStorage.setItem('errmsg', '');
-        setMsg("");
-    }
-
-    const remove = () => {
+    localStorage.setItem('errmsg', '');
         setMsg("");
         window.location.href = "/login";
     }
@@ -131,11 +128,14 @@ const LoginBody = () => {
                                         </button>
                                         <button type="submit" className="btn btn-warning btn-lg ms-2">Login</button>
                                     </div>
-
+<br/>
                                     <button type="button" className="btn btn-light btn-lg">
                                             <Link className="nav-link" to="/forgotPass">Forgot Password?</Link>
                                     </button>
 
+                                    <button type="button" className="btn btn-warning btn-lg ms-2">
+                                            <Link className="nav-link" to="/emailLogin">Login Using only Email</Link>
+                                    </button>
 
 
                                     {

@@ -54,9 +54,9 @@ const EditProfileBody = ({ v_id }) => {
                 localStorage.setItem('username',succ.data.user.username);
                 // alert(succ.data.msg);
                 // window.location.href="/vendor/profile";
-                // debugger;
+                debugger;
             }, (err) => {
-                // debugger;
+                debugger;
                 setMsg('');
                 setErrors(err.response.data);
             })

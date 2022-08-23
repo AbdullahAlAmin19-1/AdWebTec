@@ -247,7 +247,7 @@ class APIVendorController extends Controller
         $p->save();
         return response()->json(
             [
-                "msg"=>"Added Successfully",
+                "msg"=>"Product Added Successfully",
                 "data"=>$p        
             ]
         );
@@ -283,7 +283,7 @@ class APIVendorController extends Controller
         $p->save();
         return response()->json(
             [
-                "msg" => "Updated Successfully",
+                "msg" => "Product Updated Successfully",
             ]
         );
     }
@@ -375,7 +375,7 @@ class APIVendorController extends Controller
         $c->save();
         return response()->json(
         [
-            "msg" => "Coupon Added",
+            "msg" => "Coupon Added Successfully",
             "Coupon" => $c
         ]
     );
@@ -402,7 +402,7 @@ class APIVendorController extends Controller
         $c->save();
         return response()->json(
             [
-                "msg" => "Coupon Updated",
+                "msg" => "Coupon Updated Successfully",
                 "Coupon" => $c
             ]
         );
