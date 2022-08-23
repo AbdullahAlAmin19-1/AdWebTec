@@ -30,7 +30,7 @@ const ProductChartData = () => {
     <>
     <br/>
     {/* <center><h4 className="mb-2 text-primary">Category Wise Product Amount</h4></center> */}
-    <ProductCharBody/>
+    {/* <ProductCharBody/> */}
     </>
     )
   }
