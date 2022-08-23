@@ -11,6 +11,7 @@ use App\Models\vendor;
 use App\Models\customer;
 use App\Models\admin;
 use App\Models\req_deliveryman;
+use App\Models\deliveryman;
 use App\Models\Product;
 use App\Models\review;
 use App\Models\token;

@@ -9,6 +9,10 @@ use App\Models\cart;
 use App\Models\review;
 use App\Models\customer_coupon;
 use App\Models\notice;
+use App\Models\coupon;
+use App\Models\order;
+use App\Models\product_order;
+use App\Models\customer_product;
 
 class APICustomersController extends Controller
 {
@@ -29,23 +33,26 @@ class APICustomersController extends Controller
     {
         $id = session()->get('user_id');
 
-        $validator = Validator::make($req->all(), [
-            "username" => "required|unique:customers,username,$id",
-            "name" => "required|regex:/^[a-z ,.'-]+$/i",
-            "email" => "required|email|unique:customers,email,$id",
-            "phone"=>"required|numeric|digits:10",
-            "gender" => "required",
-            "dob" => "required|before:-10 years",
-            "address" => "required"
+        $validator = Validator::make(
+            $req->all(),
+            [
+                "username" => "required|unique:customers,username,$id",
+                "name" => "required|regex:/^[a-z ,.'-]+$/i",
+                "email" => "required|email|unique:customers,email,$id",
+                "phone" => "required|numeric|digits:10",
+                "gender" => "required",
+                "dob" => "required|before:-10 years",
+                "address" => "required"
 
-        ],
-        [
-            'name.regex' => 'Name cannot contain special characters or numbers.',
-            'dob.before' => 'User must be 10 years or older.',
-        ]);
-        
-        if($validator->fails()){
-            return response()->json($validator->errors(),422);
+            ],
+            [
+                'name.regex' => 'Name cannot contain special characters or numbers.',
+                'dob.before' => 'User must be 10 years or older.',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
         }
 
         $c_id = $req->id;
@@ -254,6 +261,108 @@ class APICustomersController extends Controller
         } else {
             // return response()->json(["msg" => "Your do not have any notice!"]);
             return response()->json(["msg" => "NOnotice!"]);
+        }
+    }
+
+    function confirmorder(Request $req)
+    {
+        $c_id = session()->get('user_id');
+
+        $validator = Validator::make($req->all(), [
+            "payment_option" => "required",
+            "delivery_address" => "required",
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+
+        //
+
+
+        if (isset($req->coupon)) {
+
+            $coupon = customer_coupon::where('c_id', $c_id)->first();
+            if ($coupon != null) {
+                $checkcoupon = coupon::where('id', $coupon->co_id)->where('code', $req->coupon)->first();
+
+                if ($checkcoupon  != null) {
+
+                    $carts = cart::where('c_id', $c_id)->get();
+
+                    foreach ($carts as $item) {
+
+                        $order = new order();
+                        $order->p_id = $item->p_id;
+                        $order->quantity = $item->quantity;
+                        $order->c_id = $item->c_id;
+                        $order->status = "Pending";
+                        $order->payment_method = $req->payment_option;
+                        $order->payment_status = "Unpaid";
+                        $order->delivery_address = $req->delivery_address;
+                        $order->co_id = $checkcoupon->id;
+                        $order->save();
+
+                        //
+                        $o = order::where('p_id', '=', $item->p_id)->where('c_id', '=', $item->c_id)->where('quantity', '=', $item->quantity)->first();
+                        $po = new product_order();
+                        $po->p_id = $item->p_id;
+                        $po->o_id = $o->id;
+                        $po->save();
+
+                        $cp = new customer_product();
+                        $cp->p_id = $item->p_id;
+                        $cp->c_id = $item->c_id;
+                        $cp->save();
+                        //
+
+                        cart::where('c_id', $c_id)->delete();
+                    }
+
+                    // return redirect()->route('customer.placeOrder');
+                    return response()->json(["confirmed" => "Your order has been placed!"]);
+                } else {
+                    // session()->flash('Msg', "Invalid Coupon Code!");
+                    // return redirect()->route('customer.corder');
+                    return response()->json(["invalid" => "Invalid Coupon Code!"]);
+                }
+            } else {
+                // session()->flash('Msg', "p Invalid Coupon Code!");
+                // return redirect()->route('customer.corder');
+                return response()->json(["invalid" => "Invalid Coupon Code!"]);
+            }
+        } else {
+            $carts = cart::where('c_id', $c_id)->get();
+
+            foreach ($carts as $item) {
+
+                $order = new order();
+                $order->p_id = $item->p_id;
+                $order->quantity = $item->quantity;
+                $order->c_id = $item->c_id;
+                $order->status = "Pending";
+                $order->payment_method = $req->payment_option;
+                $order->payment_status = "Unpaid";
+                $order->delivery_address = $req->delivery_address;
+                $order->save();
+
+                //
+                $o = order::where('p_id', '=', $item->p_id)->where('c_id', '=', $item->c_id)->where('quantity', '=', $item->quantity)->first();
+                $po = new product_order();
+                $po->p_id = $item->p_id;
+                $po->o_id = $o->id;
+
+                $cp = new customer_product();
+                $cp->p_id = $item->p_id;
+                $cp->c_id = $item->c_id;
+                $cp->save();
+                //
+
+                cart::where('c_id', $c_id)->delete();
+            }
+            // return redirect()->route('customer.placeOrder');
+            return response()->json(["confirmed" => "Your order has been placed!"]);
         }
     }
 }

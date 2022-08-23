@@ -102,5 +102,6 @@ Route::post('/customer/reviewupdate',[APICustomersController::class,'reviewupdat
 Route::post('/customer/reviewdelete',[APICustomersController::class,'reviewdelete']);
 Route::get('/customer/coupons/{id}',[APICustomersController::class,'coupons']);
 Route::get('/customer/notices/{id}',[APICustomersController::class,'notices']);
+Route::post('/customer/confirmorder',[APICustomersController::class,'confirmorder']);
 
 
