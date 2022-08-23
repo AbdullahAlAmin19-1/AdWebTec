@@ -345,6 +345,38 @@ class APIVendorController extends Controller
             ]
         );
     }
+    function ProductChartData()
+    {
+        $FruitsVegetables = product::where('category', '=', 'Fruits & Vegetables')->get();
+        $MeatFish = product::where('category', '=', 'Meat & Fish')->get();
+        $Cooking = product::where('category', '=', 'Cooking')->get();
+        $Baking = product::where('category', '=', 'Baking')->get();
+        $Dairy = product::where('category', '=', 'Dairy')->get();
+        $CandyChocolate = product::where('category', '=', 'Candy & Chocolate')->get();
+        $FrozenCanned = product::where('category', '=', 'Frozen & Canned')->get();
+        $BreadBakery = product::where('category', '=', 'Bread & Bakery')->get();
+        $Breakfast = product::where('category', '=', 'Breakfast')->get();
+        $Snacks = product::where('category', '=', 'Snacks')->get();
+        $Beverages = product::where('category', '=', 'Beverages')->get();
+        $Others = product::where('category', '=', 'Others')->get();
+        
+        return response()->json(
+            [
+                "FruitsVegetables" => count($FruitsVegetables),
+                "MeatFish" => count($MeatFish),
+                "Cooking" => count($Cooking),
+                "Baking" => count($Baking),
+                "Dairy" => count($Dairy),
+                "CandyChocolate" => count($CandyChocolate),
+                "FrozenCanned" => count($FrozenCanned),
+                "BreadBakery" => count($BreadBakery),
+                "Breakfast" => count($Breakfast),
+                "Snacks" => count($Snacks),
+                "Beverages" => count($Beverages),
+                "Others" => count($Others)
+            ]
+        );
+    }
 
     function allCoupons(){
         $c = coupon::all();

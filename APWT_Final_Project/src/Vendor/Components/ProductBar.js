@@ -11,6 +11,9 @@ const ProductBar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/vendor/addProduct">Add Product</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/vendor/productChartData">Product Amount</Link>
+                        </li>
                 </ul>
             </div>
         </>
