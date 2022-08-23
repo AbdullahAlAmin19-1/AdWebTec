@@ -35,17 +35,18 @@ class APIAdminController extends Controller
         $validator = Validator::make($req->all(),[
             "name"=>"required|regex:/^[A-Z a-z,.-]+$/i",
             "phone"=>"required|numeric|digits:10",
-            "gender"=>"required",
-            "dob"=>"required|before:-10 years",
+            "dob"=>"required|before:-18 years",
             "address"=>"required"
         ],
         [
             'name.regex' => 'Name cannot contain special characters or numbers.',
-            'dob.before' => 'User must be 10 years or older.',
+            'dob.before' => 'User must be 18 years or older.',
         ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
+
+        if($validator->fails()){
+            return response()->json($validator->errors(),422);
         }
+        
 
         $a_id = $req->id;
         $admin = admin::find($a_id);
@@ -62,7 +63,7 @@ class APIAdminController extends Controller
         return response()->json(
             [
                 "msg" => "Updated Successfully",
-                "data"=>$admin        
+                "admin"=>$admin        
             ]
         );
     }
@@ -86,7 +87,40 @@ class APIAdminController extends Controller
         }
         return response()->json(["msg"=>"No file"]);
     }
+    function changepassword(Request $req)
+    {
+        $validator = Validator::make(
+            $req->all(),
+            [
+                "current_pass" => "required",
+                "new_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/",
+                "confirm_pass" => "required|min:8|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!$#%@&*^~]).*$/|same:new_pass",
 
+            ],
+
+            [
+                'new_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+                'confirm_pass.regex' => 'Must contain special character, number, uppercase and lowercase letter.',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        $admin = admin::where('id', session()->get('user_id'))->first();
+
+        if ($admin->password == $req->current_pass) {
+            $admin->password = $req->new_pass;
+            $admin->update();
+
+            return response()->json(["msg" => "Password has been successfully updated!"]);
+        } else {
+            return response()->json(
+                [
+                    "msg" => "Current password does not match!",
+                ]
+            );
+        }
+    }
     function viewallnotice(){
         // $notice = notice::with(['customer','vendor'])->all();
         $notice = notice::all();
@@ -240,6 +274,45 @@ class APIAdminController extends Controller
         return response()->json(
             [
                 "msg"=>"Removed Successfully",
+                "data"=>$req
+            ]
+        );
+    }
+    function searchproducts($keyword){
+        $products =product::where('name', 'like', '%'.$keyword.'%')->get();
+        return response()->json($products);
+    }
+
+    function viewreqdeliveryman(){
+        $d = req_deliveryman::all();
+        return response()->json($d, 200);
+    }
+    function approvedeliveryman($id){
+
+        $req = req_deliveryman::where('id', $id)->first();
+        $user = new deliveryman();
+        $user->name = $req->name;
+        $user->username = $req->username;
+        $user->email = $req->email;
+        $user->phone = $req->phone;
+        $user->password = $req->password;
+        $user->gender = $req->gender;
+        $user->dob = $req->dob;
+        $user->address = $req->address;
+        $user->save();
+        $req =DB::delete('delete from req_deliverymen where id = ?',[$id]);
+        return response()->json(
+            [
+                "msg"=>"Added Successfully",
+                "data"=>$user
+            ]
+        );
+    }
+    function canceldeliveryman($id){
+        $req =DB::delete('delete from req_deliverymen where id = ?',[$id]);
+        return response()->json(
+            [
+                "msg"=>"Cancelled Successfully",
                 "data"=>$req
             ]
         );

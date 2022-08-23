@@ -7,7 +7,7 @@ const AdHeader = () => {
   const handleForm = (event) => {
     event.preventDefault();
     if(keyword){
-      window.location.href=`/searchproduct/${keyword}`;
+      window.location.href=`/admin/searchproduct/${keyword}`;
     }
   }
     return (
@@ -32,7 +32,7 @@ const AdHeader = () => {
                     </div>
 
                     <div className="col-4">
-                        <form className="d-flex">
+                        <form className="d-flex" onSubmit={handleForm}>
                         <input className="form-control me-2" type="text" value={keyword} placeholder="Search" onChange={(e) => { setKeyword(e.target.value) }} />
                         <button className="btn btn-primary" type="submit">Search</button>
                         </form>
@@ -52,7 +52,7 @@ const AdHeader = () => {
             <div className="col bg-dark p-2">
                     <ul className="nav justify-content-center">
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">User</Link>
+                            <Link className="nav-link" to="/admin/approvedeliveryman">Approve Deliveryman</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/admin/viewcoupon">View Coupon</Link>

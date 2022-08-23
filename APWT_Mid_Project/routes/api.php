@@ -41,6 +41,7 @@ Route::get('/admin/profile/{id}',[APIAdminController::class,'profile']);
 Route::get('/admin/editprofile/{id}',[APIAdminController::class,'profile']);
 Route::post('/admin/updateprofile',[APIAdminController::class,'updateprofile']);
 Route::post('/admin/updatepropic',[APIAdminController::class,'updatepropic']);
+Route::post('/admin/changepassword',[APIAdminController::class,'changepassword']);
 Route::post('/admin/sendnoticeupdate',[APIAdminController::class,'sendnoticeupdate']);
 Route::get('/admin/viewallnotice',[APIAdminController::class,'viewallnotice']);
 Route::get('/admin/viewnotice/{id}',[APIAdminController::class,'viewnotice']);
@@ -54,6 +55,10 @@ Route::post('/admin/addcoupon',[APIAdminController::class,'addcoupon']);
 Route::get('/admin/editcoupon/{id}',[APIAdminController::class,'editcoupon']);
 Route::post('/admin/editcouponupdate',[APIAdminController::class,'editcouponupdate']);
 Route::get('/admin/removecoupon/{id}',[APIAdminController::class,'removecoupon']);
+Route::get('/admin/products/search/{keyword}',[APIAdminController::class,'searchproducts']);
+Route::get('/admin/viewreqdeliveryman',[APIAdminController::class,'viewreqdeliveryman']);
+Route::get('/admin/canceldeliveryman/{id}',[APIAdminController::class,'canceldeliveryman']);
+Route::get('/admin/approvedeliveryman/{id}',[APIAdminController::class,'approvedeliveryman']);
 
 //Vendor
 Route::get('/vendor/profile/{id}',[APIVendorController::class,'profile']);
