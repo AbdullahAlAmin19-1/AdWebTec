@@ -24,13 +24,23 @@ const OrderBody = () => {
             (res) => {
                 setCartproducts(res.data);
                 console.log(res.data);
+            },
+            (error) => {
+                debugger;
+            }
+        );
 
+        AxiosConfig.get("customer/profileinfo/" + c_id).then(
+            (res) => {
+                setAddress(res.data.address);
+                // debugger;
             },
             (error) => {
                 debugger;
             }
 
         );
+
     }, []);
 
     const handleRemove = (id) => {
@@ -96,7 +106,7 @@ const OrderBody = () => {
 
     const confremove = () => {
         setConfirmed("");
-        window.location.href = "/";
+        window.location.href = "/customer/dashboard";
     }
 
     return (
@@ -217,7 +227,7 @@ const OrderBody = () => {
                                     <tr className="text-end">
                                         <th className="pt-3" style={{ width: "50%" }}>Delivery Address: </th>
                                         <td className="text-center" style={{ width: "50%" }}>
-                                            <input type="text" name="address" className="form-control form-control-lg" value={address} onChange={(e) => { setAddress(e.target.value) }} />
+                                            <input type="text" name="address" className="form-control form-control-md" value={address} onChange={(e) => { setAddress(e.target.value) }} />
 
                                             <span className="text-danger">{errors.delivery_address ? errors.delivery_address[0] : ''}</span>
 
