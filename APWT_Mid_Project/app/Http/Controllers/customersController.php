@@ -260,7 +260,7 @@ class customersController extends Controller
             }
 
             else{
-                session()->flash('Msg', "p Invalid Coupon Code!");
+                session()->flash('Msg', "Invalid Coupon Code!");
                     return redirect()->route('customer.corder');
             }
 
