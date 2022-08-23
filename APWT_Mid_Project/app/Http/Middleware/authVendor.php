@@ -16,6 +16,7 @@ class authVendor
      */
     public function handle(Request $request, Closure $next)
     {
+        // return $next($request);
         // if(session()->get('user_type')=='Admin'){
         //     return $next($request);
         // }

@@ -2,35 +2,35 @@ import { useState, useEffect } from 'react';
 import AxiosConfig from '../../Public/Services/AxiosConfig';
 
 const Sendnotice = () => {
-    const [aid, setAid] = useState("");
+    const [a_id, setAid] = useState("");
     const [user, setUser] = useState("");
     const [email, setEmail] = useState("");
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
 
-    
+    const [errors, setErrors] = useState([]);
+
     useEffect(() => {
         document.title='Send Notice';
         AxiosConfig.post("admin/sendnoticeupdate").
         then((succ)=>{
-            debugger;
         },(err)=>{
             debugger;
         })
       }, []);
     const handleForm = (event) => {
         event.preventDefault();
-        const data={user_type:user,a_id:1,email:email,subject:subject,message:message};
+        const data={user_type:user,a_id:a_id,email:email,subject:subject,message:message};
         // alert(data.name);
         AxiosConfig.post("admin/sendnoticeupdate",data).
         then((succ)=>{
             //setMsg(succ.data.msg);
             debugger;
-            alert("Ok");
-            window.location.href="/admin/sendnotice";
+            var id = 1;
+            window.location.href="/admin/viewallnotice";
         },(err)=>{
             debugger;
-            // setErrs(c);
+            setErrors(err.response.data);
         })
     }
     
@@ -53,7 +53,7 @@ const Sendnotice = () => {
                                             <h6 className="mb-0 me-4">Send Notice To: </h6>
 
                                             <div className="form-check form-check-inline mb-0">
-                                                <input type="hidden" name="a_id" value={1} onChange={(e) => { setAid(e.target.value) }}/>
+                                                <input type="hidden" name="a_id" value={localStorage.getItem('user_id')} onChange={(e) => { setAid(e.target.value) }}/>
                                                 <input className="form-check-input" type="radio" name="user_type"
                                                     value="Vendor" onClick={(e) => { setUser(e.target.value) }}/>
                                                 <label className="form-check-label" for="vendor">Vendor</label>
@@ -64,15 +64,17 @@ const Sendnotice = () => {
                                                     value="Customer" onClick={(e) => { setUser(e.target.value) }}/>
                                                 <label className="form-check-label" for="customer">Customer</label>
                                             </div>
-
+                                            <span className="text-danger">{errors.user_type ? errors.user_type[0] : ''}</span>
                                             </div>
                                                 <div className="form-outline">
                                                     <label className="form-label" for="email">Email</label>
                                                     <input type="email" name="email" className="form-control form-control-lg" value={email} onChange={(e) => { setEmail(e.target.value) }}/>
+                                                    <span className="text-danger">{errors.email ? errors.email[0] : ''}</span>
                                                 </div>
                                                 <div className="form-outline">
                                                     <label className="form-label" for="subject">Subject</label>
                                                     <input type="text" name="subject" className="form-control form-control-lg" value={subject} onChange={(e) => { setSubject(e.target.value) }}/>
+                                                    <span className="text-danger">{errors.subject ? errors.subject[0] : ''}</span>
                                                 </div>
                                                 <div className="form-outline">
                                                     <label className="form-label" for="message">Message</label>

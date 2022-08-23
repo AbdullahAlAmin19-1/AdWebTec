@@ -200,7 +200,7 @@ class APIController extends Controller
         if($user){
             session()->put('resetpass','yes');
             $otp = random_int(100000, 999999);
-            // Mail::to([$user->email])->send(new sendOTP("Access OTP",$vali->user_type,$user->username,$user->email,$otp));
+            Mail::to([$user->email])->send(new sendOTP("Access OTP",$vali->user_type,$user->username,$user->email,$otp));
             return response()->json(
                 [
                     "msg"=>"Check Email For OTP",

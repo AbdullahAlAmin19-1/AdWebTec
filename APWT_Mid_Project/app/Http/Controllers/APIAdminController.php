@@ -46,7 +46,6 @@ class APIAdminController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors(),422);
         }
-        
 
         $a_id = $req->id;
         $admin = admin::find($a_id);
@@ -150,6 +149,17 @@ class APIAdminController extends Controller
         );
     }
     function sendnoticeupdate(Request $vali){
+        $validator = Validator::make($vali->all(),[
+            "user_type"=>"required",
+            "email"=>"required|email",
+            "subject"=>"required"
+        ],
+        [
+            'email.email' => 'Must contain special character, number, uppercase and lowercase letter.'
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors(),422);
+        }
         if($vali->user_type=="Vendor")
         {
             $validator = Validator::make($vali->all(),[
@@ -313,6 +323,37 @@ class APIAdminController extends Controller
         return response()->json(
             [
                 "msg"=>"Cancelled Successfully",
+                "data"=>$req
+            ]
+        );
+    }
+    function viewvendor($id){
+
+        $user = vendor::where('id', $id)->first();
+        return response()->json($user, 200);
+    }
+    function viewcustomer(){
+        $c = customer::all();
+        return response()->json($c, 200);
+    }
+    function removecustomer($id){
+        $req =DB::delete('delete from customers where id = ?',[$id]);
+        return response()->json(
+            [
+                "msg"=>"Removed Successfully",
+                "data"=>$req
+            ]
+        );
+    }
+    function viewdeliveryman(){
+        $c = deliveryman::all();
+        return response()->json($c, 200);
+    }
+    function removedeliveryman($id){
+        $req =DB::delete('delete from deliverymen where id = ?',[$id]);
+        return response()->json(
+            [
+                "msg"=>"Removed Successfully",
                 "data"=>$req
             ]
         );

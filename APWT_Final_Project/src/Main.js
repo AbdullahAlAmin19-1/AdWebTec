@@ -30,6 +30,7 @@ import VEditCoupon from './Vendor/Pages/EditCoupon';
 import VNotice from './Vendor/Pages/Notice'
 import VReviews from './Vendor/Pages/Reviews';
 import VChangePass from './Vendor/Pages/ChangePass';
+import VProductChart from './Vendor/Pages/ProductChart';
 
 // Customer
 import Dashboard from './Customer/Pages/Dashboard';
@@ -59,6 +60,9 @@ import Aviewcoupon from './Admin/Pages/Aviewcoupon';
 import Aeditcoupon from './Admin/Pages/Aeditcoupon';
 import AsearchProduct from './Admin/Pages/AsearchProduct'
 import Aapprovedeliveryman from './Admin/Pages/Aapprovedeliveryman';
+import Aviewvendor from './Admin/Pages/Aviewvendor';
+import Aviewcustomer from './Admin/Pages/Aviewcustormer';
+import Aviewdeliveryman from './Admin/Pages/Aviewdeliveryman';
 
 
 const Main = () => {
@@ -96,6 +100,7 @@ const Main = () => {
           <Route path="/vendor/notices" element={<VNotice />} />
           <Route path="/vendor/reviews" element={<VReviews />} />
           <Route path="/vendor/changePass" element={<VChangePass />} />
+          <Route path="/vendor/productChartData" element={<VProductChart />} />
 
           {/* Customer Routes */}
           <Route path="/customer/dashboard" element={<Dashboard />} />
@@ -124,6 +129,9 @@ const Main = () => {
           <Route path="/admin/viewcoupon" element={<Aviewcoupon />} />
           <Route path="/admin/searchproduct/:keyword" element={<AsearchProduct />} />
           <Route path="/admin/approvedeliveryman" element={<Aapprovedeliveryman />} />
+          <Route path="/admin/viewvendor" element={<Aviewvendor />} />
+          <Route path="/admin/viewcustomer" element={<Aviewcustomer />} />
+          <Route path="/admin/viewdeliveryman" element={<Aviewdeliveryman />} />
         </Routes>
       </BrowserRouter>
     </div>
