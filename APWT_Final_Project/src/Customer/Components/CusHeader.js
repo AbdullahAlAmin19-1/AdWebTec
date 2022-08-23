@@ -54,7 +54,7 @@ const CusHeader = () => {
                     <div className="col-3">
                         <ul className="nav justify-content-end">
                             <li className="nav-item">
-                                <h6 className="text-white mt-2">Welcome! <span>{localStorage.getItem('user_type')}, <span style={{ color: "red" }}><Link style={{ textDecoration: 'none' }} to="/vendor/profile">{localStorage.getItem('username')}</Link></span></span></h6>
+                                <h6 className="text-white mt-2">Welcome! <span>{localStorage.getItem('user_type')}, <span style={{ color: "red" }}><Link style={{ textDecoration: 'none' }} to="/customer/profileinfo">{localStorage.getItem('username')}</Link></span></span></h6>
                             </li>
                         </ul>
                     </div>

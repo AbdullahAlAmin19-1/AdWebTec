@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import AxiosConfig from '../../Public/Services/AxiosConfig';
 
+import cooking from '../../Images/Categories/cooking.webp'
+
 const AddProductBody = () => {
+    
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
     const [thumbnail, setThumbnail] = useState("");
@@ -47,8 +50,11 @@ const AddProductBody = () => {
                         <div className="col">
                             <div className="card card-addProduct my-4">
                                 <div className="row g-0">
-                                    <div className="col-xl-6 d-none d-xl-block">
-                                            <img src={`http://127.0.0.1:8000/storage/images/Product.png`}
+                                    <div className="col-xl-6 d-none d-xl-block p-5">
+                                            {/* <img src={`http://127.0.0.1:8000/storage/images/Product.png`}
+                                            alt="Sample photo" className="img-fluid"
+                                            style={{ bordertopleftradius: ".25rem", borderbottomleftradius: ".25rem;" }} /> */}
+                                            <img src={cooking}
                                             alt="Sample photo" className="img-fluid"
                                             style={{ bordertopleftradius: ".25rem", borderbottomleftradius: ".25rem;" }} />
                                     </div>
