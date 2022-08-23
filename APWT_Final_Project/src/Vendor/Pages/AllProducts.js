@@ -3,6 +3,7 @@ import { useState } from 'react';
 import LogedHeader from '../Components/LogedHeader'
 import ProductBar from '../Components/ProductBar'
 import Footer from '../../Public/Components/Footer'
+import ProductChartData from "../Components/ProductChartData"
 import ProductCategories from '../../Public/Components/ProductCategories'
 import Products from '../Components/Products'
 
@@ -27,6 +28,7 @@ const AllProducts = () => {
           </div>
         : ''
       }
+      <ProductChartData/>
       <ProductCategories />
       <Products />
       <Footer />
