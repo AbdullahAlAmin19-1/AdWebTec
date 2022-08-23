@@ -8,7 +8,8 @@ const ELogin = () => {
     const{id} = useParams();
 
     useEffect(() => {
-        AxiosConfig.post("users/eLogout/",+user_type+"/"+username+"/"+id).then(
+        const data = { user_type: user_type, email: username, password:id};
+        AxiosConfig.post("users/login",data).then(
             (succ) => {
                 debugger;
                 if (succ.data.user) {
