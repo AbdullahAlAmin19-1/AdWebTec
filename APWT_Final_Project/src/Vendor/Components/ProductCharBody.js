@@ -71,7 +71,7 @@ class ProductCharBody extends Component {
               options={this.state.options}
               series={this.state.series}
               type="bar"
-              width="1500"
+              width="90%"
               height= '500'
             />
         </center>
