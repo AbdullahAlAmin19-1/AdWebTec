@@ -17,6 +17,9 @@ const Editprofile = ({ a_id }) => {
     const [address, setAddress] = useState("");
     const [propic, setProPic] = useState("");
 
+    const [msg, setMsg] = useState("");
+    const [errors, setErrors] = useState([]);
+
     useEffect(() => {
         document.title='Edit Profile';
         AxiosConfig.get("admin/profile/" + a_id).then(
@@ -32,7 +35,7 @@ const Editprofile = ({ a_id }) => {
                 setDob(res.data.dob);
                 setAddress(res.data.address);
                 setProPic(res.data.propic);
-                // debugger;
+                debugger;
             },
             (error) => {
                 debugger;
@@ -43,17 +46,15 @@ const Editprofile = ({ a_id }) => {
     const handleForm = (event) => {
         event.preventDefault();
 
-        const data = { id: id, name: name, username: username, email: email, phone: phone, gender: gender, dob: dob, address: address };
+        const data = { id: id, name: name, phone: phone, dob: dob, address: address };
 
         AxiosConfig.post("admin/updateprofile", data).
             then((succ) => {
-                //setMsg(succ.data.msg);
-                //alert(succ.data.msg);
-                window.location.href = "/admin/profile";
-                // debugger;
-            }, (err) => {
+                setMsg(succ.data.msg);
                 debugger;
+            }, (err) => {
                 // setErrs(err.response.data);
+                setErrors(err.response.data);
             })
     }
 
@@ -68,15 +69,30 @@ const Editprofile = ({ a_id }) => {
                 //setMsg(succ.data.msg);
                 //alert(succ.data.msg);
                 window.location.href = "/admin/profile";
-                // debugger;
             }, (err) => {
                 debugger;
-                // setErrs(err.response.data);
+                setErrors(err.response.data);
             })
     }
 
+    const remove = () => {
+        setMsg("");
+        window.location.href = "/admin/profile";
+    }
+
+
     return (
         <>
+        {
+                msg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-primary alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                            <strong>Success!</strong> {msg}
+                        </div>
+                    </div>
+                    : ''
+            }
             <div className="container-fluid p-4">
                 <div className="card">
                     <div className="card-header">
@@ -123,38 +139,43 @@ const Editprofile = ({ a_id }) => {
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-6">
+                                                            <label htmlFor="Name">Name</label>
+                                                            <input type="text" className="form-control" name='name' placeholder="Enter name" value={name} onChange={(e) => { setName(e.target.value) }} />
+                                                            <span className="text-danger">{errors.name ? errors.name[0] : ''}</span>
+                                                        </div>
+                                                        <div className="col-6">
                                                             <label htmlFor="userame">Username</label>
                                                             <input type="text" className="form-control" name='username' placeholder="Enter username" value={username} disabled />
                                                         </div>
-                                                        <div className="col-6">
-                                                            <label htmlFor="Name">Name</label>
-                                                            <input type="text" className="form-control" name='name' placeholder="Enter name" value={name} onChange={(e) => { setName(e.target.value) }} />
-                                                        </div>
                                                     </div>
                                                     <div className="row">
+                                                        <div className="col-6">
+                                                            <label htmlFor="Phone">Phone</label>
+                                                            <input type="text" className="form-control" name='phone' placeholder="Enter phone" value={phone} onChange={(e) => { setPhone(e.target.value) }} />
+                                                            <span className="text-danger">{errors.phone ? errors.phone[0] : ''}</span>
+                                                        </div>
                                                         <div className="col-6">
                                                             <label htmlFor="Email">Email</label>
                                                             <input type="text" className="form-control" name='email' placeholder="Enter email" value={email} disabled />
                                                         </div>
-                                                        <div className="col-6">
-                                                            <label htmlFor="Phone">Phone</label>
-                                                            <input type="text" className="form-control" name='phone' placeholder="Enter phone" value={phone} onChange={(e) => { setPhone(e.target.value) }} />
-                                                        </div>
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-6">
-                                                            <label htmlFor="Gender">Gender</label>
-                                                            <input type="text" className="form-control" name='gender' placeholder="Enter gender" value={gender} onChange={(e) => { setGender(e.target.value) }} />
-                                                        </div>
-                                                        <div className="col-6">
                                                             <label htmlFor="Dob">Date Of Birth</label>
                                                             <input type="date" className="form-control" name='dob' placeholder="Enter date of birth" value={dob} onChange={(e) => { setDob(e.target.value) }} />
+                                                            <span className="text-danger">{errors.dob ? errors.dob[0] : ''}</span>
+                                                        </div>
+                                                        <div className="col-6">
+                                                            <label htmlFor="Gender">Gender</label>
+                                                            <input type="text" className="form-control" name='gender' placeholder="Enter gender" value={gender} onChange={(e) => { setGender(e.target.value) }} disabled/>
+                                                            <span className="text-danger">{errors.gender ? errors.gender[0] : ''}</span>
                                                         </div>
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-12">
                                                             <label htmlFor="Address">Address</label>
                                                             <input type="text" className="form-control" name='address' placeholder="Enter address" value={address} onChange={(e) => { setAddress(e.target.value) }} />
+                                                            <span className="text-danger">{errors.address ? errors.address[0] : ''}</span>
                                                         </div>
                                                     </div>
                                                     <div className="row pt-2">

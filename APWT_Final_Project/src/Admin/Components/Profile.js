@@ -101,7 +101,7 @@ const Profile = () => {
                                                     <div className="col-12">
                                                         <div className="d-flex justify-content-center mb-2">
                                                             <button type="button" className="btn btn-primary"><Link className='nav-link' to={`/admin/profile/edit/${admin.id}`}>Edit Profile</Link></button>
-                                                            <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="#">Change Password</Link></button>
+                                                            <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="/admin/changepassword">Change Password</Link></button>
                                                         </div>
                                                     </div>
                                                 </div>
