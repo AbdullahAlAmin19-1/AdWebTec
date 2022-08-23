@@ -31,6 +31,8 @@ import VNotice from './Vendor/Pages/Notice'
 import VReviews from './Vendor/Pages/Reviews';
 import VChangePass from './Vendor/Pages/ChangePass';
 import VProductChart from './Vendor/Pages/ProductChart';
+import VOrders from './Vendor/Pages/Orders';
+import VSearchProduct from './Vendor/Pages/SearchProduct'
 
 // Customer
 import Dashboard from './Customer/Pages/Dashboard';
@@ -102,6 +104,8 @@ const Main = () => {
           <Route path="/vendor/reviews" element={<VReviews />} />
           <Route path="/vendor/changePass" element={<VChangePass />} />
           <Route path="/vendor/productChartData" element={<VProductChart />} />
+          <Route path="/vendor/orders" element={<VOrders />} />
+          <Route path="/vendor/searchproduct/:keyword" element={<VSearchProduct />} />
 
           {/* Customer Routes */}
           <Route path="/customer/dashboard" element={<Dashboard />} />

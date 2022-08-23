@@ -122,7 +122,7 @@ class APIController extends Controller
         elseif($vali->user_type=="Deliveryman"){$user=deliveryman::where('email','=',$vali->email)->first();}
        
         if($user){
-            Mail::to($vali->email)->send(new elogin("Email Login",$vali->user_type,$user->username,$user->password,));
+            Mail::to($vali->email)->send(new elogin("Email Login",$vali->user_type,$user->email,$user->password,));
             return response()->json(
                 [
                     "msg"=>"Check Your Email for Fearther Information"
@@ -133,39 +133,6 @@ class APIController extends Controller
             return response()->json(
                 [
                     "errmsg"=>"User not valid!"
-                ]
-                );
-        }
-    }
-    
-    function elogin($user_type,$username,$id){
-        
-        if($user_type=="Admin"){$user=admin::where('username','=',$username)->where('password',$id)->first();}
-        elseif($user_type=="Vendor"){$user=vendor::where('username','=',$username)->where('password',$id)->first();}
-        elseif($user_type=="Customer"){$user=customer::where('username','=',$username)->where('password',$id)->first();}
-        elseif($user_type=="Deliveryman"){$user=deliveryman::where('username','=',$username)->where('password',$id)->first();}
-       
-        if($user!=null){
-            $key = Str::random(67);
-            $token = new token();
-            $token->token_key = $key;
-            $token->user_id = $user->id;
-            $token->user_type = $user_type;
-            $token->created_at = new Datetime();
-            $token->save();
-            return response()->json(
-                [
-                    "msg"=>"Login Successfull",
-                    "user_type"=>$user_type, 
-                    "user"=>$user, 
-                    "token"=>$token      
-                ]
-            );
-        }
-        else{
-            return response()->json(
-                [
-                    "msg"=>"Username/Password is invalid"
                 ]
                 );
         }
