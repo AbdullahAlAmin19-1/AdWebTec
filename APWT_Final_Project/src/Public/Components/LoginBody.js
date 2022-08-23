@@ -48,7 +48,7 @@ const LoginBody = () => {
     
     const remove = () => {
         localStorage.setItem('msg', '');
-    localStorage.setItem('errmsg', '');
+        localStorage.setItem('errmsg', '');
         setMsg("");
         window.location.href = "/login";
     }
