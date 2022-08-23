@@ -159,7 +159,6 @@ const LoginBody = () => {
                     </div>
                 </div>
             </section>
-
         </>
     )
 }
