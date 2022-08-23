@@ -213,7 +213,7 @@ class APIController extends Controller
         else {
             return response()->json(
                 [
-                    "errmsg"=>"Enter Correct Email"
+                    "errmsg"=>"Email is invalid!"
                 ]
             );
         }
@@ -231,7 +231,7 @@ class APIController extends Controller
         else {
             return response()->json(
                 [
-                    "errmsg"=>"OTP Not Valid"
+                    "errmsg"=>"Invalid OTP!"
                 ]
             );
         }
