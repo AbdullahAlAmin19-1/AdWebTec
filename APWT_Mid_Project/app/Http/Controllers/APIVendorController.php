@@ -524,4 +524,29 @@ class APIVendorController extends Controller
         }
     }
 
+    function orders(){
+        $orders = order::all();
+        
+        $order = order::where('id', 14)->first();
+
+        // foreach ($customers as $customer){
+    //     foreach($customer->products as $p){
+    //         // $o=$p->orders;
+    //         foreach ($p->orders as $o){
+    //         echo $o->id;
+    //     }break;
+    // }
+    // }
+        // echo $o= $c->orders->first();
+        // echo $o->coupon;
+        // $p= $o->products;
+        // echo $p;
+
+        return response()->json(["orders" => $orders, "order" => $order]);
+    }
+    
+    function searchproducts($keyword){
+        $products =product::where('name', 'like', '%'.$keyword.'%')->get();
+        return response()->json($products);
+    }
 }

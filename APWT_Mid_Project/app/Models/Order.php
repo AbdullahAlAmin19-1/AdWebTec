@@ -14,7 +14,7 @@ use App\Models\Product;
 class order extends Model
 {
     use HasFactory;
-
+    // protected $with = ['product', 'customer'];
     protected $guarded = [];
 
     public function products()
@@ -23,16 +23,15 @@ class order extends Model
     }
     public function product()
     {
-        return $this->belongsTo(Product::class,'p_id');
+        return $this->belongsTo(Product::class,'p_id','id');
     }
     public function coupon()
     {
         return $this->belongsTo(Coupon::class,'co_id');
     }
-
     public function customer()
     {
-        return $this->belongsTo(Customer::class,'c_id');
+        return $this->belongsTo(Customer::class,'c_id','id');
     }
 
     // public function vendor()
