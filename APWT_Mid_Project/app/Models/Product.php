@@ -14,6 +14,8 @@ use App\Models\Order;
 class Product extends Model
 {
     use HasFactory;
+    // protected $with = ['order'];
+    
     public function carts()
     {
         return $this->belongsTo(Cart::class);

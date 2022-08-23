@@ -89,6 +89,8 @@ Route::post('/vendor/assignCoupon',[APIVendorController::class,'assigncoupon']);
 Route::get('/vendor/notices/{id}',[APIVendorController::class,'notices']);
 Route::get('/vendor/reviews',[APIVendorController::class,'reviews']);
 Route::get('/vendor/productChartData',[APIVendorController::class,'ProductChartData']);
+Route::get('/vendor/orders',[APIVendorController::class,'orders']);
+Route::get('/vendor/search/{keyword}',[APIVendorController::class,'searchproducts']);
 
 
 //Customer

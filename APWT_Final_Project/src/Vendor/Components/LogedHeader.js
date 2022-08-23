@@ -1,12 +1,21 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const LogedHeader = () => {
+    
+    const [keyword, setKeyword] = useState("");
+    const handleForm = (event) => {
+        event.preventDefault();
+        if(keyword){
+          window.location.href=`/vendor/searchproduct/${keyword}`;
+        }
+      }
     return (
         <>
             <div className="container-fluid">
                 <div className="row p-2 pt-3 bg-dark text-center">
                     <div className="col-1 mt-2">
-                        <h5><Link className="navbar-brand text-white" to="/">Grocery OS</Link></h5>
+                        <h5><Link className="navbar-brand text-white" to="#">Grocery OS</Link></h5>
                     </div>
                     <div className="col-3">
                         <ul className="nav">
@@ -20,9 +29,9 @@ const LogedHeader = () => {
                     </div>
 
                     <div className="col-4">
-                        <form className="d-flex">
-                            <input className="form-control me-2" type="text" placeholder='Search Product' />
-                            <button className="btn btn-primary" type="submit">Search</button>
+                        <form className="d-flex" onSubmit={handleForm}>
+                        <input className="form-control me-2" type="text" value={keyword} placeholder="Search" onChange={(e) => { setKeyword(e.target.value) }} />
+                        <button className="btn btn-primary" type="submit">Search</button>
                         </form>
                     </div>
 
@@ -49,7 +58,7 @@ const LogedHeader = () => {
                             <Link className="nav-link" to="/vendor/allCoupons">Coupons</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="#">Orders</Link>
+                            <Link className="nav-link" to="/vendor/orders">Orders</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/vendor/reviews">Reviews</Link>
