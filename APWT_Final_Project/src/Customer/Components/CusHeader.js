@@ -71,7 +71,7 @@ const CusHeader = () => {
                         <Link className="nav-link" to="/customer/cart">Cart</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="#">Orders</Link>
+                        <Link className="nav-link" to="/customer/vieworder">Orders</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/customer/reviews">Reviews</Link>

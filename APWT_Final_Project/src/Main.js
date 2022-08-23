@@ -45,6 +45,7 @@ import ReviewUpdate from './Customer/Pages/ReviewUpdate';
 import Coupons from './Customer/Pages/Coupons';
 import Notices from './Customer/Pages/Notices';
 import Order from './Customer/Pages/Order';
+import ViewOrder from './Customer/Pages/ViewOrder';
 
 
 // Admin
@@ -117,6 +118,7 @@ const Main = () => {
           <Route path="/customer/notices" element={<Notices />} />
           <Route path="/customer/changepass" element={<ChangePass />} />
           <Route path="/customer/order" element={<Order />} />
+          <Route path="/customer/vieworder" element={<ViewOrder />} />
 
           {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
