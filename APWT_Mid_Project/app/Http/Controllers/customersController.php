@@ -153,7 +153,7 @@ class customersController extends Controller
             $cart->quantity = $cart->quantity + $req->quantity;
             $cart->update();
             
-            session()->flash('Msg','Product has been added in the card!');
+            session()->flash('Msg','Product has been added in the cart!');
             return redirect()->route('customer.cdashboard');
         }
 
@@ -164,7 +164,7 @@ class customersController extends Controller
             $cart->p_id = $req->p_id;
             $cart->save();
 
-            session()->flash('Msg','Product has been added in the card!');
+            session()->flash('Msg','Product has been added in the cart!');
             return redirect()->route('customer.cdashboard');
         }
         

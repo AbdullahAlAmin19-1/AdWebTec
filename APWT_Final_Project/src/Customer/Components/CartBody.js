@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AxiosConfig from '../../Public/Services/AxiosConfig';
+// import swal from 'sweetalert';
 
 const CartBody = () => {
 
@@ -10,13 +11,15 @@ const CartBody = () => {
   var c_id = localStorage.getItem('user_id');
   var noorder_msg = localStorage.getItem('noorder_msg');
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     document.title = 'Grocery OS - Cart';
 
     AxiosConfig.get("customer/viewcart/" + c_id).then(
       (res) => {
         setCartproducts(res.data);
-        console.log(res.data);
+        // setLoading(false);
       },
       (error) => {
         debugger;
@@ -25,14 +28,16 @@ const CartBody = () => {
     );
   }, []);
 
+  // if(loading){
+  //   return <h4>Loading details...</h4>
+  // }
+
   const handleRemove = (id) => {
-    // alert(id);
     const data = { cart_id: id };
     AxiosConfig.post("customer/cartproductremove", data).
       then((succ) => {
         setMsg(succ.data.msg);
-        // alert(succ.data.msg);
-        // window.location.reload();
+        
 
       }, (err) => {
         debugger;
@@ -41,24 +46,48 @@ const CartBody = () => {
 
   const QuanDecrement = (id) => {
     // alert(id);
+
+    setCartproducts(cartproducts =>
+      cartproducts.map((item) =>
+      id === item.id ? {...item, quantity: item.quantity - (item.quantity > 1 ? 1:0)} : item
+      )
+    );
+
+    
     const data = { cart_id: id };
     AxiosConfig.post("customer/cartquandecrement", data).
       then((succ) => {
-        // setMsg(succ.data.msg);
-        window.location.reload();
+        // window.location.reload();
 
       }, (err) => {
         debugger;
       })
+
+
+    //* Show alert box - Just Checking
+    // swal(
+    //   'Good job!',
+    //   'You clicked the button!',
+    //   'success'
+    // )
+    //*
+
   }
 
   const QuanIncrement = (id) => {
     // alert(id);
+
+    setCartproducts(cartproducts =>
+      cartproducts.map((item) =>
+      id === item.id ? {...item, quantity: item.quantity + (item.quantity < 10 ? 1:0)} : item
+      )
+    );
+
     const data = { cart_id: id };
     AxiosConfig.post("customer/cartquanincrement", data).
       then((succ) => {
         // setMsg(succ.data.msg);
-        window.location.reload();
+        // window.location.reload();
 
       }, (err) => {
         debugger;
@@ -112,7 +141,7 @@ const CartBody = () => {
                   <th className="text-center">Product</th>
                   <th className="text-center">Product Name</th>
                   <th className="text-center">Product Category</th>
-                  <th className="text-right">Price (Tk)</th>
+                  <th className="text-center">Price (Tk)</th>
                   <th className="text-center">Quantity</th>
                   <th className="text-center">Total Price (Tk)</th>
                   <th className="text-center">Action</th>

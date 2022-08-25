@@ -10,8 +10,10 @@ const ViewProductBody = ({ value }) => {
     var p_id = value;
     var c_id = localStorage.getItem('user_id')
 
+    const [msg, setMsg] = useState("");
+
     useEffect(() => {
-        document.title='Product';
+        document.title = 'Product';
         AxiosConfig.get("products/item/" + p_id).then(
             (res) => {
                 setProduct(res.data);
@@ -43,18 +45,32 @@ const ViewProductBody = ({ value }) => {
         console.log(data);
         AxiosConfig.post("customer/addcart", data).
             then((succ) => {
-                //setMsg(succ.data.msg);
-                alert(succ.data.msg);
-                window.location.href = "/customer/cart";
+                setMsg(succ.data.msg);
+                // window.location.href = "/customer/cart";
 
             }, (err) => {
                 debugger;
             })
     }
 
+    const remove = () => {
+        setMsg("");
+        window.location.href = "/customer/cart";
+      }
+
     return (
         <>
 
+            {
+                msg ?
+                    <div className="container mt-3">
+                        <div className="alert alert-primary alert-dismissible">
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>
+                            <strong>Success!</strong> {msg}
+                        </div>
+                    </div>
+                    : ''
+            }
 
             <div className="container-fluid p-3">
                 <div className="card">
@@ -139,7 +155,7 @@ const ViewProductBody = ({ value }) => {
                     <div className="card-body">
                         <div className="row justify-content-center">
 
-                        {
+                            {
                                 reviews.map((item) =>
                                     <>
 
