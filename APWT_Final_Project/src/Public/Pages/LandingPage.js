@@ -5,6 +5,7 @@ import Footer from '../Components/Footer'
 import Products from '../Components/Products'
 
 const LandingPage = () => {
+
   return (
     <>
       <Header />

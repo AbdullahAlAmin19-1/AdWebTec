@@ -132,7 +132,6 @@ class APICustomersController extends Controller
     {
         $validator = Validator::make($req->all(), [
             "quantity" => "required",
-            //Others validation here
 
         ]);
         if ($validator->fails()) {
@@ -151,7 +150,7 @@ class APICustomersController extends Controller
             $cart->quantity = $cart->quantity + $req->quantity;
             $cart->update();
 
-            return response()->json(["msg" => "Product has been added successfully!"]);
+            return response()->json(["msg" => "Product has been added in the cart!"]);
         } else {
             $cart = new cart();
             $cart->quantity = $req->quantity;
@@ -159,7 +158,7 @@ class APICustomersController extends Controller
             $cart->p_id = $req->p_id;
             $cart->save();
 
-            return response()->json(["msg" => "Product has been added successfully!"]);
+            return response()->json(["msg" => "Product has been added in the cart!"]);
         }
     }
 

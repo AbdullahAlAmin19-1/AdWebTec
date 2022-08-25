@@ -57,29 +57,53 @@ const OrderBody = () => {
 
     const QuanDecrement = (id) => {
         // alert(id);
+    
+        setCartproducts(cartproducts =>
+          cartproducts.map((item) =>
+          id === item.id ? {...item, quantity: item.quantity - (item.quantity > 1 ? 1:0)} : item
+          )
+        );
+    
+        
         const data = { cart_id: id };
         AxiosConfig.post("customer/cartquandecrement", data).
-            then((succ) => {
-                // setMsg(succ.data.msg);
-                window.location.reload();
-
-            }, (err) => {
-                debugger;
-            })
-    }
-
-    const QuanIncrement = (id) => {
+          then((succ) => {
+            // window.location.reload();
+    
+          }, (err) => {
+            debugger;
+          })
+    
+    
+        //* Show alert box - Just Checking
+        // swal(
+        //   'Good job!',
+        //   'You clicked the button!',
+        //   'success'
+        // )
+        //*
+    
+      }
+    
+      const QuanIncrement = (id) => {
         // alert(id);
+    
+        setCartproducts(cartproducts =>
+          cartproducts.map((item) =>
+          id === item.id ? {...item, quantity: item.quantity + (item.quantity < 10 ? 1:0)} : item
+          )
+        );
+    
         const data = { cart_id: id };
         AxiosConfig.post("customer/cartquanincrement", data).
-            then((succ) => {
-                // setMsg(succ.data.msg);
-                window.location.reload();
-
-            }, (err) => {
-                debugger;
-            })
-    }
+          then((succ) => {
+            // setMsg(succ.data.msg);
+            // window.location.reload();
+    
+          }, (err) => {
+            debugger;
+          })
+      }
 
     const remove = () => {
         setMsg("");

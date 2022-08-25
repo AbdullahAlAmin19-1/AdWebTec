@@ -15,7 +15,6 @@ import beverages from '../../Images/Categories/beverages.webp'
 import others from '../../Images/Categories/others.webp'
 
 
-
 const ProductCategories = () => {
 
   const remove = () => {
@@ -27,7 +26,7 @@ const ProductCategories = () => {
     <>
 
       {
-        localStorage.getItem('loggedout') ?
+        localStorage.getItem('loggedout') == "yes" ?
           <div className="container">
             <div className="alert alert-primary alert-dismissible mt-4 mx-5">
               <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={remove}></button>

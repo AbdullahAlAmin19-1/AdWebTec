@@ -9,7 +9,7 @@ const Logout = () => {
                 debugger;
 
                 localStorage.removeItem('_authToken', '');
-                localStorage.removeItem('user_type', '');
+                localStorage.setItem('user_type', '');
                 localStorage.removeItem('user_id', '');
                 localStorage.removeItem('username', '');
                 localStorage.removeItem('product_id', '');
@@ -17,7 +17,7 @@ const Logout = () => {
                 localStorage.removeItem('msg', '');
                 localStorage.removeItem('errmsg', '');
 
-                localStorage.setItem('loggedout', true);
+                localStorage.setItem('loggedout', "yes");
 
                 // alert("User has been logged out successfully!");
 

@@ -125,7 +125,7 @@ const ChangePassBody = () => {
                                                     <div className="row pt-2">
                                                         <div className="d-flex mb-2">
                                                             <button type="submit" className="btn btn-primary">Update</button>
-                                                            <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="#">Forgot Password</Link></button>
+                                                            <button type="button" className="btn btn-outline-primary ms-1"><Link className='nav-link' to="/forgotPass">Forgot Password</Link></button>
                                                         </div>
                                                     </div>
                                                 </form>

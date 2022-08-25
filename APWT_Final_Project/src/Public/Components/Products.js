@@ -6,7 +6,6 @@ const Products = () => {
   const [allproducts, setAllproducts] = useState([]);
   
   useEffect(() => {
-    document.title='Product';
     AxiosConfig.get("public/products").then((rsp) => {
       setAllproducts(rsp.data);
       console.log(rsp.data);
